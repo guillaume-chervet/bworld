@@ -1,6 +1,7 @@
 # bworld
 
-[![Build status](https://guillaume.visualstudio.com/bworld/_apis/build/status/bworld.core.CI?branch=master)](https://guillaume.visualstudio.com/bworld)
+[![Build status](https://guillaume.visualstudio.com/bworld/_apis/build/status/bworld.core.CI?branch=master)](https://guillaume.visualstudio.com/bworld/_build)
+[![Release status](https://guillaume.vsrm.visualstudio.com/_apis/public/Release/badge/f20a9584-10bb-4761-9586-974af217e6cc/1/1)](https://guillaume.visualstudio.com/bworld/_release)
 
 - [About](#about)
 - [Getting Started](#getting-started)

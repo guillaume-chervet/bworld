@@ -12,8 +12,9 @@
 ## About
 
 I wanted to make a very simple multi-tenant website that would allow any beginner, artisan, farmer to sell their products and / or services very simply locally while keeping their visual identity. In the end, due to lack of time, this led to the realization of my personal website:
-https://www.guillaume-chervet.fr
-https://www.bworld.fr
+
+- https://www.guillaume-chervet.fr
+- https://www.bworld.fr
 
 As I spend more time to keep it afloat than to develop new features and that for lack of time the code deteriorates as and when, I open-source in the hope that maybe that will lead to something positive :)
 

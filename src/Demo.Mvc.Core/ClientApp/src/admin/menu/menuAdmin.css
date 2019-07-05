@@ -1,0 +1,31 @@
+.mw-admin-menu .mw-draft { color: gray; }
+
+.mw-admin-menu li { line-height: 60px; }
+
+.mw-admin-menu li p {
+    display: inline-block;
+    width: 50%;
+}
+
+
+
+.mw-admin-menu li div:not(.popover) { display: inline; }
+
+.mw-admin-menu li button { margin-top: 8px; }
+
+.mw-admin-menu li.mw-child { background-color: #d3d3d3; }
+
+.mw-admin-menu li.mw-parent { background-color: #e6e6e6; }
+
+.mw-admin-menu .btn-group { display: inline-block; }
+
+@media (max-width: 767px ) {
+    .mw-admin-menu li p {
+        display: block;
+        width: 100%;
+    }
+
+    .mw-admin-menu li { line-height: 40px; }
+
+    .mw-admin-menu li button { margin-top: 4px; }
+}

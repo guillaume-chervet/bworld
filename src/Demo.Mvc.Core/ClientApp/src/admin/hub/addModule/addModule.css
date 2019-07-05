@@ -1,0 +1,43 @@
+﻿
+
+
+.mw-addmodule .mw-item {
+    padding: 4px;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+    margin-bottom: 20px;
+    left: auto;
+    right: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .mw-addmodule .mw-item h3 {
+        padding-top: 0px;
+        margin-top: 0px;
+    }
+
+.mw-addmodule .mw-item img{
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+.mw-addmodule .mw-item {
+    background-color:rgb(200, 200, 200) ;
+}
+
+.mw-addmodule .mw-item:hover {
+    background-color:rgb(150, 150, 150) ;
+}
+
+.mw-addmodule .active .mw-item {
+    background-color: #006DCA!important;
+    color: white;
+}
+
+.mw-addmodule .active .mw-item:hover  {
+    background-color: #006DCA!important;
+    color: white;
+}
+

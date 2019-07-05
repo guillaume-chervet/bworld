@@ -1,0 +1,136 @@
+﻿
+
+
+<page class="mw-administration">
+    <content>
+
+        <div>
+
+            <h1><span class="glyphicon glyphicon-cog ng-scope"></span>Administration
+            </h1>
+            <p>Bienvenue sur la page d'administration du site.</p>
+
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" mw-help="Visible par tous le monde">
+                            <h3 class="panel-title" >Pages publiques</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4>Menu du haut de la page</h4>
+                            <menu-items-admin menu-items="vm.menu.menuItems"></menu-items-admin>
+                            <h4>menu du bas de la page</h4>
+                            <menu-items-admin menu-items="vm.menu.bottomMenuItems"></menu-items-admin>
+                            <div class="row">
+                                <div class="col-xs-offset-1 col-xs-11 mw-action" mw-help="Ajouter une nouvelle page à votre site;Organiser les menus">
+                                    <button class="btn btn-lg btn-primary" ng-click="vm.addModule()"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+                                    <button class="btn btn-lg btn-default" ng-click="vm.goMenu()"><span class="fa fa-bars"></span>Menu</button>
+                                </div>
+                            </div>
+                        </div>
+  
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" mw-help="Visible uniquement par les utilisateurs qui ont l'accès">
+                            <h3 class="panel-title" >Pages privées</h3>
+                        </div>
+                        <div class="panel-body">
+            
+                            <menu-items-admin menu-items="vm.menu.privateMenuItems"></menu-items-admin>
+          
+                            <div class="row">
+                                <div class="col-xs-offset-1 col-xs-11 mw-action" mw-help="Ajouter une nouvelle page à votre site">
+                                    <button class="btn btn-lg btn-primary" ng-click="vm.addModule('PrivateMenuItems', 'private')"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Affichage</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                               
+                                <li mw-help="Paramètrer l'aspet visuel de votre site"><a ng-href="{{vm.getInternalPath('/administration/site')}}"><span class="fa fa-camera" aria-hidden="true"></span> Apparence du site</a></li>
+                                <li mw-help="Configurer votre référencement sur les moteurs de recherches"><a ng-href="{{vm.getInternalPath('/administration/seo')}}"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Moteurs de recherche</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-6" ng-if="user.isSuperAdministrator">
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="978RAHXU8LBQL">
+                        <table>
+                            <tr><td><input type="hidden" name="on0" value="Povisonner votre compte de">Povisonner votre compte de</td></tr>
+                            <tr>
+                                <td>
+                                    <select name="os0">
+                                        <option value="Montant">Montant €10,00 EUR</option>
+                                        <option value="Montant">Montant €20,00 EUR</option>
+                                        <option value="Montant">Montant €30,00 EUR</option>
+                                        <option value="Montant">Montant €40,00 EUR</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="currency_code" value="EUR">
+                        <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+
+                </div>-->
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Services</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li mw-help="Visualiser les statistiques de votre site"><a href="#" ng-href="{{vm.getInternalPath('/administration/statistiques')}}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Statistiques</a></li>
+                                <li mw-help="Envoyer des notifications aux utilisateurs"><a href="#" ng-href="{{vm.getInternalPath('/administration/notifications')}}"><span class="fa fa-paper-plane" aria-hidden="true"></span> Notifications</a></li>
+                                <li mw-help="Echanger et garder l'historique des messages avec vos utilisateurs"><a href="#" ng-href="{{vm.getInternalPath('/administration/messages')}}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Messages <span class="badge" ng-if="notification.numberSiteUnreadMessage > 0" ng-bind="notification.numberSiteUnreadMessage"></span></a></li>
+                                <li mw-help="Configurer les paramètres vos utilisateurs et administrateurs"><a href="#" ng-href="{{vm.getInternalPath('/administration/utilisateurs')}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Utilisateurs</a> </li>
+                            </ul>
+                            <!--ul><i class="fa fa-exclamation-triangle fa-2"></i>
+                            <li>
+                                <span class="glyphicon glyphicon glyphicon-hdd"></span>
+                                <span>Espace disque {{administration.totalSizeBytes}} sur {{administration.maxTotalSizeBytes}}</span>
+                                <div class="progress">
+                                    <div class="progress-bar  progress-bar-striped active" ng-class="{'progress-bar-success': (administration.percentageTotalSizeBytes <= 80), 'progress-bar-danger': (administration.percentageTotalSizeBytes > 80)}" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{administration.percentageTotalSizeBytes}}%">
+                                        {{administration.percentageTotalSizeBytes}}%<span class="sr-only">{{administration.percentageTotalSizeBytes}}% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </li>
+                            </ul-->
+                        </div>
+                        <!--<div class="panel-footer" ng-if="user.isAdministrator">
+                            <div class="row">
+                                <div class="col-xs-offset-1 col-xs-11 mw-action">
+                                    <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </content>
+</page>
+

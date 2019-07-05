@@ -1,0 +1,19 @@
+<div>
+                <ul class="mw-navbar-user" ng-if="$ctrl.isDisplayMenu">
+                    <li ng-if="!$ctrl.user.isAuthenticate" ng-class="$ctrl.isActive('/utilisateur/connexion') ? 'active' : ''">
+                        <a ng-href="{{$ctrl.getInternalPath('/utilisateur/connexion')}}" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-globe" role="button"></span> Se connecter</a>
+                    </li>
+                    <li ng-if="$ctrl.user.isAuthenticate" ng-class="$ctrl.isActive('/utilisateur') ? 'active' : ''">
+                        <a ng-href="{{$ctrl.getInternalPath('/utilisateur')}}" class="btn btn-default btn-lg"><span class="fa fa-user" role="button"></span> <span class="hidden-xs" ng-bind="$ctrl.getUserName()"></span><span class="badge" ng-if="$ctrl.notification.isUnreadMessage()" ng-bind="$ctrl.notification.numberUnreadMessage"></span></a>
+                    </li>
+                    <li>
+                        <a href="#" ng-click="$ctrl.updateMenu()" class="btn btn-default btn-lg"><span class="glyphicon fa fa-bars" aria-hidden="true"></span> <span class="hidden-xs">Menu</span></a>
+                    </li>
+                </ul>
+                <header class="navbar navbar-default" id="top" role="banner">
+                    <div class="container mw-navbar-center">
+                        <menu-items is-visible="$ctrl.isDisplayMenu && !$ctrl.isPrivate()" current-path="$ctrl.currentPath" menu-items="$ctrl.menu.menuItems" start="0" end="100" class="hidden-xs" ></menu-items>
+                        <menu-items is-visible="$ctrl.isDisplayMenu && !$ctrl.isPrivate()" current-path="$ctrl.currentPath" menu-items="$ctrl.menu.menuItems"   start="0" end="100" filter="'Social'" class="visible-xs"></menu-items> 
+                        <menu-items is-visible="$ctrl.isDisplayMenu && $ctrl.isPrivate()" current-path="$ctrl.currentPath" menu-items="$ctrl.menu.privateMenuItems" start="0" end="100" class="hidden-xs"></menu-items>
+                </header>
+            </div>

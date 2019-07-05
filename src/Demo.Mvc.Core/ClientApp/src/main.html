@@ -1,0 +1,29 @@
+﻿
+
+
+<div ng-class="{'mw-no-menu': !$ctrl.isDisplayMenu}" class="ng-cloak">
+
+        <jumbotron ng-if="$ctrl.isDisplayMenu">
+        </jumbotron>
+
+        <main-menu currentPath="$ctrl.currentPath" ng-if="$ctrl.isDisplayMenu"></main-menu>
+
+    <div class="mw-body">
+            <mw-alert ng-if="$ctrl.isDisplayMenu"></mw-alert>
+        <div class="mw-view-container">
+            <div ng-view class="mw-view container-fluid">
+            </div>
+        </div>
+            <menu-bottom ng-if="$ctrl.isDisplayMenu">
+            </menu-bottom>
+    </div>
+        <menu-aside currentPath="$ctrl.currentPath" ng-if="$ctrl.isDisplayMenu">
+        </menu-aside>
+</div>
+
+<loader></loader>
+
+<htmlheader></htmlheader>
+
+<style type="text/css" ng-bind="$ctrl.styleTemplate">
+</style>

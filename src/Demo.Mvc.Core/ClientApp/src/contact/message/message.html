@@ -1,0 +1,57 @@
+﻿
+<page-breadcrumb>
+    <content>
+        <h1>
+            <span class="fa fa-envelope-o" aria-hidden="true"></span>Message
+        </h1>
+        <div ng-show="$ctrl.chat.messages.length > 0">
+            <h2>Titre: <span ng-bind="$ctrl.chat.title"></span></h2>
+            <table class="table table-striped ">
+
+                <tbody>
+                    <tr ng-repeat="message in $ctrl.chat.messages">
+                        <td>
+                            <span>
+                                <b>De {{message.from.fullName}} le {{message.createdDate | date:'dd/MM/yyyy à HH:mm' }}</b>
+                            </span>
+                            <div text="message.message"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <empty empty-items="$ctrl.messages" empty-text="'Aucun messages'"></empty>
+
+        <div ng-show="!$ctrl.messageSended">
+            <h2>Répondre</h2>
+            <form role="form" name="form" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="$ctrl.submit(form)">
+
+                <div class="form-group form-group-lg" mw-container="form.uMessage">
+                    <label for="uMessage" class="col-sm-12 control-label">Message*</label>
+                    <div class="col-sm-12">
+                        <textarea ng-model="$ctrl.model.message" class="form-control" id="uMessage" name="uMessage" rows="8" cols="30" mw-validate="$ctrl.rules.message"></textarea>
+                        <span mw-error="form.uMessage"></span>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="form-group">
+                    <div class="col-sm-3 col-xs-6">
+                    </div>
+                    <div class="col-sm-9 col-xs-6 mw-action">
+                        <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span><span>Envoyer</span></button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div ng-show="$ctrl.messageSended">
+            <h2>Message envoyé</h2>
+            <p>Votre message a été envoyé avec succès</p>
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-lg" ng-click="$ctrl.initMessage()">Nouveau message</button>
+            </div>
+        </div>
+     
+    </content>
+</page-breadcrumb>

@@ -1,0 +1,59 @@
+﻿
+<page>
+    <content>
+        <add-site-breabcrumb></add-site-breabcrumb>
+        <div class="mw-addsite-authentification">
+            <h1>Démarrer votre site</h1>
+            <p>Cette page vous permet de créer votre site gratuitement et en quelques secondes. Le site sera parfaitement fonctionnel.</p>
+
+            <div>
+                <div ng-if="!vm.user.isAuthenticate">
+                    <h2>Authentification</h2>
+                    <div class="alert alert-info" role="alert">
+                        Si vous possèdez déjà un compte, cliquez sur le lien suivant pour vous connecter:
+                        <a ng-href="{{vm.getNavConnect()}}">Connexion</a>
+                    </div>
+
+                    <create-account>
+
+                        <submit>
+                            <hr />
+                            <div class="form-group">
+                                <div class="col-sm-3 col-xs-6">
+                                    <button type="button" ng-click="vm.navBack()" class="btn btn-lg btn-default"><span class="glyphicon glyphicon glyphicon-chevron-left"></span><span>Précédent</span></button>
+                                </div>
+                                <div class="col-sm-9 col-xs-6 mw-action">
+                                    <button type="submit" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon glyphicon-chevron-right"></span><span>Continuer</span></button>
+                                </div>
+                            </div>
+                        </submit>
+                    </create-account>
+                </div>
+
+                <div ng-if="vm.user.isAuthenticate">
+                    <form role="form" name="form" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="vm.submit(form)">
+                        <h2>Authentification</h2>
+
+                        <div class="form-group" mw-container="form.uCategory">
+                            <label for="Category" class="col-sm-3 control-label">Vous êtes :</label>
+                            <div class="col-sm-4 label-input">
+                                <span>{{vm.user.userName}}</span>
+                            </div>
+                        </div>
+
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-6">
+                                <button type="button" ng-click="vm.navBack()" class="btn btn-lg btn-default"><span class="glyphicon glyphicon glyphicon-chevron-left"></span> Précédent</button>
+                            </div>
+                            <div class="col-sm-9 col-xs-6 mw-action">
+                                <button type="submit" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon glyphicon-chevron-right"></span> Valider</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <add-site-breabcrumb></add-site-breabcrumb>
+    </content>
+</page>

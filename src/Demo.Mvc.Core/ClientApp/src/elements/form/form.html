@@ -1,0 +1,232 @@
+﻿<style>
+    .mw-form-element .breadcrumb {
+        background-color: lightgray;
+        font-weight: bolder;
+        color: darkslategray;
+    }
+
+    .mw-form-element .breadcrumb .active {
+        color: #008000;
+    }
+
+    .mw-form-element .score {
+        font-size: 2em;
+    }
+
+    .mw-form-element .time-panel {
+        position: fixed;
+        z-index: 1000;
+        top: 20px;
+        background-color: white;
+        border: 4px solid black;
+        right: 20px;
+        color: white;
+        width: 200px;
+        padding: 10px;
+    }
+
+    .mw-form-element .time {
+        font-size: 1.6em;
+    }
+
+    .mw-form-element .timer {
+        font-size: 2em;
+        float: left;
+        margin-left: 8px;
+        color: green;
+    }
+
+    .mw-form-element .timer-alert .timer {
+        color: red;
+    }
+
+    .mw-form-element .chrono {
+        width: 46px;
+        height: 46px;
+        float: right;
+        margin-right: 8px;
+    }
+
+    .mw-form-element .timer-alert {
+        color: red;
+        animation: blinker 2s linear infinite;
+    }
+
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
+
+    .mw-form-element .percentage {
+        font-size: 1.2em;
+    }
+
+    .mw-form-element .intro {
+        font-size: 1.4em;
+    }
+
+    .mw-form-element .end {
+        font-size: 1.4em;
+    }
+
+    .mw-form-element .mw-form-content {
+        min-height: 320px;
+    }
+
+    .mw-form-element .mw-form-content-introduction {
+        background-color: #F0F0F0;
+    }
+</style>
+
+<div class="mw-form-element" ng-switch on="$ctrl.state.step">
+    <div ng-switch-when="introduction" class="mw-form-content-introduction">
+        <ol class="breadcrumb">
+            <li class="active">Introduction</li>
+            <li ng-repeat="child in $ctrl.element.childs">{{$ctrl.getTitle(child.data.label)}}</li>
+            <li>Fin</li>
+        </ol>
+        <div class="mw-form-content">
+            <div ng-switch on="$ctrl.intro.introState">
+                <div ng-switch-when="noPreviousTraining" class="text-center intro">
+                    <h2 ng-if="$ctrl.intro.time">Temps</h2>
+                    <p ng-if="$ctrl.intro.time">{{$ctrl.intro.time}} minutes</p>
+                    <p ng-if="!$ctrl.intro.time">Pas de limite</p>
+                    <div ng-if="$ctrl.intro.label">
+                        <h2>Description de l'entrainement</h2>
+                        <p>
+                            {{$ctrl.intro.label}}
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-lg btn-primary" ng-click="$ctrl.startWork()"><span class="fa fa-clock-o"></span> Démarrer</button>
+                    <div uib-alert ng-class="'alert-warning'">
+                        Ceci est en entraintement vous pourrez re-jouer le test.
+                    </div>
+                </div>
+
+                <div ng-switch-when="noPreviousExamen">
+                    <h2 ng-if="$ctrl.intro.time">Temps</h2>
+                    <p ng-if="$ctrl.intro.time">{{$ctrl.intro.time}} minutes</p>
+                    <p ng-if="!$ctrl.intro.time">Pas de limite</p>
+                    <div ng-if="$ctrl.intro.label">
+                        <h2>Description de l'examen</h2>
+                        <p>
+                            {{$ctrl.intro.label}}
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-lg btn-primary" ng-click="$ctrl.startWork()"><span class="fa fa-clock-o"></span> Démarrer</button>
+                    <div uib-alert ng-class="'alert-warning'">
+                        Ceci est en examen vous ne pourrez pas le re-jouer.
+                    </div>
+                </div>
+                <div ng-switch-when="runningTraining">
+                    <h2>Entrainement en cours</h2>
+                    <button type="button" class="btn btn-lg btn-warning" ng-click="$ctrl.continueWork()"><span class="fa fa-clock-o"></span> Continuer</button>
+                </div>
+                <div ng-switch-when="runningExamen">
+                    <h2>Examen en cours</h2>
+                    <button type="button" class="btn btn-lg btn-warning" ng-click="$ctrl.continueWork()"><span class="fa fa-clock-o"></span> Continuer</button>
+                </div>
+                <div ng-switch-when="finishedTrainning">
+                    <h2>Entrainement terminé</h2>
+                    <form-score score="$ctrl.intro.score"></form-score>
+                    <button type="button" class="btn btn-lg btn-primary" ng-click="$ctrl.startWork()"><span class="fa fa-clock-o"></span> Re-commencer</button>
+                </div>
+                <div ng-switch-when="finishedExamen">
+                    <h2>Examen terminé</h2>
+                    <form-score score="$ctrl.intro.score"></form-score>
+                    <p>un examen terminé ne peut plus être rejoué</p>
+                </div>
+                 <div ng-switch-default>
+                    {{$ctrl.intro.introState}}
+                </div>
+            </div>
+
+        </div>
+        <ol class="breadcrumb">
+            <li class="active">Introduction</li>
+            <li ng-repeat="child in $ctrl.element.childs">{{$ctrl.getTitle(child.data.label)}}</li>
+            <li>Fin</li>
+        </ol>
+    </div>
+    <div ng-switch-when="work">
+        <ol class="breadcrumb">
+            <li>Introduction</li>
+            <li ng-repeat="child in $ctrl.element.childs" ng-class="{active: $ctrl.isActive(child)}">{{$ctrl.getTitle(child.data.label)}}</li>
+            <li>Fin</li>
+        </ol>
+        <div class="mw-form-content">
+            <div class="row">
+                <div class="col-sm-3 percentage">
+                    <span>Avancement: </span>
+                </div>
+                <div class="col-sm-9">
+                    <uib-progressbar class="progress-striped active" max="100" value="$ctrl.state.percentage">
+                        <i>{{$ctrl.state.percentage}}%</i>
+                    </uib-progressbar>
+                </div>
+                <div class="time-panel" ng-if="$ctrl.element.data.time">
+                    <div ng-class="{'timer-alert': $ctrl.isTimerAlert}">
+                        <timer class="timer" countdown="$ctrl.countdown" interval="1000" finish-callback="$ctrl.finish()">{{hours}}:{{minutes}}:{{seconds}}</timer>
+                        <img class="chrono" src="/App/elements/form/chrono.png" style="float: right;" alt="Chronomètre" />
+                    </div>
+                </div>
+            </div>
+            <form role="form" name="form" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="$ctrl.submit(form, $ctrl.currentElement)">
+                <element-div element="$ctrl.currentElement">
+                </element-div>
+                <div class="form-group ">
+                    <div class="col-sm-3 col-xs-6">
+                        <button type="button" ng-if="$ctrl.isReturnVisible($ctrl.currentElement)" ng-click="$ctrl.navBack($ctrl.currentElement)"
+                            class="btn btn-lg btn-default"><span class="glyphicon glyphicon glyphicon-chevron-left"></span> Retour</button>
+                    </div>
+                    <div class="col-sm-9 col-xs-6 mw-action">
+                        <button ng-disabled="$ctrl.isSubmitDisabled($ctrl.currentElement)" type="submit" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Valider</button>
+                        <button ng-if="$ctrl.isNextVisible($ctrl.currentElement)" ng-disabled="!$ctrl.state.hasSubmitOnce" type="button" ng-click="$ctrl.next(form, $ctrl.currentElement)"
+                            class="btn btn-lg btn-default pull-right"><span class="glyphicon glyphicon-chevron-right"></span> Suivant</button>
+                        <button ng-if="!$ctrl.isNextVisible($ctrl.currentElement)" ng-disabled="!$ctrl.state.hasSubmitOnce" type="button" ng-click="$ctrl.finish(form, $ctrl.currentElement)"
+                            class="btn btn-lg btn-default pull-right"><span class="glyphicon glyphicon-chevron-right"></span> Terminé</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <ol class="breadcrumb">
+            <li>Introduction</li>
+            <li ng-repeat="child in $ctrl.element.childs" ng-class="{active: $ctrl.isActive(child)}">{{$ctrl.getTitle(child.data.label)}}</li>
+            <li>Fin</li>
+        </ol>
+    </div>
+    <div ng-switch-when="end">
+        <ol class="breadcrumb">
+            <li>Introduction</li>
+            <li ng-repeat="child in $ctrl.element.childs">{{$ctrl.getTitle(child.data.label)}}</li>
+            <li class="active">Fin</li>
+        </ol>
+        <div class="mw-form-content">
+            <div class="text-center end">
+                <div uib-alert ng-class="'alert-success'">
+                    <p>Le test est maintenant terminé</p>
+                </div>
+                <h2> Votre score</h2>
+                <p class="score">{{$ctrl.computeScore().score}} sur {{$ctrl.computeScore().total}}</p>
+                <h2> Votre temps</h2>
+                <p class="time">{{$ctrl.computeScore().time}}</p>
+            </div>
+            <div class="text-center">
+                <div ng-switch on="$ctrl.element.data.type">
+                    <div ng-switch-when="training">
+                        <button type="button" class="btn btn-warning btn-lg" ng-click="$ctrl.restart()">Retour au début</button>
+                    </div>
+                    <div ng-switch-default>
+                        <button type="button" class="btn btn-warning btn-lg" ng-click="$ctrl.navPreviousScreen()">Retour à l'écran précédent</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ol class="breadcrumb">
+            <li ng-repeat="child in $ctrl.element.childs">{{$ctrl.getTitle(child.data.label)}}</li>
+            <li class="active">Fin</li>
+        </ol>
+    </div>
+</div>

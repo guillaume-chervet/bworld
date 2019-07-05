@@ -1,0 +1,21 @@
+.mw-element-hours .hours-day{
+    /*  min-width: 80px;*/ 
+     font-weight: bolder;
+    
+ }
+
+  .mw-element-hours .hours-open{
+       /*  min-width: 70px;
+       padding-right:10px;*/ 
+ }
+
+   .mw-element-hours .hours-close{
+     /* min-width: 70px;*/ 
+       color:brown;
+ }
+
+
+    .mw-element-hours .hours span{
+       /* display:block;*/
+       color:darkslateblue;
+ }

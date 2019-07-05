@@ -1,0 +1,116 @@
+﻿ 
+<style type="text/css">
+    @media (min-width: 768px) and (max-width:992px) {
+        .mw-grid-element .mw-message-element .form-horizontal .control-label {
+            text-align: left;
+        }
+        .mw-grid-element .mw-message-element .mw-action button {
+            float: right;
+            margin-right: 38px;
+        }
+    }
+</style>
+
+<div class="mw-message-element">
+    <div ng-if="$ctrl.isAuthenticate">
+        <form role="form" name="formMessage" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="$ctrl.submit(formMessage)">
+            <fieldset>
+                <legend>Envoyer un message</legend>
+
+                <div class="form-group form-group-lg">
+                    <label for="Title" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Titre*</label>
+                    <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                        <select ng-if="$ctrl.element.data.subjects.length > 0" id="Title" name="uTitle" class="form-control" ng-model="$ctrl.message.title" ng-options="c.title as c.title for c in $ctrl.element.data.subjects">
+                            <option value="">- Sélectionner -</option>
+                        </select>
+                        <input ng-if="$ctrl.element.data.subjects.length <= 0" type="text" id="Title" name="uTitle" ng-model="$ctrl.message.title" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group form-group-lg">
+                    <label for="uMessage" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Message*</label>
+                    <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                        <textarea ng-model="$ctrl.message.message" class="form-control" name="uMessage" rows="6" cols="30"></textarea>
+                    </div>
+                </div>
+                <div class="form-group form-group-lg">
+                    <div ng-class="[$ctrl.getClassAction($ctrl.element)]">
+                        <button type="submit" disabled="disabled" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div ng-show="!$ctrl.messageSended && !$ctrl.isAuthenticate">
+        
+        <form role="form" name="formMessage" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="$ctrl.submit(formMessage)">
+            <fieldset>
+                <legend>Envoyer un message</legend>
+                <div class="form-group form-group-lg" mw-container="formMessage.uTitle">
+                    <label for="Title" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Titre*</label>
+                    <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                        <select ng-if="$ctrl.element.data.subjects.length > 0" id="Title" name="uTitle" class="form-control" ng-model="$ctrl.message.title" ng-options="c.title as c.title for c in $ctrl.element.data.subjects" mw-validate="rules.title">
+                            <option value="">- Sélectionner -</option>
+                        </select>
+                        <input ng-if="$ctrl.element.data.subjects.length <= 0" type="text" id="Title" name="uTitle" ng-model="$ctrl.message.title" class="form-control" mw-validate="$ctrl.rules.title" />
+                        <span mw-error="formMessage.uTitle"></span>
+                    </div>
+                </div>
+                <div ng-if="!$ctrl.user.isAuthenticate">
+                    <div class="form-group form-group-lg" mw-container="formMessage.uLastName">
+                        <label for="LastName" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Nom*</label>
+                        <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                            <input type="text" name="uLastName" id="LastName" ng-model="$ctrl.message.lastName" class="form-control" mw-validate="$ctrl.rules.lastName" />
+                            <span mw-error="formMessage.uLastName"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg" mw-container="formMessage.uFirstName">
+                        <label for="FirstName" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Prénom*</label>
+                        <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                            <input type="text" name="uFirstName" id="FirstName" ng-model="$ctrl.message.firstName" class="form-control" mw-validate="$ctrl.rules.firstName" />
+                            <span mw-error="formMessage.uFirstName"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg" mw-container="formMessage.uEmail">
+                        <label for="Email" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Email*</label>
+                        <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                            <input type="text" name="uEmail" id="Email" ng-model="$ctrl.message.email" class="form-control" mw-validate="$ctrl.rules.email" />
+                            <span mw-error="formMessage.uEmail"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg" mw-container="formMessage.uPhone">
+                        <label for="Phone" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Téléphone</label>
+                        <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                            <input type="text" name="uPhone" id="Phone" ng-model="$ctrl.message.phone" class="form-control" mw-validate="$ctrl.rules.phone" />
+                            <span mw-error="formMessage.uPhone"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-lg" mw-container="formMessage.uMessage">
+                    <label for="uMessage" class="control-label" ng-class="[$ctrl.getClassLabel($ctrl.element)]">Message*</label>
+                    <div ng-class="[$ctrl.getClassField($ctrl.element)]">
+                        <textarea ng-model="$ctrl.message.message" class="form-control" name="uMessage" rows="6" cols="30" mw-validate="$ctrl.rules.message"></textarea>
+                        <span mw-error="formMessage.uMessage"></span>
+                    </div>
+                </div>
+            <div class="form-group form-group-lg">
+                <div ng-class="[$ctrl.getClassAction($ctrl.element)]">
+                    <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
+                </div>
+            </div>
+                </fieldset>
+</form>
+
+    </div>
+    <div ng-show="$ctrl.messageSended">
+        <h2>Message envoyé</h2>
+        <p>Votre message a été envoyé avec succès</p>
+        <div class="text-center">
+            <button type="button" class="btn btn-primary btn-lg" ng-click="$ctrl.initMessage()">Nouveau message</button>
+        </div>
+    </div>
+
+</div>

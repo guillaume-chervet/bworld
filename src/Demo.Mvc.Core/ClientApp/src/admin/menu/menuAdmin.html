@@ -1,0 +1,101 @@
+﻿<page-breadcrumb>
+    <content>
+
+        <div class="mw-admin-menu">
+
+            <h1><span class="fa fa-bars" aria-hidden="true"></span>Menus
+            </h1>
+
+            <p>Cette page vous permet d'organiser les différents menus de votre site. Seul les menus qui n'ont pas d'enfants peuvent devenir des enfants.</p>
+
+            <form role="form" class="form-horizontal" enctype="multipart/form-data" ng-submit="vm.submit()">
+                <div>
+                    <tree-menu-item title="'Menu publique haut'" can-up="vm.canUp" can-down="vm.canDown" up="vm.up" down="vm.down" slide-menu="vm.slideMenu" set-child="vm.setChild" can-set-child="vm.canSetChild"
+                                    set-parent="vm.setParent" can-set-parent="vm.canSetParent" menu-items="vm.menu.menuItems">
+                        <tree-menu-actions>
+                            <div class="btn-group-lg" uib-dropdown>
+                                <button id="single-button" type="button" class="btn btn-danger" uib-dropdown-toggle>
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                    <li ng-show="vm.menu.menuItems.length>1" role="menuitem">
+                                        <a href="#" ng-click="vm.slideMenu($parent.menuItem, vm.menu.menuItems, vm.menu.bottomMenuItems)">
+                                            <span>Basculer menu bas</span>
+                                        </a>
+                                    </li>
+                                    <li ng-show="vm.menu.menuItems.length>1" role="menuitem">
+                                        <a href="#" ng-click="vm.slideMenu($parent.menuItem, vm.menu.menuItems, vm.menu.privateMenuItems)">
+                                            <span>Basculer menu privée</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </tree-menu-actions>
+
+                    </tree-menu-item>
+                    
+                    <tree-menu-item title="'Menu publique du bas'" can-up="vm.canUp" can-down="vm.canDown" up="vm.up" down="vm.down" slide-menu="vm.slideMenu" set-child="vm.setChild" can-set-child="vm.canSetChild"
+                                    set-parent="vm.setParent" can-set-parent="vm.canSetParent" menu-items="vm.menu.bottomMenuItems">
+                        <tree-menu-actions>
+                            <div class="btn-group-lg" uib-dropdown>
+                                <button id="single-button" type="button" class="btn btn-danger" uib-dropdown-toggle>
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                    <li ng-show="vm.menu.bottomMenuItems.length>1" role="menuitem">
+                                        <a href="#" ng-click="vm.slideMenu($parent.menuItem, vm.menu.bottomMenuItems, vm.menu.menuItems)">
+                                            <span>Basculer menu haut</span>
+                                        </a>
+                                    </li>
+                                    <li ng-show="vm.menu.bottomMenuItems.length>1" role="menuitem">
+                                        <a href="#" ng-click="vm.slideMenu($parent.menuItem, vm.menu.bottomMenuItems, vm.menu.privateMenuItems)">
+                                            <span>Basculer menu privée</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </tree-menu-actions>
+
+                    </tree-menu-item>
+                    
+                    <tree-menu-item title="'Menu privée'" can-up="vm.canUp" can-down="vm.canDown" up="vm.up" down="vm.down" slide-menu="vm.slideMenu" set-child="vm.setChild" can-set-child="vm.canSetChild"
+                                    set-parent="vm.setParent" can-set-parent="vm.canSetParent" menu-items="vm.menu.privateMenuItems">
+                        <tree-menu-actions>
+                            <div class="btn-group-lg" uib-dropdown>
+                                <button id="single-button" type="button" class="btn btn-danger" uib-dropdown-toggle>
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                    <li ng-show="vm.menu.privateMenuItems.length>1" role="menuitem">
+                                        <a href="#" ng-click="vm.slideMenu($parent.menuItem, vm.menu.privateMenuItems, vm.menu.menuItems)">
+                                            <span>Basculer menu haut</span>
+                                        </a>
+                                    </li>
+                                    <li ng-show="vm.menu.privateMenuItems.length>1" role="menuitem">
+                                        <a href="#" ng-click="vm.slideMenu($parent.menuItem, vm.menu.privateMenuItems, vm.menu.bottomMenuItems)">
+                                            <span>Basculer menu bas</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </tree-menu-actions>
+
+                    </tree-menu-item>
+                    
+    
+                </div>
+              
+                <hr/>
+                <div class="form-group">
+                    <div class="col-sm-3 col-xs-6">
+                    </div>
+                    <div class="col-sm-9 col-xs-6 mw-action">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <span class="glyphicon glyphicon-floppy-disk"></span> <span>Sauvegarder</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </content>
+</page-breadcrumb>

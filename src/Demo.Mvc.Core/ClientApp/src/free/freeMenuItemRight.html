@@ -1,0 +1,7 @@
+﻿<a ng-href="{{$ctrl.menuItem.routePath}}">
+    <span class="{{$ctrl.getIcon($ctrl.menuItem)}}"></span>
+    <span ng-bind="$ctrl.menuItem.title"></span>
+</a>
+<ul ng-if="$ctrl.menuItem.childs && $ctrl.menuItem.childs.length >0" class="mw-submenu">
+    <sub-menu-items-right start="0" end="100" menu-items="$ctrl.menuItem.childs"></sub-menu-items-right>
+</ul>

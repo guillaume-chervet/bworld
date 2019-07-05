@@ -1,0 +1,16 @@
+<div ng-switch on="$ctrl.score.formState">
+    <div ng-switch-when="finished" class="user-score-finished">
+        <p>
+            Terminé {{$ctrl.form.dateString($ctrl.score.endTicks)}}
+        </p>
+        <p class="score">
+            Score {{$ctrl.score.score}} sur {{$ctrl.score.total}} en {{$ctrl.form.displayDurationFromMillisecond($ctrl.score.timeSpan)}}
+        </p>
+    </div>
+    <div ng-switch-when="running" class="user-score-running">
+        <p>En cours</p>
+    </div>
+    <div ng-switch-when="timeUp" class="user-score-timeup">
+        Le temps imparti est écoulé!
+    </div>
+</div>

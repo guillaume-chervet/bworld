@@ -1,0 +1,240 @@
+﻿.mw-menu-layer {
+     z-index: 1000;
+    left: 0;
+    right: 0;
+    top: 0px;
+    bottom: 0px;
+    width:20px;
+    filter: alpha(opacity=60);
+    opacity: .5;
+    position: fixed;
+}
+
+
+.mw-menu-layer div {
+   transform: rotate(90deg);
+	margin-top: 80px;
+    font-size: 1em;
+    color: white;
+    font-weight: bolder;
+}
+
+@media (min-width: 1170px) {
+     .mw-menu-layer {
+    width: 60px;
+}
+
+    .mw-menu-layer div {
+     font-size: 1.4em;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1170px ) {
+
+    .mw-menu-layer {
+    width: 40px;
+}
+
+    .mw-menu-layer div {
+     font-size: 1.2em;
+    }
+
+}
+
+#mw-admin-layer {
+     background: #F00;
+}
+
+#mw-user-layer {
+     background: #008000;
+}
+
+#mw-private-layer {
+     background: #0000ff;
+}
+#mw-private-layer div {
+    margin-top: 260px;
+}
+
+
+.aside {
+  opacity: 1; 
+}
+
+.aside.ng-hide-add, .aside.ng-hide-remove {
+  transition: all linear 0.3s;
+  -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+  -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: backwards;
+    animation-fill-mode: backwards;  
+}
+
+.aside.ng-hide {
+  opacity: 1;
+    right: -300px;
+}
+
+.aside {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 1039;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 320px;
+    background: white;
+}
+
+.aside .nav li a:hover:not(.btn), .aside .nav li a:focus:not(.btn) {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+
+.aside .navbar-nav .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .aside .navbar-nav ul {
+    float: none;
+  }
+  .aside .navbar-nav ul:not {
+    display: block;
+  }
+  .aside .navbar-nav li {
+    float: none;
+    display: block;
+  }
+  .aside .navbar-nav li a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .aside  .divider {
+    right: 0;
+    left: 0;
+    height: 1px;
+    background-color: #DEDEDE;
+}
+
+
+/** Menu **/
+
+.aside .aside-dialog .aside-header {
+    padding: 1px 15px;
+}
+.aside.modal-header, .aside .aside-dialog .aside-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.aside.modal-header h4, .aside .aside-dialog .aside-header h4 {
+    font-size: 23px;
+    color: #333333;
+}
+
+
+.aside .aside-dialog .aside-body {
+    padding: 0 20px;
+}
+.aside .modal-body, .aside .aside-dialog .aside-body {
+    position: relative;
+    color: #333333;
+    font-size: 1.04em;
+    text-align: left;
+}
+
+.aside .aside-dialog .aside-body .nav {
+    float: none;
+    border: none;
+}
+.aside .aside-dialog .aside-body .navbar-nav {
+    margin: 0 -20px;
+}
+.aside .navbar-nav {
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+.aside li a {
+    line-height: 20px;
+}
+
+.aside .nav {
+    padding-left: 0;
+    list-style: none;
+}
+
+
+.aside .dropdown-menu {
+    border: 0px solid rgb(0, 0, 0);
+    background-color: #E4E4E4;
+    left: 0;
+    right: 0;
+}
+
+.aside .navbar-nav li.active {
+    background-color: #e4e4e4;
+}
+
+.aside .navbar-nav .mw-menu-item-first {
+    display: none;  
+}
+
+.aside .nav li a:not(.btn) {
+    position: relative;
+    display: block;
+    padding: 15px 15px;
+}
+
+a.mw-admin-shortcut  {
+    position: absolute!important;
+    top: 0px;
+    right: 0px;
+    color: white;
+    background-color: #828282;
+    padding-bottom: 12px;
+}
+a:hover.mw-admin-shortcut   {
+    background-color: #4b4b4b!important;
+    color: yellow;
+}
+
+.mw-submenu li {
+    border-left: 1px solid #3D3D82;
+}
+
+.mw-submenu a
+{
+    color: #3D3D82;
+    text-decoration: no;
+    position: relative;
+    display: block;
+    padding: 6px 15px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+
+}
+.mw-submenu a:link
+{
+    color: #3D3D82;
+    text-decoration: no;
+}
+.mw-submenu a:visited
+{   
+    color: #3D3D82;
+}
+.mw-submenu a:hover
+{
+    color: #1a78b9;
+    text-decoration: none;
+    background-color: lightsteelblue;
+}
+.mw-submenu a:active
+{
+    color: red;
+    text-decoration: none;
+}

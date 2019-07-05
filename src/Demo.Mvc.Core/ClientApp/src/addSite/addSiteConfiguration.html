@@ -1,0 +1,57 @@
+﻿<page>
+    <content>
+         <add-site-breabcrumb></add-site-breabcrumb>
+        <div class="mw-addsite-configuration">
+            <h1>Démarrer votre site</h1>
+            <p>Cette page vous permet de créer votre site gratuitement et en quelques secondes. Le site sera parfaitement fonctionnel.</p>
+
+            <div>
+                <form role="form" name="form" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="vm.submit(form)">
+                    <h2>Séléction du type et nom du site</h2>
+
+                    <div class="form-group form-group-lg" mw-container="form.uCategory">
+                        <label for="Category" class="col-sm-3 control-label">Vous êtes:</label>
+                        <div class="col-sm-4">
+                            <select id="Category" name="uCategory" class="form-control" ng-model="vm.site.category" ng-change="vm.onChange(form)" ng-options="c.categoryId as c.workName for c in vm.data.templates" mw-validate="vm.rules.category">
+                                <option value="">- Sélectionner -</option>
+                            </select>
+                            <span mw-error="form.uCategory"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg" mw-container="form.uDomain">
+                        <label for="Domain" class="col-sm-3 control-label">Nom de vote site: </label>
+                        <div class="col-sm-4">
+                            <input id="Domain" type="text" name="uDomain" ng-model="vm.site.domain" class="form-control" ng-change="vm.onChange()" mw-validate="vm.rules.domain" />
+                            <span mw-error="form.uDomain"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg url">
+                        <label class="col-sm-3 control-label">Adresse souhaité : </label>
+                        <div class="col-sm-9 label-input">
+                            <span><b>{{vm.getDomain()}}</b></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg url-temporary">
+                        <label class="col-sm-3 control-label">Temporaire : </label>
+                        <div class="col-sm-6 label-input">
+                            <span><b>{{vm.getDomainTemporary()}}</b></span>
+                        </div>
+                        <mw-help-info content="'Adresse temporaire le temps que les branchements soient réalisés.'"></mw-help-info>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-sm-3 col-xs-6">
+                            <button type="button" ng-click="vm.navBack()" class="btn btn-lg btn-default"><span class="glyphicon glyphicon glyphicon-chevron-left"></span> Retour</button>
+                        </div>
+                        <div class="col-sm-9 col-xs-6 mw-action">
+                            <button type="submit" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon glyphicon-chevron-right"></span> Valider</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+         <add-site-breabcrumb></add-site-breabcrumb>
+    </content></page>

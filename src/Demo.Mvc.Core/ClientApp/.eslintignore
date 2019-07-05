@@ -1,0 +1,7 @@
+node_modules
+.storybook
+build
+data
+mocks
+public
+coverage

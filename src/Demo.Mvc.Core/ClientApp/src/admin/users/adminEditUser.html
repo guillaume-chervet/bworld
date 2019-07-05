@@ -1,0 +1,159 @@
+﻿
+
+<page-breadcrumb class="mw-administration-edit-user">
+    <content>
+
+         <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+                    <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Fiche utilisateur</h1>
+                    <p>Cette page vous permet de visualiser les informations que vous avez saisi à propos d'un utilisateur.</p>
+
+                    <div >
+                        <form name="formUser" role="form" class="form-horizontal" enctype="multipart/form-data" novalidate mw-submit="vm.submit(formUser)">
+                            <h2>Informations personnelles</h2>
+                            <div ng-if="vm.user.siteUserId">
+                                <div class="bg-success" ng-if="vm.user.userId"><img src="Content/images/p_ok.png"/>
+                                    <p>Cet utilisateur est inscrit sur le site {{vm.user.userId}}</p></div>
+                                <div class="bg-danger" ng-if="!vm.user.userId">
+                                    <p>
+                                        <img src="Content/images/p_ko.png"/>Cet utilisateur n'est pas inscrit sur le site
+                                        <button ng-show="vm.isShowInvitation" type="button" class="btn btn-lg btn-warning pull-right" ng-click="vm.sendInvitation()" mw-help="Envoiyer un mail d\'innvitation'">Inviter</button>
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group form-group-lg" mw-container="formUser.uFirstName">
+                                    <label class="col-sm-3 control-label">Prénom* : </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="uFirstName" ng-model="vm.user.firstName" class="form-control" mw-validate="vm.rules.firstName" />
+                                        <span mw-error="formUser.uFirstName"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-lg" mw-container="formUser.uLastName">
+                                    <label class="col-sm-3 control-label">Nom* : </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="uLastName" ng-model="vm.user.lastName" class="form-control" mw-validate="vm.rules.lastName"/>
+                                        <span mw-error="formUser.uLastName"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-lg" mw-container="formUser.uMail">
+                                    <label class="col-sm-3 control-label">Email* : </label>
+                                    <div class="col-sm-4">
+                                        <input type="email" name="uMail" ng-model="vm.user.mail" class="form-control" mw-validate="vm.rules.mail" />
+                                        <span mw-error="formUser.uMail"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-lg">
+                                    <label class="col-sm-3 control-label">Civilité : </label>
+                                    <div class="col-sm-9">
+                                        <div class="btn-group">
+                                            <label class="btn btn-default btn-lg" ng-model="vm.user.civility" uib-btn-radio="1">Madame</label>
+                                            <label class="btn btn-default btn-lg" ng-model="vm.user.civility" uib-btn-radio="0">Monsieur</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-lg" mw-container="formUser.uBirthdate">
+                                    <label class="col-sm-3 control-label">Date de naissance : </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="uBirthdate" ng-model="vm.user.birthdate" class="form-control" mw-validate="vm.rules.birthdate" />
+                                        <span mw-error="formUser.uBirthdate"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                        <h2>Information de contact</h2>
+
+                        <div class="form-group" mw-container="formUser.uMobilePhone">
+                            <label class="col-sm-3 control-label">Téléphone Mobile : </label>
+                            <div class="col-sm-4">
+                                <input type="email" name="uMobilePhone" ng-model="user.mobilePhone" class="form-control" mw-validate="rules.mobilePhone" />
+                                <span mw-error="formUser.uMobilePhone"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" mw-container="formUser.uPhone">
+                            <label class="col-sm-3 control-label">Téléphone Fixe : </label>
+                            <div class="col-sm-4">
+                                <input type="email" name="uPhone" ng-model="user.phone" class="form-control" mw-validate="rules.phone" />
+                                <span mw-error="formUser.uPhone"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Notification par sms : </label>
+                            <div class="col-sm-4">
+                                <div class="btn-group">
+                                    <label class="btn btn-default" ng-model="user.isSmsNotif" uib-btn-radio="true">Oui</label>
+                                    <label class="btn btn-default" ng-model="user.isSmsNotif" uib-btn-radio="false">Non</label>
+                                </div>
+                            </div>
+                        </div>-->
+                          
+                            <div class="form-group form-group-lg">
+                                <label class="col-sm-3 control-label">Notification par mail : </label>
+                                <div class="col-sm-4">
+                                    <div class="btn-group">
+                                        <label class="btn btn-default btn-lg" ng-model="vm.user.isEmailNotif" uib-btn-radio="true">Oui</label>
+                                        <label class="btn btn-default btn-lg" ng-model="vm.user.isEmailNotif" uib-btn-radio="false">Non</label>
+                                    </div>
+
+                                </div>
+                                <mw-help-info content="'L\'utilisateur accèpte de reçevoir des emails.'"></mw-help-info>
+                            </div>
+
+                            <div class="form-group form-group-lg">
+                                <label class="col-sm-3 control-label">Role : </label>
+                                <div class="col-sm-4">
+                                    <div  ng-disabled="vm.roleDisabled" isteven-multi-select
+                                         input-model="vm.roles"
+                                         output-model="vm.outputRoles"
+                                         button-label="label"
+                                         item-label="label"
+                                         tick-property="ticked"
+                                         helper-elements=""
+                                         translation="{nothingSelected:'Sélectionner'}">
+                                    </div>
+                                </div>
+                                <mw-help-info content="'Droits d\'accès à votre site. Un Administrateur aurra un accès complet à l\'espace d\'administration.'"></mw-help-info>
+
+                            </div>
+
+                            <div class="form-group form-group-lg">
+                                <label for="uComments" class="col-sm-3 col-xs-12 control-label">Notes</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea rows="4" name="uComments" id="uComments" ng-model="vm.user.comments" class="form-control"></textarea>
+                                </div>
+
+                                <mw-help-info content="'Vous pouvez saisir toutes les informations ce que vous souhaitez.'" ></mw-help-info>
+
+                            </div>
+                            <div class="form-group form-group-lg">
+                                <label class="col-sm-3 control-label">Tags : </label>
+                                <div class="col-sm-4">
+                                    <div isteven-multi-select
+                                         input-model="vm.inputFilters"
+                                         output-model="vm.outputFilters"
+                                         button-label="name"
+                                         item-label="name"
+                                         tick-property="ticked"
+                                         helper-elements=""
+                                         translation="{nothingSelected:'Sélectionner'}">
+                                    </div>
+
+                                </div>
+                                <mw-help-info content="'C\'est filtres vous permettent de tagger un utilisateur afin de pouvoir le trier par la suite.'"> </mw-help-info>
+                                <button type="button" class="btn btn-lg btn-default" ng-click="vm.openTags()"><span class="glyphicon glyphicon-pencil"></span>Tags</button>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Sauvegarder</span></button>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+</content>
+</page-breadcrumb>

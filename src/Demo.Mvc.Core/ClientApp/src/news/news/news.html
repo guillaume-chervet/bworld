@@ -1,0 +1,102 @@
+﻿
+<page-breadcrumb class="mw-news">
+    <content>
+
+        <element-div element="vm.element">
+        </element-div>
+        <hr />
+        <div class="row">
+
+            <div class="col-sm-9">
+                <empty empty-items="vm.items" empty-text="'Aucun article.'">
+                </empty>
+                <div ng-switch on="vm.data.getDisplayMode()">
+                    <div class="animate-switch" ng-switch-when="galerie">
+                        <div ng-repeat="item in vm.items track by $index">
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            <a class="mw-title" ng-href="{{item.data.viewUrl}}">{{item.data.title}}</a>
+                                            <span ng-if="vm.isDraft(item.data)" class="label label-default">Brouillon</span>
+                                            <span ng-if="vm.isDeleted(item.data)" class="label label-danger">Supprimé</span>
+                                            <tags tags="item.data.tags"></tags>
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <a ng-href="{{item.data.viewUrl}}" title="{{item.data.title}}" class="hand"><img data-ng-src="{{vm.getFirstImage(item.element).thumbnailUrl}}" class="center-block img-responsive img-thumbnail" alt="{{vm.getFirstImage(item.element).name}}"/></a>
+                                        <form-score score=item.data.userScore></form-score>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="($index+1)%2 ===0" class="clearfix visible-sm-block"></div>
+                            <div ng-if="($index+1)%2 ===0" class="clearfix visible-md-block"></div>
+                            <div ng-if="($index+1)%3 ===0" class="clearfix visible-lg-block"></div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div ng-switch-default>
+
+                        <div ng-repeat="item in vm.items track by $index" ng-if="!vm.isDraft(item)">
+                            <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <a class="mw-title" ng-href="{{item.data.viewUrl}}">{{item.data.title}}</a>
+                                        <span ng-if="vm.isDraft(item.data)" class="label label-default">Brouillon</span>
+                                        <span ng-if="vm.isDeleted(item.data)" class="label label-danger">Supprimé</span>
+                                        <tags tags="item.data.tags"></tags>
+                                        <!--     <a class="pull-right mw-title-comments" ng-href="{{item.data.viewUrl}}">{{item.data.numberComments}} Commentaire(s)</a>-->
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <element-div element="item.element">
+
+                                    </element-div>
+                                    <a class="pull-right btn btn-default btn-lg" ng-if="item.data.hasNext" ng-href="{{item.data.viewUrl}}">Lire la suite</a>
+                                </div>
+                                <div class="panel-footer">
+                                    <mw-user data="item.data"></mw-user>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <nav ng-if="vm.data.hasPreviousOrNext()">
+                    <ul class="pager">
+                        <li class="previous" ng-if="vm.data.hasPrevious()"><a ng-href="{{vm.data.urlPrevious}}"><span aria-hidden="true">&larr;</span> Précédent</a></li>
+                        <li class="next" ng-if="vm.data.hasNext()"><a ng-href="{{vm.data.urlNext}}">Suivant<span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Filtres</h3>
+                    </div>
+                    <div class="panel-body">
+                        <!--div class="form-group">
+                            <label class="control-label">Mot clés: </label>
+                            <input type="text" name="uDomain" ng-model="vm.keywords" class="form-control" />
+                        </div-->
+                        <div class="form-group" nf-if="vm.tags.length>0">
+                            <label class="control-label">Tags: </label>
+                            <div class="checkbox" ng-repeat="tag in vm.tags track by $index">
+                                <label>
+                                    <input ng-model="tag.ticked" type="checkbox" > {{tag.name}}
+                                    </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-lg btn-default pull-right" type="button" ng-click="vm.filter()"> Filtrer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mw-social-share>
+        </mw-social-share>
+    </content>
+</page-breadcrumb>

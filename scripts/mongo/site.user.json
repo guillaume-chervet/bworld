@@ -1,0 +1,25 @@
+{ 
+    "_id" : ObjectId("54b8c4278241320a28c8f024"), 
+    "UserName" : "c9920f9f-c3bb-4a01-b2aa-3bdc46ac4605", 
+    "SecurityStamp" : "a529451a-5113-41c8-a0b8-9b97dcb2e0c2", 
+    "Email" : "admin@bworld.fr", 
+    "EmailConfirmed" : true, 
+    "PhoneNumber" : null, 
+    "PhoneNumberConfirmed" : false, 
+    "TwoFactorEnabled" : false, 
+    "LockoutEndDateUtc" : null, 
+    "LockoutEnabled" : false, 
+    "AccessFailedCount" : NumberInt(0), 
+    "Roles" : [
+        "super_administrator", 
+    ], 
+    "PasswordHash" : "", 
+    "Claims" : [
+
+    ], 
+    "CreatedDate" : ISODate("0001-01-01T00:00:00.000+0000"), 
+    "FirstName" : "Guillaume", 
+    "LastName" : "Chervet", 
+    "IsUserNotifyComment" : true, 
+    "AuthorUrl" : "http://www.guillaume-chervet.fr"
+}

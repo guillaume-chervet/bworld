@@ -1,0 +1,50 @@
+﻿<div class="ng-cloak">
+    <div id="mw-admin-layer" class="mw-menu-layer" ng-show="$ctrl.isAdmin()">
+        <div><span>Administration</span></div>
+    </div>
+    <div id="mw-user-layer" class="mw-menu-layer" ng-show="$ctrl.isUser()">
+        <div><span>Utilisateur</span></div>
+    </div>
+    <div id="mw-private-layer" class="mw-menu-layer" ng-show="$ctrl.isPrivate()">
+        <div><span>Privée</span></div>
+    </div>
+    <div id="menu-layer" ng-hide="$ctrl.isCollapsed" ng-click="$ctrl.toggleMenu()"></div>
+    <div class="aside" ng-hide="$ctrl.isCollapsed" tabindex="-1" role="dialog">
+        <div class="aside-dialog">
+            <div class="aside-content">
+                <div class="aside-header" ng-click="$ctrl.toggleMenu()">
+                    <button type="button" class="close">×</button>
+                    <h4 class="aside-title"><span class="glyphicon fa fa-bars" aria-hidden="true"></span> Menu</h4>
+                </div>
+                <div class="aside-body">
+                    <ul class="nav navbar-nav">
+                        <li ng-if="!$ctrl.user.isAuthenticate" ng-class="$ctrl.isActive('/utilisateur/connexion') ? 'active' : ''" class="visible-xs-block">
+                            <a ng-href="{{$ctrl.getInternalPath('/utilisateur/connexion')}}"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Se connecter</a>
+                        </li>
+                        <li ng-if="$ctrl.user.isAuthenticate" ng-class="$ctrl.isActive('/utilisateur/connexion') ? 'active' : ''" class="visible-xs-block">
+                            <a ng-href="{{$ctrl.getInternalPath('/utilisateur')}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span ng-bind="$ctrl.user.userName"></span><span class="badge" ng-if="$ctrl.notification.isUnreadMessage()" ng-bind="$ctrl.notification.numberUnreadMessage"></span></a>
+                        </li>
+                       <li class="divider visible-xs-block"></li>
+                        <menu-items-right current-path="$ctrl.currentPath" is-visible="!$ctrl.isPrivate()" start="0" end="100" menu-items="$ctrl.menu.menuItems" ></menu-items-right>
+                        <menu-items-right current-path="$ctrl.currentPath" is-visible="$ctrl.isPrivate()" start="0" end="100" menu-items="$ctrl.menu.privateMenuItems" ></menu-items-right>                       
+                        <li class="divider" ng-if="$ctrl.user.isAdministrator"></li>
+                        <li ng-if="$ctrl.user.isAdministrator" ng-class="$ctrl.isActive('/administration') ? 'active' : ''">
+                            <a ng-href="{{$ctrl.getInternalPath('/administration')}}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Administration du site</a>
+                            <ul class="mw-submenu">
+                                <li><a ng-href="{{$ctrl.getInternalPath('/administration/statistiques')}}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Statistiques</a></li>
+                                <li><a ng-href="{{$ctrl.getInternalPath('/administration/messages')}}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Messages <span class="badge" ng-if="$ctrl.notification.isSiteUnreadMessage()" ng-bind="$ctrl.notification.numberSiteUnreadMessage"></span></a></li>
+                            </ul>
+                        </li>
+                        <li ng-if="$ctrl.user.isSuperAdministrator" ng-class="$ctrl.isActive('/super-administration') ? 'active' : ''">
+                            <a ng-href="{{$ctrl.getInternalPath('/super-administration')}}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Super administration</a>
+                        </li>
+                        <li ng-if="$ctrl.user.isAuthenticate" class="divider"></li>
+                        <li ng-if="$ctrl.user.isAuthenticate">
+                            <a href="" ng-click="$ctrl.logOff()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Se déconnecter</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

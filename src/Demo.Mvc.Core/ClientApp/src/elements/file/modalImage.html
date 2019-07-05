@@ -1,0 +1,23 @@
+﻿        <div class="modal-header">
+			<button type="button" class="close" ng-click="$ctrl.ok()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			
+			<h4 class="modal-title" ng-bind="$ctrl.getTitle($ctrl.active)"></h4>
+		    </div>
+        <div class="modal-body">
+
+			<div uib-carousel active="$ctrl.active" interval="-1" no-wrap="false">
+				<div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
+					<img class="img-responsive" ng-src="{{slide.url}}" style="margin:auto;">
+				</div>
+			</div>
+            <div class="container-fluid" ng-if="$ctrl.getSlide($ctrl.active).file.description">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p ng-bind="$ctrl.getSlide($ctrl.active).file.description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="modal-footer">
+    <button class="btn btn-lg btn-primary" ng-click="$ctrl.ok()">Fermer</button>
+</div>

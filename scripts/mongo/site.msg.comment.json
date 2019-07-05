@@ -1,0 +1,66 @@
+{ 
+    "_id" : ObjectId("565af620cdc295ce0874b0fd"), 
+    "ModuleId" : "a9e88d9a-1e1f-40aa-b926-f08fd9834e06", 
+    "SiteId" : "227aefdb-a2b9-4c27-98d9-2f0db43f99ca", 
+    "NumberComments" : NumberInt(0), 
+    "Comments" : [
+        {
+            "_id" : BinData(3, "WuJILa+tY0CmQoJYk1IdRw=="), 
+            "UserId" : "54b8c4278241320a28c8f024", 
+            "Comment" : "Ceci est un test", 
+            "DateCreate" : ISODate("2015-12-01T22:00:00.924+0000"), 
+            "IsDeleted" : true
+        }
+    ]
+}
+{ 
+    "_id" : ObjectId("56600e96cdc295ce0874b118"), 
+    "ModuleId" : "20a03ec9-c1e4-4c06-9dd9-2bda69203e40", 
+    "SiteId" : "227aefdb-a2b9-4c27-98d9-2f0db43f99ca", 
+    "NumberComments" : NumberInt(0), 
+    "Comments" : [
+        {
+            "_id" : BinData(3, "K2Bh0BhP+k2J/bID2zE/Kg=="), 
+            "UserId" : "54b8c4278241320a28c8f024", 
+            "Comment" : "<script>alert('youhou')</script>", 
+            "DateCreate" : ISODate("2015-12-03T09:42:46.538+0000"), 
+            "IsDeleted" : true
+        }, 
+        {
+            "_id" : BinData(3, "vqVd6D4EkkGFLAPLjb0sFQ=="), 
+            "UserId" : "54b8c4278241320a28c8f024", 
+            "Comment" : "youhou", 
+            "DateCreate" : ISODate("2015-12-09T15:12:33.458+0000"), 
+            "IsDeleted" : true
+        }, 
+        {
+            "_id" : BinData(3, "eMd+RpbgRUqYG05Wywy/FA=="), 
+            "UserId" : "54b8c4278241320a28c8f024", 
+            "Comment" : "<p><b>youhou</b><p>", 
+            "DateCreate" : ISODate("2015-12-09T15:13:11.937+0000"), 
+            "IsDeleted" : true
+        }, 
+        {
+            "_id" : BinData(3, "9vdLeQC+bk2kDTMxOVnxoQ=="), 
+            "UserId" : "54b8c4278241320a28c8f024", 
+            "Comment" : "<script>alert('youhou');</script>", 
+            "DateCreate" : ISODate("2015-12-09T15:13:50.225+0000"), 
+            "IsDeleted" : true
+        }
+    ]
+}
+{ 
+    "_id" : ObjectId("5738de5aa2b0170a4a939acd"), 
+    "ModuleId" : "b93c566f-b8ed-4225-9406-ef1211d94d09", 
+    "SiteId" : "07b42aab-3f2a-466f-ac26-7149ca343680", 
+    "Comments" : [
+        {
+            "_id" : BinData(3, "xED/Y5dhm0ea2+RusKEr8w=="), 
+            "UserId" : "54b8c4278241320a28c8f024", 
+            "Comment" : "Très sympas les photos :)", 
+            "DateCreate" : ISODate("2016-05-15T20:38:51.279+0000"), 
+            "IsDeleted" : false
+        }
+    ], 
+    "NumberComments" : NumberInt(1)
+}

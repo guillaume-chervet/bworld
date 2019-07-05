@@ -1,0 +1,68 @@
+﻿
+<page-breadcrumb>
+
+    <content>
+    <div>
+        <h1><span class="glyphicon glyphicon-plus"></span>Page création site</h1>
+        <div class="mw-form">
+            <form role="form" class="form-horizontal" enctype="multipart/form-data" ng-submit="vm.submit()">
+                <h2>Liste des templates</h2>
+
+                <table class="table table-striped ">
+                    <thead>
+                    <!-- En-tête du tableau -->
+                    <tr>
+                        <th>SiteId</th>
+                        <th>CategoryId</th>
+                        <th>Type template </th>
+                        <th>Titre template</th>
+                        <th>Effacer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Corps du tableau -->
+                    <tr data-ng-repeat="template in vm.data.templates">
+                        <td><input type="text" name="Domain" ng-model="template.siteId" class="form-control"/></td>
+                        <td><input type="text" name="Domain" ng-model="template.categoryId" class="form-control"/></td>
+                        <td><input type="text" name="Domain" ng-model="template.workName" class="form-control"/></td>
+                        <td><input type="text" name="Domain" ng-model="template.title" class="form-control"/></td>
+                        <td><button type="button" class="btn btn-danger" ng-click="vm.delete(vm.template)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td><button type="button" class="btn btn-default" ng-click="vm.add()"><span class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix"></div>
+                <hr/>
+                <element-div-admin element="vm.element">
+
+                </element-div-admin>
+                <div>
+                    <hr/>
+                    <element-div-admin element="vm.metaElement">
+                    </element-div-admin>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label for="Domain" class="col-sm-3 control-label">Url des conditions générales d'utilisation: </label>
+                    <div class="col-sm-9">
+                        <input id="Domain" type="text" name="Domain" ng-model="vm.data.urlConditionsGeneralesUtilisations" class="form-control"/>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="form-group">
+                    <div class="col-sm-3 col-xs-6">
+                    </div>
+                    <div class="col-sm-9 col-xs-6 mw-action">
+                        <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Sauvegarder</span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        </content>
+</page-breadcrumb>

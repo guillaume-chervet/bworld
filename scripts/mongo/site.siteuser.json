@@ -1,0 +1,14 @@
+{ 
+    "_id" : BinData(3, "kWHsWS8vokmoBaaGAUF92w=="), 
+    "Mail" : "guillaume.chervet@bworld.fr", 
+    "SiteId" : "5d613dba-ca53-4b5a-9d19-4183c6056cf1", 
+    "UserId" : null, 
+    "FirstName" : "Guillaume", 
+    "LastName" : "Chervet", 
+    "Birthdate" : null, 
+    "FlaggedRole" : NumberInt(1), 
+    "Tags" : null, 
+    "Comments" : null, 
+    "Civility" : null, 
+    "IsEmailNotif" : null
+}

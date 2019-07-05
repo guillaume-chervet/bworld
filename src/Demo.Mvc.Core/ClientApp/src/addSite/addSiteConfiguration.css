@@ -1,0 +1,11 @@
+.mw-addsite-configuration .url {
+    color: green;
+}
+
+.mw-addsite-configuration .url-temporary {
+    color: gray;
+}
+
+.mw-addsite-configuration .label-input {
+    padding-top: 14.333333px;
+}

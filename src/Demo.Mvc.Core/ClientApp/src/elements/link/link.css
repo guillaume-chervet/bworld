@@ -1,0 +1,32 @@
+
+.mw-link {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mw-link a.btn  {
+    font-size: 1.2em;
+}
+ .mw-link a.btn:visited {
+    color: white;
+    font-size: 1.2em;
+}
+ .mw-link a.btn:link {
+    color: white;
+    font-size: 1.2em;
+    text-decoration: no;
+}
+
+ .mw-link a.btn:hover {
+    font-size: 1.2em;
+    color: white;
+    text-decoration: no;
+}
+
+.mw-link a.btn-social {
+     color: white;  
+ }
+
+ .mw-link .btn-default .fa {
+    padding-right: 4px;
+}

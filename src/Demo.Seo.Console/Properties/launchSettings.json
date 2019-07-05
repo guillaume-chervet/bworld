@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Demo.Seo.Console": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}

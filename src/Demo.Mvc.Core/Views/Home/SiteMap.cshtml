@@ -1,0 +1,12 @@
+﻿@using Demo.Mvc.Core.Controllers.Models
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    @foreach (var menuItem in (IList<SiteMapElement>) Model)
+    {
+        <url>
+            <loc>@menuItem.Location</loc>
+            <lastmod>@menuItem.DateUpdate</lastmod>
+        </url>
+    }
+</urlset>

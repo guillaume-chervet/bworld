@@ -1,0 +1,68 @@
+
+/***** Specifique theme1 ****/
+
+.navbar {
+     border: 0px; 
+     border-radius: 0px;
+    margin-bottom: 10px;
+}
+
+.mw-navbar-center { 
+    margin-left:auto;
+    margin-right:auto; 
+    max-width :90%;   
+    float:none !important;
+}
+
+.mw-navbar-center {
+	text-align:center;
+}
+.mw-navbar-center .nav {
+	float:none;
+}
+.mw-navbar-center .nav li {
+	display:inline-block;
+	float:none;
+	margin:0 20px;
+	vertical-align:middle;
+}
+/*
+.mw-navbar-center .nav li a {
+	border-radius:10px;
+}*/
+
+.mw-navbar-user{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline;
+    list-style: none; /* pour enlever les puces sur IE7 */
+}
+
+.mw-navbar-user > li{
+    display: inline;
+}
+
+    .mw-navbar-user .btn-default {
+
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .mw-navbar-user li.active > .btn-default {
+
+         background-color: rgba(220, 220, 220, 1);
+    }
+
+
+   .mw-body {
+         margin-top: 0px;
+     }
+@media (max-width: 767px ) {
+    .mw-body {
+        margin-top: 0px;
+    }
+}
+/*
+img {
+    margin-bottom: 6px;
+}*/

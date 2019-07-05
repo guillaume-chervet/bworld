@@ -1,0 +1,43 @@
+﻿<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 mw-login text-center">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Connexion <a href="{{vm.domainLoginUrl}}" alt="Système d'authentification centralisé"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> bworld</a> via les réseaux sociaux</h2>
+            </div>
+            <div class="panel-body">
+                <form action="{{vm.postUrl}}" method="post" novalidate="novalidate">
+                    <input type="hidden" name="returnUrl" ng-value="vm.returnUrl"/>
+                    <div class="row">
+                        <div class="col-sm-6 mw-login-panel">
+                            <button type="submit" class="btn-lg btn-social btn-google" id="Google" name="provider" value="Google" title="Connexion avec votre compte Google">
+                                <i class="fa fa-google"></i>Google
+                            </button>
+                        </div>
+                        <div class="col-sm-6 mw-login-panel">
+                            <button type="submit" class="btn-lg btn-social btn-facebook" id="Facebook" name="provider" value="Facebook" title="Connexion avec votre compte Facebook">
+                                <i class="fa fa-facebook"></i> Facebook
+                            </button>
+                        </div>
+                        <div class="col-sm-6 mw-login-panel">
+                            <button type="submit" class="btn-lg btn-social btn-microsoft" id="Microsoft" name="provider" value="Microsoft" title="Connexion avec votre compte Microsoft">
+                                <i class="fa fa-windows"></i> Microsoft
+                            </button>
+                        </div>
+                        <div class="col-sm-6 mw-login-panel">
+                            <button type="submit" id="Twitter" name="provider" value="Twitter" class="btn-lg btn-social btn-twitter" title="Connexion avec votre compte Twitter">
+                                <i class="fa fa-twitter"></i>
+                                Twitter
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <p>Si vous n'êtes pas inscrit, cliquer sur l'un des boutons afin de commencer.</p>
+            </div>
+
+        </div>
+
+        <div class="col-sm-2"></div>
+    </div>
+</div>

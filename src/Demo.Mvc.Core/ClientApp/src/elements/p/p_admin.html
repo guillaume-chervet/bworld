@@ -1,0 +1,44 @@
+
+<style>
+    .ta-editor {
+  min-height: 300px;
+  height: auto;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+}
+</style>
+
+ <div class="animate-switch-container" ng-switch on="$ctrl.mode">
+      <div class="animate-switch" ng-switch-when="form">
+
+          <div ng-form name="fieldForm" class="form-group-lg" >
+              <label for="{{$ctrl.element.property}}" class="col-sm-3 col-xs-12 control-label">Paragraphe</label>
+              <div class="col-sm-4 col-xs-12">
+                  <textarea rows="4" name="field" id="{{$ctrl.element.property}}" ng-model="$ctrl.element.data" class="form-control" ></textarea>
+              </div>
+          </div>
+          <div class="clearfix"></div>
+
+      </div>
+      <div class="animate-switch" ng-switch-default>
+          
+            <element-admin element="$ctrl.element">
+                <admin-title>
+                    Texte
+                </admin-title>
+                <admin-edit>
+                    <text-editor value="$ctrl.element.data" on-change="$ctrl.onChange"></text-editor>
+                  <!--  <div text-angular ng-model="$ctrl.element.data"></div> -->
+                </admin-edit>
+                    <admin-view>
+                        <element-p element="$ctrl.element">
+                        </element-p>
+                    </admin-view>
+            </element-admin>
+
+      </div>
+  </div>
+
+
+

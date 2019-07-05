@@ -1,0 +1,15 @@
+﻿
+
+.mw-login-panel button {
+    width: 180px;
+}
+
+.mw-login-panel {
+    padding-bottom: 10px;
+}
+
+.mw-user-panel .panel-heading h3 {
+    
+	font-size: 1.1em;
+    font-weight: bold;
+}

@@ -1,0 +1,30 @@
+﻿
+<div class="mw-dialog-user-tags">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="dialogVm.cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><span class="glyphicon glyphicon-pencil"></span>Editer les tags</h4>
+    </div>
+    <div class="modal-body">
+        <p>Ajouter ou supprimer vos tags. Vous ne pouvez pas désactiver tous les tags. Les tags servent à filtrer les utilisateurs.</p>
+
+        <div class="container-fluid">
+            <div ng-repeat="tag in dialogVm.tags" class="row" ng-class="{'mw-deleted': tag.isDeleted}">
+                <div class="col-sm-4">                                  
+                    <input type="text" ng-disabled="tag.isDeleted" name="uName" ng-model="tag.name" class="form-control" />
+                </div>
+                <button class="btn btn-default" ng-disabled="vm.cannotDelete()" ng-if="!tag.isDeleted" ng-click="dialogVm.delete(tag)" type="button"><span class="glyphicon glyphicon-minus"></span>Désactiver</button>
+                <button class="btn btn-default" ng-if="tag.isDeleted" ng-click="dialogVm.delete(tag)" type="button"><span class="glyphicon glyphicon-plus"></span>Activer</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <button class="btn btn-default" ng-click="dialogVm.add()" type="button"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning btn-lg" type="button" ng-click="dialogVm.cancel()"><span class="glyphicon glyphicon-remove"></span><span>Annuler</span></button>
+        <button class="btn btn-success btn-lg" type="button" ng-click="dialogVm.ok()"><span class="glyphicon glyphicon-floppy-disk"></span><span>Sauvegarder</span></button>
+    </div>
+
+</div>

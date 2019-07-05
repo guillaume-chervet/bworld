@@ -1,0 +1,56 @@
+﻿
+<page-breadcrumb>
+    <content>
+        <div>
+            <h1><span class="fa fa-newspaper-o"></span>Notifications</h1>
+         
+                    <div>
+                        <form name="addNewsForm" role="form" class="form-horizontal" enctype="multipart/form-data" novalidate ng-submit="vm.submitItem()">
+                            <div class="form-group form-group-lg">
+                                <div class="col-sm-3 col-xs-6">
+                                </div>
+                                <div class="col-sm-9 col-xs-6 mw-action">
+                                    <button type="submit" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Ajouter</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <hr />
+                    <div class="mw-news">
+                        <empty empty-items="vm.items" empty-text="'Aucune notification.'"></empty>
+       
+                                <div ng-repeat="item in vm.items">
+                                    <div class="panel panel-default">
+                                        <!-- Default panel contents -->
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">
+                                                <a ng-href="{{item.data.editUrl}}">{{item.data.title}}</a>
+                                            </h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <element-div element="item.element">
+
+                                            </element-div>
+                                            <a class="btn btn-lg btn-default pull-right" ng-href="{{item.data.editUrl}}">Editer</a>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <mw-user data="item.data"></mw-user>
+                                        </div>
+
+                                    </div>
+                                </div>
+                   
+
+                            <nav ng-if="vm.data.hasPreviousOrNext()">
+                                <ul class="pager">
+                                    <li class="previous" ng-if="vm.data.hasPrevious()"><a ng-href="{{vm.data.urlPrevious}}"><span aria-hidden="true">&larr;</span> Précédent</a></li>
+                                    <li class="next" ng-if="vm.data.hasNext()"><a ng-href="{{vm.data.urlNext}}">Suivant<span aria-hidden="true">&rarr;</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+
+        </div>    
+    </content>
+</page-breadcrumb>

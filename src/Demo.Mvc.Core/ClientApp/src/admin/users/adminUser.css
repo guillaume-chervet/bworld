@@ -1,0 +1,15 @@
+.mw-administration-user td > span {
+    display: block;
+}
+
+.mw-administration-user td div > span {
+    display: block;
+}
+
+.mw-administration-user .mw-verified {
+    color: green;
+}
+
+.mw-administration-user .mw-notverified {
+    color: gray;
+}

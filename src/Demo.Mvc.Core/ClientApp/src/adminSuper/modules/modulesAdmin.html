@@ -1,0 +1,71 @@
+﻿
+<page-full-breadcrumb>
+    <content>
+
+        <div>
+            <h1>{{$ctrl.master.titlePage}}</h1>
+
+
+            <p>Attention, cette page vous permet d'éditer toutes les données de tous les sites. Utiliser la avec des pincettes.</p>
+
+            <div>
+                <form role="form" class="form-horizontal" enctype="multipart/form-data">
+                    <h2>Rechercher un module</h2>
+
+                    <div class="form-group">
+                        <label for="Id" class="col-sm-3 control-label">Id: </label>
+                        <div class="col-sm-9">
+                            <input id="Id" type="text" name="Id" ng-model="$ctrl.search.moduleId" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="SiteId" class="col-sm-3 control-label">SiteId: </label>
+                        <div class="col-sm-9">
+                            <input id="SiteId" type="text" name="Id" ng-model="$ctrl.search.siteId" class="form-control" />
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="form-group">
+                        <div class="col-sm-3 col-xs-6">
+                        </div>
+                        <div class="col-sm-9 col-xs-6 mw-action">
+                            <button type="submit" class="btn btn-success" ng-click="$ctrl.get()"><span class="glyphicon glyphicon-floppy-disk"></span><span>Chercher</span></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div ng-if="$ctrl.module.item">
+                <form role="form" class="form-horizontal" enctype="multipart/form-data">
+                    <h2>Editer le module</h2>
+
+                    <div class="form-group">
+                        <label for="item" class="col-sm-3 control-label">Module: </label>
+                        <div class="col-sm-9">
+                            <textarea rows="20" name="item" ng-model="$ctrl.module.item" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="json" class="col-sm-3 control-label">Data: </label>
+                        <div class="col-sm-9">
+                            <textarea rows="20" name="json" ng-model="$ctrl.module.json" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="button" class="btn btn-danger" ng-click="$ctrl.delete()"><span class="glyphicon glyphicon-remove"></span> <span>Supprimer</span></button>
+                            <button type="submit" class="btn btn-success" ng-click="$ctrl.save()"><span class="glyphicon glyphicon-floppy-disk"></span><span>Sauvegarder</span></button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>    
+    </content>
+</page-full-breadcrumb>

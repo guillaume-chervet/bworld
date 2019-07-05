@@ -1,0 +1,13 @@
+﻿
+
+<div class="col-sm-12 col-md-12 col-xs-12 mw-code-panel">
+    <uib-tabset>
+        <uib-tab ng-repeat="file in $ctrl.element.data.files" heading="{{file.fileName}}">
+            <div>
+                <element-code-ace file="file" mw-readonly="'true'"></element-code-ace>
+            </div>
+        </uib-tab>
+
+    </uib-tabset>
+</div>
+<div class="clearfix"></div>

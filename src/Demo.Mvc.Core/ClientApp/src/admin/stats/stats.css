@@ -1,0 +1,20 @@
+.mw-stats .params {
+    font-size: 0.8em;
+    color: gray;
+}
+
+.mw-stats .mw-stats-row {
+    width: 280px;
+}
+
+.mw-stats a.mw-admin-link {
+    color: #B85D5D;
+}
+
+.mw-stats a.mw-superadmin-link {
+    color: #dc143c;
+}
+
+.mw-stats a.mw-user-link {
+    color: #006400;
+}

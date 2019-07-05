@@ -1,0 +1,33 @@
+﻿
+<div>
+    <div ng-switch="vm.currentPath">
+        <div ng-switch-when="authentification">
+
+            <ol class="breadcrumb">
+                <li class="active"><span>Authentification</span></li>
+                <li><span>Configuration</span></li>
+                <li><span>Confirmation</span></li>
+            </ol>
+
+        </div>
+         <div ng-switch-when="configuration">
+
+            <ol class="breadcrumb">
+                <li><a ng-href="{{vm.paths.authentification.url}}">Authentification</a></li>
+                <li class="active"><span>Configuration</span></li>
+                <li><span>Confirmation</span></li>
+            </ol>
+
+        </div>
+        <div ng-switch-default>
+
+            <ol class="breadcrumb">
+                <li><a ng-href="{{vm.paths.authentification.url}}">Authentification</a></li>
+                <li><a ng-href="{{vm.paths.configuration.url}}">Configuration</a></li>
+                <li class="active"><span>Confirmation</span></li>
+            </ol>
+
+        </div>
+    </div>
+
+</div>

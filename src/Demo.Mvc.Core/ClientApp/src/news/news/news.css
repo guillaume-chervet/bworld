@@ -1,0 +1,32 @@
+.mw-news .user-score-timeup {
+    right: 16px;
+    left: 16px;
+    background-color: rgba(255, 100, 0, 0.8);
+    color: white
+}
+
+.mw-news .user-score-timeup p {
+    margin: 0px;
+}
+
+.mw-news .user-score-running {
+    right: 16px;
+    left: 16px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white
+}
+
+.mw-news .user-score-running p {
+    margin: 0px;
+}
+
+.mw-news .user-score-finished {
+    right: 16px;
+    left: 16px;
+    background-color: rgba(0, 0, 255, 0.8);
+    color: white
+}
+
+.mw-news .user-score-finished p {
+    margin: 0px;
+}

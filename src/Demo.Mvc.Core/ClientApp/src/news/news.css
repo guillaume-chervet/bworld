@@ -1,0 +1,53 @@
+﻿
+.mw-news .panel-heading h3 .mw-title {
+	font-size: 1.1em;
+    font-weight: bold;
+}
+ .mw-news .panel-heading  h3  a.mw-title {
+      color: black;
+      text-decoration: none; 
+
+ }
+
+    .mw-news .panel-heading  h3  a.mw-title:link {
+        color: black;
+         text-decoration: none; 
+    }
+
+     .mw-news .panel-heading  h3 a.mw-title:visited {
+          color: black;
+           text-decoration: none; 
+    }
+
+	   .mw-news .panel-footer  {
+  padding: 2px 15px;
+}
+
+	   .mw-news .panel-footer p {
+  margin: 0px;
+}
+
+         .mw-news .panel-heading  h3 a.mw-title-comments {
+          font-size: 1em;
+    }
+
+       
+
+@media (max-width: 767px )  {
+      .mw-action button {
+          float: right;
+    }
+}
+
+ .mw-news-next {
+     font-size: 0.8em;
+ }
+
+  .mw-news-next .glyphicon {
+      margin-right: 4px;
+ }
+
+  .mw-comments {
+       font-size: 0.75em;
+  }
+

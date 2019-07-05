@@ -1,0 +1,427 @@
+
+
+input.ng-invalid.ng-dirty {
+   border-color: red;
+}
+select.ng-invalid.ng-dirty {
+   border-color: red;
+}
+
+body
+{
+    font-size: 1.6em;
+    position: relative;
+}
+
+h1
+{
+	color: #3b6cae;
+	font-size: 2em;
+    font-weight: bold;
+}
+
+
+h2 {
+    color: #3bae74;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+    h3
+{
+	font-size: 1.3em;
+    font-weight: bold;
+}
+
+
+    a:link
+    {
+        color: blue;
+        text-decoration: no;
+    }
+    a:visited
+    {
+        color: blue;
+    }
+    a:hover
+    {
+        color: #1a78b9;
+        text-decoration: none;
+    }
+    a:active
+    {
+        color: red;
+        text-decoration: none;
+    }
+
+.mw-body a
+{
+	font-size: 1.1em;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+    word-wrap: break-word;
+}
+
+.mw-level {
+    background-color: #eee;
+    background-color: rgba(86,61,124,.15);
+    padding-bottom: 6px;
+    margin-top: 4px;
+}
+/*
+.mw-form {
+   
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 16px;
+}   
+
+.mw-form hr {
+    border-top: 1px solid #9e9e9e;
+}
+
+.mw-form iframe {
+    width: 100%;
+    height: 256px;
+}*/
+
+.carousel-caption h4 {
+      font-size: 1.4em;
+     color: black;
+    font-weight: bolder;
+    text-shadow: none;
+    background-color: rgba(255,255,255,.50);
+      position: absolute;
+  left: 0px;
+  top: -120px;
+}
+
+.carousel-caption p {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 200;
+  color: black;
+   text-shadow: none;
+  background-color: rgba(255,255,255,.50);
+    position: absolute;
+  left: 0px;
+  top: -60px;
+}
+
+@media (max-width: 767px ) {
+    .carousel-caption h4 {
+      font-size: 1em;
+        top: -70px;
+}
+
+.carousel-caption p {
+  margin-bottom: 15px;
+  font-size: 0.8em;
+   top: -30px;
+}
+
+
+}
+
+footer{
+    padding-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+  color: #818181;
+}
+
+thead {
+    background-color: #4C4C4C;
+    color: honeydew;
+}
+
+table>thead>tr {
+     border: none; 
+}
+table>thead>tr>th {
+     border: none; 
+}
+
+tfoot {
+    background-color: #4C4C4C;
+    color: honeydew;
+}
+
+.mw-footer-links {
+padding-left: 0;
+margin-top: 20px;
+color: #999;
+    font-size: 1em;
+}
+
+.mw-footer-links li:first-child {
+padding-left: 0;
+}
+.mw-footer-links li {
+display: inline;
+padding: 0 2px;
+}
+
+.dropdown-menu {
+    border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.dropdown-menu .divider {
+background-color: #444444;
+
+}
+
+
+.form-control {
+    height: auto;
+}
+
+ .hand {
+     Cursor: Pointer;
+ }
+
+
+
+
+.dropdown-menu {
+    background-color: #fbfbfb;
+}
+
+/* error */
+.error-block {
+    position: absolute;
+    color: rgb(255, 0, 0);
+    font-size: 0.65em;
+    font-weight: bold;
+    width: 400px;
+}
+
+.has-error .form-control-feedback {
+    color: #FF0500;
+}
+
+.has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {
+    color: #FF0500;
+}
+
+.has-error .form-control {
+    border-color: #FF0500;
+}
+
+/* success */
+.success-block {
+    position: absolute;
+    color: #3e8c14;
+    font-size: 0.65em;
+    font-weight: bold;
+    width: 400px;
+}
+
+.has-esuccessrror .form-control-feedback {
+    color: #3e8c14;
+}
+
+.has-success .help-block, .has-success label, .has-success .radio, .has-success .checkbox, .has-success .radio-inline, .has-success .checkbox-inline {
+    color: #3e8c14;
+}
+
+.has-errsuccessor .form-control {
+    border-color: #3e8c14;
+}
+
+/* Pour Bootrap UI */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.alert-danger {
+    color: #DF0400;
+    background-color: #FFD5D5;
+    border-color: #BB001E;
+}
+
+
+
+
+ .mw-author {
+     font-size: 0.8em;
+     color: grey;
+ }
+
+ .mw-author a {
+	   color: rgb(79, 79, 255);
+ }
+
+ .mw-author a:link {
+	   color: rgb(79, 79, 255);
+ }
+
+ .mw-author a:visited {
+	   color: rgb(79, 79, 255);
+ }
+
+
+  .leaflet-container {
+background: #ddd;
+outline: 0;
+height: 480px;
+position: relative;
+border: solid 1px;
+border-color: black;
+}
+
+.navbar-default .navbar-nav > li > a.btn-social-icon {
+color: #FFF;
+display: inline-block;
+margin-top: 10px;
+}
+
+.navbar-default .glyphicon{
+    padding-right: 4px;
+}
+
+.mw-stats-row{
+    /* essential */
+	text-overflow: ellipsis;
+	width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.mw-login {
+    background-color: #E8E8E8;
+}
+
+.breadcrumb > li + li:before {
+padding: 0 5px;
+color: #5F5F5F;
+content: ">";
+/* font-weight: bolder; */
+}
+
+
+.breadcrumb span {
+ color: #82838C;
+ font-weight: normal;
+}
+
+.breadcrumb .active span {
+ color: black; 
+ font-weight: bolder;
+}
+
+  .jumbotron {
+  padding: 0px 0px; 
+  /* margin-top: -20px;*/
+    margin-bottom: 0px;
+      border: none;
+     /*background-color: white;*/
+}
+
+
+  .jumbotron .container {
+      margin-right: 0px;
+      margin-left: 0px;
+     padding-right: 0px; 
+   padding-left: 0px; 
+
+  width: 100%;
+  }
+
+  
+  .jumbotron .container img {
+      width: 100%; 
+  }
+
+    .jumbotron .container .carousel-control.right {
+        background-image: none;
+    }
+
+       .jumbotron .container .carousel-control.left {
+        background-image: none;
+    }
+@media (min-width: 1200px) {
+    header .container {
+        width: 94%;
+    }
+}
+
+/*
+p {
+	text-indent: 30px;
+	text-align: justify;
+	background-image: url('images/gnou_p.png');
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+
+h1 {
+  margin: 24px 0px 18px 0px;
+  padding: 0px 0px 0px 36px;
+  background-repeat: no-repeat;
+  background-image: url('images/gnou_h1.png');
+  background-position: top left;
+}*/
+
+.ta-hidden-input {
+    display: none;
+}
+
+
+.form-group .mw-help {
+    margin-top: 3px;
+    position: relative;
+    z-index: 5;
+    font-size:1.5em;
+}
+.mw-help {
+    display: inline-block;
+    background: #004893;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    font: italic normal 1.2em/25px Georgia, Arial;
+    cursor: pointer;
+    vertical-align: top;
+}
+
+.mw-empty p {
+     margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.4em;
+}
+
+.popover-title {
+    color: black;
+    font-weight: bolder;
+}
+
+.popover-content {
+    color: black;
+}
+
+legend {
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+ .sortorder:after {
+  content: '\25b2';
+}
+ 
+.sortorder.reverse:after {
+  content: '\25bc';
+}
+
+.panel {
+    background-color: transparent!important;
+}

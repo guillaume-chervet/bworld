@@ -1,0 +1,8 @@
+﻿<a ng-href="{{$ctrl.menuItem.routePath}}">
+    <span class="{{$ctrl.getIcon($ctrl.menuItem)}}"></span>
+    <span ng-bind="$ctrl.menuItem.title"></span>
+</a>
+<span ng-if="$ctrl.isDraft($ctrl.menuItem)" class="label label-default">Brouillon</span>
+<span ng-if="$ctrl.isDeleted($ctrl.menuItem)" class="label label-danger">Supprimé</span>
+
+<sub-menu-items-admin menu-items="$ctrl.menuItem.childs"></sub-menu-items-admin>

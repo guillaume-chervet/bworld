@@ -1,0 +1,38 @@
+{ 
+    "_id" : BinData(3, "/eyoaanmukugk6d+AQI2Pg=="), 
+    "SiteId" : "39951a73-87fd-4d86-8c86-2995c7de877d", 
+    "Type" : "users", 
+    "Tags" : [
+        {
+            "_id" : BinData(3, "5s2aNtBWckKHEGlWJ7m1qg=="), 
+            "Name" : "Client", 
+            "IsDeleted" : false
+        }, 
+        {
+            "_id" : BinData(3, "0GmyNMmcn0iNqeebGKqhlg=="), 
+            "Name" : "Prospet", 
+            "IsDeleted" : false
+        }, 
+        {
+            "_id" : BinData(3, "9YeZKNNmLEOHq75AIpmM7Q=="), 
+            "Name" : "Amis", 
+            "IsDeleted" : false
+        }, 
+        {
+            "_id" : BinData(3, "9j5w1L3TW0CoKE6fVrrFYg=="), 
+            "Name" : "Famille", 
+            "IsDeleted" : false
+        }, 
+        {
+            "_id" : BinData(3, "9xU3okfQMUe6WLDkpQm83w=="), 
+            "Name" : "Connaissance", 
+            "IsDeleted" : false
+        }, 
+        {
+            "_id" : BinData(3, "0ROv+wuUG0+Id2gN5Ye6fQ=="), 
+            "Name" : "centre formation", 
+            "IsDeleted" : false
+        }
+    ], 
+    "ModuleId" : null
+}

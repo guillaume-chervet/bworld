@@ -1,0 +1,50 @@
+﻿<div ng-repeat="element in $ctrl.element.childs">
+    <div ng-switch on="element.type">
+        <element-p-admin class="animate-switch" ng-switch-when="p" mode="$ctrl.mode" element="element" on-change="$ctrl.onChange">
+        </element-p-admin>
+        <element-h1-admin class="animate-switch" ng-switch-when="h1" mode="$ctrl.mode" element="element" on-change="$ctrl.onChange">
+        </element-h1-admin>
+        <element-h2-admin class="animate-switch" ng-switch-when="h2" element="element" on-change="$ctrl.onChange">
+        </element-h2-admin>
+        <element-carousel-admin class="animate-switch" ng-switch-when="carousel" element="element" on-change="$ctrl.onChange">
+        </element-carousel-admin>
+        <element-message-admin class="animate-switch" ng-switch-when="message" element="element" on-change="$ctrl.onChange">
+        </element-message-admin>
+        <element-address-admin class="animate-switch" ng-switch-when="address" element="element" on-change="$ctrl.onChange">
+        </element-address-admin>
+        <element-code-admin class="animate-switch" ng-switch-when="code" element="element" on-change="$ctrl.onChange">
+        </element-code-admin>
+        <element-youtube-admin class="animate-switch" ng-switch-when="youtube" element="element" on-change="$ctrl.onChange">
+        </element-youtube-admin>
+        <element-hr-admin class="animate-switch" ng-switch-when="hr" mode="$ctrl.mode" element="element" on-change="$ctrl.onChange">
+        </element-hr-admin>
+        <element-hours-admin class="animate-switch" ng-switch-when="hours" element="element" on-change="$ctrl.onChange">
+        </element-hours-admin>
+        <element-link-admin class="animate-switch" ng-switch-when="link" element="element" on-change="$ctrl.onChange">
+        </element-link-admin>
+        <element-file-admin class="animate-switch" ng-switch-when="file" mode="$ctrl.mode" element="element" on-change="$ctrl.onChange">
+        </element-file-admin>
+        <element-div-admin class="animate-switch" ng-switch-when="div" mode="$ctrl.mode" element="element" on-change="$ctrl.onChange">
+        </element-div-admin>
+        <element-grid-admin class="animate-switch" ng-switch-when="grid" element="element" on-change="$ctrl.onChange">
+        </element-grid-admin>
+        <element-meta-keyword-admin class="animate-switch" ng-switch-when="metaKeyword" element="element" on-change="$ctrl.onChange">
+        </element-meta-keyword-admin>
+        <element-meta-description-admin class="animate-switch" ng-switch-when="metaDescription" element="element" on-change="$ctrl.onChange">
+        </element-meta-description-admin>
+        <element-color-admin class="animate-switch" ng-switch-when="color" mode="$ctrl.mode" element="element" on-change="$ctrl.onChange">
+        </element-color-admin>
+        <element-checkbox-admin class="animate-switch" ng-switch-when="checkbox" mode="$ctrl.mode" element="element" on-change="$ctrl.onChange">
+        </element-checkbox-admin>
+        <element-select-admin class="animate-switch" ng-switch-when="select" element="element" on-change="$ctrl.onChange">
+        </element-select-admin>
+        <element-form-admin class="animate-switch" ng-switch-when="form" element="element" on-change="$ctrl.onChange">
+        </element-form-admin>
+        <element-input-radio-admin class="animate-switch" ng-switch-when="inputRadio" element="element" on-change="$ctrl.onChange">
+        </element-input-radio-admin>
+        <div class="animate-switch" ng-switch-default>default</div>
+    </div>
+</div>
+<element-menu-item ng-if="$ctrl.element.childs.length<=0" element="$ctrl.element" ></element-menu-item>
+
+

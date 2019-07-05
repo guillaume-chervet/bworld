@@ -1,0 +1,149 @@
+﻿
+<page-breadcrumb>
+    <content>
+        <div>
+            <h1><span class="fa fa-newspaper-o"></span> Page articles</h1>
+            <uib-tabset>
+                <uib-tab index="0" heading="Articles">
+                        <form name="addNewsForm" role="form" class="form-horizontal" enctype="multipart/form-data" novalidate ng-submit="vm.submitItem()">
+                            <h2>Ajouter</h2>
+                            <element-div-admin element="vm.addElement" mode="'form'">
+
+                            </element-div-admin>
+                            <hr />
+                            <div class="form-group">
+                                <div class="col-sm-3 col-xs-6">
+                                </div>
+                                <div class="col-sm-9 col-xs-6 mw-action">
+                                    <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Ajouter</button>
+                                </div>
+                            </div>
+                        </form>
+                    <hr />
+                    <div class="mw-news">
+                        <empty empty-items="vm.items" empty-text="'Aucun article.'"></empty>
+
+                        <div ng-switch on="vm.data.getDisplayMode()">
+                            <div class="animate-switch" ng-switch-when="galerie">
+                                <div ng-repeat="item in vm.items">
+                                    <div class="col-sm-6 col-md-6 col-lg-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">
+                                                    <a class="mw-title" ng-href="{{item.data.editUrl}}">{{item.data.title}}</a>
+                                                    <span ng-if="vm.isDraft(item.data)" class="label label-default">Brouillon</span>
+                                                    <span ng-if="vm.isDeleted(item.data)" class="label label-danger">Supprimé</span>
+                                                    <tags tags="item.data.tags"></tags>
+                                                </h3>
+                                            </div>
+                                            <div>
+                                                <a ng-href="{{item.data.editUrl}}" title="{{item.data.title}}" class="hand"><img data-ng-src="{{vm.getFirstImage(item.element).thumbnailUrl}}" class="center-block img-responsive img-thumbnail" alt="{{vm.getFirstImage(item.element).name}}" /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="($index+1)%2 ===0" class="clearfix visible-sm-block"></div>
+                                    <div ng-if="($index+1)%2 ===0" class="clearfix visible-md-block"></div>
+                                    <div ng-if="($index+1)%3 ===0" class="clearfix visible-lg-block"></div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div ng-switch-default>
+                                <div ng-repeat="item in vm.items">
+                                    <div class="panel panel-default">
+                                        <!-- Default panel contents -->
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">
+                                                <a ng-href="{{item.data.editUrl}}">{{item.data.title}}</a>
+                                                <span ng-if="vm.isDraft(item.data)" class="label label-default">Brouillon</span>
+                                                <span ng-if="vm.isDeleted(item.data)" class="label label-danger">Supprimé</span>
+                                                <tags tags="item.data.tags"></tags>
+                                            </h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <element-div element="item.element">
+
+                                            </element-div>
+                                            <a class="pull-right btn btn-default btn-lg" ng-href="{{item.data.editUrl}}">Editer</a>
+
+                                        </div>
+                                        <div class="panel-footer">
+                                            <mw-user data="item.data"></mw-user>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <nav ng-if="vm.data.hasPreviousOrNext()">
+                                <ul class="pager">
+                                    <li class="previous" ng-if="vm.data.hasPrevious()"><a ng-href="{{vm.data.urlPrevious}}"><span aria-hidden="true">&larr;</span> Précédent</a></li>
+                                    <li class="next" ng-if="vm.data.hasNext()"><a ng-href="{{vm.data.urlNext}}">Suivant<span aria-hidden="true">&rarr;</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </uib-tab>
+                <uib-tab index="1" heading="Configuration">
+                    <div>
+                        <form name="newsForm" role="form" class="form-horizontal" enctype="multipart/form-data" ng-submit="vm.submit()">
+                            <h2>Edition de la page</h2>
+                            <element-div-admin element="vm.element" mode="form">
+
+                            </element-div-admin>
+                            <div class="form-group form-group-lg">
+                                <label for="DisplayMode" class="col-sm-3 col-xs-12 control-label">Type d'affichage</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select id="DisplayMode" name="uDisplayMode" class="form-control" ng-model="vm.model.displayMode">
+                                        <option value="article">Article</option>
+                                        <option value="galerie">Galerie d'images</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <hr/>
+                                <element-div-news-admin element="vm.metaElement">
+
+                                </element-div-news-admin>
+                            </div>
+                            <div class="form-group form-group-lg">
+                                <label class="col-sm-3 control-label">Etat : </label>
+                                <div class="col-sm-4">
+                                    <div class="btn-group">
+                                        <label class="btn btn-default btn-lg" ng-model="vm.data.data.state" uib-btn-radio="1">Publier</label>
+                                        <label class="btn btn-default btn-lg" ng-model="vm.data.data.state" uib-btn-radio="2">Brouillon</label>
+                                        <label class="btn btn-danger btn-lg" ng-model="vm.data.data.state" uib-btn-radio="3">Supprimer</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-lg">
+                                <label class="col-sm-3 control-label">Nombre d'éléments par page : </label>
+                                <div class="col-sm-4">
+                                    <div class="btn-group">
+                                        <label class="btn btn-default btn-lg" ng-model="vm.model.numberItemPerPage" uib-btn-radio="12">12</label>
+                                        <label class="btn btn-default btn-lg" ng-model="vm.model.numberItemPerPage" uib-btn-radio="30">30</label>
+                                        <label class="btn btn-default btn-lg" ng-model="vm.model.numberItemPerPage" uib-btn-radio="60">60</label>
+                                        <label class="btn btn-default btn-lg" ng-model="vm.model.numberItemPerPage" uib-btn-radio="120">120</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr />
+                            <div class="form-group">
+                                <div class="col-sm-3 col-xs-6">
+                                </div>
+                                <div class="col-sm-9 col-xs-6 mw-action">
+                                    <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Sauvegarder</span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </uib-tab>
+            </uib-tabset>
+
+        </div>    
+    </content>
+</page-breadcrumb>

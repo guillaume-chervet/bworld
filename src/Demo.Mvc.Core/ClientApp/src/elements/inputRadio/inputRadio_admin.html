@@ -1,0 +1,57 @@
+﻿<element-admin element="$ctrl.element">
+    <admin-title>
+        Radio
+    </admin-title>
+    <admin-edit>
+
+        <div class="form-group">
+
+
+        </div>
+        <div class="form-group form-group-lg">
+            <label class="col-sm-2 control-label">Question : </label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" ng-model="$ctrl.element.data.question" />
+            </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <label for="QuestionType" class="col-sm-2 control-label">Type réponse</label>
+            <div class="col-sm-4 col-xs-12">
+                <select id="QuestionType" name="uQuestionType" class="form-control" ng-model="$ctrl.element.data.type">
+                                        <option value="single">Unique</option>
+                                        <option value="multiple">Multiple</option>
+                                    </select>
+            </div>
+        </div>
+        <div ng-switch on="$ctrl.element.data.type">
+            <div ng-switch-when="multiple" class="form-group form-group-lg" ng-repeat="option in $ctrl.element.data.options">
+                <label class="col-sm-2">
+                                Réponse 
+                                <input type="checkbox" ng-model="$ctrl.element.data.responses[option.id]" ng-true-value="true" ng-false-value="false">
+                        </label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" ng-model="option.label" />
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-danger btn-lg" ng-click="$ctrl.removeOption(option)">X</button>
+                </div>
+            </div>
+            <div ng-switch-default class="form-group form-group-lg" ng-repeat="option in $ctrl.element.data.options">
+                <label class="col-sm-2">
+                                Réponse 
+                                <input type="radio" name="{{$ctrl.element.property}}" ng-model="$ctrl.element.data.response" ng-value="option.id" >
+                        </label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" ng-model="option.label" />
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-danger btn-lg" ng-click="$ctrl.removeOption(option)">X</button>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-default btn-lg" ng-click="$ctrl.addOption()">+</button>
+    </admin-edit>
+    <admin-view>
+        <element-input-radio ng-show="!$ctrl.isEditMode()" element="$ctrl.element"></element-input-radio>
+    </admin-view>
+</element-admin>

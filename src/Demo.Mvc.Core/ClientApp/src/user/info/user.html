@@ -1,0 +1,123 @@
+﻿
+<page-breadcrumb>
+    <content>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+                <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Paramètres bworld</h1>
+                <p>Cette page vous permet de visualiser vos informations personelles ainsi que vos paramètres.</p>
+
+                <div>
+                    <form name="formPerso" role="form" class="form-horizontal" enctype="multipart/form-data" novalidate mw-submit="$ctrl.submitPerso(formPerso)">
+                        <h2>Informations personnelles</h2>
+                        <div ng-if="!$ctrl.isEditPerso">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Prénom : </label>
+                                <div class="col-sm-4">
+                                    <span ng-bind="$ctrl.user.firstName"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Nom : </label>
+                                <div class="col-sm-4">
+                                    <span ng-bind="$ctrl.user.lastName"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Url auteur : </label>
+                                <div class="col-sm-4">
+                                    <span ng-bind="$ctrl.display($ctrl.user.authorUrl)"></span>
+                                </div>
+                                <mw-help-info content="'Cette url sera affichée avec votre nom/prénom.'"></mw-help-info>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Niveau informatique : </label>
+                                <div class="col-sm-4">
+                                    <span ng-bind="$ctrl.display(user.level)"></span>
+                                </div>
+                                <mw-help-info content="'Votre niveau en informatique. Permet d\'adapter les écrans du site à votre niveau.'"></mw-help-info>
+                            </div>
+                        </div>
+
+                        <div ng-if="$ctrl.isEditPerso">
+                            <div class="form-group form-group-lg" mw-container="formPerso.uFirstName">
+                                <label class="col-sm-3 control-label">Prénom* : </label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="uFirstName" ng-model="$ctrl.user.firstName" class="form-control" mw-validate="$ctrl.rules.firstName" />
+                                    <span mw-error="formPerso.uFirstName"></span>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-lg" mw-container="formPerso.uLastName">
+                                <label class="col-sm-3 control-label">Nom* : </label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="uLastName" ng-model="$ctrl.user.lastName" class="form-control" mw-validate="$ctrl.rules.lastName" />
+                                    <span mw-error="formPerso.uLastName"></span>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-lg" mw-container="formPerso.uAuthorUrl">
+                                <label class="col-sm-3 control-label">Url auteur : </label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="uAuthorUrl" ng-model="$ctrl.user.authorUrl" class="form-control" mw-validate="$ctrl.rules.authorUrl" />
+                                    <span mw-error="formPerso.uAuthorUrl"></span>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-lg">
+                                <label class="col-sm-3 control-label">Niveau informatique : </label>
+                                <div class="col-sm-4">
+                                    <select name="uLevel" class="form-control" ng-model="$ctrl.user.level">
+                                        <option value="">- Sélectionner -</option>
+                                        <option value="0">Débutant</option>
+                                        <option value="1">Moyen</option>
+                                        <option value="1">Développeur</option>
+                                    </select>
+                                </div>
+                                <!-- <div class="col-xs-2 col-sm-1">
+                                <a class="mw-help" role="button" uib-popover="Votre niveau en informatique. Permet d'adapter les écrans du site à votre niveau." popover-title="Aide">i</a>
+                            </div>-->
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="button" ng-if="!$ctrl.isEditPerso" class="btn btn-lg btn-default" ng-click="$ctrl.editPerso(formPerso)"><span class="glyphicon glyphicon-pencil"></span><span>Modifier</span></button>
+                                <button type="button" ng-if="$ctrl.isEditPerso" class="btn btn-lg btn-danger" ng-click="$ctrl.cancelPerso(formPerso)"><span class="glyphicon glyphicon-remove"></span><span>Annuler</span></button>
+                                <button type="submit" ng-if="$ctrl.isEditPerso" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Sauvegarder</span></button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr />
+                    <form name="formEmail" role="form" class="form-horizontal" enctype="multipart/form-data" novalidate mw-submit="$ctrl.submitMail(formEmail)">
+
+                        <h2>Information de contact</h2>
+
+                        <div ng-show="!$ctrl.isEditMail" class="form-group form-group-lg">
+                            <label class="col-sm-3 control-label">Email : </label>
+                            <div class="col-sm-4">
+                                <span ng-bind="$ctrl.user.email"></span>
+                            </div>
+                        </div>
+                        <div ng-show="$ctrl.isEditMail" class="form-group form-group-lg" mw-container="formEmail.uEmail">
+                            <label class="col-sm-3 control-label">Email* : </label>
+                            <div class="col-sm-4">
+                                <input type="email" name="uEmail" ng-model="$ctrl.user.email" class="form-control" mw-validate="$ctrl.rules.email" />
+                                <span mw-error="formEmail.uEmail"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="button" ng-if="!$ctrl.isEditMail" class="btn btn-lg btn-default" ng-click="$ctrl.editMail(formEmail)"><span class="glyphicon glyphicon-pencil"></span><span>Modifier</span></button>
+                                <button type="button" ng-if="$ctrl.isEditMail" class="btn btn-lg btn-danger" ng-click="$ctrl.cancelMail(formEmail)"><span class="glyphicon glyphicon-remove"></span><span>Annuler</span></button>
+                                <button type="submit" ng-if="$ctrl.isEditMail" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-floppy-disk"></span><span>Sauvegarder</span></button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <hr />
+                    <association-login />
+                </div>
+            </div>
+        </div>    
+    </content>
+</page-breadcrumb>

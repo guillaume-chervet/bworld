@@ -1,0 +1,47 @@
+﻿
+
+<h2>{{$ctrl.title}}</h2>
+<empty empty-items="$ctrl.menuItems" empty-text="'Aucune page n\'est présente dans le ' + $ctrl.title"></empty>
+
+        <ul>
+            <li class="mw-parent" ng-repeat="menuItem in $ctrl.menuItems  track by $index">
+                <p>
+                    {{menuItem.title}} 
+                    <span ng-if="vm.isDraft(menuItem)" class="label label-default"> Brouillon</span>
+                    <span ng-if="vm.isDeleted(menuItem)" class="label label-danger"> Supprimé</span>
+                </p>
+                <div mw-help="Monter d'un niveau;Descendre d'un niveau;Changer de menu;Positionner en tant qu'enfant du menu située juste au dessus">
+                    <button type="button" class="btn btn-lg btn-primary" ng-click="$ctrl.up(menuItem, $ctrl.menuItems)" ng-disabled="!$ctrl.canUp(menuItem, $ctrl.menuItems)">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </button>
+                    <button type="button" class="btn btn-lg btn-primary" ng-click="$ctrl.down(menuItem, $ctrl.menuItems)" ng-disabled="!$ctrl.canDown(menuItem, $ctrl.menuItems)">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    
+                    <div ng-transclude="actions"></div>
+                        <button type="button" class="btn btn-lg btn-warning" ng-show="$ctrl.canSetChild(menuItem, $ctrl.menuItems)" ng-click="$ctrl.setChild(menuItem, $ctrl.menuItems)">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </div>
+                <ul>
+                    <li class="mw-child" ng-repeat="menuItemChild in menuItem.childs track by $index">
+                        <p>
+                            {{menuItemChild.title}} 
+                            <span ng-if="vm.isDraft(menuItemChild)" class="label label-default"> Brouillon</span>
+                            <span ng-if="vm.isDeleted(menuItemChild)" class="label label-danger"> Supprimé</span>
+                        </p>
+                        <div mw-help="Monter d'un niveau;Descendre d'un niveau;Repositionner le menu au premier niveau">
+                            <button type="button" class="btn btn-lg btn-primary" ng-click="$ctrl.up(menuItemChild, menuItem.childs)" ng-disabled="!$ctrl.canUp(menuItemChild, menuItem.childs)">
+                                <span class="glyphicon glyphicon-chevron-up"></span>
+                            </button>
+                            <button type="button" class="btn btn-lg btn-primary" ng-click="$ctrl.down(menuItemChild, menuItem.childs)" ng-disabled="!$ctrl.canDown(menuItemChild, menuItem.childs)">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            <button type="button" class="btn btn-lg btn-warning" ng-show="$ctrl.canSetParent(menuItemChild)" ng-click="$ctrl.setParent(menuItemChild, $ctrl.menuItems, menuItem)">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>

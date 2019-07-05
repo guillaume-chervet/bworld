@@ -1,0 +1,38 @@
+﻿/*
+.mw-social .panel-heading h3 .mw-title {
+	font-size: 1.1em;
+    font-weight: bold;
+}
+
+
+.mw-social--other  {
+    color: black;
+}*/
+
+.mw-social a.btn-social {
+     color: white;  
+ }
+
+a.mw-social--other:visited {
+    color: blue!important;  
+}
+
+a.mw-social--other:hover {
+    color: white!important;  
+}
+
+ .mw-social .btn-default .fa {
+    padding-right: 4px;
+}
+ /*
+ .aside .nav  li  div a.mw-phone {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.aside .nav  li  div a.mw-phone:hover, .nav  li div  a.mw-phone:focus {
+    text-decoration: none;
+    background-color: #eee;
+}
+     */

@@ -1,0 +1,42 @@
+﻿<style>
+    .mw-form-element-radio .radio {
+        margin-left: 30px;
+    }
+
+    .mw-form-element-radio .error-block {
+        margin-left: 30px;
+    }
+
+    .mw-form-element-radio .success-block {
+        margin-left: 30px;
+    }
+
+    .mw-form-element-radio {
+        margin-bottom: 20px;
+    }
+</style>
+<div class="mw-form-element-radio" ng-class="{'has-error has-feedback': $ctrl.showError(), 'has-success has-feedback': $ctrl.showSuccess()}">
+    <label><b>{{$ctrl.element.data.question}}</b></label>
+    <div ng-switch on="$ctrl.element.data.type">
+         <div ng-switch-when="multiple" class="radio" ng-repeat="option in $ctrl.element.data.options">
+            <label>
+                <input type="checkbox" ng-disabled="$ctrl.disabled()" name="{{$ctrl.element.property}}" ng-model="$ctrl.model.responses[option.id]"  ng-true-value="true" ng-false-value="false">
+                {{option.label}}
+            </label>
+        </div>
+        <div ng-switch-default class="radio" ng-repeat="option in $ctrl.element.data.options">
+            <label>
+                <input type="radio" ng-disabled="$ctrl.disabled()" name="{{$ctrl.element.property}}" ng-model="$ctrl.model.response" ng-value="option.id" >
+                {{option.label}}
+            </label>
+        </div>
+    </div>
+    <div ng-if="$ctrl.showError()">
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        <span class="error-block">Mauvaise réponse.</span>
+    </div>
+    <div ng-if="$ctrl.showSuccess()">
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        <span class="success-block">Bonne réponse.</span>
+    </div>
+</div>

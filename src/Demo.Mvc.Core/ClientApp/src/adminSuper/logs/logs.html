@@ -1,0 +1,97 @@
+﻿
+<page-full-breadcrumb>
+    <content>
+        <h1>Logs</h1>
+
+        <p>Cette page vous permet de visualiser les logs. Triées par date décroissante.</p>
+
+        <form role="form" name="form" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="$ctrl.submit()">
+            <h2>Filtres de recherche</h2>
+
+            <div class="form-group form-group-lg">
+                <label class="col-sm-3 control-label">Niveau:</label>
+                <div class="col-sm-4">
+                    <select class="form-control" ng-model="$ctrl.filter.level">
+                        <option value="">- Sélectionner -</option>
+                        <option value="4">Info</option>
+                        <option value="1">Debug</option>
+                        <option value="3">Warn</option>
+                        <option value="2">Error</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-group-lg">
+                <label class="col-sm-3 control-label">Origin: </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" ng-model="$ctrl.filter.origin" />
+                </div>
+            </div>
+
+            <div class="form-group form-group-lg">
+                <label class="col-sm-3 control-label">Filtre: </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" ng-model="$ctrl.filter.filter" />
+                </div>
+            </div>
+
+            <div class="form-group form-group-lg">
+                <label class="col-sm-3 control-label">Date début: </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" ng-model="$ctrl.filter.beginDate" />
+                </div>
+            </div>
+
+            <div class="form-group form-group-lg">
+                <label class="col-sm-3 control-label">Date fin: </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" ng-model="$ctrl.filter.endDate" />
+                </div>
+            </div>
+
+            <hr />
+            <div class="form-group">
+                <div class="col-sm-3 col-xs-6">
+                    <button type="button" ng-click="$ctrl.clear()" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span><span>Effacer Toutes les logs</span></button>
+                </div>
+                <div class="col-sm-9 col-xs-6 mw-action">
+                    <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span><span>Rechercher</span></button>
+                </div>
+            </div>
+        </form>
+
+        <p>Nombre de log: <b>{{$ctrl.data.logs.length}}</b></p>
+        <table class="table" ng-show="$ctrl.data.logs.length > 0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Niveau</th>
+                    <th>Origine</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="log in $ctrl.data.logs">
+                    <td>{{ log.createAt | date:'dd/MM/yyyy à HH:mm' }}</td>
+                    <td>{{ log.level }}
+                        <div class="animate-switch-container"
+                             ng-switch on="log.level">
+                            <div class="animate-switch" ng-switch-when="1">Debug</div>
+                            <div class="animate-switch" ng-switch-when="2">Error</div>
+                            <div class="animate-switch" ng-switch-when="3">Warn</div>
+                            <div class="animate-switch" ng-switch-default>Info</div>
+                        </div>
+                    
+                    </td>
+                    <td>{{ log.applicationName }}</td>
+                    <td>
+                        <span style="word-wrap: break-word;">{{ log.message }}</span>
+                        <span ng-if="log.exception" style="color: red; word-wrap: break-word;">{{ log.exception }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+         <empty empty-items="$ctrl.data.logs" empty-text="'Aucune log.'" />
+    </content>
+</page-full-breadcrumb>

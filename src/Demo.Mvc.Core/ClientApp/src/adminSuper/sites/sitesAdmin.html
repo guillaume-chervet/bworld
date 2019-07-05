@@ -1,0 +1,37 @@
+﻿
+<page-breadcrumb>
+    <content>
+        <div>
+            <h1>{{$ctrl.master.titlePage}}</h1>
+
+
+            <div >
+                <form role="form" class="form-horizontal" enctype="multipart/form-data">
+                    <h2>Liste des sites</h2>
+
+                    <table class="table table-striped ">
+                        <thead>
+                            <!-- En-tête du tableau -->
+                            <tr>
+                                <th>SiteId</th>
+                                <th>Url</th>
+                                <th>Effacer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Corps du tableau -->
+                            <tr data-ng-repeat="site in $ctrl.sites">
+                                <td><span ng-bind="site.siteId"></span></td>
+                                <td><a ng-href="{{site.url}}" ng-bind="site.url"></a></td>
+                                <td><button type="button" class="btn btn-danger" ng-click="$ctrl.delete(site)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button type="button" class="btn btn-danger" ng-click="$ctrl.clearCache(site)"><span class="glyphicon glyphicon-remove"></span> Supprimer les caches</button>
+                </form>
+            </div>
+        </div>        
+    </content>
+
+</page-breadcrumb>

@@ -1,0 +1,32 @@
+﻿<element-admin element="$ctrl.element">
+    <admin-title>
+        Formulaire envoi message
+    </admin-title>
+
+    <admin-edit>
+        <table class="table table-striped">
+            <thead>
+                <!-- En-tête du tableau -->
+                <tr>
+                    <th>Titre messages</th>
+                    <th>Effacer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Corps du tableau -->
+                <tr data-ng-repeat="data in $ctrl.element.data.subjects">
+                    <td><input id="Title" type="text" name="Title" ng-model="data.title" class="form-control" /></td>
+                    <td><button type="button" class="btn btn-danger" ng-click="$ctrl.delete(data)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td><button type="button" class="btn btn-default" ng-click="$ctrl.add()"><span class="glyphicon glyphicon-plus"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </admin-edit>
+    <admin-view>
+
+        <element-message ng-show="!$ctrl.isEditMode()" element="$ctrl.element"></element-message>
+    </admin-view>
+</element-admin>

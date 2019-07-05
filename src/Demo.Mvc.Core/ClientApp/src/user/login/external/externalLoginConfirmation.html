@@ -1,0 +1,52 @@
+﻿
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+        <h1>Associer votre compte {{$ctrl.page.provider}}</h1>
+        <p>
+            Vous avez été authentifié avec succès avec <strong>{{$ctrl.page.provider}}</strong>.
+            Entrez un nom d'utilisateur pour ce site ci-dessous, puis cliquez sur le bouton Inscription pour finir de
+            vous connecter.
+        </p>
+
+        <form role="form" name="form" class="form-horizontal" enctype="multipart/form-data" novalidate mw-submit="$ctrl.submit(form)">
+            <h2>Vos informations</h2>
+
+            <div class="form-group form-group-lg" mw-container="form.uEmail">
+                <label for="Email" class="col-sm-3 control-label">Email: </label>
+                <div class="col-sm-4">
+                    <input id="Email" type="email" name="uEmail" ng-model="$ctrl.user.email" class="form-control" mw-validate="$ctrl.rules.email" />
+                    <span mw-error="form.uEmail"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-lg" mw-container="form.uLastName">
+                <label for="LastName" class="col-sm-3 control-label">Nom: </label>
+                <div class="col-sm-4">
+                    <input id="LastName" type="text" name="uLastName" ng-model="$ctrl.user.lastName" class="form-control" mw-validate="$ctrl.rules.lastName" />
+                    <span mw-error="form.uLastName"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-lg" mw-container="form.uFirstName">
+                <label for="FirstName" class="col-sm-3 control-label">Prénom: </label>
+                <div class="col-sm-4">
+                    <input id="FirstName" type="text" name="uFirstName" ng-model="$ctrl.user.firstName" class="form-control" mw-validate="$ctrl.rules.firstName" />
+                    <span mw-error="form.uFirstName"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-lg" mw-container="form.uCondition">
+				<div class="checkbox col-sm-offset-3 col-sm-9">
+                    <label>
+                        <input name="uCondition" type="checkbox" ng-model="$ctrl.site.isConditionAccepted" mw-validate="$ctrl.rules.condition">
+	                    J'accepte les <a href="https://www.bworld.fr/page/5c34885b-01ee-4436-99b6-adbf36c467dc/regles-de-confidentialite?display_menu=false" target="_blank">règles de confidentialité</a>
+                    </label>
+                    <span mw-error="form.uCondition"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group form-group-lg">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-ok"></span> Inscription</button>
+                </div>
+            </div>
+        </form>
+</div>
+</div>

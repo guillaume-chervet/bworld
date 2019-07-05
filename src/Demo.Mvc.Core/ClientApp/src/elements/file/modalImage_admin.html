@@ -1,0 +1,66 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="$ctrl.ok()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h4 class="modal-title">{{$ctrl.getSlide($ctrl.active).file.title}}</h4>
+</div>
+<div class="modal-body">
+
+    <div uib-carousel active="$ctrl.active" interval="-1" no-wrap="false">
+        <div uib-slide ng-repeat="slide in $ctrl.slides track by slide.id" index="slide.id">
+            <img class="img-responsive" ng-src="{{slide.url}}" style="margin: auto;">
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <label for="uTitle" class="col-sm-3 control-label">Titre : </label>
+            <div class="col-sm-4">
+                <input type="text" name="uTitle" ng-model="$ctrl.getSlide($ctrl.active).file.title" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <label for="uDescription" class="col-sm-3 control-label">Description : </label>
+            <div class="col-sm-4">
+                <textarea rows="4" name="uDescription" ng-model="$ctrl.getSlide($ctrl.active).file.description" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-3 control-label">Forme miniature : </label>
+            <div class="col-sm-4">
+                <select name="uThumbDisplayMode" class="form-control" ng-model="$ctrl.getSlide($ctrl.active).file.thumbDisplayMode">
+                    <option value="">Par défaut</option>
+                    <option value="thumbnail">Bord carré</option>
+                    <option value="rounded">Bord arondi</option>
+                    <option value="circle">Cercle</option>
+                </select>
+            </div>
+            <mw-help-info content="'Manière dont sont affichées les images'"></mw-help-info>
+        </div>
+        <div class="row">
+            <label class="col-sm-3 control-label">Comportement clic: </label>
+            <div class="col-sm-4">
+                <select name="uBehavior" class="form-control" ng-model="$ctrl.getSlide($ctrl.active).file.behavior">
+                    <option value="">Zoomable</option>
+                    <option value="noZoom">Non zoomable</option>
+                    <option value="link">Lien vers une autre page</option>
+                </select>
+            </div>
+            <mw-help-info content="'Comportement lors du clic utilisateur sur l\'image miniature'"></mw-help-info>
+        </div>
+        <div class="row" ng-if="$ctrl.getSlide($ctrl.active).file.behavior=='link'">
+            <label for="Link" class="col-sm-3 col-md-3 col-xs-12 control-label">Lien</label>
+            <div class="col-sm-9 col-md-9 col-xs-12">
+                <select id="Link" name="uLink" class="form-control" ng-model="$ctrl.getSlide($ctrl.active).file.link.id" ng-options="c.id as c.title for c in $ctrl.menuItems">
+                    <option value="">- Sélectionner -</option>
+                </select>
+                <input type="text" ng-model="$ctrl.getSlide($ctrl.active).file.link.anchor" />
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-lg btn-primary" ng-click="$ctrl.ok()">Fermer</button>
+</div>

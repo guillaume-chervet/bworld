@@ -1,0 +1,64 @@
+﻿
+<style>
+
+    .mw-file .file-panel h3 {
+        color: white;
+        font-size: 1.1em;
+    }
+
+    .mw-file .file-panel {
+        font-size: 0.9em;
+    }
+
+    .mw-file .file-panel {
+        position: fixed;
+        z-index: 1000;
+        top: 20px;
+        background-color: slategrey;
+        right: 20px;
+        color: white;
+        width: 300px;
+        padding: 10px;
+    }
+
+</style>
+
+<script type="text/ng-template" id="file-switch-admin.html">
+    <button type="button" class="btn btn-danger mw-image-delete" ng-click="$ctrl.destroy($ctrl.element, file)">
+        <span class="glyphicon glyphicon-trash"></span>
+    </button>
+    <button type="button" ng-click="$ctrl.up($ctrl.element, file)" ng-show="$ctrl.canUp($ctrl.element, file)" class="btn btn-primary mw-image-up">
+        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+    </button>
+    <button type="button" ng-click="$ctrl.down($ctrl.element, file)" ng-show="$ctrl.canDown($ctrl.element, file)" class="btn btn-primary mw-image-down">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+    </button>
+    <img data-ng-src="{{file.thumbnailUrl}}" class="center-block img-responsive hand" alt="{{file.name}}"  ng-click="$ctrl.open($ctrl.element, file, true)" />
+</script>
+
+ <div class="animate-switch-container" ng-switch on="$ctrl.mode">
+      <div class="animate-switch" ng-switch-when="form" >
+        <div class="form-group-lg">
+            <label for="{{$ctrl.element.property}}" class="col-sm-3 col-xs-12 control-label">Média</label>
+            <div class="col-sm-9 col-xs-12">
+                <upload element="$ctrl.element"></upload>
+            </div>
+        </div>
+     </div>
+      <div class="animate-switch" ng-switch-default>
+          <element-admin element="$ctrl.element">
+            <admin-title>
+                Images
+            </admin-title>
+            <admin-edit>
+                <upload element="$ctrl.element"></upload>
+        </admin-edit>
+            <admin-view>
+                <element-file element="$ctrl.element"></element-file>
+            </admin-view>
+        </element-admin>
+      </div>
+  </div>
+
+
+

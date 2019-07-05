@@ -1,0 +1,24 @@
+@media (max-width: 767px ) {
+    .navbar-default {
+        min-height: 64px;
+        margin-bottom: 11px;
+        padding-top: 6px;
+    }
+}
+
+
+@media (max-width: 993px) {
+
+    .mw-menu-item-2 {
+             display: none !important;
+        }
+
+}
+
+.jumbotron {
+    margin-top: -20px;
+}
+
+.navbar-collapse a.btn-social {
+    margin-top: 8px;
+}

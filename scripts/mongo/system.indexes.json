@@ -1,0 +1,319 @@
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.cache"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "SiteId" : 1.0
+    }, 
+    "name" : "SiteId", 
+    "ns" : "bworld-MongoLab.site.cache"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "Key" : 1.0, 
+        "Type" : 1.0
+    }, 
+    "name" : "KeyType", 
+    "ns" : "bworld-MongoLab.site.cache"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.item"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "SiteId" : 1.0
+    }, 
+    "name" : "SiteId", 
+    "ns" : "bworld-MongoLab.site.item"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "SiteId" : 1.0, 
+        "ParentId" : 1.0
+    }, 
+    "name" : "ParentId", 
+    "ns" : "bworld-MongoLab.site.item"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.seo"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "Url" : 1.0
+    }, 
+    "name" : "Url", 
+    "ns" : "bworld-MongoLab.site.seo"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "SiteId" : 1.0
+    }, 
+    "name" : "SiteId", 
+    "ns" : "bworld-MongoLab.site.seo"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.stats"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "SiteId" : 1.0
+    }, 
+    "name" : "SiteId", 
+    "ns" : "bworld-MongoLab.site.stats"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "CreateDate" : 1.0
+    }, 
+    "name" : "CreateDate", 
+    "ns" : "bworld-MongoLab.site.stats"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.user"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "Logins.LoginProvider" : 1.0, 
+        "Logins.ProviderKey" : 1.0
+    }, 
+    "name" : "Logins", 
+    "ns" : "bworld-MongoLab.site.user"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.msg.chat"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.fs.files"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "filename" : 1.0, 
+        "uploadDate" : 1.0
+    }, 
+    "name" : "filename_1_uploadDate_1", 
+    "ns" : "bworld-MongoLab.fs.files"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "metadata.id" : 1.0, 
+        "metadata.type" : 1.0
+    }, 
+    "name" : "SiteId", 
+    "ns" : "bworld-MongoLab.fs.files"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.fs.chunks"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "files_id" : 1.0, 
+        "n" : 1.0
+    }, 
+    "name" : "files_id_1_n_1", 
+    "ns" : "bworld-MongoLab.fs.chunks"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "Module" : NumberInt(1), 
+        "SiteId" : NumberInt(1), 
+        "Index" : NumberInt(1)
+    }, 
+    "name" : "Module_1_SiteId_1_Index_1", 
+    "ns" : "bworld-MongoLab.site.item", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "fieldName" : NumberInt(1)
+    }, 
+    "name" : "{\"ParentId\": 1, \"SiteId\": 1, \"Index\": -1}", 
+    "ns" : "bworld-MongoLab.site.item", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "Module" : NumberInt(1), 
+        "ParentId" : NumberInt(1), 
+        "PropertyName" : NumberInt(1), 
+        "SiteId" : NumberInt(1), 
+        "Index" : NumberInt(1)
+    }, 
+    "name" : "Module_1_ParentId_1_PropertyName_1_SiteId_1_Index_1", 
+    "ns" : "bworld-MongoLab.site.item", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "ParentId" : NumberInt(1), 
+        "SiteId" : NumberInt(1), 
+        "Index" : NumberInt(-1)
+    }, 
+    "name" : "ParentId_1_SiteId_1_Index_-1", 
+    "ns" : "bworld-MongoLab.site.item", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "metadata.id" : NumberInt(1), 
+        "metadata.module" : NumberInt(1), 
+        "metadata.parentId" : NumberInt(1), 
+        "metadata.propertyName" : NumberInt(1), 
+        "uploadDate" : NumberInt(-1)
+    }, 
+    "name" : "metadata.id_1_metadata.module_1_metadata.parentId_1_metadata.propertyName_1_uploadDate_-1", 
+    "ns" : "bworld-MongoLab.fs.files", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "Date" : NumberInt(1), 
+        "SiteId" : NumberInt(1)
+    }, 
+    "name" : "Date_1_SiteId_1", 
+    "ns" : "bworld-MongoLab.site.stats", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.msg.comment"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "IsTemporary" : NumberInt(1), 
+        "Module" : NumberInt(1), 
+        "ParentId" : NumberInt(1), 
+        "SiteId" : NumberInt(1), 
+        "Index" : NumberInt(1)
+    }, 
+    "name" : "IsTemporary_1_Module_1_ParentId_1_SiteId_1_Index_1", 
+    "ns" : "bworld-MongoLab.site.item", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "SiteId" : NumberInt(1), 
+        "Date" : NumberInt(1)
+    }, 
+    "name" : "SiteId_1_Date_1", 
+    "ns" : "bworld-MongoLab.site.seo", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.siteuser"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.file"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "SiteId" : NumberInt(1), 
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "SiteId_1__id_1", 
+    "ns" : "bworld-MongoLab.site.item", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "Module" : NumberInt(1), 
+        "ParentId" : NumberInt(1), 
+        "PropertyName" : NumberInt(1), 
+        "SiteId" : NumberInt(1)
+    }, 
+    "name" : "Module_1_ParentId_1_PropertyName_1_SiteId_1", 
+    "ns" : "bworld-MongoLab.site.file", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.tags"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "bworld-MongoLab.site.log"
+}

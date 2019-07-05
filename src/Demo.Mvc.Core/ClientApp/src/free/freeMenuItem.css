@@ -1,0 +1,33 @@
+.mw-navbar-center  .mw-submenuitem  li {
+    display: inline-block;
+    float: none;
+    margin: 0px 0px;
+    vertical-align: middle;
+}
+.mw-submenuitem .divider {
+    background-color: #444444;
+    width: 100%;
+}
+
+.mw-submenuitem ul.dropdown-menu li a,   .open .mw-submenuitem a {
+    color: black;
+}
+
+.navbar-default .navbar-nav > li .mw-submenuitem ul li a:link {
+    color: black;
+}
+
+.navbar-default .navbar-nav > li .mw-submenuitem ul li  a:visited {
+    color: black;
+}
+.navbar-default .navbar-nav > li .mw-submenuitem ul li  a:hover {
+    color: black;
+    background-color: gainsboro;
+}
+.mw-submenuitem ul li {
+    margin: 0px 0px;
+    padding: 0px 0px;
+    width: 100%;
+}
+
+

@@ -1,0 +1,14 @@
+﻿
+
+
+<element-admin element="$ctrl.element">
+    <admin-title>
+        Petit titre
+    </admin-title>
+    <admin-edit>
+        <input type="text" name="field" id="{{$ctrl.element.property}}" ng-model="$ctrl.element.data" class="form-control" placeholder="Titre" />
+    </admin-edit>
+    <admin-view>
+        <element-h2 ng-show="!$ctrl.isEditMode()" element="$ctrl.element"></element-h2>
+    </admin-view>
+</element-admin>

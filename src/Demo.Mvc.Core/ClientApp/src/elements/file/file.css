@@ -1,0 +1,25 @@
+﻿
+
+  .mw-image-delete {
+      position: absolute;
+      top: 4px;
+      left: 20px;
+      background-color: rgba(201, 48, 44, 0.4);
+  }
+
+  .mw-image-up {
+      position: absolute;
+      top: 4px;
+      left: 70px;
+      background-color: rgba(44, 72, 201, 0.4);
+
+  }
+
+  .mw-image-down {
+      position: absolute;
+      top: 4px;
+      left: 110px;
+      background-color: rgba(44, 72, 201, 0.4);
+
+  }
+

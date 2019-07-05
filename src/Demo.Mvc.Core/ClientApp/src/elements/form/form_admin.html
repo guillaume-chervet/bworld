@@ -1,0 +1,50 @@
+<element-admin element="$ctrl.element">
+    <admin-title>
+        Grille
+    </admin-title>
+    <admin-edit>
+
+        <uib-tabset>
+            <uib-tab index="0">
+                <uib-tab-heading>
+                    <span>Introduction</span>
+                </uib-tab-heading>
+                <div class="form-group form-group-lg">
+                    <label for="Type" class="col-sm-2 control-label">Type</label>
+                    <div class="col-sm-4 col-xs-12">
+                        <select id="Type" name="uType" class="form-control" ng-model="$ctrl.element.data.type">
+                            <option value="training">Entrainement</option>
+                            <option value="test">Examen</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-lg">
+                    <label for="Description" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-4 col-xs-12">
+                        <textarea ng-model="$ctrl.element.data.label" class="form-control" id="Description" name="uDescription" rows="6" cols="30"></textarea>
+                    </div>
+                </div>
+                <div class="form-group form-group-lg" ng-if="$ctrl.element.data.type === 'test'" >
+                    <label for="Time" class="col-sm-2 control-label">Temps (minutes)</label>
+                    <div class="col-sm-4 col-xs-12">
+                        <input type="number" id="Time" name="uTime" class="form-control" ng-model="$ctrl.element.data.time" />
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab ng-repeat="element in $ctrl.element.childs" index="$index+1">
+                <uib-tab-heading>
+                    <span>{{$ctrl.getTitle(element.data.label)}}</span>
+                </uib-tab-heading>
+                <button class="btn btn-danger btn-lg" type="button" ng-click="$ctrl.removeTab($ctrl.element, element)"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+                <button class="btn btn-default btn-lg" type="button" ng-click="$ctrl.addTab($ctrl.element, element)"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+                <input type="text" name="field" id="{{element.property}}" ng-model="element.data.label" class="form-control" placeholder="Titre"/>
+                <element-div-admin element="element">
+                </element-div-admin>
+            </uib-tab>
+        </uib-tabset>
+
+    </admin-edit>
+    <admin-view>
+        <element-form element="$ctrl.element"></element-form>
+    </admin-view>
+</element-admin>

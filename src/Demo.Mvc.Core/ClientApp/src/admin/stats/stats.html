@@ -1,0 +1,138 @@
+﻿
+<page-full-breadcrumb>
+    <content>
+
+            <div class="mw-stats row">
+                <h1><span class="glyphicon glyphicon-stats"></span>Statistiques</h1>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <button type="button" class="btn btn-primary btn-lg" ng-click="$ctrl.previous()"><span class="glyphicon glyphicon glyphicon-chevron-left"></span><span class="hidden-xs">Précédent</span></button>
+                    </div>
+                    <div class="col-xs-6 center-block" style="text-align: center;">
+                        <span><b>{{$ctrl.filter.date | date:'dd/MM/yyyy' }}</b></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <button type="button" class="btn btn-primary btn-lg pull-right" ng-disabled="$ctrl.isNextDisabled()" ng-click="$ctrl.next()"><span class="glyphicon glyphicon glyphicon-chevron-right"></span><span class="hidden-xs">Suivant</span></button>
+                    </div>
+                </div>
+                <div ng-show="$ctrl.data.pages.length > 0" google-chart chart="$ctrl.chartObject" style="height: 400px; width: 100%;"></div>
+
+                <div class="table-responsive" ng-show="$ctrl.data.pages.length > 0">
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="mw-stats-row">Page</th>
+                                <th>Vue</th>
+                                <th>Arrivée</th>
+                                <th>Nouveaux visiteurs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="page in $ctrl.data.pages">
+                                <td class="mw-stats-row">
+                                    <a ng-class="$ctrl.getClass(page.pageName)" href="{{page.url}}"> {{ $ctrl.truncate(page.pageName) }}</a>
+                                    <div ng-repeat="params in page.pageParams" class="params">
+                                        <p>{{ $ctrl.truncate(params.param) }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ page.nbView }}
+                                    <div ng-repeat="params in page.pageParams" class="params">
+                                        <p>{{params.nbView}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ page.nbNewClientSession }}
+                                    <div ng-repeat="param in page.pageParams" class="params">
+                                        <p>{{ param.nbNewClientSession }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ page.nbNewCookieSession }}
+                                    <div ng-repeat="params in page.pageParams" class="params">
+                                        <p>{{params.nbNewCookieSession}}</p>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="mw-stats-row"><b>Total</b></td>
+                                <td><b>{{$ctrl.data.nbPageView}}</b></td>
+                                <td><b>{{$ctrl.data.nbVisit}}</b></td>
+                                <td><b>{{$ctrl.data.nbNewVisitor}}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="$ctrl.data.referrers.length > 0">
+                    <h2>Information d'arrivées sur le site</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="mw-stats-row">Url de provenance</th>
+                                    <th>Url d'arrivée</th>
+                                    <th>Nombre arrivée</th>
+                                    <th>Nouveaux visiteurs</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="referrer in $ctrl.data.referrers">
+                                    <td class="mw-stats-row"><a ng-if="referrer.referrer" href="{{referrer.referrer}}">{{ $ctrl.truncate(referrer.referrer) }}</a><span ng-if="!referrer.referrer">Accès directe</span></td>
+                                    <td><a href="{{referrer.url}}">{{ $ctrl.truncate(referrer.url) }}</a></td>
+                                    <td>{{ referrer.nbNewClientSession }}</td>
+                                    <td>{{ referrer.nbNewCookieSession }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div ng-if="$ctrl.data.devices.length > 0">
+                    <h2>Type de périphériques</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="mw-stats-row">Périphérique</th>
+                                    <th>Nombre arrivée</th>
+                                    <th>Nombre arrivée nouvel utilisateur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="device in $ctrl.data.devices">
+                                    <td class="mw-stats-row">{{device.device}}</td>
+                                    <td>{{ device.nbNewClientSession }}</td>
+                                    <td>{{ device.nbNewCookieSession }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div ng-if="$ctrl.data.regions.length > 0">
+                    <h2>Données géographique</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="mw-stats-row">Pays</th>
+                                    <th>Région</th>
+                                    <th>Nombre arrivée</th>
+                                    <th>Nombre arrivée nouvel utilisateur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="region in $ctrl.data.regions">
+                                    <td class="mw-stats-row">{{ region.country }}</td>
+                                    <td>{{ region.regionName }}</td>
+                                    <td>{{ region.nbNewClientSession }}</td>
+                                    <td>{{ region.nbNewCookieSession }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <empty empty-items="$ctrl.data.pages" empty-text="'Aucune statistique pour cette date.'" />
+            </div>
+</content>
+</page-full-breadcrumb>

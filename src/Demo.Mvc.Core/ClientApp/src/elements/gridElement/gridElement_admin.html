@@ -1,0 +1,59 @@
+﻿
+<element-admin element="$ctrl.element" ng-class="$ctrl.cssClass($ctrl.element)">
+    <admin-title>
+        Colonne
+    </admin-title>
+    <admin-edit>
+
+        <div class="row mw-grid-element">
+            <div ng-form name="fieldForm" class="form-group">
+                <label for="Type" class="col-sm-12 col-md-12 col-xs-12 control-label">Type affichage</label>
+                <div class="col-sm-12 col-md-12 col-xs-12">
+                    <select id="Type" name="uType" class="form-control" ng-model="$ctrl.element.data.type">
+                        <option value="">- Sélectionner -</option>
+                        <option value="1">Colonne</option>
+                        <option value="2">Panel</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="animate-switch-container"
+                 ng-switch on="$ctrl.element.data.type">
+                <div class="animate-switch" ng-switch-when="2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div ng-form name="fieldForm" class="form-group">
+                                <label for="title" class="col-sm-12 col-md-12 col-xs-12 control-label">Titre en-tête</label>
+                                <div class="col-sm-12 col-md-12 col-xs-12">
+                                    <input type="text" name="field" id="title" ng-model="$ctrl.element.data.title" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <element-div-admin element="$ctrl.element">
+                            </element-div-admin>
+                        </div>
+                        <div class="panel-footer">
+                            <div ng-form name="fieldForm" class="form-group">
+                                <label for="footer" class="col-sm-12 col-md-12 col-xs-12 control-label">Titre pied</label>
+                                <div class="col-sm-12 col-md-12 col-xs-12">
+                                    <input type="text" name="field" id="footer" ng-model="$ctrl.element.data.footer" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-switch" ng-switch-default>
+                    <element-div-admin element="$ctrl.element">
+                    </element-div-admin>
+                </div>
+            </div>
+        </div>
+
+    </admin-edit>
+    <admin-add>
+    </admin-add>
+        <admin-view>
+            <element-grid-element element="$ctrl.element" no-class="true"></element-grid-element>
+        </admin-view>
+</element-admin>

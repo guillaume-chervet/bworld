@@ -1,0 +1,11 @@
+﻿User-Agent: *
+Disallow: /administration/
+Disallow: /super-administration/
+Disallow: /super-administration?_escaped_fragment_=
+Allow: /utilisateur/connexion
+Allow: /utilisateur/creation
+Disallow: /utilisateur/
+@foreach (var disallow in (IList<string>) ViewBag.Disallows)
+{
+    @("Disallow: " + disallow + "\n")
+}

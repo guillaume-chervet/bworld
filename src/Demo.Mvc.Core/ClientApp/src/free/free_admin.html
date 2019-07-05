@@ -1,0 +1,69 @@
+﻿<page-breadcrumb>
+    <content>
+        <h1><span class="fa fa-file-o"></span> Page libre</h1>
+        <p>Cliquer sur les éléments ci-dessous afin de pouvoir les éditer.</p>
+        <div class="mw-free">
+            <form name="freeForm" role="form" class="form-horizontal" enctype="multipart/form-data" ng-submit="vm.submit()">
+                <uib-tabset>
+                    <uib-tab index="0" heading="Contenu">
+                        <element-div-admin class="mw-free" element="vm.element" on-change="vm.onChange">
+                        </element-div-admin>
+                    </uib-tab>
+                    <uib-tab index="1" heading="Configuration">
+                        <div>
+                            <element-div-admin element="vm.metaElement">
+                            </element-div-admin>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <label class="col-sm-3 control-label">Etat : </label>
+                            <div class="col-sm-4">
+                                <div class="btn-group">
+                                    <label class="btn btn-default btn-lg" ng-model="vm.data.state" uib-btn-radio="1">Publier</label>
+                                    <label class="btn btn-default btn-lg" ng-model="vm.data.state" uib-btn-radio="2">Brouillon</label>
+                                    <label class="btn btn-danger btn-lg" ng-model="vm.data.state" uib-btn-radio="3">Supprimer</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <label class="col-sm-3 control-label">Afficher l'auteur : </label>
+                            <div class="col-sm-4">
+                                <div class="btn-group">
+                                    <label class="btn btn-default btn-lg" ng-model="vm.data.isDisplayAuthor" uib-btn-radio="true">Oui</label>
+                                    <label class="btn btn-default btn-lg" ng-model="vm.data.isDisplayAuthor" uib-btn-radio="false">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <label class="col-sm-3 control-label">Afficher liens sociaux : </label>
+                            <div class="col-sm-4">
+                                <div class="btn-group">
+                                    <label class="btn btn-default btn-lg" ng-model="vm.data.isDisplaySocial" uib-btn-radio="true">Oui</label>
+                                    <label class="btn btn-default btn-lg" ng-model="vm.data.isDisplaySocial" uib-btn-radio="false">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <label class="col-sm-3 control-label">Icone : </label>
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label ng-repeat="icon in vm.icons track by $index">
+                                        <input type="radio" ng-model="vm.data.icon" ng-value="icon">
+                                        <span class="{{icon}}"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                  </uib-tabset>
+                        <hr />
+                        <div class="form-group mw-action-bar">
+                            <div class="col-sm-3 col-xs-6">
+                            </div>
+                            <div class="col-sm-9 col-xs-6 mw-action">
+                                <button ng-disabled="vm.isButtonDisabled()" type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Sauvegarder</button>
+                            </div>
+                        </div>
+</form>
+        </div>    
+    </content>
+</page-breadcrumb>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="AF.NoteDeFrais.Common.Command.CommandResult">
+    <Position X="1" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Command\CommandResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AF.NoteDeFrais.Common.Command.CommandResult&lt;T&gt;">
+    <Position X="1" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\CommandResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AF.NoteDeFrais.Common.Validation.Error">
+    <Position X="4.75" Y="1.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Validation\Error.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AF.NoteDeFrais.Common.Validation.ErrorDetail">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Validation\ErrorDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AF.NoteDeFrais.Common.Validation.ValidationResult">
+    <Position X="4.75" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validation\ValidationResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,43 @@
+﻿<page-breadcrumb>
+    <content>
+        <h1>
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>Messages
+        </h1>
+
+        <p>Cette page liste les messages reçu.</p>
+
+        <div ng-show="$ctrl.messages.length > 0">
+            <h2>Messages</h2>
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>Qui</th>
+                        <th>Titre</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="chat in $ctrl.messages" ng-click="$ctrl.goChat(chat)" style="cursor: pointer;" ng-class="{'mw-msg-notread': !chat.readed}">
+                        <td style="width: 160px; text-overflow: ellipsis; overflow: hidden;">{{chat.from.fullName}} à <span ng-repeat="to in chat.to" style="font-size: 0.7em; margin: 0 0 2px; color: darkgrey">{{to.fullName}}</span></td>
+                        <td style="width: auto; overflow: hidden;">
+                            <span style="margin: 0 0 2px;">{{chat.title}}</span>
+                            <span style="font-size: 0.7em; margin: 0 0 2px; color: darkgrey">{{chat.message}}</span>
+                        </td>
+                        <td style="width: 180px;">
+                            <p style="font-size: 0.7em; margin: 0 0 2px;">{{chat.date | date:'dd/MM/yyyy à HH:mm' }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <empty empty-items="$ctrl.messages" empty-text="'Aucun messages'"></empty>
+
+        <nav ng-if="$ctrl.data.hasPreviousOrNext()">
+            <ul class="pager">
+                <li class="previous" ng-if="$ctrl.data.hasPrevious()"><a ng-href="{{$ctrl.data.urlPrevious}}"><span aria-hidden="true">&larr;</span><b ng-bind="$ctrl.data.numberPrevious"></b> Précédent</a></li>
+                <li class="next" ng-if="$ctrl.data.hasNext()"><a ng-href="{{$ctrl.data.urlNext}}"><b ng-bind="$ctrl.data.numberNext"></b> Suivant<span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </content> 
+</page-breadcrumb>

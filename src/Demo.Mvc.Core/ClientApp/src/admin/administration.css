@@ -1,0 +1,58 @@
+﻿ .mw-edit-panel .hover {
+ /*   border: dashed 1px rgb(75, 75, 75);*/
+        background-color: rgba(150, 150, 150, 0.4);
+     padding: -1px;
+}
+
+  .mw-edit-panel .open {
+    /*border: dashed 1px black;*/
+       background-color: rgba(150, 150, 150, 0.4);
+}
+
+  .mw-edit .mw-form {
+    background-color: rgba(150, 150, 150, 0.4);
+}
+
+  
+ .mw-edit {
+     position: absolute; 
+     right: 20px;
+     margin-top: 0px;
+     z-index: 900;
+     background-color: rgba(48, 201, 44, 0.4);
+ }
+
+ .mw-edit-panel .open .mw-edit {
+     background-color: rgb(85, 155, 83);
+ }
+
+ .mw-add {
+    padding: 10px;
+   /*background-color: rgba(223,223,223,1);*/ 
+ }
+
+  .mw-toolbar {
+     margin-right: 50px;
+ }
+
+
+.mw-administration .panel-heading h3 {
+    
+	font-size: 1.1em;
+    font-weight: bold;
+}
+/*
+@media (max-width: 769px ) {
+    .mw-action-bar {
+        position: fixed;
+        bottom: 0px;
+        background-color: #525252;
+        left: 0px;
+        right: 0px;
+        padding: 12px;
+        margin: 0px;
+        z-index: 1037;
+    }
+}*/
+
+

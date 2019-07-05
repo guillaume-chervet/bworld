@@ -1,0 +1,122 @@
+﻿
+<page-breadcrumb class="mw-administration-user">
+    <content>
+
+        <style>
+            .mw-administration-user td > span {
+                display: block;
+            }
+
+            .mw-administration-user td div > span {
+                display: block;
+            }
+
+            .mw-administration-user .mw-verified {
+                color: green;
+            }
+
+            .mw-administration-user .mw-notverified {
+                color: gray;
+            }
+        </style>
+
+        <h1><span class="glyphicon glyphicon-user"></span>Notification</h1>
+        <p>Cette page vous permet d'envoyer des notifications.</p>
+
+
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Séléctionner utilisateur(s)</h2>
+                <empty empty-items="vm.data.users" empty-text="'Aucun utilisateurs saisi.'"></empty>
+                <div ng-show="vm.data.users.length > 0">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Filtrer </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="vm.searchFilter">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <a href="#" ng-click="vm.Sort.order('fullName')">Nom</a>
+                                    <span class="sortorder" ng-show="vm.Sort.predicate === 'fullName'" ng-class="{reverse:vm.Sort.reverse}"></span>
+                                </th>
+                                <th class="hidden-xs">Inscrit</th>
+                                <th class="hidden-xs">Role</th>
+                                <th class="hidden-xs">Tags</th>
+                                <th>Séléctionner</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="user in vm.data.users | filter:vm.searchFilter | orderBy:vm.Sort.predicate:vm.Sort.reverse | itemsPerPage: 10">
+                            <td>
+                                <span> {{vm.display(user.fullName)}}</span>
+                                <span ng-class="{'mw-verified': user.mailConfirmed, 'mw-notverified': !user.mailConfirmed}"> {{vm.display(user.mail)}}</span>
+
+                            </td>
+                            <td class="hidden-xs">
+                                <span ng-if="user.userId"><img src="Content/images/pp_ok.png" /></span>
+                                <span ng-if="!user.userId"><img src="Content/images/pp_ko.png" /></span>
+
+                            </td>
+                            <td class="hidden-xs"> 
+                                <div ng-switch on="user.role.toString()">
+                                    <div class="animate-switch" ng-switch-when="1">Administrateur</div>
+                                    <div class="animate-switch" ng-switch-default>Utilisateur</div>
+                                </div>
+                            </td>
+                            <td class="hidden-xs">
+
+                                <div ng-repeat="tag in user.tags">
+                                    <span>{{vm.getTagInfo(tag).name}}</span>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <label class="btn btn-default" ng-class="{'btn-success': vm.selects[user.siteUserId] ===true}" ng-model="vm.selects[user.siteUserId]" uib-btn-radio="true" uncheckable>Oui</label>
+                                    <label class="btn btn-default" ng-class="{'btn-danger': vm.selects[user.siteUserId]===false}" ng-model="vm.selects[user.siteUserId]" uib-btn-radio="false" uncheckable>Non</label>
+                                </div>
+                            </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <dir-pagination-controls max-size="5"
+                                                 direction-links="true"
+                                                 boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <div ng-if="vm.state === 'edit'">
+                    <h2>Ecriver le message</h2>
+                    <element-div-admin element="vm.element" mode="mail">
+                    </element-div-admin> 
+                </div>
+                <div ng-if="vm.state === 'preview'">
+                    <h2>Prévisualisation du message</h2>
+                    <element-div element="vm.elementPreview" mode="mail">
+                    </element-div> 
+                </div>
+                
+    <div class="form-group mw-action-bar">
+        <div class="col-sm-3 col-xs-6">
+        </div>
+        <div class="col-sm-9 col-xs-6 mw-action">
+            <button class="btn btn-default btn-lg" ng-disabled="vm.state !== 'edit'" ng-click="vm.preview()"><span class="glyphicon glyphicon-plus"></span>Pre-visualiser</button>
+            <button class="btn btn-primary btn-lg" ng-disabled="vm.state !== 'preview'" ng-click="vm.publish()"><span class="glyphicon glyphicon-plus"></span>Publier</button>
+        </div>
+    </div>
+    <div>
+                    <h2>Aide</h2>
+                    <p>Les messages utilise un moteur de template. c'est à dire que less clefs de type &modal.SiteUrl& serront remplacer à la volé par de vrai information.</p>
+                </div>
+</div>
+        </div>
+    </content>
+
+</page-breadcrumb>

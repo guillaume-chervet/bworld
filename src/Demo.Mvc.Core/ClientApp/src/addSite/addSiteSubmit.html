@@ -1,0 +1,48 @@
+﻿<page>
+    <content>
+         <add-site-breabcrumb></add-site-breabcrumb>
+
+        <div class="mw-addsite-submit">
+            <h1>Démarrer votre site</h1>
+            <p>Cette page vous permet de créer votre site gratuitement et en quelques secondes. Le site sera parfaitement fonctionnel.</p>
+
+
+            <div>
+                <form role="form" name="form" class="form-horizontal" novalidate enctype="multipart/form-data" mw-submit="vm.submit(form)">
+                    <h2>Adresse du site</h2>
+
+                    <div class="form-group form-group-lg">
+                        <label class="col-sm-3 control-label">Adresse souhaité : </label>
+                        <div class="col-sm-9 label-input">
+                            <span><b>{{vm.getDomain()}}</b></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg" mw-container="form.uCondition">
+
+                        <div class="checkbox col-sm-offset-3 col-sm-9">
+                            <label>
+                                <input name="uCondition" type="checkbox" ng-model="vm.site.isConditionAccepted" mw-validate="vm.rules.condition">
+                                J'accepte les <a target="_blank" ng-href="{{vm.data.urlConditionsGeneralesUtilisations}}">conditions générales d'utilisation</a>
+                            </label>
+                            <span mw-error="form.uCondition"></span>
+
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-sm-3 col-xs-6">
+                            <button type="button" ng-click="vm.navBack()" class="btn btn-lg btn-default"><span class="glyphicon glyphicon glyphicon-chevron-left"></span> Précédent</button>
+                        </div>
+                        <div class="col-sm-9 col-xs-6 mw-action">
+                            <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon glyphicon-chevron-right"></span> Créer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+         <add-site-breabcrumb></add-site-breabcrumb>
+    </content>
+</page>
+

@@ -1,0 +1,98 @@
+﻿@using Demo.Routing.Extentions
+@{
+    var isFontSize = !string.IsNullOrEmpty(ViewBag.FontSize);
+    var fontSize = ViewBag.FontSize + "em;";
+    var baseUrlJs = "";
+    var isDebug = ViewBag.IsDebug;
+    if (!isDebug)
+    {
+        baseUrlJs = ViewBag.MainDomainUrl;
+    }
+    else
+    {
+        baseUrlJs = ViewBag.BaseUrl;
+    }
+}
+<!DOCTYPE html>
+<html lang="fr" ng-app="mw" ng-strict-di>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=yes">
+    <title ng-bind="master.titleSite + ' ' + master.titlePage">@ViewBag.Header.Title</title>
+    <!-- Semantic META -->
+    <meta name="fragment" content="!"/>
+    <base href="@ViewBag.Header.BaseUrlSite"/>
+    <meta name="description" mw-meta="master.metaDescription" content="@ViewBag.Header.MetaDescription"/>
+    <meta name="keywords" mw-meta="master.metaKeyword" content="@ViewBag.Header.MetaKeywords"/>
+    <meta name="author" mw-meta="master.author" content="Guillaume Chervet"/>
+    <link rel="alternate" href="@ViewBag.Header.FullUrl" hreflang="fr-fr"/>
+    <link rel="canonical" href="@ViewBag.Header.BaseUrl"/>
+    <link rel="icon" type="image/png" href="@ViewBag.Header.IconeUrl"/>
+    <!-- Facebook META -->
+    <meta property="og:site_name" content="@ViewBag.Header.SiteName">
+    <meta property="og:title" content="@ViewBag.Header.Title">
+    <meta property="og:description" content="@ViewBag.Header.MetaDescription">
+    <meta property="og:url" content="@ViewBag.Header.FullUrl">
+    <meta property="og:image" content="@ViewBag.Header.LogoUrl">
+    <meta property="og:type" content="website">
+    <!-- Google + META -->
+    <meta itemprop="name" content="@ViewBag.Header.Title">
+    <meta itemprop="description" content="@ViewBag.Header.MetaDescription">
+    <meta itemprop="image" content="@ViewBag.Header.LogoUrl">
+    <!-- Twitter META -->
+    <meta name="twitter:title" content="@ViewBag.Header.Title">
+    <meta name="twitter:description" content="@ViewBag.Header.MetaDescription">
+    <meta name="twitter:url" content="@ViewBag.Header.FullUrl">
+    <meta name="twitter:image" content="@ViewBag.Header.LogoUrl">
+    <environment exclude="Development">
+        @{
+            var urlCss = "/dist/style." + ViewBag.Hash + ".css";
+            if (!isDebug)
+            {
+                urlCss = baseUrlJs + urlCss;
+            }
+        }
+        <link rel="stylesheet" type="text/css" href="@urlCss"/>
+    </environment>
+    @if (isFontSize)
+    {
+        <style type="text/css">
+            body { font-size: @fontSize }
+        </style>
+    }
+    <script type="text/javascript">
+        var params = {
+            version: '@ViewBag.Version',
+            baseUrlJs: '@baseUrlJs',
+            baseUrl: '@ViewBag.Header.BaseUrl',
+            baseUrlSite: '@ViewBag.Header.BaseUrlSite',
+            mainDomainUrl: '@UrlHelper.Concat(ViewBag.MainDomainUrl)',
+            master: @Html.Raw(ViewBag.MasterJson),
+            isDebug: @isDebug.ToString().ToLower()
+        };
+    </script>
+</head>
+<body>
+
+<style type="text/css">
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+</style>
+@{ var hash = "." + ViewBag.Hash; }
+<environment include="Development">
+    @{ hash = ""; }
+</environment>
+@{
+    var urlJs = "/dist/app.bundle" + hash + ".js";
+    if (!isDebug)
+    {
+        urlJs = baseUrlJs + urlJs;
+    }
+    <script type="text/javascript" async src="@urlJs"></script>
+}
+@RenderBody()
+    
+</body>
+</html>

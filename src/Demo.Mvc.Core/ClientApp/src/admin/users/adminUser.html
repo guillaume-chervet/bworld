@@ -1,0 +1,128 @@
+﻿
+<page-breadcrumb class="mw-administration-user">
+    <content>
+            <h1><span class="glyphicon glyphicon-user"></span>Utilisateurs</h1>
+            <p>Bienvenue sur la page d'administration des utilisateurs du site.</p>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Utilisateurs</h2>
+                    <empty empty-items="vm.data.users" empty-text="'Aucun utilisateurs saisi.'"></empty>
+                    <div ng-show="vm.data.users.length > 0">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Filtrer </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" ng-model="vm.searchFilter">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <a href="#" ng-click="vm.Sort.order('fullName')">Nom</a>
+                                            <span class="sortorder" ng-show="vm.Sort.predicate === 'fullName'" ng-class="{reverse:vm.Sort.reverse}"></span>
+                                        </th>
+                                        <th class="hidden-xs">Inscrit</th>
+                                        <th class="hidden-xs">Roles</th>
+                                        <th class="hidden-xs">Tags</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="user in vm.data.users | filter:vm.searchFilter | orderBy:vm.Sort.predicate:vm.Sort.reverse | itemsPerPage: 10">
+                                        <td>
+                                            <span> {{vm.display(user.fullName)}}</span>
+                                            <span ng-class="{'mw-verified': user.mailConfirmed, 'mw-notverified': !user.mailConfirmed}"> {{vm.display(user.mail)}}</span>
+
+                                        </td>
+
+                                        <td class="hidden-xs">
+                                            <span ng-if="user.userId"><img src="Content/images/pp_ok.png" /></span>
+                                            <span ng-if="!user.userId"><img src="Content/images/pp_ko.png" /></span>
+
+                                        </td>
+                                    <td class="hidden-xs">
+                                        <div  ng-repeat="role in user.roles">
+                                            <div ng-switch on="role.toString()">
+                                                <div class="animate-switch" ng-switch-when="1">Administrateur </div>
+                                                <div class="animate-switch" ng-switch-when="0">Utilisateur espace privé</div>
+                                                <div class="animate-switch" ng-switch-default>Aucun</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                        <td class="hidden-xs">
+
+                                            <div ng-repeat="tag in user.tags">
+                                                <span>{{vm.getTagInfo(tag).name}}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-lg btn-primary" ng-click="vm.navEditUser(user)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        </td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <dir-pagination-controls max-size="5"
+                                                     direction-links="true"
+                                                     boundary-links="true">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                    <div class="form-group mw-action-bar">
+                        <div class="col-sm-3 col-xs-6">
+                        </div>
+                        <div class="col-sm-9 col-xs-6 mw-action">
+                            <button class="btn btn-lg btn-primary" ng-click="vm.navAddUser()"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+                        </div>
+                    </div>
+
+                    <!-- <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Administrateurs site publique</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li ng-repeat="user in data.users"><span>{{user.fullName}}</span> <a href="#" ng-if="canRemove(user)" ng-click="remove(user)"><span class="glyphicon glyphicon-remove"></span></a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-xs-offset-1 col-xs-11 mw-action">
+                                        <button class="btn btn-primary" ng-click="navAddUser()"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                           <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-xs-offset-1 col-xs-11 mw-action">
+                                        <button class="btn btn-primary" ng-click="addModule()"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--   <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Gestion affichage</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li><a href="/administration/menu"><span class="fa fa-bars" aria-hidden="true"></span><span>Menus</span></a></li>
+                                <li><a href="/administration/site"><span class="fa fa-camera" aria-hidden="true"></span><span>Apparence du site</span></a></li>
+                            </ul>
+                        </div>-->
+
+
+
+
+                </div>
+            </div>
+    </content>
+
+</page-breadcrumb>

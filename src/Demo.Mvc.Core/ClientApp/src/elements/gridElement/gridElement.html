@@ -1,0 +1,29 @@
+﻿
+
+
+<!-- template gridElement.html -->
+<div class="mw-grid-element" ng-class="$ctrl.cssClass($ctrl.element)">
+
+    <div class="animate-switch-container"
+         ng-switch on="$ctrl.element.data.type">
+        <div class="animate-switch" ng-switch-when="2">
+
+            <div class="panel panel-default">
+                <div class="panel-heading" ng-if="$ctrl.element.data.title">
+                    <h2 class="panel-title" ng-bind="$ctrl.element.data.title"></h2>
+                </div>
+                <div class="panel-body">
+                    <element-div element="$ctrl.element">
+                    </element-div>
+                </div>
+                <div class="panel-footer" ng-if="$ctrl.element.data.footer">
+                    <p ng-bind="$ctrl.element.data.footer"></p>
+                </div>
+            </div>
+        </div>
+        <div class="animate-switch" ng-switch-default>
+            <element-div element="$ctrl.element">
+            </element-div>
+        </div>
+    </div>
+</div>

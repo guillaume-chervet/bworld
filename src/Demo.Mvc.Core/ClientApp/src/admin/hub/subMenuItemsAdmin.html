@@ -1,0 +1,12 @@
+﻿
+<ul ng-if="$ctrl.menuItems.length>0">
+    <li ng-repeat="menuItem in $ctrl.menuItems" ng-switch on="menuItem.module">
+        <free-menu-item-admin menu-item="menuItem" ng-switch-when="Free"></free-menu-item-admin>
+        <add-site-menu-item-admin menu-item="menuItem" ng-switch-when="AddSite"></add-site-menu-item-admin>
+        <news-menu-item-admin menu-item="menuItem" ng-switch-when="News"></news-menu-item-admin>
+        <contact-menu-item-admin menu-item="menuItem" ng-switch-when="Contact"></contact-menu-item-admin>
+        <social-menu-item-admin menu-item="menuItem" ng-switch-when="Social"></social-menu-item-admin>
+        <span class="animate-switch" ng-switch-default>default {{menuItem.module}}</span>
+    </li>
+</ul>
+

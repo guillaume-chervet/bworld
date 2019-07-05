@@ -1,0 +1,15 @@
+﻿	<div class="row">
+    <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+        <h1>Connexion</h1>
+        <div ng-if="!$ctrl.isAuthenticate">
+            <p>Connectez-vous en quelques clics, c'est simple et rapide! Vous pouvez associer plusieurs type de login dans les paramètres utilisateurs.</p>
+            <login-bworld></login-bworld>
+            <hr/>
+            <login-social></login-social>
+           
+        </div>
+        <div ng-if="$ctrl.isAuthenticate">
+            <p>Vous êtes déjà authentifié. Vous pouvez naviger sur le site.</p>
+        </div>
+    </div>
+</div>

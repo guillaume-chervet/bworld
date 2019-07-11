@@ -10,5 +10,6 @@ namespace Demo.Business.Command.User.Models
         public string LastName { get; set; }
         public string AuthorUrl { get; set; }
         public string Email { get; set; }
+
     }
 }

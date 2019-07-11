@@ -9,6 +9,8 @@ using Demo.Routing.Implementation;
 using Demo.Routing.Interfaces;
 using Demo.Business.Command.Site.Seo;
 using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 
 namespace Demo.Business.Routing
 {
@@ -17,13 +19,14 @@ namespace Demo.Business.Routing
         private readonly IDataFactory _dataFactory;
         private readonly BusinessModuleFactory _businessModuleFactory;
         private readonly IHostingEnvironment _env;
+        private readonly BusinessConfig _businessConfig;
 
-
-        public RouteProvider(IDataFactory dataFactory, BusinessModuleFactory businessModuleFactory, IHostingEnvironment env)
+        public RouteProvider(IDataFactory dataFactory, BusinessModuleFactory businessModuleFactory, IHostingEnvironment env, IOptions<BusinessConfig> businessConfig)
         {
             _dataFactory = dataFactory;
             _businessModuleFactory = businessModuleFactory;
             _env = env;
+            _businessConfig = businessConfig.Value;
         }
 
         public async Task<IDictionary<string, string>> GetRootMetadataAsync(string siteId)
@@ -83,6 +86,25 @@ namespace Demo.Business.Routing
 
                 domains = new List<Domain>();
 
+
+                foreach(var domain in _businessConfig.Domains)
+                {
+                    domains.Add(new Domain()
+                    {
+                        DomainLoginUrl = domain.DomainLoginUrl,
+                        ExcludedDomainData = domain.ExcludedDomainData,
+                        DomainMasterId = domain.DomainMasterId,
+                        FacebookAppId = domain.FacebookAppId,
+                        Id = domain.Id,
+                        Index = domain.Index,
+                        Path = domain.Path,
+                        RedirecToDomainId = domain.RedirecToDomainId,
+                        Regex = domain.Regex,
+                        SecureMode = domain.SecureMode,
+                        SiteId = domain.SiteId
+                    });
+                }
+                /*
                 if (_env.IsDevelopment())
                 {
                     var domain1 = new Domain
@@ -151,7 +173,6 @@ namespace Demo.Business.Routing
                         SiteId = "c27e39ee-7ba9-46f8-aa7c-9e334c72a96c",
                         SecureMode = SecureMode.Secure,
                         DomainMasterId = "bworld",
-                        XDomainRegex = "http://*.bworld.fr",
                         FacebookAppId = "544589308979814"
                     });
 
@@ -209,7 +230,6 @@ namespace Demo.Business.Routing
                     SecureMode = SecureMode.Secure,
                     DomainLoginUrl = "https://www.bworld.fr",
                     DomainMasterId = "lannexe-bretignolles",
-                    XDomainRegex = "http://*.lannexe-bretignolles.fr"
                 });
 
                 domains.Add(
@@ -235,7 +255,6 @@ namespace Demo.Business.Routing
                     SecureMode = SecureMode.Secure,
                     DomainLoginUrl = "https://www.bworld.fr",
                     DomainMasterId = "guillaumechervet",
-                    XDomainRegex = "https://*.guillaume-chervet.fr"
                 });
 
                 domains.Add(
@@ -261,7 +280,6 @@ namespace Demo.Business.Routing
                     SecureMode = SecureMode.Secure,
                     DomainLoginUrl = "https://www.bworld.fr",
                     DomainMasterId = "broderieennord",
-                    XDomainRegex = "https://*.broderieenord.com"
                 });
 
                 domains.Add(
@@ -313,7 +331,6 @@ namespace Demo.Business.Routing
                     SecureMode = SecureMode.Secure,
                     DomainLoginUrl = "https://www.bworld.fr",
                     DomainMasterId = "fasiladanse",
-                    XDomainRegex = "https://*.fasiladanse.info"
                 });
 
                 domains.Add(
@@ -328,6 +345,8 @@ namespace Demo.Business.Routing
                         DomainMasterId = "fasiladanse",
                         RedirecToDomainId = "12"
                     });
+
+                var data = JsonConvert.SerializeObject(domains);
 
                 /*
                 domains.Add(

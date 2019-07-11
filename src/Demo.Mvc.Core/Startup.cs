@@ -59,21 +59,28 @@ namespace Demo.Mvc.Core
             });
 
             services.AddMemoryCache();
+
+            var businessSection = Configuration.GetSection("Business");
+            var businessConfig = businessSection.Get<BusinessConfig>();
+            services.Configure<BusinessConfig>(businessSection);
+
+           var origins = businessConfig.Domains.Where(d => String.IsNullOrEmpty(d.CorsOrigin) == false).Select(d => d.CorsOrigin).ToArray();
+
             // Add service and create Policy with options
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
                     builder =>
                     {
-                        IList<string> origins = new List<string>
+                       /* IList<string> origins = new List<string>
                         {
                             "https://www.bworld.fr",
                             "https://www.lannexe-bretignolles.fr",
                             "https://www.guillaume-chervet.fr",
                             "https://www.broderieennord.com",
                             "https://www.fasiladanse.info"
-                        };
-                        builder.WithOrigins(origins.ToArray())
+                        };*/
+                        builder.WithOrigins(origins)//origins.ToArray())
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials()
@@ -109,7 +116,7 @@ namespace Demo.Mvc.Core
 
             services.Configure<StorageConfig>(Configuration.GetSection("Blob"));
             services.Configure<ApplicationConfig>(Configuration.GetSection("Site"));
-            services.Configure<BusinessConfig>(Configuration.GetSection("Business"));
+            
 
             services.AddIdentity<ApplicationUser>(Configuration)
                 .AddDefaultTokenProviders();

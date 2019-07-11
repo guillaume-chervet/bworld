@@ -25,15 +25,13 @@ namespace Demo.Business.Command.User
         private readonly UserService _userService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailService _emailService;
-        private readonly BusinessConfig _businessConfig;
+ 
 
-        public SaveUserCommand(UserService userService, 
-            IOptions<BusinessConfig> businessConfig, UserManager<ApplicationUser> userManager, IEmailService emailService)
+        public SaveUserCommand(UserService userService, UserManager<ApplicationUser> userManager, IEmailService emailService)
         {
             _userService = userService;
             _userManager = userManager;
             _emailService = emailService;
-            _businessConfig = businessConfig.Value;
         }
 
         protected override void Action()
@@ -70,7 +68,7 @@ namespace Demo.Business.Command.User
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(applicationUser);
 
-                    var callbackUrl = UrlHelper.Concat(_businessConfig.MainDomainUrl, "Account/ConfirmEmail?userId={0}&code={1}");
+                    var callbackUrl = "https://www.bworld.fr/Account/ConfirmEmail?userId={0}&code={1}";
 
                     var createUserMailModel = new UserChangeMailModel();
                     createUserMailModel.CallbackUrl = string.Format(callbackUrl, WebUtility.UrlEncode(userId),

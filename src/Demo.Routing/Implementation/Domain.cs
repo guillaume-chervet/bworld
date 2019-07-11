@@ -10,7 +10,7 @@ namespace Demo.Routing.Implementation
         public string Path { get; set; }
         public IDictionary<string,string> ExcludedDomainData { get; set; }
         public string Regex { get; set; }
-        public string XDomainRegex { get; set; }
+        //public string XDomainRegex { get; set; }
         public int Index { get; set; }
         public SecureMode SecureMode { get; set; }
         public string DomainMasterId { get; set; }

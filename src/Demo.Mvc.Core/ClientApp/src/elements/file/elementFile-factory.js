@@ -1,5 +1,4 @@
 import modal from '../../modal';
-import sce from '../../sce';
 import { master } from '../../shared/providers/master-provider';
 import { urlHelper } from '../../shared/services/urlHelper-factory';
 

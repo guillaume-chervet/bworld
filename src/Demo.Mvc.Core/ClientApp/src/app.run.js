@@ -2,6 +2,7 @@
 //import { master } from './shared/providers/master-provider';
 import './history';
 import './http';
+import './sce';
 import redux from './redux';
 
 app.run([

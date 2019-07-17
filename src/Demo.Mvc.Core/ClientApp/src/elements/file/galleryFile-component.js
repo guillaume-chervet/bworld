@@ -61,28 +61,35 @@ const File = ({ file }) => {
     let content = null;
 
     switch (file.displayType) {
-        case 'noZoom':
-            content = (
-                <img alt={getAlt(file)} src={file.thumbnailUrl} className={"center-block img-responsive " + getClass(file)} />
-            );
-            break;
-        case 'link':
-            content = (
-                <a href={getPath(file.link)}>
-                    <img alt={getAlt(file)} src={file.thumbnailUrl} className={"center-block img-responsive " + getClass(file)} />
-                    </a>
-            );
+        case 'image':
+            switch (file.behavior) {
+                case 'noZoom':
+                    content = (
+                        <img alt={getAlt(file)} src={file.thumbnailUrl} className={"center-block img-responsive " + getClass(file)} />
+                    );
+                    break;
+                case 'link':
+                    content = (
+                        <a href={getPath(file.link)}>
+                            <img alt={getAlt(file)} src={file.thumbnailUrl} className={"center-block img-responsive " + getClass(file)} />
+                        </a>
+                    );
+                    break;
+                default:
+                    content = (
+                        <a onClick={() => open(element, file, false)} title={getAlt(file)} className="hand">
+                            <img alt={getAlt(file)} src={file.thumbnailUrl} className={"center-block img-responsive " + getClass(file)} />
+                        </a>
+                    );
+                    break;
+            }
             break;
         case 'video':
             content = (<LoadableVideo file="file" />);
             break;
         default:
-            content = (
-                <a click={open(element, file, false)} title={getAlt(file)} className="hand">
-                    <img alt={getAlt(file)} src={file.thumbnailUrl} className={"center-block img-responsive " + getClass(file)} />
-                </a>
-            );
             break;
+        
     }
     return (<div>{content}</div>);
 }
@@ -90,8 +97,8 @@ const File = ({ file }) => {
 const Files = ({ element, isAdmin }) => {
     const allFiles = element.data.map(file => {
         if (isAdmin) {
-            return (<FileAdmin file={file} element={element} />); }
-        else { return (<File file={file} />); }
+            return (<FileAdmin key={file.thumbnailUrl} file={file} element={element} />); }
+        else { return (<File key={file.thumbnailUrl} file={file} />); }
     });
     return (<>{allFiles}</>);
 }

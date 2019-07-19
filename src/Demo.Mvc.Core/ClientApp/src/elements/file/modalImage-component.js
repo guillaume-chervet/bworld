@@ -95,7 +95,6 @@ class Controller {
     this.unsubscribe();
   }
   mapStateToThis(state) {
-    console.log(state.master);
     return {
       titlePage: state.master.masterData.titlePage,
     };

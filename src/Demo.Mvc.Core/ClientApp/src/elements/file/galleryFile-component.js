@@ -8,6 +8,8 @@ import { react2angular } from 'react2angular';
 import { LoadableVideo } from './Video';
 import { element } from 'prop-types';
 
+import './file.css';
+
 const name = 'galleryFile';
 
 const FileAdmin = ({ file, element }) => {
@@ -97,12 +99,32 @@ const File = ({ file }) => {
 const Files = ({ element, isAdmin }) => {
     const allFiles = element.data.map(file => {
         if (isAdmin) {
-            return (<FileAdmin key={file.thumbnailUrl} file={file} element={element} />); }
-        else { return (<File key={file.thumbnailUrl} file={file} />); }
+            return (<ContainerFiles element={element} ><FileAdmin key={file.thumbnailUrl} file={file} element={element} /></ContainerFiles>); }
+        else { return (<ContainerFiles element={element}><File key={file.thumbnailUrl} file={file} /></ContainerFiles>); }
     });
-    return (<>{allFiles}</>);
+    return (<div className="row">{allFiles}</div>);
 }
+        
+const ContainerFiles = ({element, children}) => {
 
+        switch (element.data.length) {
+            case 1:
+                return (<div className="col-lg-12 col-sm-12 col-xs-12">
+                {children}
+                </div>);
+                break;
+            case 2:
+                return (<div className="col-lg-6 col-sm-6 col-xs-12">
+                {children}
+                </div>);
+                break;
+            default:
+                return (<div className="col-lg-4 col-sm-6 col-md-4 col-xs-12">
+                {children}
+                </div>);
+                break;
+        }
+    }
 
 const GalleryFile = ({ element, isAdmin }) => {
     return (<div className="col-lg-12 col-sm-12 col-xs-12">

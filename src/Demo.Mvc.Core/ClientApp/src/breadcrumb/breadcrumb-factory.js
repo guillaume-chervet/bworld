@@ -3,6 +3,7 @@ import redux from '../redux';
 import rootScope from '../rootScope';
 import { master } from '../shared/providers/master-provider';
 import { menu } from '../shared/menu/menu-factory';
+import route from '../route';
 import _ from 'lodash';
 
 const items = [];
@@ -14,8 +15,8 @@ rootScope.$on('$locationChangeSuccess', function(/*event, newUrl, oldUrl*/) {
   items.length = 0;
 });
 
-function getMainItem() {
-  const menuItem = menu.getMainMenuItem();
+const getMainItemPure = (master) =>  {
+  const menuItem = menu.getMainMenuItemPure(master);
   const mainItem = {
     url: '/',
     title: menuItem.title,
@@ -24,11 +25,22 @@ function getMainItem() {
     icon: menuItem.icon,
   };
   return mainItem;
-}
+};
+const getMainItem = () =>  {
+  const state = redux.getState();
+  const master = state.master;
+  return getMainItemPure(master);
+};
 
-function getItems() {
-  if (items.length === 0) {
-    if (history.path().indexOf('super-administration') !== -1) {
+const getItemsClean = (path, _master, routeCurrentModuleId) => {
+  const items = [];
+  const _menu = _master.menu;
+  
+  if(_master.breadcrumb.items){
+    return _master.breadcrumb.items;
+  }
+  
+    if (path.indexOf('super-administration') !== -1) {
       items.push({
         url: '/super-administration',
         title: 'Super administration',
@@ -42,7 +54,7 @@ function getItems() {
         active: false,
         module: 'Administration',
       });
-    } else if (history.path().indexOf('utilisateur') !== -1) {
+    } else if (path.indexOf('utilisateur') !== -1) {
       items.push({
         url: '/utilisateur',
         title: 'Utilisateur',
@@ -50,38 +62,46 @@ function getItems() {
         module: 'User',
       });
     } else {
-      if (menu.isPrivate()) {
-        items.push(getPrivateItem());
+      if (menu.isPrivatePure(path)) {
+        items.push(getPrivateItemClean(_master));
       } else {
-        items.push(getMainItem());
+        items.push(getMainItemPure(_master));
       }
     }
-    const currentUrl = history.path();
-    const itemFound = _.find(items, function(i) {
-      return i.url === currentUrl;
-    });
+    const currentUrl = path;
+    const itemFound = _.find(items, (i)  => i.url === currentUrl);
 
     if (!itemFound) {
-      const currentMenuItem = master.getCurrentMenuItem();
-      const titleBreabcrumb = page.title;
-      const title = titleBreabcrumb
-        ? titleBreabcrumb
-        : master.master
-        ? master.master.titlePage
-        : 'Not found';
-      items.push({
-        url: currentUrl,
-        title,
-        active: true,
-        module: currentMenuItem.module,
-        icon: currentMenuItem.icon,
-      });
+      const currentMenuItem = master.getCurrentMenuItemClean(routeCurrentModuleId,_menu);
+      if(currentMenuItem) {
+        const titleBreabcrumb = page.title;
+        const title = titleBreabcrumb
+            ? titleBreabcrumb
+            : _master.master
+                ? _master.master.titlePage
+                : 'Not found';
+        items.push({
+          url: currentUrl,
+          title,
+          active: true,
+          module: currentMenuItem.module,
+          icon: currentMenuItem.icon,
+        });
+      }
     }
+  return items;
+};
+const getItems = () => {
+  const state = redux.getState();
+  const master = state.master;
+  if (items.length === 0) {
+    const newItems = getItemsClean(history.path(), master, route);
+    newItems.forEach(i => items.push(i));
   }
   return items;
-}
+};
 
-function setItems(newItems) {
+const setItems = (newItems) => {
   items.length = 0;
   if (newItems) {
     for (var i = 0; i < newItems.length; i++) {
@@ -96,22 +116,27 @@ function setItems(newItems) {
       }
     }
   }
-}
+  master.updateMasterBreadcrumb(items);
+};
 
-function isVisible() {
+const isVisible= () => {
   const state = redux.getState();
-  const isMenuVisible = state.master.menuData.isDisplayMenu;
+  return isVisibleClean(state.master, history.path());
+};
+
+const isVisibleClean = (master, path) => {
+  const isMenuVisible = master.menuData.isDisplayMenu;
   if (!isMenuVisible) {
     return false;
   }
-  const privateMenuItem = menu.getMainMenuItem('privateMenuItems');
+  const privateMenuItem = menu.getMainMenuItemPure(master, 'privateMenuItems');
   const privatePath = privateMenuItem ? privateMenuItem.url : '';
   return (
-    history.path() !== '/' &&
-    history.path() !== '' &&
-    history.path() !== privatePath
+      path !== '/' &&
+      path !== '' &&
+      path !== privatePath
   );
-}
+};
 
 function getAdminItem() {
   const item = {
@@ -123,8 +148,8 @@ function getAdminItem() {
   return item;
 }
 
-function getPrivateItem() {
-  const menuItem = menu.getMainMenuItem('privateMenuItems');
+const getPrivateItemClean = (master) => {
+  const menuItem = menu.getMainMenuItemPure('privateMenuItems', master);
   const item = {
     url: menuItem.routePath,
     title: menuItem.title,
@@ -133,9 +158,18 @@ function getPrivateItem() {
     icon: menuItem.icon,
   };
   return item;
-}
+};
+const getPrivateItem = () => {
+  const state = redux.getState();
+  const master = state.master;
+  return getPrivateItemClean(master);
+};
 
-function getLdJson() {
+const getLdJson = () => {
+  getLdJsonClean(items);
+};
+
+const getLdJsonClean = (items) => {
   const itemListElement = [];
   const breadcrumbJson = {
     '@context': 'http://schema.org',
@@ -156,9 +190,9 @@ function getLdJson() {
     itemListElement.push(itemJson);
   }
   return breadcrumbJson;
-}
+};
 
-function navBack(search) {
+const navBack = (search) => {
   if (search) {
     for (var name in search) {
       history.search(name, search[name]);
@@ -169,17 +203,20 @@ function navBack(search) {
     const item = items[length - 2];
     history.path(item.url);
   }
-}
+};
 
 export const breadcrumb = {
+  getItemsClean,
   getItems,
   setItems,
   isAdmin: menu.isAdmin,
+  isVisibleClean,
   isVisible,
   page,
   getMainItem,
   getPrivateItem,
   getAdminItem,
+  getLdJsonClean,
   getLdJson,
   navBack,
 };

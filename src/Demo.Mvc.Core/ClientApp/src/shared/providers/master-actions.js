@@ -3,6 +3,7 @@ import {
   MASTER_UPDATE,
   MASTER_UPDATE_METAS,
   MASTER_UPDATE_MENU,
+  MASTER_UPDATE_BREADCRUMB,
 } from './master-types';
 
 export const masterInit = data => {
@@ -29,6 +30,13 @@ export const masterUpdateMetas = data => {
 export const masterUpdateMenu = data => {
   return {
     type: MASTER_UPDATE_MENU,
+    data,
+  };
+};
+
+export const masterUpdateBreadcrumb = data => {
+  return {
+    type: MASTER_UPDATE_BREADCRUMB,
     data,
   };
 };

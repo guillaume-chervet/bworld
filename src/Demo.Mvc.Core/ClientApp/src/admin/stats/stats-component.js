@@ -14,7 +14,7 @@ class Controller {
     const ctrl = this;
     const init = function() {
       page.setTitle('Statistiques', page.types.admin);
-      var breadcrumbs = breadcrumb.getItems();
+      const breadcrumbs = breadcrumb.getItems();
       breadcrumbs[breadcrumbs.length - 1].module = 'Stats';
     };
 
@@ -28,8 +28,8 @@ class Controller {
     const initRow = function() {
       if (stats.data && stats.data.hours && stats.data.hours.length > 0) {
         rows.length = 0;
-        for (var i = 0; i < stats.data.hours.length; i++) {
-          var hour = stats.data.hours[i];
+        for (let i = 0; i < stats.data.hours.length; i++) {
+          const hour = stats.data.hours[i];
           rows.push({
             c: [
               {
@@ -48,20 +48,20 @@ class Controller {
           });
         }
       } else {
-        for (var j = 0; j < rows.length; j++) {
+        for (let j = 0; j < rows.length; j++) {
           rows[j].c[1].v = 0;
         }
       }
     };
 
     initRow();
-    ctrl.next = function() {
+    ctrl.next = () => {
       stats.nextAsync().then(function() {
         init();
         initRow();
       });
     };
-    ctrl.previous = function() {
+    ctrl.previous =() => {
       stats.previousAsync().then(function() {
         init();
         initRow();

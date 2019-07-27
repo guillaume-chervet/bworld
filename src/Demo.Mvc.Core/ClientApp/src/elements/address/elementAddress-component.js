@@ -80,8 +80,7 @@ const AddressText = ({ element }) => {
   );
 };
 
-const Address = props => {
-  const { element } = props;
+export const Address = ({ element }) => {
   const jsonLd = getLdJson(element, master, history);
   return (
     <div className="mw-address">

@@ -37,7 +37,7 @@ const FileAdmin = ({ file, element }) => {
 
 const File = ({ file }) => {
 
-  const getPath = linkService.getPath
+  const getPath = linkService.getPath;
   const open = () => fileElementService.open(element, file, false);
   const getClass = fileElementService.getClass;
   const getAlt = fileElementService.getAlt;
@@ -104,7 +104,7 @@ const ContainerFiles = ({element, children}) => {
   }
 };
 
-const GalleryFile = ({ element, isAdmin }) => {
+export const GalleryFile = ({ element, isAdmin }) => {
   return (<div className="col-lg-12 col-sm-12 col-xs-12">
     <Files element={element} isAdmin={isAdmin} />
   </div>);

@@ -1,45 +1,41 @@
 ﻿import app from '../app.module';
-import { master } from '../shared/providers/master-provider';
+import { master as masterProvider } from '../shared/providers/master-provider';
 import { getIcon } from '../shared/icons';
 import { breadcrumb } from './breadcrumb-factory';
 import './breadcrumb.css';
-import view from './breadcrumb.html';
-import redux from "../redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { react2angular } from 'react2angular';
 
 const name = 'breadcrumb';
 
-class Controller  {
-  constructor() {
-    const connect = redux.getConnect();
-    this.unsubscribe = connect(
-        this.mapStateToThis,
-        this.mapThisToProps
-    )(this);
-  }
-  $onInit() {
-    const vm = this;
-    vm.items = breadcrumb.getItemsClean(vm.master.path, vm.master, vm.master.routeCurrentModuleId);
-    vm.isVisible = () => breadcrumb.isVisibleClean(vm.master, vm.master.path);
-    vm.ldJson = breadcrumb.getLdJsonClean(vm.items);
-    vm.getIcon = getIcon;
-    vm.getInternalPath = master.getInternalPath;
-    return vm;
-  }
-  $onDestroy() {
-    this.unsubscribe();
-  }
-  mapStateToThis(state) {
-    return { master: state.master };
-  }
-  mapThisToProps() {
-    return {};
-  }
- 
+const MenuItemLinkBreadcrumb = ({item}) => {
+  return (<li className={{active: item.active}} >
+     {!item.active && <a href={masterProvider.getInternalPath(item.url)}>
+        <span className={getIcon(item)}></span>
+       {item.title}
+      </a>}
+    { item.active && <>
+      <span className={getIcon(item)}> </span>
+      <span>{item.title}</span>
+    </>}
+  </li>);
 };
 
-app.component(name, {
-  template: view,
-  controller: [Controller],
-});
+const Breadcrumb = ({master}) => {
+  const items = breadcrumb.getItemsClean(master.path, master, master.routeCurrentModuleId);
+  const isVisible = () => breadcrumb.isVisibleClean(master, master.path);
+
+  return (
+      <div>
+        { isVisible() && <ol className="mw-breadcrumb breadcrumb">
+          {items.map( item => <MenuItemLinkBreadcrumb item={item}></MenuItemLinkBreadcrumb>)}
+        </ol>}
+      </div>
+  );
+};
+
+app.component(name, react2angular(Breadcrumb, ['master']));
 
 export default name;
+

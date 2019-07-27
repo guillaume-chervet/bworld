@@ -21,13 +21,9 @@ import 'brace/mode/css';
 
 import 'brace/theme/github';
 
-export class CodeAce extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onChange.bind(this);
-  }
-  onChange(e) {
-    const { file, onChange } = this.props;
+export const CodeAce = ({file, onChange}) => {
+
+    const onChangeInternal = (e) => {
     if (onChange) {
       onChange({
         file: {
@@ -36,21 +32,18 @@ export class CodeAce extends React.Component {
         },
       });
     }
-  }
-  render() {
-    const { file } = this.props;
+  };
     return (
       <AceEditor
         mode={file.mode}
         theme="github"
-        onChange={e => this.onChange(e)}
+        onChange={onChangeInternal}
         value={file.code}
         name={file.id}
         width=""
         editorProps={{ $blockScrolling: true }}
       />
     );
-  }
-}
+};
 
 export default CodeAce;

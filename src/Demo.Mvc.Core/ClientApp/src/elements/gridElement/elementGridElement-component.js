@@ -1,26 +1,40 @@
 ﻿import app from '../../app.module';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { react2angular } from 'react2angular';
 import { service as elementGridElementService } from './elementGridElement-factory';
-import view from './gridElement.html';
+import { Div } from '../div/elementDiv-component';
+
+const Child = ({element}) => {
+  switch (element.data.type) {
+    case "2":
+      return (<div className="panel panel-default">
+        {element.data.title && <div className="panel-heading" >
+          <h2 className="panel-title" >{element.data.title}</h2>
+        </div>}
+        <div className="panel-body">
+          <element-div element="$ctrl.element">
+          </element-div>
+        </div>
+        {element.data.footer && <div className="panel-footer">
+          <p>{element.data.footer}</p>
+        </div>}
+      </div>);
+    default:
+      return (<Div element={element} />);
+  }
+};
+
+export const GridElement = ({element, noClass}) => {
+  const cssClass = `mw-grid-element ${elementGridElementService.cssClass(element, noClass)}`;
+  return (
+      <div className={cssClass}>
+        <Child element={element} />
+      </div>
+  );
+};
 
 const name = 'elementGridElement';
-
-function ElementController() {
-  var ctrl = this;
-
-  ctrl.cssClass = function(element) {
-    return elementGridElementService.cssClass(element, ctrl.noClass);
-  };
-
-  return ctrl;
-}
-
-app.component(name, {
-  template: view,
-  controller: [ElementController],
-  bindings: {
-    element: '=',
-    noClass: '<',
-  },
-});
+app.component(name, react2angular(GridElement, ['element', 'noClass']));
 
 export default name;

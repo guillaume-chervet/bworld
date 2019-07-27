@@ -8,13 +8,7 @@ import './code.css';
 
 const name = 'elementCode';
 
-export default class Code extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const { element } = this.props;
-
+export const Code =({element}) => {
     return (
       <Fragment>
         <div className="col-sm-12 col-md-12 col-xs-12 mw-code-panel">
@@ -29,7 +23,6 @@ export default class Code extends React.Component {
         <div className="clearfix" />
       </Fragment>
     );
-  }
-}
+};
 
 app.component(name, react2angular(Code, ['element']));

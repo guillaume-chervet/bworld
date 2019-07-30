@@ -252,7 +252,7 @@ const addElement = function(parentElement, guid) {
 export const service = {
   addElement,
   mapFileData,
-  open: open,
+  open,
   getClass,
   getAlt,
   isFileUploading: isFileUploading,

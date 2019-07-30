@@ -10,7 +10,7 @@ export const CarouselComponent = ({element}) => {
       <Carousel>
         {element.data.map(slide =>(<div>
           <img src={slide.thumbnailUrl} />
-          <p className="legend">Legend 1</p>
+              {slide.description && (<p className="legend">Legend 1</p>)}
         </div>)) }
       </Carousel>
   );

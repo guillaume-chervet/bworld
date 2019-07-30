@@ -9,7 +9,7 @@ import {element} from 'prop-types';
 
 import './file.css';
 
-const name = 'elementFile';
+const name = 'galleryFile';
 
 const FileAdmin = ({ file, element }) => {
 
@@ -35,7 +35,7 @@ const FileAdmin = ({ file, element }) => {
 };
 
 
-const File = ({ file }) => {
+const File = ({ file, element }) => {
 
   const getPath = linkService.getPath;
   const open = () => fileElementService.open(element, file, false);
@@ -82,7 +82,7 @@ const Files = ({ element, isAdmin }) => {
   const allFiles = element.data.map(file => {
     if (isAdmin) {
       return (<ContainerFiles element={element} ><FileAdmin key={file.thumbnailUrl} file={file} element={element} /></ContainerFiles>); }
-    else { return (<ContainerFiles element={element}><File key={file.thumbnailUrl} file={file} /></ContainerFiles>); }
+    else { return (<ContainerFiles element={element}><File key={file.thumbnailUrl} file={file} element={element} /></ContainerFiles>); }
   });
   return (<div className="row">{allFiles}</div>);
 };

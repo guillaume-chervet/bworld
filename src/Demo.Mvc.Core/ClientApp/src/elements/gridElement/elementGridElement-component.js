@@ -13,8 +13,8 @@ const Child = ({element}) => {
           <h2 className="panel-title" >{element.data.title}</h2>
         </div>}
         <div className="panel-body">
-          <element-div element="$ctrl.element">
-          </element-div>
+          <Div element={element}>
+          </Div>
         </div>
         {element.data.footer && <div className="panel-footer">
           <p>{element.data.footer}</p>

@@ -1,19 +1,25 @@
 ﻿import app from '../../app.module';
-import view from './youtube.html';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import YouTube from 'react-youtube';
+import { react2angular } from 'react2angular';
+
+import './youtube.css';
+
+export const YouTubeComponent = ({element}) => {
+  const opts = {};
+  return (
+      <YouTube
+          className="mw-youtube"
+          videoId={element.data.url}
+          opts={opts}
+          onReady={this._onReady}
+      />
+  );
+};
 
 const name = 'elementYoutube';
-
-function ElementController() {
-  var ctrl = this;
-  return ctrl;
-}
-
-app.component(name, {
-  template: view,
-  controller: ElementController,
-  bindings: {
-    element: '=',
-  },
-});
+app.component(name, react2angular(YouTubeComponent, ['element']));
 
 export default name;
+

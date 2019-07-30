@@ -13,11 +13,11 @@ const MenuItemLinkBreadcrumb = ({item}) => {
   return (<li className={{active: item.active}} >
      {!item.active && <a href={masterProvider.getInternalPath(item.url)}>
         <span className={getIcon(item)}></span>
-       {item.title}
+       {` ${item.title}`}
       </a>}
     { item.active && <>
       <span className={getIcon(item)}> </span>
-      <span>{item.title}</span>
+      <span> {item.title}</span>
     </>}
   </li>);
 };

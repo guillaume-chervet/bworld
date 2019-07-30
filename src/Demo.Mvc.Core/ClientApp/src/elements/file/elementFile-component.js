@@ -15,7 +15,7 @@ const FileAdmin = ({ file, element }) => {
 
   const open = () => fileElementService.open(element, file, true);
   const up = ()=> menuAdmin.up(file, element.data);
-  const down = ()=> menuAdmin.down(file, element.data)
+  const down = ()=> menuAdmin.down(file, element.data);
   const canUp = ()=> menuAdmin.canUp(file, element.data);
   const canDown = ()=>  menuAdmin.canDown(file, element.data);
   const destroy = ()=> menuAdmin.deleteElement(file, element.data);

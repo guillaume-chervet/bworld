@@ -22,7 +22,6 @@
     <Compile Remove="wwwroot\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="wwwroot\**" />
-    <Content Include="ClientApp\src\elements\file\file.css" />
     <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="wwwroot\**" />

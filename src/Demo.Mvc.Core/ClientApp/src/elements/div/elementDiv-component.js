@@ -11,6 +11,8 @@ import {DaysHours} from '../hours/elementHours-component';
 import {Link} from '../link/elementLink-component';
 import {GalleryFile} from '../file/elementFile-component';
 import {Grid} from '../grid/elementGrid-component';
+import { CarouselComponent } from '../carousel/elementCarousel-component';
+import { YouTubeComponent } from '../youtube/elementYoutube-component';
 
 const Switch = ({element}) => {
   switch (element.type) {
@@ -34,7 +36,10 @@ const Switch = ({element}) => {
                       return (<Grid element={element} />);
                         case 'div':
                         return (<Switch element={element} />);
-        
+    case 'carousel':
+      return (<CarouselComponent element={element} />);
+    case 'youtube':
+      return (<YouTubeComponent element={element} />);
         default:
       return <div>default {element.type}</div>;
   }

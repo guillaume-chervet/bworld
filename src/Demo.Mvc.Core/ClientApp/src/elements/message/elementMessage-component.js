@@ -1,129 +1,297 @@
 ﻿import _ from 'lodash';
+import React, {useReducer} from 'react';
+import { validation } from 'mw.validation';
 
-import app from '../../app.module';
-import { message as messageService } from '../../contact/message/message-factory';
-import { master } from '../../shared/providers/master-provider';
-import redux from '../../redux';
-import view from './message.html';
+import './message.css';
 
-const name = 'elementMessage';
+const rules = {
+  email: ['required', 'email'],
+  lastName: ['required', 'lastName'],
+  title: ['required'],
+  message: ['required'],
+  firstName: ['required', 'firstName'],
+  phone: ['phone'],
+};
 
-class Controller {
-  constructor() {
-    const connect = redux.getConnect();
-    this.unsubscribe = connect(
-      this.mapStateToThis,
-      this.mapThisToProps
-    )(this);
-  }
-  $onInit() {
-    const vm = this;
-    vm.message = {
-      title: '',
-      message: '',
-    };
-    vm.rules = {
-      email: ['required', 'email'],
-      lastName: ['required', 'lastName'],
-      title: ['required'],
-      message: ['required'],
-      firstName: ['required', 'firstName'],
-      phone: ['phone'],
-    };
-    let _formMessage = null;
-    vm.submit = function(formMessage) {
-      _formMessage = formMessage;
-      if (formMessage.$valid) {
-        const message = vm.message;
-        let messageToSend = null;
-        let type = '';
-        const from = {
-          id: null,
-          type: 1,
-        };
-        if (vm.user.isAuthenticate) {
-          from.id = vm.user.id;
-          messageToSend = {
-            message: message.message,
-            title: message.title,
-            moduleId: master.getModuleId(),
-          };
-          type = 'SiteAuthenticated';
-        } else {
-          from.id = message.email;
-          from.type = 2;
-          messageToSend = {
-            moduleId: master.getModuleId(),
-          };
-          Object.assign(messageToSend, _.cloneDeep(message));
-          type = 'SiteNotAuthenticated';
-        }
+const state = {hasChange :false, hasFocus:false, hasLostFocusOnce:false,  messageCapture: "" };
 
-        const data = {
-          from: from,
-          to: {
-            id: master.site.siteId,
-            type: 0,
-          },
-          type: type,
-          source: 'User',
-          messageJson: JSON.stringify(messageToSend),
-        };
+const newMessage = () => {return {
+  title : {value : '', message:'', rules : rules.title, state: {...state}  },
+  lastName : {value : '', message:'', rules : rules.lastName, state: {...state}},
+  firstName : {value : '', message:'', rules : rules.firstName, state: {...state}},
+  email : {value : '', message:'', rules : rules.email, state: {...state}},
+  phone : {value : '', message:'', rules : rules.phone, state: {...state}},
+  message : {value : '', message:'', rules : rules.message, state: {...state}},
+}};
 
-        messageService.sendMessageAsync(data).then(function() {
-          vm.messageSended = true;
-        });
-      }
-    };
-    vm.messageSended = false;
-    vm.initMessage = function() {
-      const message = vm.message;
-      message.title = '';
-      message.lastName = '';
-      message.firstName = '';
-      message.email = '';
-      message.phone = '';
-      message.message = '';
-      _formMessage.$setPristine();
-      vm.messageSended = false;
-    };
-    vm.getClassLabel = function(element) {
-      if (element.$level <= 2) {
-        return 'col-sm-3';
-      }
-      return 'col-sm-12 col-md-4';
-    };
-    vm.getClassField = function(element) {
-      if (element.$level <= 2) {
-        return 'col-sm-6';
-      }
-      return 'col-sm-12 col-md-8';
-    };
-    vm.getClassAction = function(element) {
-      if (element.$level <= 2) {
-        return 'col-sm-offset-3 col-sm-9 col-xs-offset-6 col-xs-6 mw-action';
-      }
-      return 'col-sm-offset-4 col-sm-9 col-md-offset-4 col-md-8 col-xs-offset-6 col-xs-6 mw-action';
-    };
-    return vm;
-  }
-  $onDestroy() {
-    this.unsubscribe();
-  }
-  mapStateToThis(state) {
-    return { user: state.user.user };
-  }
-  mapThisToProps() {
-    return {};
+const initialState = {
+  count: 0,
+  messageSended:false,
+  isSubmited: false,
+  message : newMessage()
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'onSubmit':
+      console.log(action);
+      return {...state, isSubmited:true };
+    case 'onChange': {
+      const target = action.data;
+      const name = target.name;
+      const value = target.value;
+      const newMessage = {...state.message};
+      const input = state.message[name];
+      const validationResults = validation.validateView(value, input.rules);
+
+      const firstFailed = validationResults.find(function(element) {
+        return !element.success;
+      });
+
+
+      const message = firstFailed ? firstFailed.message : '';
+      const newInput = { ...input, value, message:message, state: {...input.state, hasChange: true} };
+      newMessage[name] = newInput;
+      return {...state, message: newMessage };
+    }
+    case 'onFocus': {
+      const target = action.data;
+      const name = target.name;
+      const newMessage = {...state.message};
+      const input = state.message[name];
+      const newInput = { ...input, state: {...input.state, hasFocus: true, messageCapture: input.message } };
+      newMessage[name] = newInput;
+      return {...state, message: newMessage };
+    }
+    case 'onBlur': {
+      const target = action.data;
+      const name = target.name;
+      const newMessage = {...state.message};
+      const input = state.message[name];
+      const newInput = { ...input, state: {...input.state, hasLostFocusOnce: true, hasFocus : false} };
+      newMessage[name] = newInput;
+      return {...state, message: newMessage };
+    }
+    case 'initMessage':
+      return { ...state, message: newMessage(), messageSended:false, isSubmited:false };
+    case 'messageSended':
+      return { ...state, messageSended:true };
+    default:
+      throw new Error();
   }
 }
 
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  bindings: {
-    element: '=',
-  },
-});
+const getMessage = (input, forceDisplayMessage) => {
+  const message = input.message;
+  const {hasChange, hasLostFocusOnce, hasFocus, messageCapture} = input.state;
+  const isDisplayMessage =
+      hasLostFocusOnce || forceDisplayMessage || (hasChange && !hasFocus);
+  if (!isDisplayMessage) {
+    return '';
+  }
+  if (hasFocus) {
+    return messageCapture;
+  }
+  return message;
+};
 
-export default name;
+export const MessageContainer = ({element, moduleId, siteId, user, sendMessageAsync}) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const onChange = (e) => { dispatch({type: 'onChange', data: {
+    name: e.target.name,
+    value: e.target.value,
+    } }) };
+  const onBlur = (e) => { dispatch({type: 'onBlur', data: {
+      name: e.target.name,
+    } }) };
+  const onFocus = (e) => { dispatch({type: 'onFocus', data: {
+      name: e.target.name,
+    } }) };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    submit(state.message, user, siteId, moduleId, sendMessageAsync);
+  };
+    
+  const initMessage = () => dispatch({type: 'initMessage'});
+  
+  const submit = (formMessage, user, siteId, moduleId, sendMessageAsync) => ()=> {
+    dispatch({type: 'onSubmit'});
+    if (!formMessage.$valid) {
+      return;
+    }
+      let messageToSend = null;
+      let type = '';
+      const from = {
+        id: null,
+        type: 1,
+      };
+      if (user.isAuthenticate) {
+        from.id = user.id;
+        messageToSend = {
+          message: formMessage.message.value,
+          title: formMessage.title.value,
+          moduleId: moduleId,
+        };
+        type = 'SiteAuthenticated';
+      } else {
+        from.id = message.email;
+        from.type = 2;
+        messageToSend = {
+          moduleId,
+        };
+        Object.assign(messageToSend, _.cloneDeep(message));
+        type = 'SiteNotAuthenticated';
+      }
+
+      const data = {
+        from: from,
+        to: {
+          id: siteId,
+          type: 0,
+        },
+        type: type,
+        source: 'User',
+        messageJson: JSON.stringify(messageToSend),
+      };
+
+      sendMessageAsync(data).then(function() {
+        dispatch({type: 'messageSended'});
+      });
+ 
+  };
+  
+  return (
+      <Message user={user} onBlur={onBlur} onFocus={onFocus} onChange={onChange} onSubmit={onSubmit} message={state.message} initMessage={initMessage} messageSended={state.messageSended} element={element}>
+      </Message>
+  );
+  
+};
+
+
+const getClassLabel = (element) => {
+  if (element.$level <= 2) {
+    return 'col-sm-3';
+  }
+  return 'col-sm-12 col-md-4';
+};
+const getClassField = (element) => {
+  if (element.$level <= 2) {
+    return 'col-sm-6';
+  }
+  return 'col-sm-12 col-md-8';
+};
+const getClassAction = (element) => {
+  if (element.$level <= 2) {
+    return 'col-sm-offset-3 col-sm-9 col-xs-offset-6 col-xs-6 mw-action';
+  }
+  return 'col-sm-offset-4 col-sm-9 col-md-offset-4 col-md-8 col-xs-offset-6 col-xs-6 mw-action';
+};
+
+const Message = ({user, element, message, messageSended, onChange, onSubmit,onFocus, onBlur, initMessage, isSubmited}) => {
+  const {isAuthenticate} = user;
+  const firstNameMessage = getMessage(message.firstName, isSubmited);
+
+  const status = {};
+  for (let [key, value] of Object.entries(message)) {
+    const input = message[key];
+    const errorMessage = getMessage(input, isSubmited);
+    status[key] = { message : errorMessage, className :  "form-group form-group-lg" + (errorMessage ? "has-error has-feedback" : "")}
+  }
+  
+  const events = {onBlur, onChange, onFocus};
+  
+  
+  return (
+      <div className="mw-message-element">
+        { !messageSended && (<div>
+          <form role="form" name="formMessage" className="form-horizontal" noValidate encType="multipart/form-data" onSubmit={onSubmit}>
+            <fieldset>
+              <legend>Envoyer un message</legend>
+
+              <div className={status.title.className}>
+                <label htmlFor="Title" className={`${getClassLabel(element)} control-label`}>Titre*</label>
+                <div className={getClassField(element)}>
+                  { element.data.subjects.length > 0 ? (<select id="Title" name="title"
+                          className="form-control" value={message.title.value} onChange={onChange}>
+                    <option value="">- Sélectionner -</option>
+                    {
+                      element.data.subjects.map(s => <option value={c.title}>{c.title}</option>)
+                    }
+                  </select>) : (
+                  <input type="text" id="Title" name="title"
+                         value={message.title.value} className="form-control" {...events} />)}
+                  <span className="error-block">{status.title.message}</span>
+                </div>
+              </div>
+
+              { isAuthenticate && (<div >
+                <div className={status.lastName.className} >
+                  <label htmlFor="LastName" className={`${getClassLabel(element)} control-label`}>Nom*</label>
+                  <div className={getClassField(element)}>
+                    <input type="text" name="lastName" id="LastName" value={message.lastName.value}
+                           className="form-control" {...events}/>
+                    <span className="error-block">{status.lastName.message}</span>
+                  </div>
+                </div>
+
+                <div className={status.firstName.className} >
+                  <label htmlFor="FirstName" 
+                         className={`${getClassLabel(element)} control-label`}>Prénom*</label>
+                  <div className={getClassField(element)}>
+                    <input type="text" name="firstName" id="FirstName" value={message.firstName.value}
+                           className="form-control" {...events}/>
+                    <span className="error-block">{status.firstName.message}</span>
+                  </div>
+                </div>
+
+                <div className={status.email.className} >
+                  <label htmlFor="Email" 
+                         className={`${getClassLabel(element)} control-label`}>Email*</label>
+                  <div className={getClassField(element)}>
+                    <input type="text" name="email" id="Email" value={message.email.value} className="form-control"
+                           {...events}/>
+                    <span className="error-block">{status.email.message}</span>
+                  </div>
+                </div>
+
+                <div className={status.phone.className}>
+                  <label htmlFor="Phone"                          className={`${getClassLabel(element)} control-label`}>Téléphone</label>
+                  <div className={getClassField(element)}>
+                    <input type="text" name="phone" id="Phone" value={message.phone.value} className="form-control"
+                           {...events}/>
+                    <span className="error-block">{status.phone.message}</span>
+                  </div>
+                </div>
+              </div>)}
+                            
+              <div className={status.message.className}>
+                <label htmlFor="uMessage" 
+                       className={`${getClassLabel(element)} control-label`}>Message*</label>
+                <div className={getClassField(element)} >
+                  <textarea value={message.message.value} {...events} className="form-control" name="message" rows="6"
+                            cols="30"/>
+                  <span className="error-block">{status.message.message}</span>
+                </div>
+              </div>
+              <div className="form-group form-group-lg">
+                <div className={getClassAction(element)}>
+                  <button type="submit" className="btn btn-lg btn-success"><span
+                      className="glyphicon glyphicon-send"/> Envoyer
+                  </button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>) }
+        
+        { messageSended && (<div>
+          <h2>Message envoyé</h2>
+          <p>Votre message a été envoyé avec succès</p>
+          <div className="text-center">
+            <button type="button" className="btn btn-primary btn-lg" onClick={initMessage}>Nouveau message
+            </button>
+          </div>
+        </div>)}
+
+      </div>);
+};

@@ -7,14 +7,17 @@ import { react2angular } from 'react2angular';
 import './youtube.css';
 
 export const YouTubeComponent = ({element}) => {
-  const opts = {};
-  return (
+    const opts = {};
+    const onReady = (e) => console.log(e);
+    return (
+        <div className="mw-youtube">
       <YouTube
-          className="mw-youtube"
+
           videoId={element.data.url}
           opts={opts}
-          onReady={this._onReady}
-      />
+          onReady={onReady}
+            />
+            </div>
   );
 };
 

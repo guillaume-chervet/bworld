@@ -1,5 +1,5 @@
 ﻿import _ from 'lodash';
-import React, {useReducer} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import { validation } from 'mw.validation';
 
 import './message.css';
@@ -16,12 +16,12 @@ const rules = {
 const state = {hasChange :false, hasFocus:false, hasLostFocusOnce:false,  messageCapture: "" };
 
 const newMessage = () => {return {
-  title : {value : '', message:'', rules : rules.title, state: {...state}  },
-  lastName : {value : '', message:'', rules : rules.lastName, state: {...state}},
-  firstName : {value : '', message:'', rules : rules.firstName, state: {...state}},
-  email : {value : '', message:'', rules : rules.email, state: {...state}},
-  phone : {value : '', message:'', rules : rules.phone, state: {...state}},
-  message : {value : '', message:'', rules : rules.message, state: {...state}},
+  title : {value : '', message:'', rules : rules.title, state: {...state}, isVisible:true },
+  lastName : {value : '', message:'', rules : rules.lastName, state: {...state}, isVisible:true},
+  firstName : {value : '', message:'', rules : rules.firstName, state: {...state}, isVisible:true},
+  email : {value : '', message:'', rules : rules.email, state: {...state}, isVisible:true},
+  phone : {value : '', message:'', rules : rules.phone, state: {...state}, isVisible:true},
+  message : {value : '', message:'', rules : rules.message, state: {...state}, isVisible:true},
 }};
 
 const initialState = {
@@ -31,10 +31,41 @@ const initialState = {
   message : newMessage()
 };
 
+const validateInput = (input, value) => {
+  const validationResults = validation.validateView(value, input.rules);
+
+  const firstFailed = validationResults.find(function(element) {
+    return !element.success;
+  });
+
+  return firstFailed ? firstFailed.message : '';
+};
+
+for (let [key, value] of Object.entries(initialState.message)) {
+  const input = initialState.message[key];
+  input.message = validateInput(input, input.value);
+}
+
 function reducer(state, action) {
   switch (action.type) {
+    case 'onInit':
+      if(action.isAuthenticate){
+        return {...state, message : {...state.message, 
+            lastName: {...state.message.lastName, isVisible:false},
+            firstName: {...state.message.firstName, isVisible:false},
+            email: {...state.message.email, isVisible:false},
+            phone: {...state.message.phone, isVisible:false},
+        }}
+      } else{
+        return {...state, message : {...state.message,
+            lastName: {...state.message.lastName, isVisible:true},
+            firstName: {...state.message.firstName, isVisible:true},
+            email: {...state.message.email, isVisible:true},
+            phone: {...state.message.phone, isVisible:true},
+          }}
+      }
+
     case 'onSubmit':
-      console.log(action);
       return {...state, isSubmited:true };
     case 'onChange': {
       const target = action.data;
@@ -42,14 +73,7 @@ function reducer(state, action) {
       const value = target.value;
       const newMessage = {...state.message};
       const input = state.message[name];
-      const validationResults = validation.validateView(value, input.rules);
-
-      const firstFailed = validationResults.find(function(element) {
-        return !element.success;
-      });
-
-
-      const message = firstFailed ? firstFailed.message : '';
+      const message = validateInput(input, value);
       const newInput = { ...input, value, message:message, state: {...input.state, hasChange: true} };
       newMessage[name] = newInput;
       return {...state, message: newMessage };
@@ -73,7 +97,12 @@ function reducer(state, action) {
       return {...state, message: newMessage };
     }
     case 'initMessage':
-      return { ...state, message: newMessage(), messageSended:false, isSubmited:false };
+      const newMessage= {...state.message};
+      for (let [key, value] of Object.entries(newMessage)) {
+        newMessage[key].value = "";
+      }
+      
+      return { ...state, message: newMessage, messageSended:false, isSubmited:false };
     case 'messageSended':
       return { ...state, messageSended:true };
     default:
@@ -95,6 +124,16 @@ const getMessage = (input, forceDisplayMessage) => {
   return message;
 };
 
+const isFormValid = (formMessage) =>{
+  for (let [key, value] of Object.entries(formMessage)) {
+    if(formMessage[key].isVisible && formMessage[key].message) {
+      return false;
+    }
+  }
+  
+  return true;
+};
+
 export const MessageContainer = ({element, moduleId, siteId, user, sendMessageAsync}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const onChange = (e) => { dispatch({type: 'onChange', data: {
@@ -109,14 +148,31 @@ export const MessageContainer = ({element, moduleId, siteId, user, sendMessageAs
     } }) };
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch({type: 'onSubmit'});
     submit(state.message, user, siteId, moduleId, sendMessageAsync);
   };
+  
+  const onInit = () => {
+    const {isAuthenticate} = user;
+    dispatch({type: 'onInit', isAuthenticate});
+  };
+
+  useEffect(()=> {
+    onInit();  
+  },[user.isAuthenticate]);
+  
     
   const initMessage = () => dispatch({type: 'initMessage'});
   
-  const submit = (formMessage, user, siteId, moduleId, sendMessageAsync) => ()=> {
-    dispatch({type: 'onSubmit'});
-    if (!formMessage.$valid) {
+  const submit = (formMessage, user, siteId, moduleId, sendMessageAsync) => {
+    
+    const messageData = {};
+    for (let [key, value] of Object.entries(formMessage)) {
+      const input = formMessage[key];
+      messageData[key] = input.value;
+    }
+    
+    if (!isFormValid(formMessage)) {
       return;
     }
       let messageToSend = null;
@@ -128,18 +184,18 @@ export const MessageContainer = ({element, moduleId, siteId, user, sendMessageAs
       if (user.isAuthenticate) {
         from.id = user.id;
         messageToSend = {
-          message: formMessage.message.value,
-          title: formMessage.title.value,
+          message: messageData.message,
+          title: messageData.title,
           moduleId: moduleId,
         };
         type = 'SiteAuthenticated';
       } else {
-        from.id = message.email;
+        from.id = messageData.email;
         from.type = 2;
         messageToSend = {
           moduleId,
         };
-        Object.assign(messageToSend, _.cloneDeep(message));
+        Object.assign(messageToSend, _.cloneDeep(messageData));
         type = 'SiteNotAuthenticated';
       }
 
@@ -161,7 +217,7 @@ export const MessageContainer = ({element, moduleId, siteId, user, sendMessageAs
   };
   
   return (
-      <Message user={user} onBlur={onBlur} onFocus={onFocus} onChange={onChange} onSubmit={onSubmit} message={state.message} initMessage={initMessage} messageSended={state.messageSended} element={element}>
+      <Message user={user} onBlur={onBlur} onFocus={onFocus} onChange={onChange} onSubmit={onSubmit} message={state.message} initMessage={initMessage} isSubmited={state.isSubmited} messageSended={state.messageSended} element={element}>
       </Message>
   );
   
@@ -189,7 +245,6 @@ const getClassAction = (element) => {
 
 const Message = ({user, element, message, messageSended, onChange, onSubmit,onFocus, onBlur, initMessage, isSubmited}) => {
   const {isAuthenticate} = user;
-  const firstNameMessage = getMessage(message.firstName, isSubmited);
 
   const status = {};
   for (let [key, value] of Object.entries(message)) {
@@ -199,7 +254,6 @@ const Message = ({user, element, message, messageSended, onChange, onSubmit,onFo
   }
   
   const events = {onBlur, onChange, onFocus};
-  
   
   return (
       <div className="mw-message-element">
@@ -215,7 +269,7 @@ const Message = ({user, element, message, messageSended, onChange, onSubmit,onFo
                           className="form-control" value={message.title.value} onChange={onChange}>
                     <option value="">- Sélectionner -</option>
                     {
-                      element.data.subjects.map(s => <option value={c.title}>{c.title}</option>)
+                      element.data.subjects.map(c => <option value={c.title}>{c.title}</option>)
                     }
                   </select>) : (
                   <input type="text" id="Title" name="title"
@@ -224,7 +278,7 @@ const Message = ({user, element, message, messageSended, onChange, onSubmit,onFo
                 </div>
               </div>
 
-              { isAuthenticate && (<div >
+              { message.lastName.isVisible && (
                 <div className={status.lastName.className} >
                   <label htmlFor="LastName" className={`${getClassLabel(element)} control-label`}>Nom*</label>
                   <div className={getClassField(element)}>
@@ -232,9 +286,9 @@ const Message = ({user, element, message, messageSended, onChange, onSubmit,onFo
                            className="form-control" {...events}/>
                     <span className="error-block">{status.lastName.message}</span>
                   </div>
-                </div>
+                </div>)}
 
-                <div className={status.firstName.className} >
+                {message.firstName.isVisible && (<div className={status.firstName.className} >
                   <label htmlFor="FirstName" 
                          className={`${getClassLabel(element)} control-label`}>Prénom*</label>
                   <div className={getClassField(element)}>
@@ -242,9 +296,9 @@ const Message = ({user, element, message, messageSended, onChange, onSubmit,onFo
                            className="form-control" {...events}/>
                     <span className="error-block">{status.firstName.message}</span>
                   </div>
-                </div>
+                </div>)}
 
-                <div className={status.email.className} >
+                {message.email.isVisible && (<div className={status.email.className} >
                   <label htmlFor="Email" 
                          className={`${getClassLabel(element)} control-label`}>Email*</label>
                   <div className={getClassField(element)}>
@@ -252,17 +306,16 @@ const Message = ({user, element, message, messageSended, onChange, onSubmit,onFo
                            {...events}/>
                     <span className="error-block">{status.email.message}</span>
                   </div>
-                </div>
+                </div>)}
 
-                <div className={status.phone.className}>
+                {message.phone.isVisible && (<div className={status.phone.className}>
                   <label htmlFor="Phone"                          className={`${getClassLabel(element)} control-label`}>Téléphone</label>
                   <div className={getClassField(element)}>
                     <input type="text" name="phone" id="Phone" value={message.phone.value} className="form-control"
                            {...events}/>
                     <span className="error-block">{status.phone.message}</span>
                   </div>
-                </div>
-              </div>)}
+                </div>)}
                             
               <div className={status.message.className}>
                 <label htmlFor="uMessage" 

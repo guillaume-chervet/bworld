@@ -13,6 +13,7 @@ import {GalleryFile} from '../file/elementFile-component';
 import {Grid} from '../grid/elementGrid-component';
 import { CarouselComponent } from '../carousel/elementCarousel-component';
 import { YouTubeComponent } from '../youtube/elementYoutube-component';
+import { MessageDirtyContainer } from '../message/elementMessageContainer';
 
 const Switch = ({element}) => {
   switch (element.type) {
@@ -38,6 +39,8 @@ const Switch = ({element}) => {
                         return (<Switch element={element} />);
     case 'carousel':
       return (<CarouselComponent element={element} />);
+    case 'message':
+      return (<MessageDirtyContainer element={element} />);
     case 'youtube':
       return (<YouTubeComponent element={element} />);
         default:

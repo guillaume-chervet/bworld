@@ -6,8 +6,8 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 
 export const CarouselComponent = ({element}) => {
-  return (
-      <Carousel>
+    return (
+        <Carousel infiniteLoop={true} showThumbs={false}>
         {element.data.map(slide =>(<div>
           <img src={slide.thumbnailUrl} />
               {slide.description && (<p className="legend">Legend 1</p>)}

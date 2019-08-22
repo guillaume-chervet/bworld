@@ -2,6 +2,10 @@
 
 [![Build status](https://guillaume.visualstudio.com/bworld/_apis/build/status/bworld.core.CI?branch=master)](https://guillaume.visualstudio.com/bworld/_build)
 [![Release status](https://guillaume.vsrm.visualstudio.com/_apis/public/Release/badge/f20a9584-10bb-4761-9586-974af217e6cc/1/1)](https://guillaume.visualstudio.com/bworld/_release)
+[![Reliability](https://sonarcloud.io/api/project_badges/measure?project=guillaume-chervet_bworld&metric=reliability_rating)](https://sonarcloud.io/component_measures?id=guillaume-chervet_bworld&metric=reliability_rating) 
+[![Security](https://sonarcloud.io/api/project_badges/measure?project=guillaume-chervet_bworld&metric=security_rating)](https://sonarcloud.io/component_measures?id=guillaume-chervet_bworld&metric=security_rating)
+[![Code Corevage](https://sonarcloud.io/api/project_badges/measure?project=guillaume-chervet_bworld&metric=coverage)](https://sonarcloud.io/component_measures?id=guillaume-chervet_bworld&metric=Coverage) 
+[![Twitter](https://img.shields.io/twitter/follow/guiChervet?style=social)](https://twitter.com/intent/follow?screen_name=guiChervet)
 
 - [About](#about)
 - [Getting Started](#getting-started)

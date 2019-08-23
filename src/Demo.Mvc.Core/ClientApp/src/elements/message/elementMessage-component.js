@@ -41,10 +41,16 @@ const validateInput = (input, value) => {
   return firstFailed ? firstFailed.message : '';
 };
 
-for (let [key, value] of Object.entries(initialState.message)) {
-  const input = initialState.message[key];
-  input.message = validateInput(input, input.value);
-}
+const initMessages= (form) => {
+  const newForm = {};
+  for (let [key, value] of Object.entries(form)) {
+    const input = form[key];
+    newForm[key] = {...input, value:'', message: validateInput(input, input.value)} ;
+  }
+  return newForm;
+};
+
+initialState.message = initMessages(initialState.message);
 
 function reducer(state, action) {
   switch (action.type) {
@@ -97,12 +103,7 @@ function reducer(state, action) {
       return {...state, message: newMessage };
     }
     case 'initMessage':
-      const newMessage= {...state.message};
-      for (let [key, value] of Object.entries(newMessage)) {
-        newMessage[key].value = "";
-      }
-      
-      return { ...state, message: newMessage, messageSended:false, isSubmited:false };
+      return { ...state, message: initMessages(state.message), messageSended:false, isSubmited:false };
     case 'messageSended':
       return { ...state, messageSended:true };
     default:
@@ -244,13 +245,12 @@ const getClassAction = (element) => {
 };
 
 const Message = ({user, element, message, messageSended, onChange, onSubmit,onFocus, onBlur, initMessage, isSubmited}) => {
-  const {isAuthenticate} = user;
 
   const status = {};
   for (let [key, value] of Object.entries(message)) {
     const input = message[key];
     const errorMessage = getMessage(input, isSubmited);
-    status[key] = { message : errorMessage, className :  "form-group form-group-lg" + (errorMessage ? "has-error has-feedback" : "")}
+    status[key] = { message : errorMessage, className :  "form-group form-group-lg " + (errorMessage ? "has-error has-feedback" : "")}
   }
   
   const events = {onBlur, onChange, onFocus};

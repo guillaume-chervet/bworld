@@ -254,6 +254,3 @@ paket-files/
 *.sln.iml
 
 **/appsettings.Local.json
-**/appsettings.Production.json
-/src/Demo.Mvc.Core/appsettings.Temp.json
-/course.designpattern

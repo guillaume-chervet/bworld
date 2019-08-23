@@ -5,7 +5,11 @@ import { react2angular } from 'react2angular';
 import { service as elementGridElementService } from './elementGridElement-factory';
 import { Div } from '../div/elementDiv-component';
 
-const Child = ({element}) => {
+const Child = ({ element }) => {
+    if (!element || !element.data) {
+        return null;
+    }
+
   switch (element.data.type) {
     case "2":
       return (<div className="panel panel-default">

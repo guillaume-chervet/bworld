@@ -1,44 +1,51 @@
 ﻿import app from '../app.module';
 import { menu as elementMenuService } from './elementMenu-factory';
-import view from './menu.html';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { react2angular } from 'react2angular';
 
 const name = 'elementMenu';
 
-class Controller {
-  $onInit() {
-    const ctrl = this;
+export const ElementMenu = ({element}) => {
 
-    const parent = ctrl.element.$parent;
-    ctrl.deleteElement = elementChild => {
-      elementMenuService.deleteElement(elementChild, parent);
-    };
+  const parent = element.$parent;
+  const deleteElement = () => {
+    elementMenuService.deleteElement(element, parent);
+  };
 
-    ctrl.up = elementChild => {
-      elementMenuService.up(elementChild, parent);
-    };
+  const up = () => {
+    elementMenuService.up(element, parent);
+  };
 
-    ctrl.down = elementChild => {
-      elementMenuService.down(elementChild, parent);
-    };
+  const down = () => {
+    elementMenuService.down(element, parent);
+  };
 
-    ctrl.canUp = elementChild => {
-      return elementMenuService.canUp(elementChild, parent);
-    };
+  const canUp = () => {
+    return elementMenuService.canUp(element, parent);
+  };
 
-    ctrl.canDown = elementChild => {
-      return elementMenuService.canDown(elementChild, parent);
-    };
+  const canDown = () => {
+    return elementMenuService.canDown(element, parent);
+  };
+  return (
+      <div className="btn-toolbar mw-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div className="btn-group pull-right" role="group" aria-label="First group">
+          {canUp() && (<button type="button" onClick={up} 
+                  className="btn btn-primary"><span className="glyphicon glyphicon-chevron-up"
+                                                    aria-hidden="true"></span></button>)}
+          {canDown() && (<button type="button" onClick={down} 
+                  className="btn btn-primary"><span className="glyphicon glyphicon-chevron-down"
+                                                    aria-hidden="true"></span></button>)}
+        </div>
+        <div className="btn-group pull-right" role="group" aria-label="Second group">
+          <button type="button" onClick={deleteElement} className="btn btn-danger"><span
+              className="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        </div>
+      </div>
+  );
+};
 
-    return ctrl;
-  }
-}
-
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  bindings: {
-    element: '=',
-  },
-});
+app.component(name, react2angular(ElementMenu, ['element']));
 
 export default name;

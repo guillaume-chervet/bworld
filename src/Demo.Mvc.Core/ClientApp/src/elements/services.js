@@ -8,7 +8,6 @@ import file from './file';
 import grid from './grid';
 import gridElement from './gridElement';
 import h1 from './h1';
-import h2 from './h2';
 import hours from './hours';
 import hr from './hr';
 import link from './link';
@@ -32,7 +31,6 @@ const services = {
   grid,
   gridElement,
   h1,
-  h2,
   hours,
   hr,
   link,

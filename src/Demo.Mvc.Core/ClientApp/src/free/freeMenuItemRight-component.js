@@ -8,9 +8,8 @@ import { SubChildItem } from '../news/newsMenuItem-component';
 import SubMenuItemsRight from '../shared/menu/subMenuItemsRight-component';
 import PropTypes from 'prop-types';
 
-export const SubMenu = props => {
-  const { menuItem, className, currentPath } = props;
-  if (!menuItem.childs || menuItem.childs.length < 0) {
+export const SubMenu = ({ menuItems, className, currentPath }) => {
+  if (!menuItems || menuItems.length < 0) {
     return null;
   }
 
@@ -19,7 +18,7 @@ export const SubMenu = props => {
       <SubMenuItemsRight
         start={0}
         end={100}
-        menuItems={menuItem.childs}
+        menuItems={menuItems}
         currentPath={currentPath}
       />
     </ul>
@@ -30,26 +29,22 @@ SubMenu.defaultProps = {
   className: 'mw-submenu',
 };
 
-export default class FreeMenuItemRight extends React.Component {
-  constructor(props) {
-    super(props);
+const FreeMenuItemRight = ({ menuItem, currentPath }) => {
+  const childs = menuItem.childs;
+  if (!childs || childs.length <= 0) {
+    return <NewsMenuItem menuItem={menuItem} currentPath={currentPath} />;
   }
-  render() {
-    const { menuItem, currentPath } = this.props;
-    const childs = menuItem.childs;
-    if (!childs || childs.length <= 0) {
-      return <NewsMenuItem menuItem={menuItem} currentPath={currentPath} />;
-    }
 
-    return (
+  return (
       <React.Fragment>
         <a href={menuItem.routePath}>
           <span className={getIcon(menuItem)} />
           <span> {menuItem.title}</span>
           <b className="caret" />
         </a>
-        <SubMenu menuItem={menuItem} currentPath={currentPath} />
+        <SubMenu menuItem={menuItem.childs} currentPath={currentPath} />
       </React.Fragment>
-    );
-  }
-}
+  );
+};
+
+export default FreeMenuItemRight

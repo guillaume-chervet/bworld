@@ -88,7 +88,7 @@ const getStateMenuItems = function(menuItems, itemState) {
   const result = [];
   if (menuItems.length > 0) {
     menuItems.forEach(function(mi) {
-      var miDraft = mi.state;
+      let miDraft = mi.state;
       if (miDraft === undefined || miDraft === 0) {
         miDraft = itemStates.published;
       }
@@ -131,8 +131,8 @@ function getSecondMenuItems(
         limitLength = length;
       }
 
-      for (var i = startLength; i < limitLength; i++) {
-        var mi = menuItemsTemp[i];
+      for (let i = startLength; i < limitLength; i++) {
+        const mi = menuItemsTemp[i];
         if (module) {
           if (mi.module === module) {
             menuItems.push(mi);

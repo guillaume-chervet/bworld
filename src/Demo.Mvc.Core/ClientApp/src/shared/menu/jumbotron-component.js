@@ -18,7 +18,7 @@ const CarouselJumbotron = ({master}) => {
 };
 
 const Jumbrotron = ({master}) => {
-    return (master.isLogo && (<div className="ng-cloak mw-jumbotron">
+    return (master.isLogo && (<div className="mw-jumbotron">
 
         {!master.isJumbotron && (<div>
             {master.imageLogos.length === 1 && (<img src={master.logoUrl}

@@ -24,10 +24,10 @@ const FileAdmin = ({ file, element }) => {
     <button type="button" className="btn btn-danger mw-image-delete" onClick={destroy}>
       <span className="glyphicon glyphicon-trash"></span>
     </button>
-    {canUp(element, file) && (<button type="button" onClick={up} className="btn btn-primary mw-image-up">
+    {canUp() && (<button type="button" onClick={up} className="btn btn-primary mw-image-up">
       <span className="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
     </button>)}
-    {canDown(element, file) && (<button type="button" onClick={down} className="btn btn-primary mw-image-down">
+    {canDown() && (<button type="button" onClick={down} className="btn btn-primary mw-image-down">
       <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
     </button>)}
     <img src={file.thumbnailUrl} className="center-block img-responsive hand" alt={file.name} onClick={open} />

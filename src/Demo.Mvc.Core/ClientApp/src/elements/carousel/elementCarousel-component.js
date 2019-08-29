@@ -1,27 +1,21 @@
 ﻿import app from '../../app.module';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
-
+import LoadableCarousel from './LoadableCarousel';
 import './carousel.css';
 
 export const CarouselComponent = ({element}) => {
   return (
       <div className="row mw-carousel">
-      <Carousel  infiniteLoop={true} showThumbs={false} autoPlay={true} >
+      <LoadableCarousel infiniteLoop={true} showThumbs={false} autoPlay={true} >
         {element.data.map(slide =>(<div>
           <img src={slide.thumbnailUrl} />
-              {slide.description && (<p className="legend">Legend 1</p>)}
+              {slide.description && (<p className="legend">{slide.description}</p>)}
         </div>)) }
-      </Carousel>
+      </LoadableCarousel>
       </div>
   );
 };
 
 const name = 'elementCarousel';
 app.component(name, react2angular(CarouselComponent, ['element']));
-
-export default name;
-

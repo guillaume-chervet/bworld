@@ -15,7 +15,6 @@ import message from './message';
 import metaDescription from './metaDescription';
 import p from './p';
 import select from './select';
-import table from './table';
 import youtube from './youtube';
 import form from './form';
 import inputRadio from './inputRadio';
@@ -38,7 +37,6 @@ const services = {
   metaDescription,
   p,
   select,
-  table,
   youtube,
   form,
   inputRadio,

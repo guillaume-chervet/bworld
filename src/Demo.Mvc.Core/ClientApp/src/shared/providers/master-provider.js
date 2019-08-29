@@ -75,7 +75,7 @@ const getCurrentMenuItemClean = (routeCurrentModuleId, menu) => {
 const getCurrentMenuItem = () => {
   const state = redux.getState();
   const menu = state.master.menu;
-  getCurrentMenuItemClean(getRouteCurrentModuleId(), menu);
+  return getCurrentMenuItemClean(getRouteCurrentModuleId(), menu);
 };
 
 function getMenuItems(items, moduleId) {

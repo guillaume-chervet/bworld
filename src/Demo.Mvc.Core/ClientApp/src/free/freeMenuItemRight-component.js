@@ -1,15 +1,11 @@
 ﻿import { getIcon } from '../shared/icons';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { react2angular } from 'react2angular';
 import NewsMenuItem from '../news/newsMenuItem-component';
-import { SubChildItem } from '../news/newsMenuItem-component';
 import SubMenuItemsRight from '../shared/menu/subMenuItemsRight-component';
-import PropTypes from 'prop-types';
 
 export const SubMenu = ({ menuItems, className, currentPath }) => {
-  if (!menuItems || menuItems.length < 0) {
+  if (!menuItems || menuItems.length <= 0) {
     return null;
   }
 

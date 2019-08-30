@@ -1,59 +1,64 @@
 ﻿import app from '../../app.module';
-import $window from '../../window';
-import redux from '../../redux';
 import { menu } from './menu-factory';
-import view from './menuBottom.html';
-
-const name = 'menuBottom';
+import { connect } from 'react-redux'
+import {react2angular} from "react2angular";
+import {withStore} from "../../reducers.config";
+import React from "react";
 
 const getMenuItems = function (master) {
   const newMenu = menu.mapPublishedMenu(master.menu);
   const menuItems = [];
     const menuItemsTemp = menu.getMenuItems(newMenu.bottomMenuItems, false);
   if (menuItemsTemp) {
-    for (var i = 0; i < menuItemsTemp.length; i++) {
+    for (let i = 0; i < menuItemsTemp.length; i++) {
       menuItems.push(menuItemsTemp[i]);
     }
   }
   return menuItems;
 };
 
-class Controller {
-  constructor() {
-    const connect = redux.getConnect();
-    this.unsubscribe = connect(
-      this.mapStateToThis,
-      this.mapThisToProps
-    )(this);
-  }
-  $onInit() {
-    const ctrl = this;
-    ctrl.version = $window.params.version;
-    ctrl.date = new Date();
-    ctrl.isActive = menu.isActive;
-    return ctrl;
-  }
-  $onDestroy() {
-    this.unsubscribe();
-  }
-  mapStateToThis(state) {
-    const master = state.master;
-    return {
-      menuItems: getMenuItems(master),
-      titleSite: master.masterData.titleSite,
-    };
-  }
-  mapThisToProps() {
-    return {};
-  }
-}
+const name = 'menuBottom';
 
-app.component(name, {
-  template: view,
-  controller: Controller,
-  bindings: {
-    currentPath: '<',
-  },
-});
+
+const MenuBottom = ({menuItems, titleSite, currentPath}) => {
+
+  const version = window.params.version;
+  const isActive = menu.isActive;
+  
+  return (<footer>
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12 ">
+          <span>&copy; <b>{titleSite}</b> {(new Date()).getFullYear()}</span>
+        </div>
+        <div className="col-lg-12">
+          <ul className="mw-footer-links">
+            <li>version v{version}</li>
+            {menuItems.map(menuItem=> <li> <a href={menuItem.routePath} >{menuItem.title}</a>·</li> )}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>);
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const master = state.master;
+  return {
+    menuItems: getMenuItems(master),
+    titleSite: master.masterData.titleSite,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {};
+};
+
+const MenuBottomWithState = withStore(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MenuBottom));
+
+app.component(name, react2angular(MenuBottomWithState, ['currentPath']));
 
 export default name;

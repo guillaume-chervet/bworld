@@ -1,7 +1,6 @@
 ﻿import app from '../../app.module';
 import history from '../../history';
-import { user } from '../../user/info/user-factory';
-import redux from '../../redux';
+import { user as userFactory } from '../../user/info/user-factory';
 import { userNotification } from '../../user/info/userNotification-factory';
 import { menu as menuFactory } from './menu-factory';
 import { master  } from '../providers/master-provider';
@@ -19,14 +18,14 @@ const MainMenu = ({ user, menu, isDisplayMenu, isCollapsed , currentPath }) => {
     const updateMenu = (e) => {
         e.preventDefault();
         menuFactory.updateMenu(!isCollapsed);
-    }
-    const isAdmin = menuFactory.isAdmin;
-    const isUser = menuFactory.isUser;
+    };
+    //const isAdmin = menuFactory.isAdmin;
+    //const isUser = menuFactory.isUser;
     const getInternalPath = master.getInternalPath;
     const isActive = menuFactory.isActive;
     const isPrivate = menuFactory.isPrivate;
     const getUserName = function (initial) {
-        var _user = user;
+        const _user = user;
         if (initial) {
             return (
                 _user.firstName.slice(0, 1).toUpperCase() + _user.lastName.slice(0, 1).toUpperCase()
@@ -34,12 +33,12 @@ const MainMenu = ({ user, menu, isDisplayMenu, isCollapsed , currentPath }) => {
         }
         return _user.firstName;
     };
-    const getMainMenuItem = menuFactory.getMainMenuItem;
+   /* const getMainMenuItem = menuFactory.getMainMenuItem;
     const logOff = function () {
-        user.logOffAsync().then(function () {
+        userFactory.logOffAsync().then(function () {
             history.path('/utilisateur/connexion');
         });
-    };
+    };*/
 
 
     return (<div>

@@ -9,7 +9,6 @@ import angularTouch from 'angular-touch';
 import angularGoogleChart from 'angular-google-chart';
 import angularBoostrap from 'angular-ui-bootstrap';
 import angularSocialLink from 'angular-social-links';
-import angularYoutubeMb from 'ng-youtube-embed';
 import angularMultiSelect from '../node_modules/isteven-angular-multiselect/isteven-multi-select';
 import ngFileUpload from 'ng-file-upload';
 import colorPicker from 'angular-bootstrap-colorpicker';
@@ -47,7 +46,6 @@ const app = window.angular.module(
     'socialLinks',
     'angularUtils.directives.dirPagination',
     'timer',
-    'ngYoutubeEmbed',
     'isteven-multi-select',
   ],
   function() {}

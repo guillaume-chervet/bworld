@@ -1,22 +1,21 @@
 ﻿import app from '../../app.module';
-import view from './elementCarousel.html';
+import React from 'react';
+import { react2angular } from 'react2angular';
+import LoadableCarousel from './LoadableCarousel';
+import './carousel.css';
+
+export const CarouselComponent = ({element}) => {
+  return (
+      <div className="row mw-carousel">
+      <LoadableCarousel infiniteLoop={true} showThumbs={false} autoPlay={true} >
+        {element.data.map(slide =>(<div>
+          <img src={slide.thumbnailUrl} />
+              {slide.description && (<p className="legend">{slide.description}</p>)}
+        </div>)) }
+      </LoadableCarousel>
+      </div>
+  );
+};
 
 const name = 'elementCarousel';
-
-class Controller {
-  $onInit() {
-    const ctrl = this;
-    ctrl.active = 0;
-    return ctrl;
-  }
-}
-
-app.component(name, {
-  template: view,
-  controller: Controller,
-  bindings: {
-    element: '=',
-  },
-});
-
-export default name;
+app.component(name, react2angular(CarouselComponent, ['element']));

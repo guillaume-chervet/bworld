@@ -1,40 +1,44 @@
 ﻿import app from '../app.module';
 import { menu as elementMenuService } from './elementMenu-factory';
-import view from './menu-h1.html';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { react2angular } from 'react2angular';
+
+export const ElementMenuH1= ({element}) => {
+  const parent = element.$parent;
+
+  const up = () => {
+    elementMenuService.up(element, parent);
+  };
+
+  const down = () => {
+    elementMenuService.down(element, parent);
+  };
+
+  const canUp = () => {
+    return elementMenuService.canUp(element, parent);
+  };
+
+  const canDown = () => {
+    return elementMenuService.canDown(element, parent);
+  };
+  
+  return (
+      <div className="btn-toolbar mw-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div className="btn-group pull-right" role="group" aria-label="First group">
+          {canUp() && (<button type="button" onClick={up} 
+                  className="btn btn-primary"><span className="glyphicon glyphicon-chevron-up"
+                                                    aria-hidden="true"></span></button>)}
+          {canDown() && (<button type="button" onClick={down} 
+                  className="btn btn-primary"><span className="glyphicon glyphicon-chevron-down"
+                                                    aria-hidden="true"></span></button>)}
+        </div>
+      </div>
+  );
+};
 
 const name = 'elementMenuH1';
-
-class Controller {
-  $onInit() {
-    var ctrl = this;
-
-    var parent = ctrl.element.$parent;
-
-    ctrl.up = elementChild => {
-      elementMenuService.up(elementChild, parent);
-    };
-
-    ctrl.down = elementChild => {
-      elementMenuService.down(elementChild, parent);
-    };
-
-    ctrl.canUp = elementChild => {
-      return elementMenuService.canUp(elementChild, parent);
-    };
-
-    ctrl.canDown = elementChild => {
-      return elementMenuService.canDown(elementChild, parent);
-    };
-    return ctrl;
-  }
-}
-
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  bindings: {
-    element: '=',
-  },
-});
+app.component(name, react2angular(ElementMenuH1, ['element']));
 
 export default name;
+

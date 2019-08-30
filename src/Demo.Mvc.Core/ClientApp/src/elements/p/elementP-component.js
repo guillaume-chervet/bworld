@@ -3,19 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
-class Paragraphe extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+export const Paragraphe = ({element}) => {
     return (
       <div
-        id={this.props.element.property}
-        dangerouslySetInnerHTML={{ __html: this.props.element.data }}
+        id={element.property}
+        dangerouslySetInnerHTML={{ __html: element.data }}
       />
     );
-  }
-}
+};
 
 const name = 'elementP';
 app.component(name, react2angular(Paragraphe, ['element']));

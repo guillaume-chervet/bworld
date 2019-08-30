@@ -1,5 +1,4 @@
 import { FREE_INIT, FREE_SAVE, FREE_HANDLECHANGE } from './free-types';
-import _ from 'lodash';
 
 export const initialState = {
   element: {},

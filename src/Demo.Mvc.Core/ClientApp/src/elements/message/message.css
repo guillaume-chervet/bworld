@@ -1,0 +1,9 @@
+@media (min-width: 768px) and (max-width:992px) {
+    .mw-grid-element .mw-message-element .form-horizontal .control-label {
+        text-align: left;
+    }
+    .mw-grid-element .mw-message-element .mw-action button {
+        float: right;
+        margin-right: 38px;
+    }
+}

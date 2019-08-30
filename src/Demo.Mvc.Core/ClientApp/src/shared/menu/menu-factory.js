@@ -23,9 +23,7 @@ rootScope.$on('$locationChangeSuccess', function() {
   updateMenu(true);
 });
 
-const getMainMenuItem = function(propertyName) {
-  const state = redux.getState();
-  const master = state.master;
+const getMainMenuItemPure = (master, propertyName) => {
   if (!propertyName) {
     propertyName = 'menuItems';
   }
@@ -37,21 +35,23 @@ const getMainMenuItem = function(propertyName) {
   }
   return null;
 };
+const getMainMenuItem = (propertyName) => {
+  const state = redux.getState();
+  const master = state.master;
+  return getMainMenuItemPure(master, propertyName);
+};
 
-function isAdmin() {
-  return history.path().indexOf('/administration') === 0;
-}
+const isAdminPure = (path) => path.indexOf('/administration') === 0;
+const isAdmin = () => isAdminPure(history.path());
 
-function isPrivate() {
-  return (
-    history.path().indexOf('/privee') === 0 ||
-    history.path().indexOf('/administration/privee') === 0
+const isPrivatePure = (path) => (
+      path.indexOf('/privee') === 0 ||
+      path.indexOf('/administration/privee') === 0
   );
-}
+const isPrivate = () => isPrivatePure(history.path());
 
-function isUser() {
-  return history.path().indexOf('/utilisateur') === 0;
-}
+const isUserPure = (path) => path.indexOf('/utilisateur') === 0;
+const isUser = () => isUserPure(history.path());
 
 function isActive(routePath, currentPath) {
   if (!currentPath) {
@@ -88,7 +88,7 @@ const getStateMenuItems = function(menuItems, itemState) {
   const result = [];
   if (menuItems.length > 0) {
     menuItems.forEach(function(mi) {
-      var miDraft = mi.state;
+      let miDraft = mi.state;
       if (miDraft === undefined || miDraft === 0) {
         miDraft = itemStates.published;
       }
@@ -131,8 +131,8 @@ function getSecondMenuItems(
         limitLength = length;
       }
 
-      for (var i = startLength; i < limitLength; i++) {
-        var mi = menuItemsTemp[i];
+      for (let i = startLength; i < limitLength; i++) {
+        const mi = menuItemsTemp[i];
         if (module) {
           if (mi.module === module) {
             menuItems.push(mi);
@@ -153,16 +153,20 @@ const mapPublishedMenu = (oldMenu) => {
             newMenu[property] = getStateMenuItems(oldMenu[property], itemStates.published);
     }
     return newMenu;
-}
+};
 
 export const menu = {
   getSecondMenuItems,
   isActive,
   getMenuItems,
+  getMainMenuItemPure,
     getMainMenuItem,
     getStateMenuItems,
   isAdmin,
+  isAdminPure,
   isPrivate,
+  isPrivatePure,
+  isUserPure,
   isUser,
     updateMenu,
     mapPublishedMenu,

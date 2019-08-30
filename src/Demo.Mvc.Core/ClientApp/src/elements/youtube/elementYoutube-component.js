@@ -1,19 +1,35 @@
 ﻿import app from '../../app.module';
-import view from './youtube.html';
+import React from 'react';
+import { react2angular } from 'react2angular';
+import Loadable from 'react-loadable';
 
-const name = 'elementYoutube';
+import './youtube.css';
 
-function ElementController() {
-  var ctrl = this;
-  return ctrl;
-}
 
-app.component(name, {
-  template: view,
-  controller: ElementController,
-  bindings: {
-    element: '=',
-  },
+const LoadableYoutube = Loadable({
+    loader: () => import('react-youtube'),
+    loading() {
+        return <div>Loading...</div>;
+    },
 });
 
+export const YouTubeComponent = ({element}) => {
+    const opts = {};
+    const onReady = (e) => console.log(e);
+    return (
+        <div className="mw-youtube">
+      <LoadableYoutube
+
+          videoId={element.data.url}
+          opts={opts}
+          onReady={onReady}
+            />
+            </div>
+  );
+};
+
+const name = 'elementYoutube';
+app.component(name, react2angular(YouTubeComponent, ['element']));
+
 export default name;
+

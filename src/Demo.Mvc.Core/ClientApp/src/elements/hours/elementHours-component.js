@@ -23,12 +23,7 @@ const Hours = ({ hours }) => {
   );
 };
 
-class DaysHours extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const { element } = this.props;
+export const DaysHours = ({element}) => {
     return (
       <table>
         <tbody>
@@ -44,8 +39,7 @@ class DaysHours extends React.Component {
         </tbody>
       </table>
     );
-  }
-}
+};
 
 const name = 'elementHours';
 

@@ -4,14 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
-class H1 extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return <h1>{this.props.element.data}</h1>;
-  }
-}
+export const H1 =  ({element}) => {
+    return <h1>{element.data}</h1>;
+};
 
 const name = 'elementH1';
 

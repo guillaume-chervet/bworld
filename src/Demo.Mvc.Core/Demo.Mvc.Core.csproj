@@ -22,6 +22,14 @@
     <Compile Remove="wwwroot\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="wwwroot\**" />
+    <Content Include="ClientApp\.storybook\config.js" />
+    <Content Include="ClientApp\src\elements\carousel\carousel.css" />
+    <Content Include="ClientApp\src\elements\carousel\Carousel.js" />
+    <Content Include="ClientApp\src\elements\carousel\LoadableCarousel.js" />
+    <Content Include="ClientApp\src\elements\message\elementMessage.stories.js" />
+    <Content Include="ClientApp\src\elements\message\elementMessageContainer.js" />
+    <Content Include="ClientApp\src\elements\message\message.css" />
+    <Content Include="ClientApp\src\index.stories.js" />
     <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="wwwroot\**" />

@@ -19,20 +19,13 @@ const getUrl = data => {
   }
 };
 
-class Link extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-  onClick() {
-    const $ctrl = this.props;
-    const data = $ctrl.element.data;
+export const Link =({element}) => {
+  const onClick = () => {
+    const data = element.data;
     const href = getUrl(data);
     audit.trace(href, 'Button');
-  }
-  render() {
-    const $ctrl = this.props;
-    const data = $ctrl.element.data;
+  };
+    const data = element.data;
     const title = linkService.getTitle(data, data.label);
     const href = getUrl(data);
 
@@ -43,55 +36,50 @@ class Link extends React.Component {
             <a
               className="btn btn-lg btn-success"
               href={href}
-              onClick={this.onClick}>
+              onClick={onClick}>
               <span className="fa fa-phone" />
               <span> {title}</span>
             </a>
           </div>
         );
-        break;
       case 'mail':
         return (
           <div className="text-center mw-link">
             <a
               className="btn btn-lg btn-success"
               href={href}
-              onClick={this.onClick}>
+              onClick={onClick}>
               <span className="fa fa-envelope-o" />
               <span> {title}</span>
             </a>
           </div>
         );
-        break;
       case 'facebook':
         return (
           <div className="text-center mw-link">
             <a
               className="btn btn-social btn-facebook"
               href={href}
-              onClick={this.onClick}>
+              onClick={onClick}>
               <span className="fa fa-facebook" />
               <span> {title}</span>
             </a>
           </div>
         );
-        break;
       default:
         return (
           <div className="text-center mw-link">
             <a
               href={href}
-              onClick={this.onClick}
+              onClick={onClick}
               className="btn btn-primary btn-lg mw-btn-link">
               {' '}
               {title}
             </a>
           </div>
         );
-        break;
     }
-  }
-}
+};
 
 const name = 'elementLink';
 app.component(name, react2angular(Link, ['element']));

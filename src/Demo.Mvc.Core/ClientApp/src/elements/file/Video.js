@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 import Loadable from 'react-loadable';
 
-const LoadableVideo = Loadable({
+export const LoadableVideo = Loadable({
   loader: () => import('./Player'),
   loading() {
     return <div>Loading...</div>;

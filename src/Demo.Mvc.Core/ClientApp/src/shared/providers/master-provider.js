@@ -6,13 +6,15 @@ import {
   masterUpdate,
   masterUpdateMetas,
   masterUpdateMenu,
+    masterUpdateBreadcrumb,
 } from './master-actions';
+import history from "../../history";
 
 const name = 'Master';
 
 const params = window.params;
 
-function getFirstMenuItem(menutItems) {
+const getFirstMenuItem = (menutItems) => {
   if (menutItems && menutItems.length > 0) {
     for (var i = 0; i < menutItems.length; i++) {
       const mi = menutItems[i];
@@ -21,21 +23,15 @@ function getFirstMenuItem(menutItems) {
       }
     }
   }
-}
+};
 
-function getModuleId($route, menuKey) {
+const getModuleIdClean = (menuKey, routeCurrentModuleId, menu) => {
   if (!menuKey) {
     menuKey = 'menuItems';
   }
-  const current = route.current();
-  if (current) {
-    const moduleId = current.params.moduleId;
-    if (moduleId) {
-      return moduleId;
-    }
+  if (routeCurrentModuleId) {
+    return routeCurrentModuleId;
   }
-  const state = redux.getState();
-  const menu = state.master.menu;
   const mi = getFirstMenuItem(menu[menuKey]);
   if (mi) {
     return mi.moduleId;
@@ -44,12 +40,27 @@ function getModuleId($route, menuKey) {
   if (mib) {
     return mib.moduleId;
   }
-}
+};
 
-function getCurrentMenuItem() {
-  var moduleId = getModuleId(route);
+const getRouteCurrentModuleId = () => {
+  const current = route.current();
+  if (current) {
+    const routeCurrentModuleId = current.params.moduleId;
+    if (routeCurrentModuleId) {
+      return routeCurrentModuleId;
+    }
+  }
+  return null;
+};
+
+const getModuleId = ($route, menuKey) => {
   const state = redux.getState();
   const menu = state.master.menu;
+  return getModuleIdClean(menuKey, getRouteCurrentModuleId(), menu);
+};
+
+const getCurrentMenuItemClean = (routeCurrentModuleId, menu) => {
+  var moduleId = getModuleIdClean('', routeCurrentModuleId, menu);
   for (var name in menu) {
     const items = menu[name];
     if (items instanceof Array) {
@@ -60,10 +71,15 @@ function getCurrentMenuItem() {
     }
   }
   return null;
-}
+};
+const getCurrentMenuItem = () => {
+  const state = redux.getState();
+  const menu = state.master.menu;
+  return getCurrentMenuItemClean(getRouteCurrentModuleId(), menu);
+};
 
 function getMenuItems(items, moduleId) {
-  for (var i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     const menuItem = items[i];
     if (menuItem.moduleId === moduleId) {
       return menuItem;
@@ -118,7 +134,7 @@ const getInternalPath = (path) => {
         return path;
     }
     return concatUrl(params.baseUrlSite, path);
-} 
+};
 
 function getFullUrl(path) {
   return concatUrl(params.baseUrl, path);
@@ -141,7 +157,9 @@ export function concatUrl(base, path) {
 export const master = {
   concatUrl,
   getModuleId,
+  getModuleIdClean,
   getCurrentMenuItem,
+  getCurrentMenuItemClean,
     getServerMenuItem,
   
   site: params.master.site,
@@ -153,10 +171,22 @@ export const master = {
   updateMasterMetas: data => {
     const dispatch = redux.getDispatch();
     dispatch(masterUpdateMetas(data));
-  },
+  }, 
+    updateMasterBreadcrumb: items => {
+        const dispatch = redux.getDispatch();
+        dispatch(masterUpdateBreadcrumb(items));
+    },
+  getRouteCurrentModuleId,
   updateMasterMenu: data => {
     const dispatch = redux.getDispatch();
-    dispatch(masterUpdateMenu(data));
+    
+    const dataToDisptach = {
+      routeCurrentModuleId: getRouteCurrentModuleId(),
+      path: history.path(),
+      menu:data,
+    };
+    
+    dispatch(masterUpdateMenu(dataToDisptach));
   },
   getUrl: getUrl,
     getFullUrl: getFullUrl,

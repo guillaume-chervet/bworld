@@ -1,11 +1,11 @@
 ﻿import app from '../../app.module';
-import './file.css';
+import './file_admin.css';
 import view from './elementFile_admin.html';
 
 const name = 'elementFileAdmin';
 
 function ElementController() {
-  var ctrl = this;
+  const ctrl = this;
   return ctrl;
 }
 

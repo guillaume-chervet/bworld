@@ -1,5 +1,4 @@
 import modal from '../../modal';
-import sce from '../../sce';
 import { master } from '../../shared/providers/master-provider';
 import { urlHelper } from '../../shared/services/urlHelper-factory';
 
@@ -253,7 +252,7 @@ const addElement = function(parentElement, guid) {
 export const service = {
   addElement,
   mapFileData,
-  open: open,
+  open,
   getClass,
   getAlt,
   isFileUploading: isFileUploading,

@@ -178,9 +178,13 @@ function mapElement(elements, metaElements) {
   return elementsTemp;
 }
 
-const inherit = function(ctrl) {
+const inherit = (ctrl) => {
   ctrl.isEdit = false;
-  const initEditMode = function() {
+  ctrl.hover = false;
+  ctrl.focus = false;
+  
+  
+  const initEditMode = () => {
     if (ctrl.element) {
       const data = ctrl.element.data;
 
@@ -205,13 +209,13 @@ const inherit = function(ctrl) {
     return false;
   };
 
-  const isEditMode = function() {
+  const isEditMode = () => {
     if (initEditMode()) {
       return true;
     }
     return ctrl.isEdit;
   };
-  const clickEdit = function() {
+  const clickEdit = () => {
     ctrl.isEdit = !ctrl.isEdit;
   };
 
@@ -237,7 +241,7 @@ const inherit = function(ctrl) {
     return false;
   };
 
-  ctrl.isEditButtonDisabled = function() {
+  ctrl.isEditButtonDisabled = () => {
     if (ctrl.element) {
       const data = ctrl.element.data;
       if ($.isArray(data)) {
@@ -255,32 +259,32 @@ const inherit = function(ctrl) {
     return false;
   };
 
-  const isEditButton = function() {
+  const isEditButton = () => {
     return ctrl.hover || isEditMode();
   };
 
-  ctrl.hover = false;
-  const select = function() {
+  
+  const select = () => {
     ctrl.hover = true;
   };
-  const unselect = function() {
+  const unselect = () => {
     ctrl.hover = false;
   };
-  const isSelect = function() {
+  const isSelect = () => {
     return ctrl.hover;
   };
 
   ctrl.unselect = unselect;
   ctrl.select = select;
   ctrl.isSelect = isSelect;
-  ctrl.focus = false;
-  const doFocus = function() {
+  
+  const doFocus = () => {
     ctrl.focus = true;
   };
-  const doUnfocus = function() {
+  const doUnfocus = () => {
     ctrl.focus = false;
   };
-  const isFocus = function() {
+  const isFocus = () => {
     return ctrl.focus;
   };
 

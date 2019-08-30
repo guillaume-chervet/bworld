@@ -32,14 +32,14 @@ const FreeMenuItemRight = ({ menuItem, currentPath }) => {
   }
 
   return (
-      <React.Fragment>
+      <>
         <a href={menuItem.routePath}>
           <span className={getIcon(menuItem)} />
           <span> {menuItem.title}</span>
           <b className="caret" />
         </a>
         <SubMenu menuItem={menuItem.childs} currentPath={currentPath} />
-      </React.Fragment>
+      </>
   );
 };
 

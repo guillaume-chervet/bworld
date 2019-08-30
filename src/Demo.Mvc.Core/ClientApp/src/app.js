@@ -10,7 +10,6 @@ import './shared/menu/menu.css';
 import './shared/menu/menuTop.css';
 import './shared/menu/menuRight.css';
 import './news/news.css';
-import './comment/comment.css';
 import './free/free.css';
 import './free/add/addElement.css';
 import './contact/contact.css';

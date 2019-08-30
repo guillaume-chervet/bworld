@@ -26,26 +26,23 @@ const ChildItem = props => {
   return <li className={className}>{Item}</li>;
 };
 
-export default class SubMenuItemsRight extends React.Component {
-  constructor(props) {
-    super(props);
+const SubMenuItemsRight = ({ menuItems, currentPath, isVisible }) => {
+
+  if (!isVisible) {
+    return null;
   }
-  render() {
-    const { menuItems, currentPath, isVisible } = this.props;
-    if (!isVisible) {
-      return null;
-    }
-    const listItems = menuItems.map((child, index) => (
+  const listItems = menuItems.map((child, index) => (
       <ChildItem
-        menuItem={child}
-        index={index}
-        key={child.moduleId}
-        currentPath={currentPath}
+          menuItem={child}
+          index={index}
+          key={child.moduleId}
+          currentPath={currentPath}
       />
-    ));
-    return <React.Fragment>{listItems} </React.Fragment>;
-  }
-}
+  ));
+  return <>{listItems} </>;
+};
+
+export default SubMenuItemsRight;
 
 SubMenuItemsRight.defaultProps = {
   isVisible: true,

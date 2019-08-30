@@ -10,15 +10,3 @@ const name = 'menuItemsRight';
 const MenuItemsRight = SubMenuItemsRight;
 
 export default MenuItemsRight;
-
-app.component(
-  name,
-  react2angular(SubMenuItemsRight, [
-    'start',
-    'end',
-    'menuItems',
-    'filter',
-    'isVisible',
-    'currentPath',
-  ])
-);

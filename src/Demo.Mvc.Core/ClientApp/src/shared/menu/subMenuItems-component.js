@@ -4,8 +4,6 @@ import SocialMenuItem from '../../social/socialMenuItem-component';
 import FreeMenuItem from '../../news/newsMenuItem-component';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { react2angular } from 'react2angular';
 import classNames from 'classnames';
 import { compose, withState, withHandlers } from 'recompose';
 
@@ -17,15 +15,14 @@ const enhance = compose(
   })
 );
 
-const ChildItem = props => {
-  const {
-    menuItem,
-    index,
-    currentPath,
-    onMouseLeave,
-    onMouseEnter,
-    isOpen,
-  } = props;
+const ChildItem = ({
+                     menuItem,
+                     index,
+                     currentPath,
+                     onMouseLeave,
+                     onMouseEnter,
+                     isOpen,
+                   }) => {
   let Item = null;
   const isActive = menu.isActive(menuItem.routePath, currentPath);
   switch (menuItem.module) {
@@ -52,12 +49,7 @@ const ChildItem = props => {
 
 const EnhancedChildItem = enhance(ChildItem);
 
-export default class SubMenuItems extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const { menuItems, currentPath } = this.props;
+export const SubMenuItems = ({ menuItems, currentPath }) => {
     const listItems = menuItems.map((child, index) => (
       <EnhancedChildItem
         menuItem={child}
@@ -67,5 +59,4 @@ export default class SubMenuItems extends React.Component {
       />
     ));
     return <React.Fragment>{listItems}</React.Fragment>;
-  }
-}
+};

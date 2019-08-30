@@ -10,8 +10,6 @@ import {react2angular} from "react2angular";
 import {withStore} from "../../reducers.config";
 import React from "react";
 
-
-
 const name = 'menuAside';
 
 

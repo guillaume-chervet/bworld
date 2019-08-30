@@ -29,8 +29,7 @@ const Jumbrotron = ({master}) => {
 
         {master.isJumbotron && (<div  className="jumbotron">
             <div className="container">
-                <img ng-if="$ctrl.master.imageLogos.length === 1" ng-src="{{$ctrl.master.logoUrl}}"
-                     className="center-block" alt="Logo du site"/>
+                {master.imageLogos.length === 1 && (<img src={master.logoUrl} className="center-block" alt="Logo du site" />)}
                <CarouselJumbotron master={master}></CarouselJumbotron>
             </div>
         </div>)}

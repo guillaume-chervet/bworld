@@ -3,69 +3,87 @@ import history from '../../history';
 import { user } from '../../user/info/user-factory';
 import redux from '../../redux';
 import { userNotification } from '../../user/info/userNotification-factory';
-import { menu } from './menu-factory';
+import { menu as menuFactory } from './menu-factory';
 import { master  } from '../providers/master-provider';
-import view from './mainMenu.html';
+import { withStore } from "../../reducers.config";
+import React from "react";
+import { connect } from 'react-redux'
+import { react2angular } from "react2angular";
+import  MenuItems from './menuItems-component';
 
 const name = 'mainMenu';
 
-class Controller {
-  constructor() {
-    const connect = redux.getConnect();
-    this.unsubscribe = connect(
-      this.mapStateToThis,
-      this.mapThisToProps
-    )(this);
-  }
-  $onInit() {
-    const vm = this;
-    vm.notification = userNotification.data;
-    vm.updateMenu = () => menu.updateMenu(!vm.isCollapsed);
-    vm.isAdmin = menu.isAdmin;
-      vm.isUser = menu.isUser;
-      vm.getInternalPath = master.getInternalPath;
+const MainMenu = ({ user, menu, isDisplayMenu, isCollapsed , currentPath }) => {
 
-    vm.isPrivate = menu.isPrivate;
-    vm.getUserName = function(initial) {
-      var _user = vm.user;
-      if (initial) {
-        return (
-          _user.firstName.slice(0, 1).toUpperCase() +
-          _user.lastName.slice(0, 1).toUpperCase()
-        );
-      }
-      return _user.firstName;
+    const notification = userNotification.data;
+    const updateMenu = (e) => {
+        e.preventDefault();
+        menuFactory.updateMenu(!isCollapsed);
+    }
+    const isAdmin = menuFactory.isAdmin;
+    const isUser = menuFactory.isUser;
+    const getInternalPath = master.getInternalPath;
+    const isActive = menuFactory.isActive;
+    const isPrivate = menuFactory.isPrivate;
+    const getUserName = function (initial) {
+        var _user = user;
+        if (initial) {
+            return (
+                _user.firstName.slice(0, 1).toUpperCase() + _user.lastName.slice(0, 1).toUpperCase()
+            );
+        }
+        return _user.firstName;
     };
-    vm.getMainMenuItem = menu.getMainMenuItem;
-    vm.logOff = function() {
-      user.logOffAsync().then(function() {
-        history.path('/utilisateur/connexion');
-      });
+    const getMainMenuItem = menuFactory.getMainMenuItem;
+    const logOff = function () {
+        user.logOffAsync().then(function () {
+            history.path('/utilisateur/connexion');
+        });
     };
-    return vm;
-  }
-  $onDestroy() {
-    this.unsubscribe();
-  }
-  mapStateToThis(state) {
+
+
+    return (<div>
+        {isDisplayMenu && (<ul className="mw-navbar-user">
+            {!user.isAuthenticate && (<li className={isActive('/utilisateur/connexion') ? 'active' : ''}>
+                <a href={getInternalPath('/utilisateur/connexion')} className="btn btn-default btn-lg"><span className="glyphicon glyphicon-globe" role="button"></span> Se connecter</a>
+            </li>)}
+            {user.isAuthenticate && (<li className={isActive('/utilisateur') ? 'active' : ''}>
+                <a href={getInternalPath('/utilisateur')} className="btn btn-default btn-lg"><span className="fa fa-user" role="button"></span> <span className="hidden-xs" >{getUserName()}</span>{notification.isUnreadMessage() && (<span className="badge">{notification.numberUnreadMessage}</span>)}</a>
+            </li>)}
+            <li>
+                <a href="#" onClick={updateMenu} className="btn btn-default btn-lg"><span class="glyphicon fa fa-bars" aria-hidden="true"></span> <span className="hidden-xs">Menu</span></a>
+            </li>
+        </ul>)}
+        <header className="navbar navbar-default" id="top" role="banner">
+            <div className="container mw-navbar-center">
+                <MenuItems isVisible={isDisplayMenu && !isPrivate()} currentPath={currentPath} menuItems={menu.menuItems} start={0} end={100} className="hidden-xs" />
+                <MenuItems isVisible={isDisplayMenu && !isPrivate()} currentPath={currentPath} menuItems={menu.menuItems} start={0} end={100} filter={'Social'} className="visible-xs"/>
+                <MenuItems isVisible={isDisplayMenu && isPrivate()} currentPath={currentPath} menuItems={menu.privateMenuItems} start={0} end={100} className="hidden-xs" />
+        </div> 
+        </header>
+            </div>);
+};
+
+
+
+const mapStateToProps = (state, ownProps) => {
     return {
-      user: state.user.user,
-        menu: menu.mapPublishedMenu(state.master.menu),
-      isDisplayMenu: state.master.menuData.isDisplayMenu,
-      isCollapsed: state.master.menuData.isCollapsed,
+        user: state.user.user,
+        menu: menuFactory.mapPublishedMenu(state.master.menu),
+        isDisplayMenu: state.master.menuData.isDisplayMenu,
+        isCollapsed: state.master.menuData.isCollapsed,
     };
-  }
-  mapThisToProps() {
-    return {};
-  }
-}
+};
 
-app.component(name, {
-  template: view,
-  controller: Controller,
-  bindings: {
-    currentPath: '<',
-  },
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {};
+};
+
+const MainMenuWithState = withStore(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MainMenu));
+
+app.component(name, react2angular(MainMenuWithState, ['currentPath']));
 
 export default name;

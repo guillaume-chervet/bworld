@@ -22,3 +22,5 @@ import './login/external/externalLoginFailure-component';
 
 import './notAuthorised/notAuthorised-component';
 import './panel/userPanel-component';
+
+import './user.css';

@@ -9,7 +9,7 @@ export const CarouselComponent = ({element}) => {
       <div className="row mw-carousel">
       <LoadableCarousel infiniteLoop={true} showThumbs={false} autoPlay={true} >
         {element.data.map(slide =>(<div>
-          <img src={slide.thumbnailUrl} />
+          <img src={slide.url} />
               {slide.description && (<p className="legend">{slide.description}</p>)}
         </div>)) }
       </LoadableCarousel>

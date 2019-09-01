@@ -1,6 +1,8 @@
 ﻿import app from '../../app.module';
 import view from './dialogAddElement.html';
 
+import './addElement.css';
+
 const name = 'dialogAddElement';
 
 class Controller {

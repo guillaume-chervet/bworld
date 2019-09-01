@@ -6,6 +6,8 @@ import { dialogAdd } from './dialogAdd-factory';
 import _ from 'lodash';
 import view from './dialogAdd.html';
 
+import './addModule.css';
+
 const name = 'dialogAdd';
 
 class Controller {

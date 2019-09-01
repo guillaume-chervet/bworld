@@ -9,6 +9,8 @@ import { connect } from 'react-redux'
 import {react2angular} from "react2angular";
 import {withStore} from "../../reducers.config";
 import React from "react";
+import './menuRight.css';
+
 
 const name = 'menuAside';
 

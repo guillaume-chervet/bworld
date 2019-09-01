@@ -14,3 +14,5 @@ import './users/adminEditUser-component';
 import './users/adminUser-component';
 import './users/config';
 import './tags/dialogTags-component';
+
+import './administration.css';

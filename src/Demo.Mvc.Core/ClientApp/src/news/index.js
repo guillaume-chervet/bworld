@@ -10,6 +10,8 @@ import './newsMenuItemRight-component';
 import { news } from './news/news-factory';
 import iconUrl from './icon.png';
 
+import './news.css';
+
 export default {
   canBeChild: true,
   canHaveChild: false,

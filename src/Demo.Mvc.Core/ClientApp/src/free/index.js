@@ -10,6 +10,8 @@ import './user/mwUser-component';
 import { free } from './free-factory';
 import './free-reducer';
 import iconUrl from './icon.png';
+import './free.css';
+
 
 export default {
   canBeChild: true,

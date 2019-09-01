@@ -1,6 +1,4 @@
 ﻿import app from '../../app.module';
-import history from '../../history';
-import { user as userFactory } from '../../user/info/user-factory';
 import { userNotification } from '../../user/info/userNotification-factory';
 import { menu as menuFactory } from './menu-factory';
 import { master  } from '../providers/master-provider';
@@ -9,6 +7,8 @@ import React from "react";
 import { connect } from 'react-redux'
 import { react2angular } from "react2angular";
 import  MenuItems from './menuItems-component';
+
+import './menu.css';
 
 const name = 'mainMenu';
 
@@ -19,8 +19,6 @@ const MainMenu = ({ user, menu, isDisplayMenu, isCollapsed , currentPath }) => {
         e.preventDefault();
         menuFactory.updateMenu(!isCollapsed);
     };
-    //const isAdmin = menuFactory.isAdmin;
-    //const isUser = menuFactory.isUser;
     const getInternalPath = master.getInternalPath;
     const isActive = menuFactory.isActive;
     const isPrivate = menuFactory.isPrivate;

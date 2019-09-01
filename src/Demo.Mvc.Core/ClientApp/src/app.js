@@ -17,7 +17,7 @@ import './user/user.css';
 import './css/colorpicker.css';
 import './css/angular-socialshare.css'; // https://github.com/djds4rce/angular-socialshare
 import './css/bootstrap-social.css'; // http://lipis.github.io/bootstrap-social/
-import './css/leaflet.css';
+//import './css/leaflet.css';
 //import './css/font-awesome.css';
 import 'font-awesome/css/font-awesome.min.css';
 

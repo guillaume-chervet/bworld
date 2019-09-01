@@ -6,11 +6,12 @@ import { service as elementGridElementService } from './elementGridElement-facto
 import { Div } from '../div/elementDiv-component';
 
 const Child = ({ element }) => {
-    if (!element || !element.data) {
+    if (!element) {
         return null;
     }
+    const type = !element.data ? '1' : element.data.type; 
 
-  switch (element.data.type) {
+  switch (type) {
     case "2":
       return (<div className="panel panel-default">
         {element.data.title && <div className="panel-heading" >

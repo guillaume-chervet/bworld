@@ -54,7 +54,7 @@ const MenuAside = ({user, menu, isCollapsed, currentPath}) => {
           </div>
           <div className="aside-body">
             <ul className="nav navbar-nav">
-              {user.isAuthenticate && (<li className={isActive('/utilisateur/connexion') ? 'active' : ''}
+              {!user.isAuthenticate && (<li className={isActive('/utilisateur/connexion') ? 'active' : ''}
                   className="visible-xs-block">
                 <a href={getInternalPath('/utilisateur/connexion')}><span
                     className="glyphicon glyphicon-globe" aria-hidden="true"></span> Se connecter</a>

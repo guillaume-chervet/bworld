@@ -16,8 +16,6 @@ import './menu/menuItemsRight-component';
 import './menu/subMenuItemsRight-component';
 import './dialog/dialogInfo-component';
 
-import './socials/mwSocialShare-component';
-
 import './interceptors/httpAuthentification-interceptor';
 import './interceptors/httpException-interceptor';
 

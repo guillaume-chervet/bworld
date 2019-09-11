@@ -35,7 +35,7 @@ const Loader = ({ isLoading, message }) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: state.loader.isLoading,
-    message: state.loader.message ?? 'Chargement...'
+    message: state.loader.message ? 'Chargement...' : state.loader.message 
   };
 };
 

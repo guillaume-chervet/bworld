@@ -31,13 +31,6 @@ const MainMenu = ({ user, menu, isDisplayMenu, isCollapsed , currentPath }) => {
         }
         return _user.firstName;
     };
-   /* const getMainMenuItem = menuFactory.getMainMenuItem;
-    const logOff = function () {
-        userFactory.logOffAsync().then(function () {
-            history.path('/utilisateur/connexion');
-        });
-    };*/
-
 
     return (<div>
         {isDisplayMenu && (<ul className="mw-navbar-user">

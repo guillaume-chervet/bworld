@@ -58,5 +58,5 @@ export const SubMenuItems = ({ menuItems, currentPath }) => {
         currentPath={currentPath}
       />
     ));
-    return <React.Fragment>{listItems}</React.Fragment>;
+    return <>{listItems}</>;
 };

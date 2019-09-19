@@ -3,7 +3,6 @@ import history from '../../history';
 import { master } from '../../shared/providers/master-provider';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 import LoadableMap from './LoadableMap';
 

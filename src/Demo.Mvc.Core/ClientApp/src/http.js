@@ -4,6 +4,7 @@ import { responseError } from './shared/interceptors/httpException-interceptor';
 import { loader } from './shared/loader/loader-service';
 import app from './app.module';
 import q from './q';
+import {convertStringDateToDateObject} from './shared/date/date-factory'
 
 let _$http = null;
 
@@ -17,14 +18,17 @@ app.factory('dummyhttp', [
 
 const reponse = promise => {
   return promise.then(
-    function(response) {
+    function(_response) {
       loader.remove();
-
-      return response;
+      if(_response && _response.data) {
+        const data =  convertStringDateToDateObject(_response.data);
+        return {..._response, data};
+      }
+      return _response;
     },
     function(reason) {
       const qErrorAuthentification = responseErrorAuthentification(reason);
-      const qError = responseError(reponse);
+      const qError = responseError(reason);
       const clear = () => loader.clear();
       return q.all([qError, qErrorAuthentification]).then(clear, clear);
     }

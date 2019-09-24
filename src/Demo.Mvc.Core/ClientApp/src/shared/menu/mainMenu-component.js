@@ -41,7 +41,7 @@ const MainMenu = ({ user, menu, isDisplayMenu, isCollapsed , currentPath }) => {
                 <a href={getInternalPath('/utilisateur')} className="btn btn-default btn-lg"><span className="fa fa-user" role="button"></span> <span className="hidden-xs" >{getUserName()}</span>{notification.isUnreadMessage() && (<span className="badge">{notification.numberUnreadMessage}</span>)}</a>
             </li>)}
             <li>
-                <a href="#" onClick={updateMenu} className="btn btn-default btn-lg"><span class="glyphicon fa fa-bars" aria-hidden="true"></span> <span className="hidden-xs">Menu</span></a>
+                <a href="#" onClick={updateMenu} className="btn btn-default btn-lg"><span className="glyphicon fa fa-bars" aria-hidden="true"></span> <span className="hidden-xs">Menu</span></a>
             </li>
         </ul>)}
         <header className="navbar navbar-default" id="top" role="banner">
@@ -53,8 +53,6 @@ const MainMenu = ({ user, menu, isDisplayMenu, isCollapsed , currentPath }) => {
         </header>
             </div>);
 };
-
-
 
 const mapStateToProps = (state, ownProps) => {
     return {

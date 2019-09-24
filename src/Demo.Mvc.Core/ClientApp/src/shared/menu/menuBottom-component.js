@@ -34,7 +34,7 @@ const MenuBottom = ({menuItems, titleSite, currentPath}) => {
         <div className="col-lg-12">
           <ul className="mw-footer-links">
             <li>version v{version}</li>
-            {menuItems.map(menuItem=> <li> <a href={menuItem.routePath} >{menuItem.title}</a>·</li> )}
+            {menuItems.map(menuItem=> <li> <a href={menuItem.routePath} >{menuItem.title}</a> </li> )}
           </ul>
         </div>
       </div>

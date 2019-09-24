@@ -5,7 +5,7 @@ import { User } from '../user/mwUser-component';
 
 const name = 'mwBottom';
 
-const Bottom = ({ data }) => {
+export const Bottom = ({ data }) => {
   if(!data.isDisplayAuthor)
   {
     return null;

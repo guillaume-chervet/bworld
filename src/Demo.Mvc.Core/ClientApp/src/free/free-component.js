@@ -1,21 +1,23 @@
 ﻿import app from '../app.module';
 import { page } from '../shared/services/page-factory';
-
 import { free } from './free-factory';
-import view from './free.html';
+import React, { useEffect, useMemo }from 'react';
+import { PageBreadcrumbWithState } from '../breadcrumb/pageBreadcrumb-component';
+import { Div } from '../elements/div/elementDiv-component';
+import { Bottom } from './bottom/mwBottom-component';
+import { react2angular } from 'react2angular';
 
-const name = 'free';
-class Controller {
-  $onInit() {
+const name = "free";
+
+const Free = () => {
+
+  const memData = useMemo(()=>{
     const _data = free.data;
-    const title = free.getTitle(_data.elements);
-    page.setTitle(title);
-
     const parentsJson = free.mapParent({
       type: 'div',
       childs: _data.elements,
     });
-    const data = this;
+    const data = {};
     data.element = parentsJson;
     const metaParentsJson = free.mapParent({
       type: 'div',
@@ -30,27 +32,21 @@ class Controller {
       createDate: _data.createDate,
       updateDate: _data.updateDate,
     };
+  return data;
+  },[]);
+  
+  useEffect(() =>{
+    const title = free.getTitle(memData.elements);
+    page.setTitle(title);
+  });
+  return (
+      <PageBreadcrumbWithState>
+        <Div className="mw-free" element={memData.element} />
+        <Bottom data={memData.data} />
+      </PageBreadcrumbWithState>
+  );
+};
 
-    return data;
-    // const dispatch = redux.getDispatch();
-    // dispatch(freeInit(data));
-
-    //const connect = redux.getConnect();
-    //this.unsubscribe = connect(this.mapStateToThis, {})(this);
-  }
-  /* $onDestroy() {
-        this.unsubscribe();
-    }
-    mapStateToThis(state) {
-        return state.free;
-    }*/
-}
-
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  controllerAs: 'vm',
-  bindings: {},
-});
+app.component(name, react2angular(Free, []));
 
 export default name;

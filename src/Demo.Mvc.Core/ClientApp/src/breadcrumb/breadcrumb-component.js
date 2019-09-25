@@ -4,7 +4,6 @@ import { getIcon } from '../shared/icons';
 import { breadcrumb } from './breadcrumb-factory';
 import './breadcrumb.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
 const name = 'breadcrumb';
@@ -22,7 +21,7 @@ const MenuItemLinkBreadcrumb = ({item}) => {
   </li>);
 };
 
-const Breadcrumb = ({master}) => {
+export const Breadcrumb = ({master}) => {
   const items = breadcrumb.getItemsClean(master.path, master, master.routeCurrentModuleId);
   const isVisible = () => breadcrumb.isVisibleClean(master, master.path);
 

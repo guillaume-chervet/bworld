@@ -2,18 +2,18 @@
 import history from '../../history';
 import { page } from '../../shared/services/page-factory';
 import { newsItem } from './newsItem-factory';
-import view from './newsItem.html';
+import React, { useEffect, useMemo }from 'react';
+import { PageBreadcrumbWithState } from '../../breadcrumb/pageBreadcrumb-component';
+import { Div } from '../../elements/div/elementDiv-component';
+import { Bottom } from '../../free/bottom/mwBottom-component';
+import { react2angular } from 'react2angular';
 
-var name = 'newsItem';
 
-class Controller {
-  $onInit() {
-    const vm = this;
+const NewsItem = () => {
+
+  const memData = useMemo(()=>{
     const _data = newsItem.data;
-    const title = newsItem.getTitle(_data.elements);
-
-    page.setTitle(title);
-
+   const vm = {};
     const parentsJson = newsItem.mapParent({
       type: 'div',
       childs: _data.elements,
@@ -35,14 +35,24 @@ class Controller {
       urlNews: _data.urlNews,
     };
     return vm;
-  }
-}
+  },[]);
 
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  controllerAs: 'vm',
-  bindings: {},
-});
+  useEffect(() =>{
+    const title = newsItem.getTitle(memData.elements);
+    page.setTitle(title);
+
+  });
+  return (
+      <PageBreadcrumbWithState>
+        <Div element={memData.element} />
+        <Bottom data={memData.data} />
+      </PageBreadcrumbWithState>
+  );
+};
+
+const name = "newsItem";
+
+
+app.component(name, react2angular(NewsItem, []));
 
 export default name;

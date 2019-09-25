@@ -26,6 +26,6 @@ app.config([
 ]);
 
 
-export const withStore = (Component) => () => (<Provider store={_store}>
-  <Component />
+export const withStore = (Component) => (props) => (<Provider store={_store}>
+  <Component {...props} />
 </Provider>);

@@ -28,7 +28,7 @@ class Controller {
     vm.items = items;
     vm.getFirstImage = news.getFirstImage;
 
-    function selectedTags() {
+    const selectedTags = () => {
       const search = history.search();
 
       const selectedTags = [];
@@ -41,7 +41,7 @@ class Controller {
         }
       }
       return selectedTags;
-    }
+    };
 
     const _tags = [];
     vm.tags = dialogTags.initTags(
@@ -65,26 +65,26 @@ class Controller {
       lastUpdateUserInfo: news.data.lastUpdateUserInfo,
       createDate: news.data.createDate,
       updateDate: news.data.updateDate,
-      hasPrevious: function() {
+      hasPrevious: () => {
         return news.data.hasPrevious;
       },
       urlPrevious: news.data.urlPrevious,
-      hasNext: function() {
+      hasNext: () => {
         return news.data.hasNext;
       },
       urlNext: news.data.urlNext,
-      hasPreviousOrNext: function() {
+      hasPreviousOrNext: () => {
         return news.data.hasPrevious || news.data.hasNext;
       },
-      getDisplayMode: function() {
+      getDisplayMode: () => {
         return news.data.displayMode;
       },
-      getNumberItemPerPage: function() {
+      getNumberItemPerPage: () => {
         return news.data.numberItemPerPage;
       },
     };
 
-    vm.filter = function() {
+    vm.filter = ()=> {
       const tags = [];
       vm.tags.forEach(function(tag) {
         if (tag.ticked) {

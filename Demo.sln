@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENCE = LICENCE
 		PULL_REQUEST_TEMPLATE.md = PULL_REQUEST_TEMPLATE.md
 		readme.md = readme.md
+		scripts\publish-changelog.js = scripts\publish-changelog.js
+		scripts\twitter.js = scripts\twitter.js
+		package.json = package.json
+		changelog-template.hbs = changelog-template.hbs
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Geo", "src\Demo.Geo\Demo.Geo.csproj", "{936572B7-7FEA-4D2F-A76A-D30A4589AAF3}"

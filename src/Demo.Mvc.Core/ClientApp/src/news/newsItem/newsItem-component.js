@@ -8,9 +8,8 @@ import { Div } from '../../elements/div/elementDiv-component';
 import { Bottom } from '../../free/bottom/mwBottom-component';
 import { react2angular } from 'react2angular';
 
-const name = "newsItem";
 
-const Free = () => {
+const NewsItem = () => {
 
   const memData = useMemo(()=>{
     const _data = newsItem.data;
@@ -51,6 +50,9 @@ const Free = () => {
   );
 };
 
-app.component(name, react2angular(Free, []));
+const name = "newsItem";
+
+
+app.component(name, react2angular(NewsItem, []));
 
 export default name;

@@ -6,7 +6,6 @@
         </element-div>
         <hr />
         <div class="row">
-
             <div class="col-sm-9">
                 <empty empty-items="vm.items" empty-text="'Aucun article.'">
                 </empty>
@@ -79,10 +78,6 @@
                         <h3 class="panel-title">Filtres</h3>
                     </div>
                     <div class="panel-body">
-                        <!--div class="form-group">
-                            <label class="control-label">Mot clés: </label>
-                            <input type="text" name="uDomain" ng-model="vm.keywords" class="form-control" />
-                        </div-->
                         <div class="form-group" nf-if="vm.tags.length>0">
                             <label class="control-label">Tags: </label>
                             <div class="checkbox" ng-repeat="tag in vm.tags track by $index">
@@ -96,7 +91,5 @@
                 </div>
             </div>
         </div>
-        <mw-social-share>
-        </mw-social-share>
     </content>
 </page-breadcrumb>

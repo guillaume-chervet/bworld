@@ -13,8 +13,7 @@ class Controller {
 
     const ctrl = this;
     ctrl.goHome = function() {
-      history.search('dm', null);
-      history.path('/');
+      history.search({'dm': null}, '/');
     };
 
     ctrl.page = {

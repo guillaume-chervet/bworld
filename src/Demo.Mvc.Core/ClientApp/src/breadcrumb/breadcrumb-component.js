@@ -28,7 +28,7 @@ export const Breadcrumb = ({master}) => {
   return (
       <div>
         { isVisible() && <ol className="mw-breadcrumb breadcrumb">
-          {items.map( item => <MenuItemLinkBreadcrumb item={item}></MenuItemLinkBreadcrumb>)}
+          {items.map( item => <MenuItemLinkBreadcrumb key={item.url} item={item}></MenuItemLinkBreadcrumb>)}
         </ol>}
       </div>
   );

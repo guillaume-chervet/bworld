@@ -12,8 +12,8 @@ class Controller {
     vm.paths = addSite.getPaths();
     vm.currentPath = addSite.getCurrentPath();
     vm.navStart = function() {
-      history.search('dm', false);
-      history.path('/site/' + master.getModuleId() + '/configuration');
+      const url = '/site/' + master.getModuleId() + '/configuration';
+      history.search({'dm': false}, url);
     };
     return vm;
   }

@@ -1,16 +1,18 @@
 ﻿import app from '../../app.module';
+import React from 'react';
+import { react2angular } from 'react2angular';
+
 const name = 'empty';
 
-function Controller() {}
+export const Empty = ({ items, text }) => {
+  if( items || items.length>0) { 
+    return null
+  }
+  return (
+      <div className="mw-empty"><p>{text}</p></div>
+  );
+};
 
-app.component(name, {
-  template:
-    '<div class="mw-empty" ng-if="$ctrl.items.length<=0"><p>{{$ctrl.text}}</p></div>',
-  controller: Controller,
-  bindings: {
-    items: '=emptyItems',
-    text: '=emptyText',
-  },
-});
+app.component(name, react2angular(Empty, ['items', 'text']));
 
 export default name;

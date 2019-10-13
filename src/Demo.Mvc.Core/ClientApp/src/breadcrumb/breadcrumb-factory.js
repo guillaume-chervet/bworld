@@ -193,15 +193,12 @@ const getLdJsonClean = (items) => {
 };
 
 const navBack = (search) => {
-  if (search) {
-    for (var name in search) {
-      history.search(name, search[name]);
-    }
-  }
   const length = items.length;
   if (length > 1) {
     const item = items[length - 2];
-    history.path(item.url);
+    if (search) {
+      history.search(search, item.url);
+    }
   }
 };
 

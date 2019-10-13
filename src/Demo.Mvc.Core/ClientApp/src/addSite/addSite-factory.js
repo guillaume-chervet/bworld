@@ -32,16 +32,16 @@ const initAsync = function(menuKey) {
     });
 };
 
-function checkAsync(dataToSend) {
+const checkAsync =(dataToSend) => {
   localStorage.put('site', site);
   return $http
     .post(master.getUrl('api/site/check'), dataToSend)
     .then(function(response) {
       return response.data;
     });
-}
+};
 
-function saveAsync(dataToSend) {
+const saveAsync= (dataToSend) => {
   return $http
     .post(master.getUrl('api/site/add'), dataToSend, {
       headers: {
@@ -59,12 +59,12 @@ function saveAsync(dataToSend) {
       }
       return response.data;
     });
-}
+};
 
-function saveAdminAsync(data) {
-  var elementsTemp = free.mapElement(pageData.elements, pageData.metaElements);
-  var moduleId = master.getModuleId();
-  var dataToSend = {
+const saveAdminAsync = (data) => {
+  const elementsTemp = free.mapElement(pageData.elements, pageData.metaElements);
+  const moduleId = master.getModuleId();
+  const dataToSend = {
     templates: data.templates,
     moduleId: moduleId,
     urlConditionsGeneralesUtilisations: data.urlConditionsGeneralesUtilisations,
@@ -84,11 +84,11 @@ function saveAdminAsync(data) {
       }
       return response.data;
     });
-}
+};
 
-var initMenuAdmin = function(menuItems, menuItem) {
+const initMenuAdmin = (menuItems, menuItem) => {
   menuItems.push({
-      routePath: master.getInternalPath('/administration/' + menuItem.routePathWithoutHomePage),
+    routePath: master.getInternalPath('/administration/' + menuItem.routePathWithoutHomePage),
     title: menuItem.title,
     module: 'AddSite',
     icon: menuItem.icon,
@@ -96,13 +96,13 @@ var initMenuAdmin = function(menuItems, menuItem) {
   });
 };
 
-var getPaths = function() {
-  var moduleId = master.getModuleId();
-  var menutItem = master.getServerMenuItem(moduleId);
-  var validation = menutItem.routePathWithoutHomePage + '/validation';
-  var authentification =
-    menutItem.routePathWithoutHomePage + '/authentification';
-  var configuration = menutItem.routePathWithoutHomePage + '/configuration';
+const getPaths =  () => {
+  const moduleId = master.getModuleId();
+  const menutItem = master.getServerMenuItem(moduleId);
+  const validation = menutItem.routePathWithoutHomePage + '/validation';
+  const authentification =
+      menutItem.routePathWithoutHomePage + '/authentification';
+  const configuration = menutItem.routePathWithoutHomePage + '/configuration';
 
   return {
     validation: {
@@ -120,81 +120,75 @@ var getPaths = function() {
   };
 };
 
-var getCurrentPath = function() {
-  var path = history.path();
-  var paths = getPaths();
+const getCurrentPath = () => {
+  const path = history.path();
+  const paths = getPaths();
 
-  for (var key in paths) {
+  for (let key in paths) {
     if (path.indexOf(paths[key].path) >= 0) {
       return key;
     }
   }
 };
 
-var navNext = function() {
+const navNext = function () {
   var currentPath = getCurrentPath();
   var paths = getPaths();
   if (currentPath === 'configuration') {
-    history.path(paths.validation.path);
-    history.search('dm', false);
+    history.search({'dm': false}, paths.validation.path);
   } else if (currentPath === 'authentification') {
-    history.path(paths.configuration.path);
-    history.search('dm', false);
+    history.search({'dm': false}, paths.configuration.path);
   } else {
-    history.path(paths.validation.path);
-    history.search('dm', false);
+    history.search({'dm': false}, paths.validation.path);
   }
 };
 
-var navBack = function() {
-  var currentPath = getCurrentPath();
-  var paths = getPaths();
+const navBack = () => {
+  const currentPath = getCurrentPath();
+  const paths = getPaths();
   if (currentPath === 'validation') {
-    history.path(paths.configuration.path);
-    history.search('dm', false);
+    history.search({'dm': false}, paths.configuration.path);
   } else if (currentPath === 'configuration') {
-    history.path(paths.authentification.path);
-    history.search('dm', false);
+    history.search({'dm': false}, paths.authentification.path);
   } else {
     var menuItem = master.getCurrentMenuItem();
-    history.path(menuItem.routePath);
-    history.search('dm', null);
+    history.search({'dm': null}, menuItem.routePath);
   }
 };
 
-var navStart = function() {
+const navStart = () => {
   localStorage.remove('site');
   navNext();
 };
 
-var getDomain = function() {
+const getDomain = function () {
   if (!site.domain) {
     return in18Util.display('');
   }
-  var domainToParse = site.domain;
-  var domain = urlHelper.normaliseUrl(domainToParse);
-  return in18Util.display('https://www.' + domain + '.fr');
+  const domainToParse = site.domain;
+  const domain = urlHelper.normaliseUrl(domainToParse);
+  return in18Util.display(`https://www.${domain}.fr`);
 };
 
-var getDomainTemporary = function() {
+const getDomainTemporary = () => {
   if (!site.domain) {
     return in18Util.display('');
   }
-  var domainToParse = site.domain;
+  let domainToParse = site.domain;
   if (site.category) {
-    for (var i = 0; i < data.templates.length; i++) {
-      var template = data.templates[i];
+    for (let i = 0; i < data.templates.length; i++) {
+      const template = data.templates[i];
       if (site.category === template.categoryId) {
-        domainToParse = template.title + '-' + domainToParse;
+        domainToParse = `${template.title}-${domainToParse}`;
         break;
       }
     }
   }
-  var domain = urlHelper.normaliseUrl(domainToParse);
+  const domain = urlHelper.normaliseUrl(domainToParse);
   if (!domain) {
     return in18Util.display('');
   } else {
-    var fullAddress = 'https://' + domain + '.bworld.fr';
+    const fullAddress = `https://${domain}.bworld.fr`;
     return in18Util.display(fullAddress);
   }
 };

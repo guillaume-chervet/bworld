@@ -41,19 +41,19 @@ const getMainMenuItem = (propertyName) => {
   return getMainMenuItemPure(master, propertyName);
 };
 
-const isAdminPure = (path) => path.indexOf('/administration') === 0;
+const isAdminPure = (path) => path && path.indexOf('/administration') === 0;
 const isAdmin = () => isAdminPure(history.path());
 
 const isPrivatePure = (path) => (
-      path.indexOf('/privee') === 0 ||
-      path.indexOf('/administration/privee') === 0
+    path && (path.indexOf('/privee') === 0 ||
+      path.indexOf('/administration/privee') === 0)
   );
 const isPrivate = () => isPrivatePure(history.path());
 
-const isUserPure = (path) => path.indexOf('/utilisateur') === 0;
+const isUserPure = (path) => path && path.indexOf('/utilisateur') === 0;
 const isUser = () => isUserPure(history.path());
 
-function isActive(routePath, currentPath) {
+const isActive = (routePath, currentPath) => {
   if (!currentPath) {
     currentPath = history.path();
   }
@@ -61,13 +61,13 @@ function isActive(routePath, currentPath) {
     if (currentPath === '/') {
       return true;
     }
-  } else if (currentPath.slice(0, routePath.length) === routePath) {
+  } else if (currentPath && currentPath.slice(0, routePath.length) === routePath) {
     return true;
   }
   return false;
-}
+};
 
-function getMenuItems(originMenuItems, limitLength) {
+const getMenuItems=(originMenuItems, limitLength) => {
   if (!limitLength) {
     limitLength = 3;
   }
@@ -75,9 +75,9 @@ function getMenuItems(originMenuItems, limitLength) {
     throw 'originMenuItems not set';
   }
   return getSecondMenuItems(originMenuItems, limitLength, 0, null);
-}
+};
 
-const getStateMenuItems = function(menuItems, itemState) {
+const getStateMenuItems = (menuItems, itemState) => {
   if (!menuItems) {
     return menuItems;
   }
@@ -100,13 +100,13 @@ const getStateMenuItems = function(menuItems, itemState) {
   return result;
 };
 
-function getSecondMenuItems(
+const getSecondMenuItems = (
   originMenuItems,
   limitLength,
   startLength,
   module,
   menuItems
-) {
+) =>{
   if (!menuItems) {
     menuItems = [];
   } else {
@@ -144,12 +144,12 @@ function getSecondMenuItems(
     }
   }
   return menuItems;
-}
+};
 
 const mapPublishedMenu = (oldMenu) => {
     //const oldMenu = state.master.menu;
     const newMenu = {};
-    for (var property in oldMenu) {
+    for (let property in oldMenu) {
             newMenu[property] = getStateMenuItems(oldMenu[property], itemStates.published);
     }
     return newMenu;

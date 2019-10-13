@@ -1,6 +1,5 @@
 ﻿import app from '../../app.module';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 import {Paragraphe} from '../p/elementP-component';
 import {H1} from '../h1/elementH1-component';
@@ -51,7 +50,7 @@ const Switch = ({element}) => {
 export const Div = ({element}) => {
   return (
       <div>
-        {element.childs.map(child => <Switch element={child} /> )}
+        {element.childs.map(child => <Switch key={child.property} element={child} /> )}
       </div>
   );
 };

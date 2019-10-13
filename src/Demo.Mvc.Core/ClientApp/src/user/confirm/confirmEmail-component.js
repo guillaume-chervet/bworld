@@ -21,9 +21,7 @@ var Controller = function() {
   };
 
   ctrl.goHome = function() {
-    history.search('dm', null);
-    history.search('email', null);
-    history.path('/');
+    history.search({'dm': null}, {'email': null}, '/');
   };
   return ctrl;
 };

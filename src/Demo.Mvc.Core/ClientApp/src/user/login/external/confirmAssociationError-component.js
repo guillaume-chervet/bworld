@@ -17,10 +17,7 @@ class Controller {
     };
 
     ctrl.goHome = function() {
-      history.search('dm', null);
-      history.search('returnUrl', null);
-      history.search('provider', null);
-      history.path('/');
+      history.search({'dm': null, 'returnUrl': null, 'provider': null}, '/');
     };
   }
 }

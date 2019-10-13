@@ -10,8 +10,7 @@ class Controller {
     page.setTitle('Non authorisé');
     const ctrl = this;
     ctrl.goHome = function() {
-      history.search('dm', null);
-      history.path('/');
+      history.search({'dm': null}, '/');
     };
     return ctrl;
   }

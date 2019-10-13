@@ -1,35 +1,25 @@
-import app from '../app.module';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { react2angular } from 'react2angular';
 
-function hashCode(str) {
+const hashCode = (str) => {
   // java String#hashCode
   let hash = 0;
-  for (var i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
   return hash;
-}
+};
 
-function intToRGB(i) {
+const intToRGB = (i) => {
   const c = (i & 0x00ffffff).toString(16).toUpperCase();
-
   return '00000'.substring(0, 6 - c.length) + c;
-}
+};
 
-function stringToRGB(str) {
+const stringToRGB = (str) => {
   return intToRGB(hashCode(str));
-}
+};
 
-const name = 'tags';
-
-class Tags extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return this.props.tags.map(tag => (
+const Tags = ({tags}) => {
+    return tags.map(tag => (
       <span
         className="label"
         key={tag.id}
@@ -41,9 +31,6 @@ class Tags extends React.Component {
         {tag.name}{' '}
       </span>
     ));
-  }
-}
-
-app.component(name, react2angular(Tags, ['tags']));
-
-export default name;
+  };
+  
+export default Tags;

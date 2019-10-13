@@ -8,8 +8,8 @@ const name = 'confirmEmailError';
 var Controller = function(page) {
   page.setTitle('Confirmation email échec');
 
-  var ctrl = this;
-  var searchObject = history.search();
+  const ctrl = this;
+  const searchObject = history.search();
 
   ctrl.user = {};
   if (searchObject.email) {
@@ -21,9 +21,7 @@ var Controller = function(page) {
   };
 
   ctrl.goHome = function() {
-    history.search('dm', null);
-    history.search('email', null);
-    history.path('/');
+    history.search({'email': null, 'dm': null}, '/');
   };
   return ctrl;
 };

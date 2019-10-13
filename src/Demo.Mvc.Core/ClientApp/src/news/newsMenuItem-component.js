@@ -1,8 +1,6 @@
 ﻿import { getIcon } from '../shared/icons';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { react2angular } from 'react2angular';
 import { menu } from '../shared/menu/menu-factory';
 import { SubMenu } from '../free/freeMenuItemRight-component';
 

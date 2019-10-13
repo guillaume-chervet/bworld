@@ -9,13 +9,30 @@ app.factory('dummyhistory', [
   },
 ]);
 
-const search = function(queryString, value) {
+const search = function(queryString, pathDestination) {
   if (!_$location) {
     console.warn('_$location est null il y a un problème');
     return null;
   }
   if (queryString) {
-    return _$location.search(queryString, value);
+    let newPath = (pathDestination ? pathDestination  : path()) + "?";
+    for (let name in queryString){
+      const value = queryString[name];
+      if(value !== null && value !== undefined) {
+        if(value instanceof Array){
+          if(value.length > 0){
+           let values = "";
+            value.forEach((v, index) => index > 0 ?  values += `&${v}` :  values +=  v );
+            newPath += name + "=" + values;
+          }
+        } else {
+          newPath += name + "=" + value;  
+        }
+        
+        
+      }
+    } 
+    path(newPath);
   }
   return _$location.search();
 };

@@ -5,7 +5,7 @@ import view from './confirmAssociation.html';
 
 const name = 'confirmAssociation';
 
-var Controller = function() {
+const Controller = function () {
   const ctrl = this;
   page.setTitle('Confirmation association provider');
 
@@ -15,11 +15,8 @@ var Controller = function() {
     provider: searchObject.provider,
   };
 
-  ctrl.goHome = function() {
-    history.search('dm', null);
-    history.search('returnUrl', null);
-    history.search('provider', null);
-    history.path('/');
+  ctrl.goHome = function () {
+    history.search({'dm': null, 'provider': null, 'returnUrl': null}, '/');
   };
   return ctrl;
 };

@@ -2,16 +2,11 @@
 import { isDraft, isDeleted } from '../shared/itemStates';
 import { getIcon } from '../shared/icons';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
-export default class NewsMenuItemAdmin extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const { menuItem } = this.props;
-    return (
+
+const NewsMenuItemAdmin = ({ menuItem }) => {
+  return (
       <React.Fragment>
         {' '}
         <a href={menuItem.routePath}>
@@ -19,15 +14,16 @@ export default class NewsMenuItemAdmin extends React.Component {
           <span> {menuItem.title}</span>
         </a>
         {isDraft(menuItem) && (
-          <span className="label label-default">Brouillon</span>
+            <span className="label label-default">Brouillon</span>
         )}
         {isDeleted(menuItem) && (
-          <span className="label label-danger">Suprimé</span>
+            <span className="label label-danger">Suprimé</span>
         )}
       </React.Fragment>
-    );
-  }
-}
+  );
+};
+
+export default NewsMenuItemAdmin;
 
 const name = 'newsMenuItemAdmin';
 app.component(name, react2angular(NewsMenuItemAdmin, ['menuItem']));

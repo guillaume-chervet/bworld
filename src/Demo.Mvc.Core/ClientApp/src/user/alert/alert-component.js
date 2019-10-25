@@ -1,57 +1,36 @@
 ﻿import app from '../../app.module';
-import redux from '../../redux';
-import view from './alert.html';
+import { react2angular } from "react2angular";
+import { withStore } from "../../reducers.config";
+import React from "react";
+import { connect } from 'react-redux'
 
 const name = 'mwAlert';
 
-class Controller {
-  constructor() {
-    const connect = redux.getConnect();
-    this.unsubscribe = connect(
-      this.mapStateToThis,
-      this.mapThisToProps
-    )(this);
+const Alert = ({ alerts }) => {
+  if (alerts && alerts.length <= 0) {
+    return null;
   }
-  $onInit() {
-    const ctrl = this;
+  return (<div>
+          <span>{alert.type} : {alert.msg}</span>
+      </div>
+  );
+};
 
-    ctrl.addAlert = function() {
-      ctrl.alerts.push({
-        msg: 'Another alert!',
-      });
-    };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    alerts: state.master.menuData.isDisplayMenu ? state.user.alerts : null,
+  };
+};
 
-    ctrl.closeAlert = function(index) {
-      ctrl.alerts.splice(index, 1);
-    };
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {};
+};
 
-    ctrl.isDisplayAlert = function() {
-      if (ctrl.alerts && ctrl.alerts.length <= 0) {
-        return false;
-      }
-      const state = redux.getState();
-      return state.master.menuData.isDisplayMenu;
-    };
+const AlertWithState = withStore(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Alert));
 
-    return this;
-  }
-  $onDestroy() {
-    this.unsubscribe();
-  }
-  mapStateToThis(state) {
-    return { alerts: state.user.alerts };
-  }
-  mapThisToProps() {
-    return {};
-  }
-}
-
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  bindings: {
-    text: '<content',
-  },
-});
+app.component(name, react2angular(AlertWithState, []));
 
 export default name;

@@ -36,7 +36,7 @@ const Free = () => {
   },[]);
   
   useEffect(() =>{
-    const title = free.getTitle(memData.elements);
+    const title = free.getTitle(memData.element.childs);
     page.setTitle(title);
   });
   return (

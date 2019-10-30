@@ -1,6 +1,6 @@
 ﻿import _ from 'lodash';
-import React, {useReducer, useEffect} from 'react';
-import { validation } from 'mw.validation';
+import React, {useEffect, useReducer} from 'react';
+import {validation} from 'mw.validation';
 
 import './message.css';
 
@@ -52,7 +52,43 @@ export  const initMessages= (form) => {
 
 initialState.message = initMessages(initialState.message);
 
-function reducer(state, action) {
+export const formReducer = (formPropertyName) => (state, action) => {
+  switch (action.type) {
+    case 'onSubmit':
+      return {...state, isSubmited:true };
+    case 'onChange': {
+      const target = action.data;
+      const name = target.name;
+      const value = target.value;
+      const newForm = {...state[formPropertyName]};
+      const input = state[formPropertyName][name];
+      const message = validateInput(input, value);
+      newForm[name] = {...input, value, message: message, state: {...input.state, hasChange: true}};
+      return {...state, [formPropertyName]: newForm };
+    }
+    case 'onFocus': {
+      const target = action.data;
+      const name = target.name;
+      const newForm = {...state[formPropertyName]};
+      const input = state[formPropertyName][name];
+      newForm[name] = {...input, state: {...input.state, hasFocus: true, messageCapture: input.message}};
+      return {...state, [formPropertyName]: newForm };
+    }
+    case 'onBlur': {
+      const target = action.data;
+      const name = target.name;
+      const newForm = {...state[formPropertyName]};
+      const input = state[formPropertyName][name];
+      newForm[name] = {...input, state: {...input.state, hasLostFocusOnce: true, hasFocus: false}};
+      return {...state, [formPropertyName]: newForm };
+    }
+
+    default:
+      return new Error();
+  }
+};
+
+const reducer = (state, action) => {
   switch (action.type) {
     case 'onInit':
       if(action.isAuthenticate){
@@ -70,46 +106,14 @@ function reducer(state, action) {
             phone: {...state.message.phone, isVisible:true},
           }}
       }
-
-    case 'onSubmit':
-      return {...state, isSubmited:true };
-    case 'onChange': {
-      const target = action.data;
-      const name = target.name;
-      const value = target.value;
-      const newMessage = {...state.message};
-      const input = state.message[name];
-      const message = validateInput(input, value);
-      const newInput = { ...input, value, message:message, state: {...input.state, hasChange: true} };
-      newMessage[name] = newInput;
-      return {...state, message: newMessage };
-    }
-    case 'onFocus': {
-      const target = action.data;
-      const name = target.name;
-      const newMessage = {...state.message};
-      const input = state.message[name];
-      const newInput = { ...input, state: {...input.state, hasFocus: true, messageCapture: input.message } };
-      newMessage[name] = newInput;
-      return {...state, message: newMessage };
-    }
-    case 'onBlur': {
-      const target = action.data;
-      const name = target.name;
-      const newMessage = {...state.message};
-      const input = state.message[name];
-      const newInput = { ...input, state: {...input.state, hasLostFocusOnce: true, hasFocus : false} };
-      newMessage[name] = newInput;
-      return {...state, message: newMessage };
-    }
     case 'initMessage':
       return { ...state, message: initMessages(state.message), messageSended:false, isSubmited:false };
     case 'messageSended':
       return { ...state, messageSended:true };
     default:
-      throw new Error();
+      return formReducer("message")(state,  action);
   }
-}
+};
 
 export  const getMessage = (input, forceDisplayMessage) => {
   const message = input.message;

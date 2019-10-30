@@ -1,79 +1,42 @@
-﻿import { master } from '../../shared/providers/master-provider';
-import { login } from './login-service';
+﻿import {master} from '../../shared/providers/master-provider';
+import {login} from './login-service';
 import $http from '../../http';
 import React, {useReducer} from 'react';
 import {
-  state,
-  initMessages,
-  getMessage,
+  getMessageStatus,
+  initMessages, formReducer,
   isFormValid,
-  validateInput,
-  getMessageStatus
+  state,
 } from '../../elements/message/elementMessage-component';
-const name = 'loginBworld';
 
 const rules = {
   email: ['required', 'email'],
   password: login.rules.password,
 };
 
-const newMessage = () => {return {
+const newForm = () => {return {
   email: {value : '', message:'', rules : rules.email, state: {...state}, isVisible:true },
   password: {value : '', message:'', rules : rules.password, state: {...state}, isVisible:true},
 }};
 
 const initialState = {
   isSubmited: false,
-  message : newMessage()
+  form : newForm()
 };
 
-initialState.message = initMessages(initialState.message);
+initialState.form = initMessages(initialState.form);
 
-function reducer(state, action) {
+const reducer = (formPropertyName) => (state, action) => {
   switch (action.type) {
-    case 'onSubmit':
-      return {...state, isSubmited:true };
-    case 'onChange': {
-      const target = action.data;
-      const name = target.name;
-      const value = target.value;
-      const newMessage = {...state.message};
-      const input = state.message[name];
-      const message = validateInput(input, value);
-      const newInput = { ...input, value, message:message, state: {...input.state, hasChange: true} };
-      newMessage[name] = newInput;
-      return {...state, message: newMessage };
-    }
-    case 'onFocus': {
-      const target = action.data;
-      const name = target.name;
-      const newMessage = {...state.message};
-      const input = state.message[name];
-      const newInput = { ...input, state: {...input.state, hasFocus: true, messageCapture: input.message } };
-      newMessage[name] = newInput;
-      return {...state, message: newMessage };
-    }
-    case 'onBlur': {
-      const target = action.data;
-      const name = target.name;
-      const newMessage = {...state.message};
-      const input = state.message[name];
-      const newInput = { ...input, state: {...input.state, hasLostFocusOnce: true, hasFocus : false} };
-      newMessage[name] = newInput;
-      return {...state, message: newMessage };
-    }
-
     case 'error': {
       return {...state, message: {...state.message, email: {...state.message.email, message: "Login ou mot de passe non valide" } } };
     }
     default:
-      throw new Error();
+      return formReducer("form")(state,  action);
   }
-}
-
+};
 
 const submit = (form, dispatch) => {
-
   if (!isFormValid(form)) {
     return;
   }
@@ -88,8 +51,7 @@ const submit = (form, dispatch) => {
       .then(function(response) {
         const result = response.data;
         if (result.isSuccess) {
-          const returnUrl = login.getReturnUrl();
-          window.location = returnUrl;
+          window.location = login.getReturnUrl();
         } else {
           // TODO passer en camel case le retour MVC
           const errors = result.validationResult.errors;
@@ -102,10 +64,9 @@ const submit = (form, dispatch) => {
       });
 };
 
-
 const LoginBworld = () => {
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer("form"), initialState);
   const onChange = (e) => { dispatch({type: 'onChange', data: {
       name: e.target.name,
       value: e.target.value,
@@ -130,7 +91,7 @@ const LoginBworld = () => {
   const status = getMessageStatus(state.message, state.isSubmited);
   return (
       <div className="row">
-        <div className="col-sm-2"></div>
+        <div className="col-sm-2" />
         <div className="col-sm-8 mw-login text-center">
 
           <div className="panel panel-default">
@@ -166,7 +127,7 @@ const LoginBworld = () => {
                   <div className="form-group">
                     <div className="col-sm-offset-3 col-sm-9">
                       <button type="submit" className="btn btn-lg btn-success"><span
-                          className="glyphicon glyphicon-ok"></span> Valider
+                          className="glyphicon glyphicon-ok" /> Valider
                       </button>
                     </div>
                   </div>
@@ -176,7 +137,7 @@ const LoginBworld = () => {
 
           </div>
 
-          <div className="col-sm-2"></div>
+          <div className="col-sm-2" />
         </div>
       </div>
   );

@@ -1,9 +1,7 @@
 ﻿import app from '../../app.module';
-import redux from '../../redux';
 import { page } from '../../shared/services/page-factory';
 import React, {useEffect} from 'react';
 import { react2angular } from 'react2angular';
-import {free} from "../../free/free-factory";
 import LoginBworld from "./loginBworld-component";
 import LoginSocial from "./loginSocial-component";
 

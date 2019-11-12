@@ -19,3 +19,4 @@ app.component(name, {
 });
 
 export default name;
+

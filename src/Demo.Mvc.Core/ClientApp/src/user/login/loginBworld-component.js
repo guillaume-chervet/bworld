@@ -29,10 +29,10 @@ initialState.form = initMessages(initialState.form);
 const reducer = (formPropertyName) => (state, action) => {
   switch (action.type) {
     case 'error': {
-      return {...state, message: {...state.message, email: {...state.message.email, message: "Login ou mot de passe non valide" } } };
+      return {...state, [formPropertyName]: {...state[formPropertyName], email: {...state[formPropertyName].email, message: "Login ou mot de passe non valide" } } };
     }
     default:
-      return formReducer("form")(state,  action);
+      return formReducer([formPropertyName])(state,  action);
   }
 };
 
@@ -80,7 +80,7 @@ const LoginBworld = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch({type: 'onSubmit'});
-    submit(state.message, dispatch);
+    submit(state.form, dispatch);
   };
   
   const getNavCreate = function() {
@@ -88,7 +88,7 @@ const LoginBworld = () => {
     return `/utilisateur/creation?dm=false&returnUrl=${returnUrl}`;
   };
   const events = {onBlur, onChange, onFocus};
-  const status = getMessageStatus(state.message, state.isSubmited);
+  const status = getMessageStatus(state.form, state.isSubmited);
   return (
       <div className="row">
         <div className="col-sm-2" />
@@ -105,14 +105,14 @@ const LoginBworld = () => {
                   <div className={"form-group form-group-lg "+ status.email.className} >
                     <label className="col-sm-3 control-label">Email : </label>
                     <div className="col-sm-9 col-md-7">
-                      <input type="text" name="email" value={state.message.email.value} {...events} className="form-control"/>
+                      <input type="text" name="email" value={state.form.email.value} {...events} className="form-control"/>
                       <span className="error-block">{status.email.message}</span>
                     </div>
                   </div>
                   <div className={"form-group form-group-lg "+ status.password.className} >
                     <label className="col-sm-3 control-label">Mot de passe : </label>
                     <div className="col-sm-9 col-md-7">
-                      <input type="password" name="password" value={state.message.password.value} {...events} className="form-control" />
+                      <input type="password" name="password" value={state.form.password.value} {...events} className="form-control" />
                       <span className="error-block">{status.password.message}</span>
                     </div>
                   </div>

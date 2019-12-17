@@ -11,20 +11,14 @@ import {withStore} from "../../reducers.config";
 import React from "react";
 import './menuRight.css';
 
-
 const name = 'menuAside';
 
-
 const MenuAside = ({user, menu, isCollapsed, currentPath}) => {
-
   const notification = userNotification.data;
-  const isAdmin = menuFactory.isAdmin;
-  const isUser = menuFactory.isUser;
-  const isPrivate = menuFactory.isPrivate;
-  const getInternalPath = masterFactory.getInternalPath;
-  const isActive = menuFactory.isActive;
-
-  const  logOff = function(e) {
+  const { isAdmin, isUser, isPrivate, isActive } = menuFactory;
+  const {getInternalPath} = masterFactory;
+  
+  const logOff = function(e) {
     e.preventDefault();
     userFactory.logOffAsync().then(function() {
       history.path('/utilisateur/connexion');
@@ -89,7 +83,7 @@ const MenuAside = ({user, menu, isCollapsed, currentPath}) => {
               {user.isAuthenticate && (<>
               <li className="divider"></li>
               <li >
-                <a href="" onClick={logOff}><span className="glyphicon glyphicon-log-out"
+                <a href="#" onClick={logOff}><span className="glyphicon glyphicon-log-out"
                                                            aria-hidden="true"></span> Se déconnecter</a>
               </li></>)}
             </ul>
@@ -100,9 +94,7 @@ const MenuAside = ({user, menu, isCollapsed, currentPath}) => {
   </div>);
 };
 
-
-
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     user: state.user.user,
     menu: menuFactory.mapPublishedMenu(state.master.menu),
@@ -110,13 +102,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {};
-};
-
 const MenuAsideWithState = withStore(connect(
     mapStateToProps,
-    mapDispatchToProps
 )(MenuAside));
 
 app.component(name, react2angular(MenuAsideWithState, ['currentPath']));

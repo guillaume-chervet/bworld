@@ -35,7 +35,9 @@ const submitAsync = (form, dataToSend) => {
 };
 
 const newForm = () => {return {
-  email: {value : '', message:'', state: {...state}, isVisible:true, rules:[] },
+  email: {value : '', message:'', state: {...state}, isVisible:true, rules:['required', 'email'] },
+  password: {value : '', message:'', state: {...state}, isVisible:true, rules:[] },
+  passwordConfirm: {value : '', message:'', state: {...state}, isVisible:true, rules:[] },
 }};
 
 const initialState = {
@@ -70,7 +72,10 @@ const reducer = (formPropertyName) => (state, action) => {
         passwordConfirm: ['required', customPassword],
       };
       
-      const newState = {...state, form : { ...state.form, password: { ...state.form.password, rules : rules.email }} };
+      const newState = {...state, form : { ...state.form, 
+          password: { ...state.form.password, rules : rules.password },
+          passwordConfirm: { ...state.form.passwordConfirm, rules : rules.passwordConfirm }
+      } };
 
       return formReducer(formPropertyName)(newState,  action);
   }

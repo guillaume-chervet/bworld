@@ -31,12 +31,15 @@ initialState.form = initMessages(initialState.form);
 
 const reducer = (formPropertyName) => (state, action) => {
   switch (action.type) {
+    case 'server-error': 
+      return { ...state, form: { email : { ...state.form.email, message: "Adresse email non trouvée" } } };
+      break;
     default:
       return formReducer(formPropertyName)(state,  action);
   }
 };
 
-const submit = (form) => {
+const submit = (form, dispatch) => {
   if (!isFormValid(form)) {
     return;
   }
@@ -53,13 +56,14 @@ const submit = (form) => {
               "Demande envoyé avec succès. Un email à été envoyé à l'adresse indiquée. Suivez les étapes indiquées dans le mail.",
               'Confirmation utilisateur'
           );
+        } else {
+          dispatch("server-error");
         }
         return response.data;
       });
 };
 
 const ResetPassword = () => {
-
   useEffect(() =>{
     page.setTitle('Demande ré-initialisation mot de passe');
   });
@@ -77,13 +81,11 @@ const ResetPassword = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch({type: 'onSubmit'});
-    submit(state.form);
+    submit(state.form, dispatch);
   };
   const events = {onBlur, onChange, onFocus};
   const status = getMessageStatus(state.form, state.isSubmited);
-  return (
-
-      <div className="row">
+  return (<div className="row">
         <div className="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
           <h1>Demande ré-initialisation mot de passe</h1>
           <h2>Votre email</h2>

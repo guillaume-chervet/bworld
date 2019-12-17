@@ -24,9 +24,7 @@ const MenuItems = ( {
             filter,
             currentMenuItems
         );
-        
         const newClassName = classNames('navbar-collapse', className);
-        
         return (
             <nav className={newClassName}>
                 <ul className="nav navbar-nav">

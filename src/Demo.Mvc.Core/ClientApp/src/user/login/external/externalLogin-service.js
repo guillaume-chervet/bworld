@@ -19,6 +19,6 @@ const getReturnUrl = (returnUrl) => {
 
 export const externalLogin = {
   externalLogin: _externalLogin,
-  init: init,
-  getReturnUrl: getReturnUrl,
+  init,
+  getReturnUrl,
 };

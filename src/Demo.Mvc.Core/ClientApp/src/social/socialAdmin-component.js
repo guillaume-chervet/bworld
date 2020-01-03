@@ -13,7 +13,7 @@ class Controller {
   $onInit() {
     const ctrl = this;
     page.setTitle(social.data.title, page.types.admin);
-    var moduleId = master.getModuleId();
+    const moduleId = master.getModuleId();
     const _model = {};
     Object.assign(_model, _.cloneDeep(social.data));
     ctrl.model = _model;

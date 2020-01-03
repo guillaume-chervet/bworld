@@ -1,6 +1,5 @@
 ﻿import app from '../../app.module';
 import history from '../../history';
-import { page } from '../../shared/services/page-factory';
 import React, {useEffect} from 'react';
 import { react2angular } from 'react2angular';
 

@@ -1,6 +1,7 @@
 ﻿import {master} from '../../shared/providers/master-provider';
 import {login} from './login-service';
 import $http from '../../http';
+import history from '../../history';
 import React, {useReducer} from 'react';
 import {
   getMessageStatus,
@@ -83,10 +84,22 @@ const LoginBworld = () => {
     submit(state.form, dispatch);
   };
   
-  const getNavCreate = function() {
+  const urlCreateUser = () => {
     let returnUrl = login.formatReturnUrl(login.getReturnUrl());
-    return `/utilisateur/creation?dm=false&returnUrl=${returnUrl}`;
+    return  `/utilisateur/creation?dm=false&returnUrl=${returnUrl}`
+  }
+  
+  const goCreateUser = (e) => {
+    e.preventDefault();
+    let returnUrl = urlCreateUser();
+    history.path(returnUrl)
   };
+
+  const goLostPassword = (e) => {
+    e.preventDefault();
+    history.path(`/utilisateur/reset-password?dm=false`)
+  };
+  
   const events = {onBlur, onChange, onFocus};
   const status = getMessageStatus(state.form, state.isSubmited);
   return (
@@ -118,10 +131,10 @@ const LoginBworld = () => {
                   </div>
                   <div className="form-group form-group-lg">
                     <div className="col-sm-6">
-                      <a href={getNavCreate()}>Créer un compte</a>
+                      <a href={urlCreateUser()} onClick={goCreateUser} >Créer un compte</a>
                     </div>
                     <div className="col-sm-6">
-                      <a href="/utilisateur/reset-password?dm=false">Mot de passe perdu</a>
+                      <a href="/utilisateur/reset-password?dm=false" onClick={goLostPassword}>Mot de passe perdu</a>
                     </div>
                   </div>
                   <div className="form-group">

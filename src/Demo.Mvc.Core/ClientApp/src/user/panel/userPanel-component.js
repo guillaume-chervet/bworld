@@ -25,10 +25,7 @@ const UserPanel = () => {
         'https://www.bworld.fr/site/c176c987-59b2-4a59-93bd-a54d73e3dc2e/authentification?dm=false';
   };
   
-  return (
-
-
-      <PageBreadcrumbWithState>
+  return (<PageBreadcrumbWithState>
           <div>
             <h1><span className="glyphicon glyphicon-user ng-scope" />Utilisateur: {user.userName}</h1>
             <p>Bienvenue sur votre page utilisateur.</p>

@@ -52,7 +52,7 @@ namespace Demo.Business.Command.File
             }
 
             var key = Input.Key;
-            FileDataModel file = null;
+            FileDataModel file;
             {
                 if (string.IsNullOrEmpty(key))
                 {
@@ -78,7 +78,7 @@ namespace Demo.Business.Command.File
             }
 
             {
-                ItemDataModel imageThumb;
+                ItemDataModel imageThumb = null;
                 if (string.IsNullOrEmpty(Input.PropertyName))
                 {
                     // Cela veux dire qu'il y a directement l'id
@@ -88,7 +88,7 @@ namespace Demo.Business.Command.File
                         ParentId = Input.Id,
                         PropertyName = Input.Key,
                         Module = "ImageData"
-                    })).First();
+                    })).FirstOrDefault();
                 }
                 else
                 {
@@ -99,16 +99,23 @@ namespace Demo.Business.Command.File
                         ParentId = Input.Id,
                         PropertyName = Input.PropertyName,
                         Module = "Image"
-                    })).First();
+                    })).FirstOrDefault();
+                    if(image != null) {
                     // imageThumb = await itemRepository.GetItemFromParentAsync(image.Id, "ImageData", Input.Key);
                     imageThumb = (await itemRepository.GetItemsAsync(Input.SiteId, new ItemFilters
                     {
                         ParentId = image.Id,
                         PropertyName = Input.Key,
                         Module = "ImageData"
-                    })).First();
+                    })).FirstOrDefault();
+                    }
                 }
 
+                if(imageThumb == null) {
+                Result.ValidationResult.AddError("NOT_FOUND");
+                 return;
+                }
+                
                 var fileInfoTemp = (OldFileData) imageThumb.Data;
 
                 var fileInfo = new GetFileResult();

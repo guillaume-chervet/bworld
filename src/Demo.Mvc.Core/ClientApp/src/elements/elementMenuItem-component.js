@@ -2,7 +2,6 @@
 import { addElement } from '../free/add/addElement-factory';
 import { service as elementService } from './element-factory';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
 export const ElementMenuItem = ({element, mode}) => {

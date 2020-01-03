@@ -1,8 +1,6 @@
 ﻿import { login } from './login-service';
 import React from 'react';
 
-const name = "loginSocial";
-
 const LoginSocial = () => {
 
   const returnUrl = login.getReturnUrl();

@@ -19,14 +19,11 @@ const CarouselJumbotron = ({master}) => {
 
 const Jumbrotron = ({master}) => {
     return (master.isLogo && (<div className="mw-jumbotron">
-
         {!master.isJumbotron && (<div>
             {master.imageLogos.length === 1 && (<img src={master.logoUrl}
                  className="center-block img-responsive" alt="Logo du site"/>)}
-
         <CarouselJumbotron master={master}></CarouselJumbotron>
         </div>)}
-
         {master.isJumbotron && (<div  className="jumbotron">
             <div className="container">
                 {master.imageLogos.length === 1 && (<img src={master.logoUrl} className="center-block" alt="Logo du site" />)}
@@ -36,20 +33,11 @@ const Jumbrotron = ({master}) => {
     </div>));
 };
 
-
-
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return { master: state.master.masterData };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {};
-};
-
-const JumbotronWithState = withStore(connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Jumbrotron));
+const JumbotronWithState = withStore(connect(mapStateToProps)(Jumbrotron));
 
 app.component(name, react2angular(JumbotronWithState, ['master']));
 

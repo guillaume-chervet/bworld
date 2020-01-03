@@ -15,7 +15,7 @@ namespace Demo.Data
 
             if (blobType == "MongoDb")
             {
-                services.AddTransient<IDataBlob, AzureBlob>();
+                services.AddTransient<IDataBlob, MongoBlob>();
             }
             else
             {

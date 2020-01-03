@@ -16,19 +16,14 @@ const Alert = ({ alerts }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     alerts: state.master.menuData.isDisplayMenu ? state.user.alerts : null,
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {};
-};
-
 const AlertWithState = withStore(connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Alert));
 
 app.component(name, react2angular(AlertWithState, []));

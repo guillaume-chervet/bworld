@@ -9,7 +9,6 @@ import './login/login-component';
 import './login/loginBworld-component';
 import './login/loginSocial-component';
 
-import './login/create/createAccount-component';
 import './login/create/pageCreateAccount-component';
 
 import './login/password/reinitPassword-component';

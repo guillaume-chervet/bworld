@@ -349,6 +349,11 @@ namespace Demo.Mvc.Core.Controllers
             }
 
             var signedUser = await UserManager.FindByEmailAsync(model.Email);
+            if (signedUser == null)
+            {
+                commandResult.ValidationResult.AddError("email_not_found", "Email not found");
+                return new JsonResult(commandResult);
+            }
             var token = await UserManager.GeneratePasswordResetTokenAsync(signedUser);
             await SaveUserCommand.SendResetPasswordEmailAsync(_emailService, signedUser, token);
             return new JsonResult(commandResult);

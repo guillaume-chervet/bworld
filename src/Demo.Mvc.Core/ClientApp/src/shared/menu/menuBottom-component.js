@@ -19,12 +19,8 @@ const getMenuItems = function (master) {
 
 const name = 'menuBottom';
 
-
 const MenuBottom = ({menuItems, titleSite, currentPath}) => {
-
   const version = window.params.version;
-  const isActive = menu.isActive;
-  
   return (<footer>
     <div className="container">
       <div className="row">

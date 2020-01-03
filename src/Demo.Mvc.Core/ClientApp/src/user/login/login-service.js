@@ -40,19 +40,19 @@ const passwordRegex = new RegExp(
 );
 const rules = {
   password: [
-    'required',
-    {
-      maxLength: 100,
-    },
-    {
-      minLength: 6,
-    },
     {
       pattern: {
         regex: passwordRegex,
         message:
           'Minimum 8 caractères 1 nombre 1 majuscule et 1 caractère spécial',
       },
+    },
+    'required',
+    {
+      maxLength: 100,
+    },
+    {
+      minLength: 6,
     },
   ],
 };

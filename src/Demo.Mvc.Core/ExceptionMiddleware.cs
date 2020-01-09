@@ -15,12 +15,12 @@ namespace Demo.Mvc.Core.Api.Attributes
     public class ExceptionMiddleware
     {
         private readonly ILogger<ExceptionMiddleware> _logger;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
         private readonly RequestDelegate _next;
 
         public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger,
-            IHostingEnvironment environment)
+            IWebHostEnvironment environment)
         {
             _next = next;
             _logger = logger;

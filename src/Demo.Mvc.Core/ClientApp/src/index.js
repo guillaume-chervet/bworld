@@ -6,11 +6,14 @@ const start = async () => {
     const response = await fetch(`/api/site/master?url=${encodeURI(url)}&port=${port}`);
     const result = await response.json();
 
-    var meta = document.createElement('base');
-        meta.setAttribute('href', result.header.baseUrlSite);
+    const meta = document.createElement('base');
+    meta.setAttribute('href', result.header.baseUrlSite);
     document.getElementsByTagName('head')[0].appendChild(meta);
-    
-    window.params = result;
+
+    window.params = {
+        ...result,
+        master: JSON.parse(result.master)
+    };
     await import('./app.js');
     await modulesFactory.initAsync();
     window.angular.bootstrap(window.document, ['mw']);

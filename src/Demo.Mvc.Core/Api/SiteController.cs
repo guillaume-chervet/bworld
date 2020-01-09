@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Demo.Mvc.Core.Api
 {
@@ -218,24 +219,14 @@ namespace Demo.Mvc.Core.Api
         [Route("api/site/master")]
         public async Task<ActionResult<BaseParameters>> Master([FromServices] ModuleManager moduleManager,[FromServices] ResetSiteCacheCommand resetSiteCacheCommand,[FromServices]IRouteManager routeManager, [FromServices]IOptions<ApplicationConfig> options,[FromQuery]string url, [FromQuery] string port="" )
         {
-        
-        /*var requestedDomain = $"{Request.Scheme}://{Request.Host.Host}";
-                    string applicationPath = Request.PathBase;
-                    string requestedPath = path;
-                    var fullRequestUrl = @UrlHelper.Concat(requestedDomain, Request.PathBase, requestedPath);
-        
-                    var fullUrl = UrlHelper.Concat(requestedDomain, applicationPath, requestedPath);*/
-
-           var fullRequestUrl = url;
+            var fullRequestUrl = url;
             var fullUrl = fullRequestUrl.Split('?')[0];
             if (fullUrl.Contains(":"))
             {
                 fullUrl = fullUrl.Replace($":{port}", "");
             }
-            
-        
 
-           var parameters = new BaseParameters();
+            var parameters = new BaseParameters();
             var simpleUrl =  fullUrl.Replace("https://", "").Replace("http://", "");
             var findRouteInput = new FindRouteInput();
             findRouteInput.Url = simpleUrl;
@@ -262,7 +253,6 @@ namespace Demo.Mvc.Core.Api
                 foreach (var domainData in findRouteResult.DomainDatas)
                     currentRequest.DomainDatas.Add(domainData);
             
-
             dynamic master;
             try
             {
@@ -278,28 +268,18 @@ namespace Demo.Mvc.Core.Api
                             new ResetSiteCacheInput {Site = currentRequest});
             }
 
-            
             var value = options.Value;
-            
-            parameters.Master = master;
+            var baseUrlJs = value.MainDomainUrl;
+            parameters.Master = JsonConvert.SerializeObject(master, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
             parameters.Version = value.Version;
-            parameters.MainDomainUrl = @UrlHelper.Concat(value.MainDomainUrl);
+            parameters.MainDomainUrl = @UrlHelper.Concat(baseUrlJs);
             parameters.IsDebug = value.IsDebug;
-            //var baseUrl = UriHelper.BuildAbsolute(Request.Scheme, Request.Host).TrimEnd('/');
-           // parameters.BaseUrl = baseUrl;
-            
-            var baseUrlJs = "";
-             baseUrlJs = value.MainDomainUrl;
-
             parameters.BaseUrlJs = baseUrlJs;
-            
-          
-         // var masterJson = JsonConvert.SerializeObject(master);
-
-         parameters.Header = HomeController.GetHeader(findRouteResult, master, Request, fullRequestUrl);
-
+            parameters.Header = HomeController.GetHeader(findRouteResult, master, Request, fullRequestUrl);
             parameters.BaseUrlSite = parameters.Header.BaseUrlSite;
-
             return parameters;
         }
     }
@@ -308,22 +288,10 @@ namespace Demo.Mvc.Core.Api
     {
         public string Version { get; set; }
         public string BaseUrlJs { get; set; }
-        public string BaseUrl { get; set; }
         public string BaseUrlSite { get; set; }
         public string MainDomainUrl { get; set; }
-        
         public Header Header {get;set;}
         public dynamic Master { get; set; }
         public bool IsDebug { get; set; }
-    
-        /* var params = {
-             version: '@ViewBag.Version',
-             baseUrlJs: '@baseUrlJs',
-             baseUrl: '@ViewBag.Header.BaseUrl',
-             baseUrlSite: '@ViewBag.Header.BaseUrlSite',
-             mainDomainUrl: '@UrlHelper.Concat(ViewBag.MainDomainUrl)',
-             master: @Html.Raw(ViewBag.MasterJson),
-             isDebug: @isDebug.ToString().ToLower()
-         };*/
     }
 }

@@ -10,7 +10,11 @@ import { react2angular } from 'react2angular';
 const name = "free";
 
 const Free = () => {
-
+  useEffect(() =>{
+    const title = free.getTitle(memData.element.childs);
+    page.setTitle(title);
+  });
+  
   const memData = useMemo(()=>{
     const _data = free.data;
     const parentsJson = free.mapParent({
@@ -35,10 +39,7 @@ const Free = () => {
   return data;
   },[]);
   
-  useEffect(() =>{
-    const title = free.getTitle(memData.elements);
-    page.setTitle(title);
-  });
+ 
   return (
       <PageBreadcrumbWithState>
         <Div className="mw-free" element={memData.element} />

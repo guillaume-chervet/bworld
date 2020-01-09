@@ -1,11 +1,9 @@
-
 import React from 'react';
 import {Helmet} from "react-helmet";
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 import app from './app.module';
 
-const Htmlheader = (props) => {
+const Htmlheader = () => {
     
     const header = window.params.header;
         return (
@@ -21,7 +19,7 @@ const Htmlheader = (props) => {
                 </Helmet>
             </>
         );
-}
+};
 
 const name = 'htmlheader';
 app.component(name, react2angular(Htmlheader, ['header']));

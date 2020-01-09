@@ -22,7 +22,7 @@ const initAsync = function() {
   });
 };
 const saveEmailAsync = function(userTemp, form) {
-  var dataToPost = {
+  const dataToPost = {
     userId: userTemp.id,
     email: userTemp.email,
   };

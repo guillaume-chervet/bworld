@@ -2,27 +2,27 @@
 import window from '../../window';
 import { master } from '../../shared/providers/master-provider';
 
-const getPostUrl = function() {
-  var postUrl = 'Account/ExternalLogin';
+const getPostUrl = () => {
+  let postUrl = 'Account/ExternalLogin';
   if (window.params.master.domainLoginUrl) {
-    postUrl = window.params.master.domainLoginUrl + '/' + postUrl;
+    postUrl = `${window.params.master.domainLoginUrl}/${postUrl}`;
   }
   return postUrl;
 };
 
-const getPostAssociationUrl = function() {
+const getPostAssociationUrl = () => {
   let postUrl = 'Account/ExternalLoginAssociation';
   if (window.params.master.domainLoginUrl) {
-    postUrl = window.params.master.domainLoginUrl + '/' + postUrl;
+    postUrl = `${window.params.master.domainLoginUrl}/${postUrl}`;
   }
   return postUrl;
 };
 
-const getFullBaseUrl = function() {
+const getFullBaseUrl = () => {
   return window.params.header.baseUrl;
 };
 
-const getReturnUrl = function() {
+const getReturnUrl = () => {
     let url = master.concatUrl(getFullBaseUrl(), window.params.header.baseUrlSite);
   const search = history.search();
   const path = search.url;
@@ -40,13 +40,6 @@ const passwordRegex = new RegExp(
 );
 const rules = {
   password: [
-    'required',
-    {
-      maxLength: 100,
-    },
-    {
-      minLength: 6,
-    },
     {
       pattern: {
         regex: passwordRegex,
@@ -54,10 +47,17 @@ const rules = {
           'Minimum 8 caractères 1 nombre 1 majuscule et 1 caractère spécial',
       },
     },
+    'required',
+    {
+      maxLength: 100,
+    },
+    {
+      minLength: 6,
+    },
   ],
 };
 
-const formatReturnUrl = function(returnUrl) {
+const formatReturnUrl = (returnUrl) => {
   if (!returnUrl) {
     return returnUrl;
   }

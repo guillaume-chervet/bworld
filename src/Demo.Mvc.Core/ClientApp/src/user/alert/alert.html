@@ -1,5 +1,0 @@
-<div>
-    <div ng-if="$ctrl.isDisplayAlert()" uib-alert ng-repeat="alert in $ctrl.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="$ctrl.closeAlert($index)">
-        <span ng-bind="alert.msg"></span>
-    </div>
-</div>

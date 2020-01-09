@@ -78,7 +78,7 @@ const News = ({vm, onTagChange}) => {
       <hr/>
       <div className="row">
         <div className="col-sm-9">
-          <Empty items={vm.items} text={'Aucun article.'} />
+          <Empty items={vm.items} content={'Aucun article.'} />
             <Content items={vm.items} vm={vm} />
             {vm.data.hasPreviousOrNext() ? (<nav>
             <ul className="pager">
@@ -175,7 +175,7 @@ const NewsContainer = () => {
   }, []);
 
   useEffect(() =>{
-    const title = news.getTitle(news.data.elements);
+    const title = news.getTitle(memData.element.childs);
     page.setTitle(title);
   });
 

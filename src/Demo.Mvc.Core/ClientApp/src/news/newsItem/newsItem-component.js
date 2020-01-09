@@ -38,7 +38,7 @@ const NewsItem = () => {
   },[]);
 
   useEffect(() =>{
-    const title = newsItem.getTitle(memData.elements);
+    const title = newsItem.getTitle(memData.element.childs);
     page.setTitle(title);
 
   });
@@ -51,7 +51,6 @@ const NewsItem = () => {
 };
 
 const name = "newsItem";
-
 
 app.component(name, react2angular(NewsItem, []));
 

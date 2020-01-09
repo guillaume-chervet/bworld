@@ -1,27 +1,15 @@
 ﻿import app from '../app.module';
 import { menu as elementMenuService } from './elementMenu-factory';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
 export const ElementMenuH1= ({element}) => {
   const parent = element.$parent;
 
-  const up = () => {
-    elementMenuService.up(element, parent);
-  };
-
-  const down = () => {
-    elementMenuService.down(element, parent);
-  };
-
-  const canUp = () => {
-    return elementMenuService.canUp(element, parent);
-  };
-
-  const canDown = () => {
-    return elementMenuService.canDown(element, parent);
-  };
+  const up = () =>  elementMenuService.up(element, parent);
+  const down = () => elementMenuService.down(element, parent);
+  const canUp = () => elementMenuService.canUp(element, parent);
+  const canDown = () => elementMenuService.canDown(element, parent);
   
   return (
       <div className="btn-toolbar mw-toolbar" role="toolbar" aria-label="Toolbar with button groups">

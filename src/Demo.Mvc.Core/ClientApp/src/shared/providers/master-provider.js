@@ -60,8 +60,8 @@ const getModuleId = ($route, menuKey) => {
 };
 
 const getCurrentMenuItemClean = (routeCurrentModuleId, menu) => {
-  var moduleId = getModuleIdClean('', routeCurrentModuleId, menu);
-  for (var name in menu) {
+  const moduleId = getModuleIdClean('', routeCurrentModuleId, menu);
+  for (const name in menu) {
     const items = menu[name];
     if (items instanceof Array) {
       const item = getMenuItems(items, moduleId);
@@ -72,13 +72,14 @@ const getCurrentMenuItemClean = (routeCurrentModuleId, menu) => {
   }
   return null;
 };
+
 const getCurrentMenuItem = () => {
   const state = redux.getState();
   const menu = state.master.menu;
   return getCurrentMenuItemClean(getRouteCurrentModuleId(), menu);
 };
 
-function getMenuItems(items, moduleId) {
+const getMenuItems = (items, moduleId) => {
   for (let i = 0; i < items.length; i++) {
     const menuItem = items[i];
     if (menuItem.moduleId === moduleId) {
@@ -92,27 +93,27 @@ function getMenuItems(items, moduleId) {
     }
   }
   return null;
-}
+};
 
-function getServerMenuItem(moduleId) {
+const getServerMenuItem = (moduleId) => {
   const items = params.master.menuItems;
   return getMenuItems(items, moduleId);
-}
+};
 
-function getMasterServer() {
+const getMasterServer = () => {
   const state = redux.getState();
   return state.master.masterServer;
-}
+};
 
-function endsWith(str, suffix) {
+const endsWith = (str, suffix) => {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}
+};
 
-function startsWith(str, suffix) {
+const startsWith = (str, suffix) => {
   return str.indexOf(suffix) === 0;
-}
+};
 
-function getUrl(path) {
+const getUrl = (path) => {
   if (path === undefined) {
     return '';
   }
@@ -123,7 +124,7 @@ function getUrl(path) {
     return concatUrl(null, path);
   }
   return concatUrl(params.baseUrlJs, path);
-}
+};
 
 const getInternalPath = (path) => {
 
@@ -136,11 +137,11 @@ const getInternalPath = (path) => {
     return concatUrl(params.baseUrlSite, path);
 };
 
-function getFullUrl(path) {
+const getFullUrl = (path) => {
   return concatUrl(params.baseUrl, path);
-}
+};
 
-export function concatUrl(base, path) {
+export const concatUrl = (base, path) => {
   if (!base) {
     return path;
   }
@@ -152,7 +153,7 @@ export function concatUrl(base, path) {
     path = path.slice(1, path.length);
   }
   return urlBase + '/' + path;
-}
+};
 
 export const master = {
   concatUrl,
@@ -160,8 +161,7 @@ export const master = {
   getModuleIdClean,
   getCurrentMenuItem,
   getCurrentMenuItemClean,
-    getServerMenuItem,
-  
+  getServerMenuItem,
   site: params.master.site,
   getMasterServer,
   updateMaster: masterTemp => {

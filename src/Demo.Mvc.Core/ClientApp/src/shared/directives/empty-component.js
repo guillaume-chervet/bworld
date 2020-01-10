@@ -11,7 +11,7 @@ export const Empty = ({ items, content }) => {
   if(items.length>0) {
     return null;
   }
-  const newText = text || "Aucun élément dans la liste";
+  const newText = content || "Aucun élément dans la liste";
   return (
       <div className="mw-empty"><p>{newText}</p></div>
   );

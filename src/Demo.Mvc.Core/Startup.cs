@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Demo.Business;
@@ -23,48 +22,47 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Demo.Mvc.Core
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             CurrentEnvironment = env;
         }
 
-        private IHostingEnvironment CurrentEnvironment { get; }
+        private IWebHostEnvironment CurrentEnvironment { get; }
         private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
+         /*   services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info {Title = "API Demo", Version = "v1"});
                 c.IncludeXmlComments(
                     //The XML file's name has to be Wac.Api.xml
                     $@"{AppDomain.CurrentDomain.BaseDirectory}\Demo.Mvc.Core.xml");
             });
-
+*/
             services.AddMemoryCache();
 
             var businessSection = Configuration.GetSection("Business");
             var businessConfig = businessSection.Get<BusinessConfig>();
             services.Configure<BusinessConfig>(businessSection);
 
-           var origins = businessConfig.Domains.Where(d => String.IsNullOrEmpty(d.CorsOrigin) == false).Select(d => d.CorsOrigin).ToArray();
+            var origins = businessConfig.Domains.Where(d => String.IsNullOrEmpty(d.CorsOrigin) == false)
+                .Select(d => d.CorsOrigin).ToArray();
 
             // Add service and create Policy with options
             services.AddCors(options =>
@@ -72,15 +70,7 @@ namespace Demo.Mvc.Core
                 options.AddPolicy("CorsPolicy",
                     builder =>
                     {
-                       /* IList<string> origins = new List<string>
-                        {
-                            "https://www.bworld.fr",
-                            "https://www.lannexe-bretignolles.fr",
-                            "https://www.guillaume-chervet.fr",
-                            "https://www.broderieennord.com",
-                            "https://www.fasiladanse.info"
-                        };*/
-                        builder.WithOrigins(origins)//origins.ToArray())
+                        builder.WithOrigins(origins)
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials()
@@ -90,11 +80,8 @@ namespace Demo.Mvc.Core
             });
 
             services.AddOptions();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver =
-                    new CamelCasePropertyNamesContractResolver();
-            });
+            services
+                .AddControllersWithViews();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
             services.Configure<MvcOptions>(options => { options.Filters.Add(new RequireHttpsAttribute()); });
@@ -107,7 +94,6 @@ namespace Demo.Mvc.Core
             services.ConfigureStatsCore();
             services.ConfigureUserCore();
             services.ConfigureTagsCore();
-
             services.ConfigureSiteCore(Configuration);
             services.ConfigureRouting();
             services.ConfigureQueue();
@@ -117,7 +103,6 @@ namespace Demo.Mvc.Core
             services.Configure<StorageConfig>(Configuration.GetSection("Blob"));
             services.Configure<ApplicationConfig>(Configuration.GetSection("Site"));
             
-
             services.AddIdentity<ApplicationUser>(Configuration)
                 .AddDefaultTokenProviders();
 
@@ -131,12 +116,11 @@ namespace Demo.Mvc.Core
             if (CurrentEnvironment.IsDevelopment())
             {
                 services.AddHttpsRedirection(options => options.HttpsPort = 44301);
-            };
+            }
         }
-             
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             var connectionString = Configuration.GetValue<string>("MongoDb:ConnectionString");
             var databaseName = Configuration.GetValue<string>("MongoDb:DatabaseName");
@@ -151,7 +135,10 @@ namespace Demo.Mvc.Core
                 }
                 , env.ApplicationName, env.EnvironmentName);
 
-            if (!env.IsDevelopment()) app.UseHsts();
+            if (!env.IsDevelopment())
+            {
+                app.UseHsts();
+            }
 
             app.ExceptionMiddleware();
             app.UseHttpsRedirection();
@@ -170,6 +157,7 @@ namespace Demo.Mvc.Core
             }
             else
             {
+                app.UseStaticFiles();
                 app.UseSpaStaticFiles();
             }
 
@@ -178,17 +166,11 @@ namespace Demo.Mvc.Core
             app.UseAuthentication();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+          //  app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Demo"); });
-
-            /*app.MapWhen(IsSpaRoute, spaApp => {
-                // Only configure React dev server if in Development
-                UseSpaWithoutIndexHtml(spaApp, ConfigureSpaDefaults);
-            });*/
-            //app.UseResponseCompression();
+            //app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Demo"); });
 
             app.Use(async (context, next) =>
             {
@@ -196,44 +178,38 @@ namespace Demo.Mvc.Core
                 await next();
             });
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    "Sitemap",
+                endpoints.MapControllers(); 
+                endpoints.MapControllerRoute("Sitemap",
                     "sitemap.xml",
                     new {controller = "Home", action = "Index"});
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     "Robots",
                     "robots.txt",
                     new {controller = "Home", action = "Index"});
-
-                routes.MapRoute(
-                    "BingSiteAuth",
+                endpoints.MapControllerRoute("BingSiteAuth",
                     "BingSiteAuth.xml",
                     new {controller = "Home", action = "Index"});
-
-                routes.MapRoute(
-                    "GoogleAuth",
+                endpoints.MapControllerRoute("GoogleAuth",
                     "google*.html",
                     new {controller = "Home", action = "Index"});
-
-                routes.MapRoute(
-                    "Account",
+                endpoints.MapControllerRoute("Account",
                     "Account/{action}",
                     new {controller = "Account", action = "Index"});
-
-                routes.MapRoute(
-                    "default",
+                endpoints.MapControllerRoute("default",
                     "{controller}/{action=Index}/{id?}");
-
+                
                 if (!env.IsDevelopment())
                 {
-                    routes.MapRoute(
-                        "Default",
+                    endpoints.MapControllerRoute( "Default",
                         "{*url}",
                         new {controller = "Home", action = "Index"});
                 }
             });
+      
             if (env.IsDevelopment())
             {
                 // Only configure React dev server if in Development
@@ -244,60 +220,5 @@ namespace Demo.Mvc.Core
                 });
             }
         }
-        
-        private static Action<ISpaBuilder> ConfigureSpaDefaults =
-            spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-                spa.UseReactDevelopmentServer("start");
-            };
-        
-        private static bool IsSpaRoute(HttpContext context)
-        {
-            var path = context.Request.Path;
-            // This should probably be a compiled regex
-            return path.StartsWithSegments("/static")
-                   || path.StartsWithSegments("/sockjs-node")
-                   || path.StartsWithSegments("/socket.io")
-                   || path.ToString().Contains(".hot-update.");
-        }
-
-        private static void UseSpaWithoutIndexHtml(IApplicationBuilder app, Action<ISpaBuilder> configuration)
-        {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-
-            // Use the options configured in DI (or blank if none was configured). We have to clone it
-            // otherwise if you have multiple UseSpa calls, their configurations would interfere with one another.
-            var optionsProvider = app.ApplicationServices.GetService<IOptions<SpaOptions>>();
-            var options = new SpaOptions();
-
-            var spaBuilder = new DefaultSpaBuilder(app, options);
-            configuration.Invoke(spaBuilder);
-        }
-        
-        private class DefaultSpaBuilder : ISpaBuilder
-        {
-            public IApplicationBuilder ApplicationBuilder { get; }
-
-            public SpaOptions Options { get; }
-
-            public DefaultSpaBuilder(IApplicationBuilder applicationBuilder, SpaOptions options)
-            {
-               // spa.Options.SourcePath = "ClientApp";
-                ApplicationBuilder = applicationBuilder
-                                     ?? throw new ArgumentNullException(nameof(applicationBuilder));
-
-               /* if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }*/
-               Options = options ?? throw new ArgumentNullException(nameof(options));
-        }
-    }
-        
-        
     }
 }

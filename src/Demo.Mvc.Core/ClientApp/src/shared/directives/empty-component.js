@@ -11,11 +11,12 @@ export const Empty = ({ items, content }) => {
   if(items.length>0) {
     return null;
   }
+  const newText = content || "Aucun élément dans la liste";
   return (
-      <div className="mw-empty"><p>{content}</p></div>
+      <div className="mw-empty"><p>{newText}</p></div>
   );
 };
 
-app.component(name, react2angular(Empty, ['items', 'content']));
+app.component(name, react2angular(Empty, ['items', 'text']));
 
 export default name;

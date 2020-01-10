@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Demo.User.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -79,29 +80,25 @@ namespace Demo.Mvc.Core
                     {
                         OnValidatePrincipal = SecurityStampValidator.ValidatePrincipalAsync
                     };
-                    o.CookieDomain = cookieDomain;
-                    // o.Cookie.SameSite = SameSiteMode.None;
+                    o.Cookie.Domain = cookieDomain;
                 })
                 .AddCookie(IdentityConstants.ExternalScheme, o =>
                 {
                     o.Cookie.Name = IdentityConstants.ExternalScheme;
                     o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-                    o.CookieDomain = cookieDomain;
-                    //  o.Cookie.SameSite = SameSiteMode.None;
+                    o.Cookie.Domain = cookieDomain;
                 })
                 .AddCookie(IdentityConstants.TwoFactorRememberMeScheme,
                     o =>
                     {
                         o.Cookie.Name = IdentityConstants.TwoFactorRememberMeScheme;
-                        o.CookieDomain = cookieDomain;
-                        //  o.Cookie.SameSite = SameSiteMode.None;
+                        o.Cookie.Domain = cookieDomain;
                     })
                 .AddCookie(IdentityConstants.TwoFactorUserIdScheme, o =>
                 {
                     o.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
                     o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-                    o.CookieDomain = cookieDomain;
-                    //    o.Cookie.SameSite = SameSiteMode.None;
+                    o.Cookie.Domain = cookieDomain;
                 });
 
             services.ConfigureApplicationCookie(options =>
@@ -110,7 +107,7 @@ namespace Demo.Mvc.Core
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.Cookie.Domain = cookieDomain;
-                options.Cookie.Expiration = TimeSpan.FromDays(7);
+                options.ExpireTimeSpan = TimeSpan.FromDays(7);
                 options.LoginPath =
                     "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
                 options.LogoutPath = "/Account/Logout";
@@ -125,6 +122,8 @@ namespace Demo.Mvc.Core
             services.TryAddScoped<IPasswordValidator<TUser>, PasswordValidator<TUser>>();
             services.TryAddScoped<IPasswordHasher<TUser>, PasswordHasher<TUser>>();
             services.TryAddScoped<ILookupNormalizer, UpperInvariantLookupNormalizer>();
+            services.TryAddScoped<IUserConfirmation<TUser>, UserConfirmation<TUser>>();
+            
 
             // No interface for the error describer so we can add errors without rev'ing the interface
             services.TryAddScoped<IdentityErrorDescriber>();
@@ -155,6 +154,15 @@ namespace Demo.Mvc.Core
         {
             services.AddSingleton(p => (IUserStore<TUser>) new UserStore<TUser>(usersCollectionFactory(p)));
             services.AddSingleton(p => (IRoleStore<TRole>) new RoleStore<TRole>(rolesCollectionFactory(p)));
+            services.AddSingleton(p => (IRoleStore<TRole>) new RoleStore<TRole>(rolesCollectionFactory(p)));
+        }
+    }
+
+    public class UserConfirmation<TUser> : IUserConfirmation<TUser> where TUser : class
+    {
+        public Task<bool> IsConfirmedAsync(UserManager<TUser> manager, TUser user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

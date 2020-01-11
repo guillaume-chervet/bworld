@@ -24,14 +24,11 @@ namespace Demo.Mvc.Core
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel(serverOptions =>
-                        {
-                            // Set properties and call methods on options
-                        })
-                        .UseIISIntegration()
-                        .UseStartup<Startup>();
-                })
-                .Build();
+                    webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
+                    webBuilder.UseIISIntegration();
+                    webBuilder.UseStartup<Startup>();
+                }).Build();
+
 
             host.Run();
         }

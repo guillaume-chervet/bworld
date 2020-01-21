@@ -23,11 +23,6 @@ namespace Demo.Business.Command.Notifications
             _userService = userService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var siteId = Input.SiteId;

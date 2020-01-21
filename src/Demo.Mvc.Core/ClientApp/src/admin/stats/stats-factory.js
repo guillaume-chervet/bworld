@@ -3,20 +3,20 @@ import _ from 'lodash';
 
 import $http from '../../http';
 
-var data = {};
+const data = {};
 
-var filter = {
+const filter = {
   date: new Date(),
 };
 
-var timeDay = 24 * 60 * 60 * 1000;
+const timeDay = 24 * 60 * 60 * 1000;
 
-var nextAsync = function() {
+const nextAsync = function() {
   filter.date = new Date(filter.date.getTime() + timeDay);
   return initAsync();
 };
 
-var isNextDisabled = function() {
+const isNextDisabled = function() {
   if (filter.date.getTime() + timeDay > new Date().getTime()) {
     return true;
   }

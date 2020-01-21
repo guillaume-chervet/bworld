@@ -1,5 +1,5 @@
 ﻿import './message';
-import iconUrl from  './icon.png'
+import iconUrl from './icon.png';
 
 import './contact.css';
 

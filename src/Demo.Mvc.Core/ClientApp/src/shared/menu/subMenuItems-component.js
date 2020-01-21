@@ -16,13 +16,13 @@ const enhance = compose(
 );
 
 const ChildItem = ({
-                     menuItem,
-                     index,
-                     currentPath,
-                     onMouseLeave,
-                     onMouseEnter,
-                     isOpen,
-                   }) => {
+  menuItem,
+  index,
+  currentPath,
+  onMouseLeave,
+  onMouseEnter,
+  isOpen,
+}) => {
   let Item = null;
   const isActive = menu.isActive(menuItem.routePath, currentPath);
   switch (menuItem.module) {
@@ -50,13 +50,13 @@ const ChildItem = ({
 const EnhancedChildItem = enhance(ChildItem);
 
 export const SubMenuItems = ({ menuItems, currentPath }) => {
-    const listItems = menuItems.map((child, index) => (
-      <EnhancedChildItem
-        menuItem={child}
-        index={index}
-        key={child.moduleId}
-        currentPath={currentPath}
-      />
-    ));
-    return <>{listItems}</>;
+  const listItems = menuItems.map((child, index) => (
+    <EnhancedChildItem
+      menuItem={child}
+      index={index}
+      key={child.moduleId}
+      currentPath={currentPath}
+    />
+  ));
+  return <>{listItems}</>;
 };

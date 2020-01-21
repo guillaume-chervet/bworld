@@ -32,8 +32,8 @@ class Controller {
     };
 
     ctrl.seo = seo.data;
-      ctrl.link = link;
-      ctrl.getInternalPath = master.getInternalPath
+    ctrl.link = link;
+    ctrl.getInternalPath = master.getInternalPath;
 
     ctrl.dialogGoogle = function() {
       dialog.openAsync({

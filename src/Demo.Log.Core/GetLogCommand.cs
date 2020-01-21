@@ -14,13 +14,8 @@ namespace Demo.Log.Core
 
         public GetLogCommand(ILogService logService, UserService userService)
         {
-            this._logService = logService;
-            this._userService = userService;
-        }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
+            _logService = logService;
+            _userService = userService;
         }
 
         protected override async Task ActionAsync()

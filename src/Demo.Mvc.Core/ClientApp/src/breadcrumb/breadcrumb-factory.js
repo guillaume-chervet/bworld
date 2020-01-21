@@ -15,7 +15,7 @@ rootScope.$on('$locationChangeSuccess', function(/*event, newUrl, oldUrl*/) {
   items.length = 0;
 });
 
-const getMainItemPure = (master) =>  {
+const getMainItemPure = master => {
   const menuItem = menu.getMainMenuItemPure(master);
   const mainItem = {
     url: '/',
@@ -26,7 +26,7 @@ const getMainItemPure = (master) =>  {
   };
   return mainItem;
 };
-const getMainItem = () =>  {
+const getMainItem = () => {
   const state = redux.getState();
   const master = state.master;
   return getMainItemPure(master);
@@ -35,60 +35,63 @@ const getMainItem = () =>  {
 const getItemsClean = (path, _master, routeCurrentModuleId) => {
   const items = [];
   const _menu = _master.menu;
-  
-  if(_master.breadcrumb.items){
+
+  if (_master.breadcrumb.items) {
     return _master.breadcrumb.items;
   }
-  
-    if (path.indexOf('super-administration') !== -1) {
-      items.push({
-        url: '/super-administration',
-        title: 'Super administration',
-        active: false,
-        module: 'SuperAdministration',
-      });
-    } else if (menu.isAdmin()) {
-      items.push({
-        url: '/administration',
-        title: 'Administration',
-        active: false,
-        module: 'Administration',
-      });
-    } else if (path.indexOf('utilisateur') !== -1) {
-      items.push({
-        url: '/utilisateur',
-        title: 'Utilisateur',
-        active: false,
-        module: 'User',
-      });
-    } else {
-      if (menu.isPrivatePure(path)) {
-        items.push(getPrivateItemClean(_master));
-      } else {
-        items.push(getMainItemPure(_master));
-      }
-    }
-    const currentUrl = path;
-    const itemFound = _.find(items, (i)  => i.url === currentUrl);
 
-    if (!itemFound) {
-      const currentMenuItem = master.getCurrentMenuItemClean(routeCurrentModuleId,_menu);
-      if(currentMenuItem) {
-        const titleBreabcrumb = page.title;
-        const title = titleBreabcrumb
-            ? titleBreabcrumb
-            : _master.master
-                ? _master.master.titlePage
-                : 'Not found';
-        items.push({
-          url: currentUrl,
-          title,
-          active: true,
-          module: currentMenuItem.module,
-          icon: currentMenuItem.icon,
-        });
-      }
+  if (path.indexOf('super-administration') !== -1) {
+    items.push({
+      url: '/super-administration',
+      title: 'Super administration',
+      active: false,
+      module: 'SuperAdministration',
+    });
+  } else if (menu.isAdmin()) {
+    items.push({
+      url: '/administration',
+      title: 'Administration',
+      active: false,
+      module: 'Administration',
+    });
+  } else if (path.indexOf('utilisateur') !== -1) {
+    items.push({
+      url: '/utilisateur',
+      title: 'Utilisateur',
+      active: false,
+      module: 'User',
+    });
+  } else {
+    if (menu.isPrivatePure(path)) {
+      items.push(getPrivateItemClean(_master));
+    } else {
+      items.push(getMainItemPure(_master));
     }
+  }
+  const currentUrl = path;
+  const itemFound = _.find(items, i => i.url === currentUrl);
+
+  if (!itemFound) {
+    const currentMenuItem = master.getCurrentMenuItemClean(
+      routeCurrentModuleId,
+      _menu
+    );
+    if (currentMenuItem) {
+      const titleBreabcrumb = page.title;
+      const title = titleBreabcrumb
+        ? titleBreabcrumb
+        : _master.master
+        ? _master.master.titlePage
+        : 'Not found';
+      items.push({
+        url: currentUrl,
+        title,
+        active: true,
+        module: currentMenuItem.module,
+        icon: currentMenuItem.icon,
+      });
+    }
+  }
   return items;
 };
 const getItems = () => {
@@ -101,7 +104,7 @@ const getItems = () => {
   return items;
 };
 
-const setItems = (newItems) => {
+const setItems = newItems => {
   items.length = 0;
   if (newItems) {
     for (var i = 0; i < newItems.length; i++) {
@@ -119,7 +122,7 @@ const setItems = (newItems) => {
   master.updateMasterBreadcrumb(items);
 };
 
-const isVisible= () => {
+const isVisible = () => {
   const state = redux.getState();
   return isVisibleClean(state.master, history.path());
 };
@@ -131,11 +134,7 @@ const isVisibleClean = (master, path) => {
   }
   const privateMenuItem = menu.getMainMenuItemPure(master, 'privateMenuItems');
   const privatePath = privateMenuItem ? privateMenuItem.url : '';
-  return (
-      path !== '/' &&
-      path !== '' &&
-      path !== privatePath
-  );
+  return path !== '/' && path !== '' && path !== privatePath;
 };
 
 function getAdminItem() {
@@ -148,7 +147,7 @@ function getAdminItem() {
   return item;
 }
 
-const getPrivateItemClean = (master) => {
+const getPrivateItemClean = master => {
   const menuItem = menu.getMainMenuItemPure('privateMenuItems', master);
   const item = {
     url: menuItem.routePath,
@@ -169,7 +168,7 @@ const getLdJson = () => {
   getLdJsonClean(items);
 };
 
-const getLdJsonClean = (items) => {
+const getLdJsonClean = items => {
   const itemListElement = [];
   const breadcrumbJson = {
     '@context': 'http://schema.org',
@@ -192,7 +191,7 @@ const getLdJsonClean = (items) => {
   return breadcrumbJson;
 };
 
-const navBack = (search) => {
+const navBack = search => {
   const length = items.length;
   if (length > 1) {
     const item = items[length - 2];

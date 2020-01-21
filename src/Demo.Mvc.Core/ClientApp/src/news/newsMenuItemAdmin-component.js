@@ -4,22 +4,21 @@ import { getIcon } from '../shared/icons';
 import React from 'react';
 import { react2angular } from 'react2angular';
 
-
 const NewsMenuItemAdmin = ({ menuItem }) => {
   return (
-      <React.Fragment>
-        {' '}
-        <a href={menuItem.routePath}>
-          <span className={getIcon(menuItem)} />
-          <span> {menuItem.title}</span>
-        </a>
-        {isDraft(menuItem) && (
-            <span className="label label-default">Brouillon</span>
-        )}
-        {isDeleted(menuItem) && (
-            <span className="label label-danger">Suprimé</span>
-        )}
-      </React.Fragment>
+    <React.Fragment>
+      {' '}
+      <a href={menuItem.routePath}>
+        <span className={getIcon(menuItem)} />
+        <span> {menuItem.title}</span>
+      </a>
+      {isDraft(menuItem) && (
+        <span className="label label-default">Brouillon</span>
+      )}
+      {isDeleted(menuItem) && (
+        <span className="label label-danger">Suprimé</span>
+      )}
+    </React.Fragment>
   );
 };
 

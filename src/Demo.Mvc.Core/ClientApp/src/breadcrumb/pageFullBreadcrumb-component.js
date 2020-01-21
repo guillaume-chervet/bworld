@@ -1,6 +1,6 @@
 ﻿import app from '../app.module';
 import view from './pageFullBreadcrumb.html';
-import redux from "../redux";
+import redux from '../redux';
 
 const name = 'pageFullBreadcrumb';
 
@@ -8,8 +8,8 @@ class Controller {
   constructor() {
     const connect = redux.getConnect();
     this.unsubscribe = connect(
-        this.mapStateToThis,
-        this.mapThisToProps
+      this.mapStateToThis,
+      this.mapThisToProps
     )(this);
   }
   $onInit() {

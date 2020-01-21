@@ -122,8 +122,8 @@ const mapItem = function(item) {
     childs: newsElements,
   });
   newItem.data = {
-      editUrl: master.getInternalPath(editUrl),
-      viewUrl: master.getInternalPath(viewUrl),
+    editUrl: master.getInternalPath(editUrl),
+    viewUrl: master.getInternalPath(viewUrl),
     state: item.state,
     tags: dialogTags
       .initTags(dialogTags.model.items.tags, [], itemData.data.tags)
@@ -226,9 +226,9 @@ const initAsync = function(menuKey, states) {
           urlPrevious += `?${getQueryString(searchClonedPrevious)}`;
         }
 
-          data.urlNext = master.getInternalPath(urlNext);
+        data.urlNext = master.getInternalPath(urlNext);
         data.hasPrevious = result.hasPrevious;
-          data.urlPrevious = master.getInternalPath(urlPrevious);
+        data.urlPrevious = master.getInternalPath(urlPrevious);
         data.displayMode = result.displayMode;
         data.numberItemPerPage = result.numberItemPerPage;
       }
@@ -272,7 +272,9 @@ function saveAsync(moduleId, menuPropertyName, parentId, model) {
 
 const initMenuAdmin = function(menuItems, menuItem) {
   menuItems.push({
-      routePath: master.getInternalPath('/administration/' + menuItem.routePathWithoutHomePage),
+    routePath: master.getInternalPath(
+      '/administration/' + menuItem.routePathWithoutHomePage
+    ),
     title: menuItem.title,
     moduleId: menuItem.routeDatas.moduleId,
     module: menuItem.moduleName,

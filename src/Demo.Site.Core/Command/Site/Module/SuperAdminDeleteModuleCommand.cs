@@ -22,16 +22,10 @@ namespace Demo.Business.Command.Site.Module
             _cacheProvider = cacheProvider;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected async Task ActionAsync()
         {
-await UserSecurity.CheckIsSuperAdministratorAsync(_userService, Input.UserId);
-
-
+            await UserSecurity.CheckIsSuperAdministratorAsync(_userService, Input.UserId);
+            
             var item = await _dataFactory.ItemRepository.GetItemAsync(Input.Data.SiteId, Input.Data.ModuleId);
             await _dataFactory.DeleteAsync<DataModelBase>(item);
             await _dataFactory.SaveChangeAsync();

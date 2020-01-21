@@ -3,13 +3,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
-export const Paragraphe = ({element}) => {
-    return (
-      <div
-        id={element.property}
-        dangerouslySetInnerHTML={{ __html: element.data }}
-      />
-    );
+export const Paragraphe = ({ element }) => {
+  return (
+    <div
+      id={element.property}
+      dangerouslySetInnerHTML={{ __html: element.data }}
+    />
+  );
 };
 
 const name = 'elementP';

@@ -6,18 +6,16 @@ import { User } from '../user/mwUser-component';
 const name = 'mwBottom';
 
 export const Bottom = ({ data }) => {
-  if(!data.isDisplayAuthor)
-  {
+  if (!data.isDisplayAuthor) {
     return null;
   }
   return (
-      <div className="row">
-        <div className="col-md-12 col-xs-12">
-          <User data={data} />
-        </div>
+    <div className="row">
+      <div className="col-md-12 col-xs-12">
+        <User data={data} />
       </div>
+    </div>
   );
 };
 
 app.component(name, react2angular(Bottom, ['data']));
-      

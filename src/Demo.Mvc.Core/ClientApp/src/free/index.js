@@ -12,7 +12,6 @@ import './free-reducer';
 import iconUrl from './icon.png';
 import './free.css';
 
-
 export default {
   canBeChild: true,
   canHaveChild: true,

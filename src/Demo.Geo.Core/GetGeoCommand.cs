@@ -15,11 +15,6 @@ namespace Demo.Business.Command.Geo
             _geocodingService = geocodingService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             Result.Data = await _geocodingService.ReverseAsync(new AddressInput

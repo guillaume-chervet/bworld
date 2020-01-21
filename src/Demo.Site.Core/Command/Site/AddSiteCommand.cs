@@ -234,10 +234,5 @@ namespace Demo.Business.Command.Site
 
             return itemDestination;
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

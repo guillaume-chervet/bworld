@@ -9,7 +9,7 @@ const init = function() {
   _externalLogin.returnUrl = searchObject.returnUrl;
 };
 
-const getReturnUrl = (returnUrl) => {
+const getReturnUrl = returnUrl => {
   if (returnUrl) {
     // HACK a cause d'un bug angularJS
     returnUrl = returnUrl.replace('----', '://').replace('---', ':');

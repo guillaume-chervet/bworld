@@ -1,7 +1,7 @@
 ﻿
 
 <h2>{{$ctrl.title}}</h2>
-<empty empty-items="$ctrl.menuItems" empty-text="'Aucune page n\'est présente dans le ' + $ctrl.title"></empty>
+<empty items="$ctrl.menuItems" text="'Aucune page n\'est présente dans le ' + $ctrl.title"></empty>
 
         <ul>
             <li class="mw-parent" ng-repeat="menuItem in $ctrl.menuItems  track by $index">

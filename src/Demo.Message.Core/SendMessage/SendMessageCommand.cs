@@ -44,11 +44,6 @@ namespace Demo.Business.Command.Contact.Message
             _logger = loggerFactory.CreateLogger("SendMessageCommand");
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var data = Input.Data;

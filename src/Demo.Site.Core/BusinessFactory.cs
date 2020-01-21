@@ -11,12 +11,6 @@ namespace Demo.Business
 {
     public class  BusinessFactory
     {
-        public TOutput Invoke<TCommand, TInput, TOutput>(TCommand command, TInput input)
-            where TOutput : CommandResult, new()
-            where TCommand : CommandBase<TInput, TOutput>
-        {
-            return new CommandProcessor().Invoke<TCommand, TInput, TOutput>(command, input);
-        }
 
         public Task<TOutput> InvokeAsync<TCommand, TInput, TOutput>(TCommand command, TInput input)
             where TOutput : CommandResult, new()

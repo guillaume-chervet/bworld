@@ -3,7 +3,7 @@ import {
   MASTER_UPDATE,
   MASTER_UPDATE_METAS,
   MASTER_UPDATE_MENU,
-    MASTER_UPDATE_BREADCRUMB,
+  MASTER_UPDATE_BREADCRUMB,
 } from './master-types';
 import history from '../../history';
 import { concatUrl, master as masterUtils } from './master-provider';
@@ -33,7 +33,7 @@ export const isDisplayMenu = function(search) {
 
 const params = window.params;
 
-const updateMaster = (search)  => (masterTemp, baseUrlSite) => {
+const updateMaster = search => (masterTemp, baseUrlSite) => {
   const data = init(masterTemp, baseUrlSite);
   const displayMenu = isDisplayMenu(search);
   return {
@@ -47,7 +47,7 @@ const updateMaster = (search)  => (masterTemp, baseUrlSite) => {
     homePageInfo: _initHomePageInfo(masterTemp, 'menuItems'),
     homePagePrivateInfo: _initHomePageInfo(masterTemp, 'privateMenuItems'),
     routeCurrentModuleId: null,
-    path: "",
+    path: '',
   };
 };
 
@@ -204,9 +204,16 @@ const master = (state = initialState, action) => {
       const data = action.data;
       const path = data.path;
       const routeCurrentModuleId = data.routeCurrentModuleId;
-      return { ...state, menuData: { ...state.menuData, ...data.menu }, path, routeCurrentModuleId, breadcrumb:{items:null} }};
-    case MASTER_UPDATE_BREADCRUMB : {
-      return { ...state, breadcrumb:{items:action.data}};  
+      return {
+        ...state,
+        menuData: { ...state.menuData, ...data.menu },
+        path,
+        routeCurrentModuleId,
+        breadcrumb: { items: null },
+      };
+    }
+    case MASTER_UPDATE_BREADCRUMB: {
+      return { ...state, breadcrumb: { items: action.data } };
     }
     default:
       return state;

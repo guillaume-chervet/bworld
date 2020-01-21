@@ -54,10 +54,6 @@ namespace Demo.Business.Command.Social
             });
             Result.Data.Url = RouteManager.GetPath(SocialBusinessModule.Url, roots);
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -111,7 +111,7 @@ const initAsync = function() {
         // Si ce n'est pas la homepage on l'ajoute
         if (!isParentHome) {
           items.push({
-              url: master.getInternalPath(urlNews),
+            url: master.getInternalPath(urlNews),
             title: result.parentTitle,
             active: false,
             module: 'News',
@@ -120,7 +120,7 @@ const initAsync = function() {
 
         data.urlNews = urlNews;
         items.push({
-            url: master.getInternalPath(urlNewsItem),
+          url: master.getInternalPath(urlNewsItem),
           title: title,
           active: true,
           module: 'NewsItem',

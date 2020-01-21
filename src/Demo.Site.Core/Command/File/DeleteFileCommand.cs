@@ -16,11 +16,6 @@ namespace Demo.Business.Command.File
             _dataFactory = dataFactory;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             if (string.IsNullOrEmpty(Input.PropertyName))

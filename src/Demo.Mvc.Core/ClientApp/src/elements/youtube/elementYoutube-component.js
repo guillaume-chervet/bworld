@@ -5,26 +5,24 @@ import Loadable from 'react-loadable';
 
 import './youtube.css';
 
-
 const LoadableYoutube = Loadable({
-    loader: () => import('react-youtube'),
-    loading() {
-        return <div>Loading...</div>;
-    },
+  loader: () => import('react-youtube'),
+  loading() {
+    return <div>Loading...</div>;
+  },
 });
 
-export const YouTubeComponent = ({element}) => {
-    const opts = {};
-    const onReady = (e) => console.log(e);
-    return (
-        <div className="mw-youtube">
+export const YouTubeComponent = ({ element }) => {
+  const opts = {};
+  const onReady = e => console.log(e);
+  return (
+    <div className="mw-youtube">
       <LoadableYoutube
-
-          videoId={element.data.url}
-          opts={opts}
-          onReady={onReady}
-            />
-            </div>
+        videoId={element.data.url}
+        opts={opts}
+        onReady={onReady}
+      />
+    </div>
   );
 };
 
@@ -32,4 +30,3 @@ const name = 'elementYoutube';
 app.component(name, react2angular(YouTubeComponent, ['element']));
 
 export default name;
-

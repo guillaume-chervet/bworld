@@ -23,7 +23,10 @@ const getFullBaseUrl = () => {
 };
 
 const getReturnUrl = () => {
-    let url = master.concatUrl(getFullBaseUrl(), window.params.header.baseUrlSite);
+  let url = master.concatUrl(
+    getFullBaseUrl(),
+    window.params.header.baseUrlSite
+  );
   const search = history.search();
   const path = search.url;
   if (path) {
@@ -57,7 +60,7 @@ const rules = {
   ],
 };
 
-const formatReturnUrl = (returnUrl) => {
+const formatReturnUrl = returnUrl => {
   if (!returnUrl) {
     return returnUrl;
   }

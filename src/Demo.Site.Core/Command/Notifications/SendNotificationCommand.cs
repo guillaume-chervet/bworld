@@ -39,11 +39,6 @@ namespace Demo.Business.Command.Notifications
             _routeManager = routeManager;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var _siteId = Input.Data.SiteId;

@@ -4,9 +4,9 @@ import free from './free/free-reducer';
 import user from './user/user-reducer';
 import master from './shared/providers/master-reducer';
 //import thunk from 'redux-thunk';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
-import React from "react";
+import React from 'react';
 
 let _store = null;
 
@@ -25,7 +25,8 @@ app.config([
   },
 ]);
 
-
-export const withStore = (Component) => (props) => (<Provider store={_store}>
-  <Component {...props} />
-</Provider>);
+export const withStore = Component => props => (
+  <Provider store={_store}>
+    <Component {...props} />
+  </Provider>
+);

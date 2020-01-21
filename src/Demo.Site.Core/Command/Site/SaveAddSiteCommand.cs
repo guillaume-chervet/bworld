@@ -28,11 +28,6 @@ namespace Demo.Business.Command.Site
             _moduleManager = moduleManager;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var siteId = Input.Data.Site.SiteId;

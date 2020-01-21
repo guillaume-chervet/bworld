@@ -22,11 +22,6 @@ namespace Demo.Business.Command.Site.Seo
             _cacheProvider = cacheProvider;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var siteId = Input.Data.SiteId;

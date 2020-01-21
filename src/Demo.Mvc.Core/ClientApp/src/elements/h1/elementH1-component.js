@@ -4,8 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
-export const H1 =  ({element}) => {
-    return <h1>{element.data}</h1>;
+export const H1 = ({ element }) => {
+  return <h1>{element.data}</h1>;
 };
 
 const name = 'elementH1';

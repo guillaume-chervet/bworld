@@ -143,12 +143,12 @@ const initAsync = function() {
 };
 
 function saveAsync() {
-    const elementsTemp = free.mapElement(elements);
-    const state = redux.getState();
-    const masterId = state.master.masterServer.master.id;
+  const elementsTemp = free.mapElement(elements);
+  const state = redux.getState();
+  const masterId = state.master.masterServer.master.id;
   const dataToSend = {
-      site: state.master.masterServer.site,
-      moduleId: masterId,
+    site: state.master.masterServer.site,
+    moduleId: masterId,
     elements: elementsTemp,
   };
   return $http

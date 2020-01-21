@@ -15,7 +15,7 @@ const getLdJson = function(element, master, history) {
     return '';
   }
   const _address = element.data.address;
-    if (!_address.id || !_address.geo) {
+  if (!_address.id || !_address.geo) {
     return '';
   }
   const url = master.getFullUrl(history.path());
@@ -32,7 +32,7 @@ const getLdJson = function(element, master, history) {
     },
     url: url,
     geo: {
-        latitude: _address.geo.latitude,
+      latitude: _address.geo.latitude,
       longitude: _address.geo.longitude,
     },
   };

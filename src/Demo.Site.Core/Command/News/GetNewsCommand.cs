@@ -24,11 +24,6 @@ namespace Demo.Business.Command.News
             _userService = userService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var itemDataModel =

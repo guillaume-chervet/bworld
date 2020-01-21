@@ -311,10 +311,6 @@ namespace Demo.Business.Command.Free
             elementFile.Data = JsonConvert.SerializeObject(fileDatas);
             return elementFile;
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -21,9 +21,8 @@ import 'brace/mode/css';
 
 import 'brace/theme/github';
 
-export const CodeAce = ({file, onChange}) => {
-
-    const onChangeInternal = (e) => {
+export const CodeAce = ({ file, onChange }) => {
+  const onChangeInternal = e => {
     if (onChange) {
       onChange({
         file: {
@@ -33,17 +32,17 @@ export const CodeAce = ({file, onChange}) => {
       });
     }
   };
-    return (
-      <AceEditor
-        mode={file.mode}
-        theme="github"
-        onChange={onChangeInternal}
-        value={file.code}
-        name={file.id}
-        width=""
-        editorProps={{ $blockScrolling: true }}
-      />
-    );
+  return (
+    <AceEditor
+      mode={file.mode}
+      theme="github"
+      onChange={onChangeInternal}
+      value={file.code}
+      name={file.id}
+      width=""
+      editorProps={{ $blockScrolling: true }}
+    />
+  );
 };
 
 export default CodeAce;

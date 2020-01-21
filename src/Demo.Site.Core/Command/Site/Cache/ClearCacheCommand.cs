@@ -24,10 +24,5 @@ namespace Demo.Business.Command.Site.Cache
 
             await _cacheProvider.InitializeCacheAsync();
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

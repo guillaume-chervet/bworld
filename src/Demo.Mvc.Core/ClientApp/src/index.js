@@ -1,21 +1,22 @@
 import modulesFactory from './modules-factory';
 
 const start = async () => {
-    const url = window.location.toString().split('#')[0];
+  const url = window.location.toString().split('#')[0];
     const port = window.location.port ? window.location.port : "443";
     const response = await fetch(`/api/site/master?url=${encodeURI(url)}&port=${port}`);
-    const result = await response.json();
+  );
+  const result = await response.json();
 
-    const meta = document.createElement('base');
+  const meta = document.createElement('base');
     meta.setAttribute('href', result.header.baseUrlSite);
     document.getElementsByTagName('head')[0].appendChild(meta);
 
-    window.params = {
+  window.params = {
         ...result,
         master: JSON.parse(result.master)
     };
     await import('./app.js');
-    await modulesFactory.initAsync();
+  await modulesFactory.initAsync();
     window.angular.bootstrap(window.document, ['mw']);
 };
 

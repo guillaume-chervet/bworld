@@ -51,9 +51,5 @@ namespace Demo.Business.Command.Notifications
             };
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

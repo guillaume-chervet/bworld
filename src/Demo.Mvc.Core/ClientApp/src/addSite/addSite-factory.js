@@ -32,7 +32,7 @@ const initAsync = function(menuKey) {
     });
 };
 
-const checkAsync =(dataToSend) => {
+const checkAsync = dataToSend => {
   localStorage.put('site', site);
   return $http
     .post(master.getUrl('api/site/check'), dataToSend)
@@ -41,7 +41,7 @@ const checkAsync =(dataToSend) => {
     });
 };
 
-const saveAsync= (dataToSend) => {
+const saveAsync = dataToSend => {
   return $http
     .post(master.getUrl('api/site/add'), dataToSend, {
       headers: {
@@ -61,8 +61,11 @@ const saveAsync= (dataToSend) => {
     });
 };
 
-const saveAdminAsync = (data) => {
-  const elementsTemp = free.mapElement(pageData.elements, pageData.metaElements);
+const saveAdminAsync = data => {
+  const elementsTemp = free.mapElement(
+    pageData.elements,
+    pageData.metaElements
+  );
   const moduleId = master.getModuleId();
   const dataToSend = {
     templates: data.templates,
@@ -88,7 +91,9 @@ const saveAdminAsync = (data) => {
 
 const initMenuAdmin = (menuItems, menuItem) => {
   menuItems.push({
-    routePath: master.getInternalPath('/administration/' + menuItem.routePathWithoutHomePage),
+    routePath: master.getInternalPath(
+      '/administration/' + menuItem.routePathWithoutHomePage
+    ),
     title: menuItem.title,
     module: 'AddSite',
     icon: menuItem.icon,
@@ -96,12 +101,12 @@ const initMenuAdmin = (menuItems, menuItem) => {
   });
 };
 
-const getPaths =  () => {
+const getPaths = () => {
   const moduleId = master.getModuleId();
   const menutItem = master.getServerMenuItem(moduleId);
   const validation = menutItem.routePathWithoutHomePage + '/validation';
   const authentification =
-      menutItem.routePathWithoutHomePage + '/authentification';
+    menutItem.routePathWithoutHomePage + '/authentification';
   const configuration = menutItem.routePathWithoutHomePage + '/configuration';
 
   return {
@@ -131,15 +136,15 @@ const getCurrentPath = () => {
   }
 };
 
-const navNext = function () {
+const navNext = function() {
   var currentPath = getCurrentPath();
   var paths = getPaths();
   if (currentPath === 'configuration') {
-    history.search({'dm': false}, paths.validation.path);
+    history.search({ dm: false }, paths.validation.path);
   } else if (currentPath === 'authentification') {
-    history.search({'dm': false}, paths.configuration.path);
+    history.search({ dm: false }, paths.configuration.path);
   } else {
-    history.search({'dm': false}, paths.validation.path);
+    history.search({ dm: false }, paths.validation.path);
   }
 };
 
@@ -147,12 +152,12 @@ const navBack = () => {
   const currentPath = getCurrentPath();
   const paths = getPaths();
   if (currentPath === 'validation') {
-    history.search({'dm': false}, paths.configuration.path);
+    history.search({ dm: false }, paths.configuration.path);
   } else if (currentPath === 'configuration') {
-    history.search({'dm': false}, paths.authentification.path);
+    history.search({ dm: false }, paths.authentification.path);
   } else {
     var menuItem = master.getCurrentMenuItem();
-    history.search({'dm': null}, menuItem.routePath);
+    history.search({ dm: null }, menuItem.routePath);
   }
 };
 
@@ -161,7 +166,7 @@ const navStart = () => {
   navNext();
 };
 
-const getDomain = function () {
+const getDomain = function() {
   if (!site.domain) {
     return in18Util.display('');
   }

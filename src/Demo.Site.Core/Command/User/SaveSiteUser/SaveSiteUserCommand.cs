@@ -36,11 +36,6 @@ namespace Demo.Business.Command.Administration.User
             _routeManager = routeManager;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var siteId = Input.Data.SiteId;

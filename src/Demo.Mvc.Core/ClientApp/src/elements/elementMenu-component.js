@@ -41,7 +41,7 @@ export const ElementMenu = ({ element }) => {
         className="btn-group pull-right"
         role="group"
         aria-label="Second group">
-          <button type="button" onClick={deleteElement} className="btn btn-danger"><span
+          <button type="button" onClick={deleteElement} className="btn btn-danger">
           <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
       </div>

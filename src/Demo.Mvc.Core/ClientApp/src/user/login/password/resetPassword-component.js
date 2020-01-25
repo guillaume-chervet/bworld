@@ -144,7 +144,7 @@ const ResetPassword = () => {
             <hr />
             <div className="form-group form-group-lg">
                 <div className="col-sm-offset-3 col-sm-9">
-                  <button type="submit" className="btn btn-lg btn-warning"><span
+                  <button type="submit" className="btn btn-lg btn-warning">
                   <span className="glyphicon glyphicon-ok"></span> Demander
                 </button>
                 </div>

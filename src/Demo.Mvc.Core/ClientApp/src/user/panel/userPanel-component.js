@@ -48,8 +48,7 @@ const UserPanel = () => {
                         {notification.numberUnreadMessage > 0 ? <span className="badge" >{notification.numberUnreadMessage}</span>: null}</a></li>
                   <li>
                     <a href={getInternalPath('/utilisateur/compte')}>
-                      <span
-                          className="glyphicon glyphicon-cog" aria-hidden="true" /><span> Paramètres</span></a></li>
+                      <span className="glyphicon glyphicon-cog" aria-hidden="true" /><span> Paramètres</span>
                     </a>
                   </li>
                 </ul>
@@ -84,6 +83,7 @@ const UserPanel = () => {
               </div>
               <div className="clearfix" />
             </div>
+          </div>
           </div>
         </PageBreadcrumbWithState>
 

@@ -47,7 +47,7 @@ const isAdmin = () => isAdminPure(history.path());
 const isPrivatePure = path =>
   path &&
   (path.indexOf('/privee') === 0 ||
-      path.indexOf('/administration/privee') === 0)
+      path.indexOf('/administration/privee') === 0
   );
 const isPrivate = () => isPrivatePure(history.path());
 

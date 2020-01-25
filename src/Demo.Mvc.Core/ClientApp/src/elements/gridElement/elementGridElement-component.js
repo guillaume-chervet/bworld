@@ -18,7 +18,7 @@ const Child = ({ element }) => {
           {element.data.title && (
             <div className="panel-heading">
           <h2 className="panel-title" >{element.data.title}</h2>
-        </div>}
+        </div>)}
         <div className="panel-body">
             <Div element={element}></Div>
         </div>

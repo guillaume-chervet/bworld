@@ -244,7 +244,6 @@ const CreateAccount = () => {
               </div>
             </div>
           </form>);
-  );
 };
 
 export default CreateAccount;

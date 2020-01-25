@@ -4,7 +4,7 @@ const start = async () => {
   const url = window.location.toString().split('#')[0];
     const port = window.location.port ? window.location.port : "443";
     const response = await fetch(`/api/site/master?url=${encodeURI(url)}&port=${port}`);
-  );
+  
   const result = await response.json();
 
   const meta = document.createElement('base');

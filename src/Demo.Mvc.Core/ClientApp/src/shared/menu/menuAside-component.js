@@ -36,7 +36,7 @@ const MenuAside = ({ user, menu, isCollapsed, currentPath }) => {
     {isUser() && (<div id="mw-user-layer" className="mw-menu-layer" >
       <div><span>Utilisateur</span></div>
     </div>)}
-    {isPrivate() && <div id="mw-private-layer" className="mw-menu-layer">
+    {isPrivate() && (<div id="mw-private-layer" className="mw-menu-layer">
           <div>
             <span>Privée</span>
           </div>

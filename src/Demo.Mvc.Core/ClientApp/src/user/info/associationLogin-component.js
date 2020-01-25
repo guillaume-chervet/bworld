@@ -77,7 +77,7 @@ const AssociationLogin = ({ logins }) => {
                 <i className="fa fa-google"></i>Google
                 </button>
               ) : null}
-              {!hasLogin('Facebook') ? (
+              {!hasLogin('Facebook') ? 
                 <button
                   type="submit"
                   className="btn btn-lg btn-social btn-facebook"
@@ -87,7 +87,7 @@ const AssociationLogin = ({ logins }) => {
                   title="Connexion avec votre compte Facebook">
                   <i className="fa fa-facebook"></i>Facebook
               </button> : null}
-              {!hasLogin('Microsoft') ? (
+              {!hasLogin('Microsoft') ? 
                 <button
                   type="submit"
                   className="btn btn-lg btn-social btn-microsoft"
@@ -97,7 +97,7 @@ const AssociationLogin = ({ logins }) => {
                   title="Connexion avec votre compte Microsoft">
                   <i className="fa fa-windows"></i>Microsoft
               </button> : null}
-              {!hasLogin('Twitter') ? (
+              {!hasLogin('Twitter') ? 
                 <button
                   type="submit"
                   id="Twitter"

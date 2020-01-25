@@ -15,7 +15,7 @@ const MenuItemLinkBreadcrumb = ({ item }) => {
         <span className={getIcon(item)}></span>
           {` ${item.title}`}
         </a>
-      )}
+      }
       {item.active && (
         <>
       <span className={getIcon(item)}> </span>
@@ -36,7 +36,7 @@ export const Breadcrumb = ({ master }) => {
 
   return (
     <div>
-        { isVisible() && <ol className="mw-breadcrumb breadcrumb">
+        { isVisible() && (<ol className="mw-breadcrumb breadcrumb">
           {items.map(item => (
             <MenuItemLinkBreadcrumb
               key={item.url}

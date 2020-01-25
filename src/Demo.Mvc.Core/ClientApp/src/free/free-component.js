@@ -1,21 +1,21 @@
 ﻿import app from '../app.module';
 import { page } from '../shared/services/page-factory';
 import { free } from './free-factory';
-import React, { useEffect, useMemo }from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { PageBreadcrumbWithState } from '../breadcrumb/pageBreadcrumb-component';
 import { Div } from '../elements/div/elementDiv-component';
 import { Bottom } from './bottom/mwBottom-component';
 import { react2angular } from 'react2angular';
 
-const name = "free";
+const name = 'free';
 
 const Free = () => {
-  useEffect(() =>{
+  useEffect(() => {
     const title = free.getTitle(memData.element.childs);
     page.setTitle(title);
   });
-  
-  const memData = useMemo(()=>{
+
+  const memData = useMemo(() => {
     const _data = free.data;
     const parentsJson = free.mapParent({
       type: 'div',
@@ -36,15 +36,14 @@ const Free = () => {
       createDate: _data.createDate,
       updateDate: _data.updateDate,
     };
-  return data;
-  },[]);
-  
- 
+    return data;
+  }, []);
+
   return (
-      <PageBreadcrumbWithState>
-        <Div className="mw-free" element={memData.element} />
-        <Bottom data={memData.data} />
-      </PageBreadcrumbWithState>
+    <PageBreadcrumbWithState>
+      <Div className="mw-free" element={memData.element} />
+      <Bottom data={memData.data} />
+    </PageBreadcrumbWithState>
   );
 };
 

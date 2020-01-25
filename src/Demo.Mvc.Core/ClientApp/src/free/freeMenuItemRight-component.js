@@ -32,15 +32,15 @@ const FreeMenuItemRight = ({ menuItem, currentPath }) => {
   }
 
   return (
-      <>
-        <a href={menuItem.routePath}>
-          <span className={getIcon(menuItem)} />
-          <span> {menuItem.title}</span>
-          <b className="caret" />
-        </a>
-        <SubMenu menuItem={menuItem.childs} currentPath={currentPath} />
-      </>
+    <>
+      <a href={menuItem.routePath}>
+        <span className={getIcon(menuItem)} />
+        <span> {menuItem.title}</span>
+        <b className="caret" />
+      </a>
+      <SubMenu menuItem={menuItem.childs} currentPath={currentPath} />
+    </>
   );
 };
 
-export default FreeMenuItemRight
+export default FreeMenuItemRight;

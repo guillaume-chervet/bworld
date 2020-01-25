@@ -5,15 +5,17 @@ import { react2angular } from 'react2angular';
 const name = 'empty';
 
 export const Empty = ({ items, content }) => {
-  if(!items) { 
-    return null
-  }
-  if(items.length>0) {
+  if (!items) {
     return null;
   }
-  const newText = content || "Aucun élément dans la liste";
+  if (items.length > 0) {
+    return null;
+  }
+  const newText = content || 'Aucun élément dans la liste';
   return (
-      <div className="mw-empty"><p>{newText}</p></div>
+    <div className="mw-empty">
+      <p>{newText}</p>
+    </div>
   );
 };
 

@@ -4,9 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
 
-export const HR = ({element}) => {
-    const className = `mw-hr mw-hr${element.data.type}`;
-    return <hr className={className} />;
+export const HR = ({ element }) => {
+  const className = `mw-hr mw-hr${element.data.type}`;
+  return <hr className={className} />;
 };
 
 const name = 'elementHr';

@@ -18,11 +18,6 @@ namespace Demo.Log.Core
             this._userService = _userService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             await UserSecurity.CheckIsSuperAdministratorAsync(_userService, Input.UserId);

@@ -6,15 +6,15 @@ import {
   masterUpdate,
   masterUpdateMetas,
   masterUpdateMenu,
-    masterUpdateBreadcrumb,
+  masterUpdateBreadcrumb,
 } from './master-actions';
-import history from "../../history";
+import history from '../../history';
 
 const name = 'Master';
 
 const params = window.params;
 
-const getFirstMenuItem = (menutItems) => {
+const getFirstMenuItem = menutItems => {
   if (menutItems && menutItems.length > 0) {
     for (var i = 0; i < menutItems.length; i++) {
       const mi = menutItems[i];
@@ -95,7 +95,7 @@ const getMenuItems = (items, moduleId) => {
   return null;
 };
 
-const getServerMenuItem = (moduleId) => {
+const getServerMenuItem = moduleId => {
   const items = params.master.menuItems;
   return getMenuItems(items, moduleId);
 };
@@ -113,7 +113,7 @@ const startsWith = (str, suffix) => {
   return str.indexOf(suffix) === 0;
 };
 
-const getUrl = (path) => {
+const getUrl = path => {
   if (path === undefined) {
     return '';
   }
@@ -126,18 +126,17 @@ const getUrl = (path) => {
   return concatUrl(params.baseUrlJs, path);
 };
 
-const getInternalPath = (path) => {
-
-    if (path === undefined) {
-        return '';
-    }
-    if (path.indexOf(params.baseUrlSite) != -1) {
-        return path;
-    }
-    return concatUrl(params.baseUrlSite, path);
+const getInternalPath = path => {
+  if (path === undefined) {
+    return '';
+  }
+  if (path.indexOf(params.baseUrlSite) != -1) {
+    return path;
+  }
+  return concatUrl(params.baseUrlSite, path);
 };
 
-const getFullUrl = (path) => {
+const getFullUrl = path => {
   return concatUrl(params.baseUrl, path);
 };
 
@@ -171,26 +170,26 @@ export const master = {
   updateMasterMetas: data => {
     const dispatch = redux.getDispatch();
     dispatch(masterUpdateMetas(data));
-  }, 
-    updateMasterBreadcrumb: items => {
-        const dispatch = redux.getDispatch();
-        dispatch(masterUpdateBreadcrumb(items));
-    },
+  },
+  updateMasterBreadcrumb: items => {
+    const dispatch = redux.getDispatch();
+    dispatch(masterUpdateBreadcrumb(items));
+  },
   getRouteCurrentModuleId,
   updateMasterMenu: data => {
     const dispatch = redux.getDispatch();
-    
+
     const dataToDisptach = {
       routeCurrentModuleId: getRouteCurrentModuleId(),
       path: history.path(),
-      menu:data,
+      menu: data,
     };
-    
+
     dispatch(masterUpdateMenu(dataToDisptach));
   },
   getUrl: getUrl,
-    getFullUrl: getFullUrl,
-    getInternalPath,
+  getFullUrl: getFullUrl,
+  getInternalPath,
 };
 
 app.provider(name, [

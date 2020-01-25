@@ -44,11 +44,6 @@ namespace Demo.Business.Command.Site
             }
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         internal static async Task<bool> IsSiteAlreadyExistAsync(IDataFactory dataFactorySource,
             IDataFactory dataFactoryDestination, CheckAddSiteInput checkAddSiteInput)
         {

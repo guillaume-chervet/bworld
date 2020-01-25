@@ -17,11 +17,6 @@ namespace Demo.Business.Command.User
             _userService = userService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var user = await _userService.FindApplicationUserByIdAsync(Input.UserId);

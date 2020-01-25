@@ -163,7 +163,7 @@ const openAsync = function(element, mode) {
 
   for (var j = 0; j < listModules.length; j++) {
     modules.forEach(function(module) {
-      getImageUrlAsync(module.name).then(url=> module.iconUrl = url );
+      getImageUrlAsync(module.name).then(url => (module.iconUrl = url));
       let parent = element.$parent;
       if (!parent) {
         parent = element;
@@ -209,7 +209,7 @@ const openAsync = function(element, mode) {
   return modalInstance;
 };
 
-const getImageUrlAsync = async (moduleName) => {
+const getImageUrlAsync = async moduleName => {
   if (!moduleName) {
     return '';
   }

@@ -17,9 +17,9 @@ const name = 'administration';
 class Controller {
   $onInit() {
     const vm = this;
-      page.setTitle('Accueil', page.types.admin);
+    page.setTitle('Accueil', page.types.admin);
 
-      vm.getInternalPath = master.getInternalPath;
+    vm.getInternalPath = master.getInternalPath;
 
     vm.administration = administration.administration;
     vm.notification = {

@@ -11,7 +11,7 @@ class Controller {
     page.setTitle('Création site confirmation');
     vm.returnUrl = '/administration';
     vm.goAdministration = function() {
-      history.search({'dm': null}, '/administration');
+      history.search({ dm: null }, '/administration');
     };
     return vm;
   }

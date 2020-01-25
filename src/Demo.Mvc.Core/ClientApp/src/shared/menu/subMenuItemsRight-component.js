@@ -27,17 +27,16 @@ const ChildItem = props => {
 };
 
 const SubMenuItemsRight = ({ menuItems, currentPath, isVisible }) => {
-
   if (!isVisible) {
     return null;
   }
   const listItems = menuItems.map((child, index) => (
-      <ChildItem
-          menuItem={child}
-          index={index}
-          key={child.moduleId}
-          currentPath={currentPath}
-      />
+    <ChildItem
+      menuItem={child}
+      index={index}
+      key={child.moduleId}
+      currentPath={currentPath}
+    />
   ));
   return <>{listItems} </>;
 };

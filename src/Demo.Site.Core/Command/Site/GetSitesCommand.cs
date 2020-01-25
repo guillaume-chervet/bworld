@@ -26,11 +26,6 @@ namespace Demo.Business.Command.Site
             _routeManager = routeManager;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             await UserSecurity.CheckIsSuperAdministratorAsync(_userService, Input.UserId);

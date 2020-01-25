@@ -178,12 +178,11 @@ function mapElement(elements, metaElements) {
   return elementsTemp;
 }
 
-const inherit = (ctrl) => {
+const inherit = ctrl => {
   ctrl.isEdit = false;
   ctrl.hover = false;
   ctrl.focus = false;
-  
-  
+
   const initEditMode = () => {
     if (ctrl.element) {
       const data = ctrl.element.data;
@@ -263,7 +262,6 @@ const inherit = (ctrl) => {
     return ctrl.hover || isEditMode();
   };
 
-  
   const select = () => {
     ctrl.hover = true;
   };
@@ -277,7 +275,7 @@ const inherit = (ctrl) => {
   ctrl.unselect = unselect;
   ctrl.select = select;
   ctrl.isSelect = isSelect;
-  
+
   const doFocus = () => {
     ctrl.focus = true;
   };

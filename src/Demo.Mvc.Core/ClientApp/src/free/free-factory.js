@@ -165,7 +165,9 @@ function saveAsync(moduleId, menuPropertyName, parentId) {
 
 const initMenuAdmin = function(menuItems, menuItem) {
   const newMenuItem = {
-    routePath: master.getInternalPath('/administration/' + menuItem.routePathWithoutHomePage),
+    routePath: master.getInternalPath(
+      '/administration/' + menuItem.routePathWithoutHomePage
+    ),
     title: menuItem.title,
     module: 'Free',
     moduleId: menuItem.routeDatas.moduleId,

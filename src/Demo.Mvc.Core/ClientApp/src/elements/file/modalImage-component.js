@@ -105,7 +105,7 @@ class Controller {
 }
 
 app.component(name, {
-  template: view ,
+  template: view,
   controller: [Controller],
   bindings: {
     resolve: '<',

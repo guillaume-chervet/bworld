@@ -33,11 +33,6 @@ namespace Demo.Business.Command.Contact.Message
             _dataFactory = dataFactory;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var boxId = Input.Data.BoxId;

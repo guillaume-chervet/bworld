@@ -23,11 +23,6 @@ namespace Demo.Business.Command.File
             _userService = userService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var itemRepository = _dataFactory.ItemRepository;

@@ -35,22 +35,23 @@ const getMainMenuItemPure = (master, propertyName) => {
   }
   return null;
 };
-const getMainMenuItem = (propertyName) => {
+const getMainMenuItem = propertyName => {
   const state = redux.getState();
   const master = state.master;
   return getMainMenuItemPure(master, propertyName);
 };
 
-const isAdminPure = (path) => path && path.indexOf('/administration') === 0;
+const isAdminPure = path => path && path.indexOf('/administration') === 0;
 const isAdmin = () => isAdminPure(history.path());
 
-const isPrivatePure = (path) => (
-    path && (path.indexOf('/privee') === 0 ||
-      path.indexOf('/administration/privee') === 0)
+const isPrivatePure = path =>
+  path &&
+  (path.indexOf('/privee') === 0 ||
+      path.indexOf('/administration/privee') === 0
   );
 const isPrivate = () => isPrivatePure(history.path());
 
-const isUserPure = (path) => path && path.indexOf('/utilisateur') === 0;
+const isUserPure = path => path && path.indexOf('/utilisateur') === 0;
 const isUser = () => isUserPure(history.path());
 
 const isActive = (routePath, currentPath) => {
@@ -61,13 +62,16 @@ const isActive = (routePath, currentPath) => {
     if (currentPath === '/') {
       return true;
     }
-  } else if (currentPath && currentPath.slice(0, routePath.length) === routePath) {
+  } else if (
+    currentPath &&
+    currentPath.slice(0, routePath.length) === routePath
+  ) {
     return true;
   }
   return false;
 };
 
-const getMenuItems=(originMenuItems, limitLength) => {
+const getMenuItems = (originMenuItems, limitLength) => {
   if (!limitLength) {
     limitLength = 3;
   }
@@ -106,7 +110,7 @@ const getSecondMenuItems = (
   startLength,
   module,
   menuItems
-) =>{
+) => {
   if (!menuItems) {
     menuItems = [];
   } else {
@@ -146,13 +150,16 @@ const getSecondMenuItems = (
   return menuItems;
 };
 
-const mapPublishedMenu = (oldMenu) => {
+const mapPublishedMenu = oldMenu => {
     //const oldMenu = state.master.menu;
-    const newMenu = {};
+  const newMenu = {};
     for (let property in oldMenu) {
-            newMenu[property] = getStateMenuItems(oldMenu[property], itemStates.published);
-    }
-    return newMenu;
+    newMenu[property] = getStateMenuItems(
+      oldMenu[property],
+      itemStates.published
+    );
+  }
+  return newMenu;
 };
 
 export const menu = {
@@ -160,7 +167,7 @@ export const menu = {
   isActive,
   getMenuItems,
   getMainMenuItemPure,
-    getMainMenuItem,
+  getMainMenuItem,
     getStateMenuItems,
   isAdmin,
   isAdminPure,
@@ -168,6 +175,6 @@ export const menu = {
   isPrivatePure,
   isUserPure,
   isUser,
-    updateMenu,
+  updateMenu,
     mapPublishedMenu,
 };

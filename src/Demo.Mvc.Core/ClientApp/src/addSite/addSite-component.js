@@ -25,7 +25,7 @@ class Controller {
 }
 
 app.component(name, {
-  template: view ,
+  template: view,
   controller: [Controller],
   controllerAs: 'vm',
   bindings: {},

@@ -17,11 +17,6 @@ namespace Demo.Business.Command.Site.Cache
             _cacheProvider = cacheProvider;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
               Result.Data = await (new ModuleManager(_dataFactory, _cacheProvider)).GetMasterAsync(Input.Site);

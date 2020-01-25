@@ -55,10 +55,6 @@ namespace Demo.Business.Command.News
             });
             Result.Data.Url = RouteManager.GetPath(NewsBusinessModule.Url, roots);
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

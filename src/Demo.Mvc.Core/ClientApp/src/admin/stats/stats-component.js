@@ -4,7 +4,6 @@ import { stats } from './stats-factory';
 import { breadcrumb } from '../../breadcrumb/breadcrumb-factory';
 import view from './stats.html';
 
-
 import './stats.css';
 
 const name = 'stats';
@@ -61,7 +60,7 @@ class Controller {
         initRow();
       });
     };
-    ctrl.previous =() => {
+    ctrl.previous = () => {
       stats.previousAsync().then(function() {
         init();
         initRow();

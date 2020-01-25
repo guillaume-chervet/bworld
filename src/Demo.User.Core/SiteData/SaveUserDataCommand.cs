@@ -15,12 +15,7 @@ namespace Demo.Business.Command.User.SiteData
         {
             _userDataService = userDataService;
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         protected override async Task ActionAsync()
         {
             var data = Input.Data;

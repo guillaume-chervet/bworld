@@ -1,7 +1,6 @@
-﻿
-let _modules;
+﻿let _modules;
 
-const  initAsync = async () => {
+const initAsync = async () => {
   const News = await import('./news');
   const Free = await import('./free');
   const Social = await import('./social');
@@ -17,7 +16,7 @@ const  initAsync = async () => {
   _modules = modules;
 };
 
-const getModule = (name) => _modules[name].default;
+const getModule = name => _modules[name].default;
 
 export default {
   getModule,

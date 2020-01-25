@@ -15,23 +15,23 @@ const search = function(queryString, pathDestination) {
     return null;
   }
   if (queryString) {
-    let newPath = (pathDestination ? pathDestination  : path()) + "?";
-    for (let name in queryString){
+    let newPath = (pathDestination ? pathDestination : path()) + '?';
+    for (let name in queryString) {
       const value = queryString[name];
-      if(value !== null && value !== undefined) {
-        if(value instanceof Array){
-          if(value.length > 0){
-           let values = "";
-            value.forEach((v, index) => index > 0 ?  values += `&${v}` :  values +=  v );
-            newPath += name + "=" + values;
+      if (value !== null && value !== undefined) {
+        if (value instanceof Array) {
+          if (value.length > 0) {
+            let values = '';
+            value.forEach((v, index) =>
+              index > 0 ? (values += `&${v}`) : (values += v)
+            );
+            newPath += name + '=' + values;
           }
         } else {
-          newPath += name + "=" + value;  
+          newPath += name + '=' + value;
         }
-        
-        
       }
-    } 
+    }
     path(newPath);
   }
   return _$location.search();

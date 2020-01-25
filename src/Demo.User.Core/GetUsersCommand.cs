@@ -17,12 +17,6 @@ namespace Demo.Business.Command.User
         {
             _userService = userService;
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             await UserSecurity.CheckIsSuperAdministratorAsync(_userService, Input.UserId);

@@ -4,7 +4,7 @@ import { responseError } from './shared/interceptors/httpException-interceptor';
 import { loader } from './shared/loader/loader-service';
 import app from './app.module';
 import q from './q';
-import {convertStringDateToDateObject} from './shared/date/date-factory'
+import { convertStringDateToDateObject } from './shared/date/date-factory';
 
 let _$http = null;
 
@@ -20,9 +20,9 @@ const reponse = promise => {
   return promise.then(
     function(_response) {
       loader.remove();
-      if(_response && _response.data) {
-        const data =  convertStringDateToDateObject(_response.data);
-        return {..._response, data};
+      if (_response && _response.data) {
+        const data = convertStringDateToDateObject(_response.data);
+        return { ..._response, data };
       }
       return _response;
     },

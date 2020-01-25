@@ -135,10 +135,5 @@ namespace Demo.Business.Command.Stats
             data.Regions = regions;
             data.Devices = devices;
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

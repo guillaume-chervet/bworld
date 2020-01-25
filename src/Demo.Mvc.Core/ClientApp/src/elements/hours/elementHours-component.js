@@ -23,22 +23,22 @@ const Hours = ({ hours }) => {
   );
 };
 
-export const DaysHours = ({element}) => {
-    return (
-      <table>
-        <tbody>
-          {element.data.days.map(day => (
-            <tr>
-              <td>{day.label}</td>
-              <td>{!day.isOpen ? 'Fermé' : ''}</td>
-              <td>
-                <Hours hours={day.hours} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+export const DaysHours = ({ element }) => {
+  return (
+    <table>
+      <tbody>
+        {element.data.days.map(day => (
+          <tr>
+            <td>{day.label}</td>
+            <td>{!day.isOpen ? 'Fermé' : ''}</td>
+            <td>
+              <Hours hours={day.hours} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 };
 
 const name = 'elementHours';

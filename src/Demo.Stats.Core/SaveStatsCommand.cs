@@ -209,10 +209,6 @@ namespace Demo.Business.Command.Stats
             Result.Data.ClientSessionId = statDbModel.ClientSessionId;
             Result.Data.CookieSessionId = statDbModel.CookieSessionId;
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

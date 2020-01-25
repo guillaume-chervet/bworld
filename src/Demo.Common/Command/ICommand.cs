@@ -1,7 +1,9 @@
-﻿namespace Demo.Common.Command
+﻿using System.Threading.Tasks;
+
+namespace Demo.Common.Command
 {
     public interface ICommand
     {
-        void Execute();
+        Task ExecuteAsync();
     }
 }

@@ -90,8 +90,8 @@ const mapItem = function(item) {
     childs: newsElements,
   });
   newItem.data = {
-      editUrl: master.getInternalPath(editUrl),
-          viewUrl: master.getInternalPath(viewUrl),
+    editUrl: master.getInternalPath(editUrl),
+    viewUrl: master.getInternalPath(viewUrl),
     userInfo: itemData.userInfo,
     lastUpdateUserInfo: itemData.lastUpdateUserInfo,
     title: title,

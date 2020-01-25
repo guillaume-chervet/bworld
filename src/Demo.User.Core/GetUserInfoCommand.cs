@@ -16,11 +16,6 @@ namespace Demo.Business.Command.User
             _userService = userService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             if (!string.IsNullOrEmpty(Input.UserId))

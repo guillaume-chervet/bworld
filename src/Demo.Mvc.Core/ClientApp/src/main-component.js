@@ -1,11 +1,9 @@
 ﻿import app from './app.module';
 import redux from './redux';
 import history from './history';
-import view from './main.html'
+import view from './main.html';
 import './htmlheader.component';
 const name = 'main';
-
-
 
 class Controller {
   constructor($scope) {

@@ -53,12 +53,12 @@ const openAsync = function(propertyName, mode) {
     return o.modes.indexOf(mode) > -1;
   });
 
-  const newModules = modulesSelected.map((module) => {
-      const newModule = {...module};
-      newModule.iconUrl = getImageUrl(module.name);
-      return newModule;
+  const newModules = modulesSelected.map(module => {
+    const newModule = { ...module };
+    newModule.iconUrl = getImageUrl(module.name);
+    return newModule;
   });
-  
+
   const modalInstance = modal.open({
     template:
       '<dialog-add close="$close()" dismiss="$dismiss()" data="$ctrl.data"></dialog-add>',
@@ -94,17 +94,17 @@ const addAsync = function(module, propertyName) {
   return null;
 };
 
-const getImageUrl = (moduleName) => {
+const getImageUrl = moduleName => {
   if (!moduleName) {
     return '';
   }
   const service = modulesFactory.getModule(moduleName);
   if (service && service.iconUrl) {
     return service.iconUrl;
-  }  
-  
- // const path = await import(`../../../${moduleName}/icon.png`);
-  return "";//path.default;
+  }
+
+  // const path = await import(`../../../${moduleName}/icon.png`);
+  return ''; //path.default;
 };
 
 export const dialogAdd = {

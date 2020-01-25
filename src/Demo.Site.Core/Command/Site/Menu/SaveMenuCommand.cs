@@ -24,11 +24,6 @@ namespace Demo.Business.Command.Site.Menu
             _moduleManager = moduleManager;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
              await UserSecurity.CheckAdministratorAsync(_userService, Input.UserId, Input.Data.Site.SiteId);

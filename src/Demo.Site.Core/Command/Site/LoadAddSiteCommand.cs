@@ -14,11 +14,6 @@ namespace Demo.Business.Command.Site
             _dataFactory = dataFactory;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task ActionAsync()
         {
             var itemDataModel = await _dataFactory.ItemRepository.GetItemAsync(Input.SiteId, Input.ModuleId);

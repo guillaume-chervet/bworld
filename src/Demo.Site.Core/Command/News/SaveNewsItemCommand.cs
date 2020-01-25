@@ -51,10 +51,5 @@ namespace Demo.Business.Command.News
                 NewsItem = newsItemResult
             };
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

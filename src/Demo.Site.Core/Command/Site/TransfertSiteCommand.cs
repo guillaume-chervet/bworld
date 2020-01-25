@@ -65,10 +65,6 @@ namespace Demo.Business.Command.Site
             var itemRepository = dataFactorySource.ItemRepository;
             return await itemRepository.GetItemAsync(null, universaleSiteId);
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

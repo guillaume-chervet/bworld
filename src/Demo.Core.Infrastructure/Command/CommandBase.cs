@@ -27,34 +27,6 @@ namespace Demo.Common.Command
         ///     Appel métier
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public virtual void Execute()
-        {
-            try
-            {
-                BeforeAction();
-                Validate();
-                Action();
-                if (Result.IsSuccess)
-                {
-                    ActionSuccess();
-                }
-            }
-            catch (Exception ex)
-            {
-                Result.ValidationResult.AddError("Command.Exception", "Une exception non gérée à été lancé.");
-                OnException(ex);
-                throw;
-            }
-            finally
-            {
-                FinallyAction();
-            }
-        }
-
-        /// <summary>
-        ///     Appel métier
-        /// </summary>
-        /// <exception cref="Exception"></exception>
         public virtual async Task ExecuteAsync()
         {
             try
@@ -81,7 +53,6 @@ namespace Demo.Common.Command
 
         protected abstract void BeforeAction();
         protected abstract void Validate();
-        protected abstract void Action();
 
         protected virtual async Task ActionAsync()
         {

@@ -18,12 +18,6 @@ namespace Demo.Business.Command.User
             _messageService = messageService;
         }
 
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
-
-
         protected override async Task ActionAsync()
         {
             var userBoxId = new BoxId() { Id = Input.UserId, Type = TypeBox.User };

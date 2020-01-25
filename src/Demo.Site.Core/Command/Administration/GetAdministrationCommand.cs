@@ -57,10 +57,6 @@ namespace Demo.Business.Command.Administration
                 dblSByte = bytes/1024.0;
             return string.Format("{0:0.##}{1}", dblSByte, suffix[i]);
         }
-
-        protected override void Action()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

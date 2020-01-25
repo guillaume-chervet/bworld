@@ -40,7 +40,7 @@ namespace Demo.Mvc.Core.Api
         [Authorize]
         [HttpDelete]
         [Route("api/module/superadmindelete/{siteId}/{moduleId}")]
-        public CommandResult SuperAdminRemove([FromServices] SuperAdminDeleteModuleCommand _superAdminDeleteModuleCommand, string siteId, string moduleId)
+        public async Task<CommandResult> SuperAdminRemove([FromServices] SuperAdminDeleteModuleCommand _superAdminDeleteModuleCommand, string siteId, string moduleId)
         {
             var userInput = new UserInput<GetModuleInput>
             {
@@ -48,8 +48,8 @@ namespace Demo.Mvc.Core.Api
                 Data = new GetModuleInput {SiteId = siteId, ModuleId = moduleId}
             };
 
-            var result =
-                Business.Invoke<SuperAdminDeleteModuleCommand, UserInput<GetModuleInput>, CommandResult<string>>(
+            var result = await
+                Business.InvokeAsync<SuperAdminDeleteModuleCommand, UserInput<GetModuleInput>, CommandResult<string>>(
                     _superAdminDeleteModuleCommand, userInput);
 
             return result;

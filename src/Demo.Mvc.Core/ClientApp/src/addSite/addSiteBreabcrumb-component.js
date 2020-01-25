@@ -13,14 +13,14 @@ class Controller {
     vm.currentPath = addSite.getCurrentPath();
     vm.navStart = function() {
       const url = '/site/' + master.getModuleId() + '/configuration';
-      history.search({'dm': false}, url);
+      history.search({ dm: false }, url);
     };
     return vm;
   }
 }
 
 app.component(name, {
-  template: view ,
+  template: view,
   controller: [Controller],
   controllerAs: 'vm',
   bindings: {},

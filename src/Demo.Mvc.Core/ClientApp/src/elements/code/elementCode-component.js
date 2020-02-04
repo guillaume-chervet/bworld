@@ -18,7 +18,6 @@ export const Code = ({ element }) => {
             <LoadableCodeAce file={file} mw-readonly="'true'" />
           </Fragment>
         ))}
-        ))}
       </div>
       <div className="clearfix" />
     </Fragment>

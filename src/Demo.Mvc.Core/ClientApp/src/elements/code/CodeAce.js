@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { react2angular } from 'react2angular';
-import brace from 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/java';

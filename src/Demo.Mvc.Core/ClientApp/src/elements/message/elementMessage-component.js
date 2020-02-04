@@ -214,7 +214,7 @@ export const isFormValid = formMessage => {
   return true;
 };
 
-export const MessageContainer = ({
+export const MessageContainer = React.memo(({
   element,
   moduleId,
   siteId,
@@ -260,7 +260,7 @@ export const MessageContainer = ({
 
   useEffect(() => {
     onInit();
-  }, [onInit, user.isAuthenticate]);
+  }, []);
 
   const initMessage = () => dispatch({ type: 'initMessage' });
 
@@ -315,7 +315,7 @@ export const MessageContainer = ({
   };
 
   return (
-    <Message
+    <MessageMemo
       user={user}
       onBlur={onBlur}
       onFocus={onFocus}
@@ -325,9 +325,9 @@ export const MessageContainer = ({
       initMessage={initMessage}
       isSubmited={state.isSubmited}
       messageSended={state.messageSended}
-      element={element}></Message>
+      element={element}></MessageMemo>
   );
-};
+});
 
 const getClassLabel = element => {
   if (element.$level <= 2) {
@@ -363,8 +363,9 @@ export const getMessageStatus = (message, isSubmited) => {
   return status;
 };
 
+
+
 const Message = ({
-  user,
   element,
   message,
   messageSended,
@@ -561,3 +562,5 @@ const Message = ({
     </div>
   );
 };
+
+const MessageMemo = React.memo(Message);

@@ -12,7 +12,6 @@ const rules = {
   firstName: ['required', 'firstName'],
   phone: ['phone'],
 };
-
 export const state = {
   hasChange: false,
   hasFocus: false,
@@ -66,6 +65,7 @@ const newMessage = () => {
     },
   };
 };
+
 
 const initialState = {
   count: 0,
@@ -173,6 +173,7 @@ const reducer = (state, action) => {
             firstName: { ...state.message.firstName, isVisible: true },
             email: { ...state.message.email, isVisible: true },
             phone: { ...state.message.phone, isVisible: true },
+
           },
         };
       }
@@ -213,6 +214,7 @@ export const isFormValid = formMessage => {
 
   return true;
 };
+
 
 export const MessageContainer = React.memo(({
   element,
@@ -363,9 +365,8 @@ export const getMessageStatus = (message, isSubmited) => {
   return status;
 };
 
-
-
 const Message = ({
+  user,
   element,
   message,
   messageSended,

@@ -1,4 +1,5 @@
 ﻿using Demo.Data.Message;
+using Demo.Message.Core.ListMessage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Demo.Business.Command.Contact.Message

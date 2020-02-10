@@ -7,6 +7,7 @@ using Demo.Common.Command;
 using Demo.Data;
 using Demo.Data.Message;
 using Demo.Data.Message.Models;
+using Demo.Message.Core.ListMessage;
 using Demo.User;
 using Demo.User.Identity;
 using Microsoft.Extensions.Logging;
@@ -15,19 +16,17 @@ namespace Demo.Business.Command.Contact.Message
 {
     public class GetMessageCommand : Command<UserInput<GetMessageInput>, CommandResult<GetMessageResult>>
     {
-        private readonly IDataFactory _dataFactory;
         private readonly IMessageService _messageService;
         private readonly ISiteMap _siteMap;
         private readonly ILogger _logger;
         private readonly UserService _userService;
 
-        public GetMessageCommand(IDataFactory dataFactory, UserService userService, IMessageService messageService, ISiteMap siteMap, ILoggerFactory loggerFactory)
+        public GetMessageCommand(UserService userService, IMessageService messageService, ISiteMap siteMap, ILoggerFactory loggerFactory)
         {
             _userService = userService;
             _messageService = messageService;
             _siteMap = siteMap;
             this._logger = loggerFactory.CreateLogger("GetMessageCommand");
-            _dataFactory = dataFactory;
         }
 
         protected override async Task ActionAsync()

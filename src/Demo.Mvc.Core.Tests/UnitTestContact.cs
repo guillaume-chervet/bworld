@@ -3,62 +3,81 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Demo.Business;
 using Demo.Business.BusinessModule;
+using Demo.Business.Command;
+using Demo.Business.Command.Contact.Message;
+using Demo.Business.Command.Contact.Message.Models;
+using Demo.Business.Command.Contact.Message.Models.SendMessage;
 using Demo.Business.Command.Site.Cache;
 using Demo.Business.Routing;
+using Demo.Common.Command;
 using Demo.Data;
+using Demo.Data.Message.Models;
 using Demo.Data.Mongo;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Demo.Mvc.Core.Tests
 {
-    public class UnitTest1
+    public class UnitTestContact
     {
-        /*[Fact]
-        public async Task Test1()
+       /* internal readonly MongoDbRunner _mongoRunner;
+        
+        public UnitTestContactTests()
         {
-            try
+            RadarTechno.History.History[] histories = new[]
             {
-                var services = new ServiceCollection();
-                var serviceProvider = services.BuildServiceProvider();
-                
-                var dataConfig = new DataConfig();
-                dataConfig.ConnectionString = "mongodb://localhost:27017";
-                dataConfig.DatabaseName = "bworld";
-                var database = new MongoDatabase(Options.Create(dataConfig));
-                var dataFactoryMongo =
-                    new DataFactoryMongo(database, new MongoBlob(database), Options.Create(dataConfig));
-                var businessFactory = new BusinessModuleFactory(serviceProvider);
-                var cacheProvider = new CacheProvider(dataFactoryMongo, businessFactory,
-                    new RouteProvider(dataFactoryMongo, businessFactory));
-                
-                
-                var domainDatas = new Dictionary<string, string>();
-                domainDatas.Add("domain", "localhost");
-                var resetSiteCacheCommand = new ResetSiteCacheCommand(dataFactoryMongo, cacheProvider);
-                  resetSiteCacheCommand.Input = new ResetSiteCacheInput()
-                  {
-                      Site = new CurrentRequest()
-                      {
-                          SiteId = "c27e39ee-7ba9-46f8-aa7c-9e334c72a96c", //"227aefdb-a2b9-4c27-98d9-2f0db43f99ca",
-                          DomainDatas = domainDatas
-                      }
-                  };
-                  
-                 
-                  
-                  await cacheProvider.InitializeCacheAsync();
+                new RadarTechno.History.History("author", "entity-technology", "id1", "diff"),
+                new RadarTechno.History.History("author", "entity-technology", "id1", "diff2"),
+                new RadarTechno.History.History("author", "entity-technology", "id1", "diff3"),
+                new RadarTechno.History.History("author", "entity-technology", "id2", "diff")
+            };
 
-                  //await resetSiteCacheCommand.ExecuteAsync();
-
-            }
-            catch (Exception ex)
+            _mongoRunner = MongoDbRunner.Start();
+            MongoClient client = new MongoClient(_mongoRunner.ConnectionString);
+            IMongoDatabase database = client.GetDatabase("radar-techno");
+            var collection = database.GetCollection<RadarTechno.History.History>("history");
+            collection.InsertMany(histories);
+            var databaseSettings = new DatabaseSettings()
             {
-                Console.WriteLine(ex);
-            }
+                ConnectionString = _mongoRunner.ConnectionString,
+                Database = "radar-techno"
+            };
+            IOptions<DatabaseSettings> options = Options.Create<DatabaseSettings>(databaseSettings);
+            _database = new RadarDatabase(options);
+            _repository = new HistoryRepository(_database);
+        }
+        [Fact]
+        public async Task SendMessageCommand()
+        {
+            var messageSiteNotAuthenticated = new MessageSiteNotAuthenticated
+            {
+                Email = "guillaume.chervet@gmail.com",
+                FirstName = "Guillaume",
+                LastName = "Chervet",
+                Message = "message de test",
+                Title = "demande aide",
+                Phone = "06 76 96 56 13"
+            };
 
-            //await resetSiteCacheCommand.ExecuteAsync();
+            var userInput = new UserInput<SendMessageInput>
+            {
+                UserId = "54b8c4278241320a28c8f024",
+                Data = new SendMessageInput
+                {
+                    To = new BoxId {Id = "c27e39ee-7ba9-46f8-aa7c-9e334c72a96c", Type = TypeBox.Site},
+                    From = new BoxId(),
+                    MessageJson = JsonConvert.SerializeObject(messageSiteNotAuthenticated),
+                    Type = "SiteNotAuthenticated"
+                }
+            };
+            
+          var command =  new SendMessageCommand();
+
+          command.ExecuteAsync();
+
+
         }*/
-    }
+}
 }

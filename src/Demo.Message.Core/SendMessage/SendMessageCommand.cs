@@ -20,26 +20,24 @@ using Demo.Renderer;
 using Microsoft.Extensions.Logging;
 using Demo.Common;
 using System.IO;
+using Demo.Message.Core.ListMessage;
 
 namespace Demo.Business.Command.Contact.Message
 {
     public class SendMessageCommand : Command<UserInput<SendMessageInput>, CommandResult<SendMessageResult>>
     {
         public const string SiteNotAuthenticated = "SiteNotAuthenticated";
-        private readonly IDataFactory _dataFactory;
         private readonly ISiteMap _siteMap;
         private readonly ILogger _logger;
         private readonly IEmailService _emailService;
         private readonly IMessageService _messageService;
         private readonly UserService _userService;
 
-        public SendMessageCommand(UserService userService, IMessageService messageService, IEmailService emailService,
-            IDataFactory dataFactory,ISiteMap siteMap,ILoggerFactory loggerFactory)
+        public SendMessageCommand(UserService userService, IMessageService messageService, IEmailService emailService,ISiteMap siteMap,ILoggerFactory loggerFactory)
         {
             _userService = userService;
             _messageService = messageService;
             _emailService = emailService;
-            _dataFactory = dataFactory;
             _siteMap = siteMap;
             _logger = loggerFactory.CreateLogger("SendMessageCommand");
         }
@@ -54,19 +52,20 @@ namespace Demo.Business.Command.Contact.Message
             var message = GetMessage(messageType, messageJson);
             var createdDate = DateTime.Now;
 
-            var messageDbModel = new MessageDbModel();
-            messageDbModel.CreateDate = createdDate;
-            messageDbModel.FromId = data.From;
-            messageDbModel.Source = data.Source;
-            messageDbModel.Message = data.MessageJson;
-            messageDbModel.MessageType = data.Type;
+            var messageDbModel = new MessageDbModel
+            {
+                CreateDate = createdDate,
+                FromId = data.From,
+                Source = data.Source,
+                Message = data.MessageJson,
+                MessageType = data.Type
+            };
 
             IList<To> toList = new List<To> {new To() {Id = data.To}, new To() {Id = data.From}};
             string chatId;
             ChatDbModel chatDbModel;
             Read read = null;
 
-            // TODO control input
             if (!string.IsNullOrEmpty(Input.UserId))
             {
                 read = new Read() {CreateDate = createdDate, Id = data.From};
@@ -80,15 +79,17 @@ namespace Demo.Business.Command.Contact.Message
                     reads.Add(read);
                 }
 
-                chatDbModel = new ChatDbModel();
-                chatDbModel.CreateDate = createdDate;
-                chatDbModel.UpdateDate = createdDate;
-                chatDbModel.Title = ((MessageSiteAuthenticated) message).Title;
-                chatDbModel.Reads = reads;
-                chatDbModel.LastReads = reads;
-                chatDbModel.To = toList;
-                chatDbModel.Messages = new List<MessageDbModel> {messageDbModel};
-                chatDbModel.NumberMessages = 1;
+                chatDbModel = new ChatDbModel
+                {
+                    CreateDate = createdDate,
+                    UpdateDate = createdDate,
+                    Title = ((MessageSiteAuthenticated) message).Title,
+                    Reads = reads,
+                    LastReads = reads,
+                    To = toList,
+                    Messages = new List<MessageDbModel> {messageDbModel},
+                    NumberMessages = 1
+                };
 
                 await _messageService.SaveChatAsync(chatDbModel);
                 chatId = chatDbModel.Id;
@@ -172,28 +173,25 @@ namespace Demo.Business.Command.Contact.Message
             if (messageType == SiteNotAuthenticated)
             {
                 var msg = (MessageSiteNotAuthenticated) message;
-                var messageReceiverMailModel = new MessageReceiverMailModel();
-                messageReceiverMailModel.SiteName = siteName;
-                messageReceiverMailModel.SiteUrl = siteUrl;
-                messageReceiverMailModel.UserName = msg.FullName;
-                messageReceiverMailModel.Title = msg.Title;
-                messageReceiverMailModel.Message = FormatMessageForEmail(message.Message);
-                messageReceiverMailModel.IsReply = isReply;
-                messageReceiverMailModel.Sender = new SenderModel()
+                var messageReceiverMailModel = new MessageReceiverMailModel
                 {
-                    IsNotAuthenticated = true,
-                    FullName = msg.FullName,
-                    Email = msg.Email,
-                    Phone = msg.Phone
+                    SiteName = siteName,
+                    SiteUrl = siteUrl,
+                    UserName = msg.FullName,
+                    Title = msg.Title,
+                    Message = FormatMessageForEmail(message.Message),
+                    IsReply = isReply,
+                    Sender = new SenderModel()
+                    {
+                        IsNotAuthenticated = true, FullName = msg.FullName, Email = msg.Email, Phone = msg.Phone
+                    }
                 };
 
                 await SendEmailSenderAsync(messageReceiverMailModel, msg.Email);
             }
             else if (senderUserDb != null)
             {
-                var messageReceiverMailModel = new MessageReceiverMailModel();
-                messageReceiverMailModel.SiteName = siteName;
-                messageReceiverMailModel.SiteUrl = siteUrl;
+                var messageReceiverMailModel = new MessageReceiverMailModel {SiteName = siteName, SiteUrl = siteUrl};
 
                 var messageSource = "/administration";
                 if (data.Source == "User")
@@ -271,7 +269,7 @@ namespace Demo.Business.Command.Contact.Message
             return message.Replace("\n", "<br />");
         }
 
-        public static MessageReply GetMessage(string messageType, string messageJson)
+        private static MessageReply GetMessage(string messageType, string messageJson)
         {
             var jsonSerializerSettings = new JsonSerializerSettings
             {
@@ -293,7 +291,7 @@ namespace Demo.Business.Command.Contact.Message
             return message;
         }
 
-        public async Task SendEmailSenderAsync(MessageReceiverMailModel messageSenderMailModel, string emailTo)
+        private async Task SendEmailSenderAsync(MessageReceiverMailModel messageSenderMailModel, string emailTo)
         {
             var identityMessage = new MailMessage();
 
@@ -311,7 +309,7 @@ namespace Demo.Business.Command.Contact.Message
             await _emailService.SendAsync(identityMessage);
         }
 
-        public async Task SendEmailAsync(MessageReceiverMailModel messageReceiverMailModel, string emailTo)
+        private async Task SendEmailAsync(MessageReceiverMailModel messageReceiverMailModel, string emailTo)
         {
             var identityMessage = new MailMessage();
 

@@ -2,35 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Demo.Business.Command;
+using Demo.Business.Command.Contact.Message;
 using Demo.Business.Command.Contact.Message.Models.ListMessage;
 using Demo.Business.Command.Contact.Message.SiteMap;
 using Demo.Common;
 using Demo.Common.Command;
-using Demo.Data;
 using Demo.Data.Message;
 using Demo.Data.Message.Models;
-using Demo.Log;
 using Demo.User;
 using Demo.User.Identity;
 using Microsoft.Extensions.Logging;
 
-namespace Demo.Business.Command.Contact.Message
+namespace Demo.Message.Core.ListMessage
 {
     public class ListMessageCommand : Command<UserInput<ListMessageInput>, CommandResult<ListMessageResult>>
     {
-        private readonly IDataFactory _dataFactory;
         private readonly IMessageService _messageService;
         private readonly ISiteMap _sitemap;
         private readonly ILogger<ListMessageCommand> _logger;
         private readonly UserService _userService;
 
-        public ListMessageCommand(ILogger<ListMessageCommand> logger,IDataFactory dataFactory, UserService userService, IMessageService messageService, ISiteMap sitemap)
+        public ListMessageCommand(ILogger<ListMessageCommand> logger, UserService userService, IMessageService messageService, ISiteMap sitemap)
         {
             _logger = logger;
             _userService = userService;
             _messageService = messageService;
             _sitemap = sitemap;
-            _dataFactory = dataFactory;
         }
 
         protected override async Task ActionAsync()
@@ -49,7 +47,7 @@ namespace Demo.Business.Command.Contact.Message
                 }
             }
 
-            var limit = 20;
+            const int limit = 20;
 
             var getChatsFilter = new GetChatsFilter
             {
@@ -106,21 +104,21 @@ namespace Demo.Business.Command.Contact.Message
                 nbNext = await _messageService.CountChatAsync(boxId, new CountChatFilters {DateLt = dateNext.Value});
             }
 
-            Result.Data = new ListMessageResult();
-            Result.Data.Chats = chatsResult;
-            Result.Data.NumberNext = nbNext;
-            Result.Data.DatePrevious = datePrevious;
-            Result.Data.NumberPrevious = nbPrevious;
-            Result.Data.DateNext = dateNext;
+            Result.Data = new ListMessageResult
+            {
+                Chats = chatsResult,
+                NumberNext = nbNext,
+                DatePrevious = datePrevious,
+                NumberPrevious = nbPrevious,
+                DateNext = dateNext
+            };
         }
 
         public static async Task<ChatItem> MapChatItem(ILogger _logger, ISiteMap siteMap, UserService userService,
             ChatDbModel chat, string userId)
         {
             var messages = chat.Messages;
-            var chatItem = new ChatItem();
-            chatItem.Id = chat.Id;
-            chatItem.CreatedDate = chat.CreateDate;
+            var chatItem = new ChatItem {Id = chat.Id, CreatedDate = chat.CreateDate};
             var lastMessageDate = chat.Messages.OrderByDescending(m => m.CreateDate).Select(m => m.CreateDate).FirstOrDefault();
             chatItem.LastMessageDate = lastMessageDate;
 
@@ -177,17 +175,17 @@ namespace Demo.Business.Command.Contact.Message
                 }
                 else if (fromBoxId.Type == TypeBox.UserNotAuthenticated)
                 {
-                    InitContactNotAUthenticated(_logger,chatDbModel, contact);
+                    InitContactNotAuthenticated(_logger,chatDbModel, contact);
                 }
             }
             else
             {
-                InitContactNotAUthenticated(_logger,chatDbModel, contact);
+                InitContactNotAuthenticated(_logger,chatDbModel, contact);
             }
             return contact;
         }
 
-        private static void InitContactNotAUthenticated(ILogger _logger ,ChatDbModel chatDbModel, ContactItem contact)
+        private static void InitContactNotAuthenticated(ILogger _logger ,ChatDbModel chatDbModel, ContactItem contact)
         {
             try
             {

@@ -7,6 +7,7 @@ using Demo.Business.Command.Contact.Message.Models;
 using Demo.Business.Command.Contact.Message.Models.ListMessage;
 using Demo.Common.Command;
 using Demo.Data.Message.Models;
+using Demo.Message.Core.ListMessage;
 using Demo.Mvc.Core.Api.Extentions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace Demo.Mvc.Core.Api
 
         [HttpPost]
         [Route("api/contact/message")]
-        public async Task<CommandResult<SendMessageResult>> Save([FromServices] SendMessageCommand _sendMessageCommand,
+        public async Task<CommandResult<SendMessageResult>> Save([FromServices] SendMessageCommand sendMessageCommand,
             [FromBody] SendMessageInput input)
         {
             var userInput = new UserInput<SendMessageInput>
@@ -35,7 +36,7 @@ namespace Demo.Mvc.Core.Api
 
             var result = await
                 Business.InvokeAsync<SendMessageCommand, UserInput<SendMessageInput>, CommandResult<SendMessageResult>>(
-                    _sendMessageCommand, userInput);
+                    sendMessageCommand, userInput);
 
             return result;
         }
@@ -43,7 +44,7 @@ namespace Demo.Mvc.Core.Api
         [HttpGet]
         [Route("api/contact/messages/{typeBox}/{id}")]
         public async Task<CommandResult<ListMessageResult>> Messages(
-            [FromServices] ListMessageCommand _listMessageCommand, TypeBox typeBox, string id)
+            [FromServices] ListMessageCommand listMessageCommand, TypeBox typeBox, string id)
         {
             var queryString = Request.Query.ToDictionary(q => q.Key, q => q.Value);
             MessagesFilter messagesFilter;
@@ -68,7 +69,7 @@ namespace Demo.Mvc.Core.Api
             var result =
                 await Business
                     .InvokeAsync<ListMessageCommand, UserInput<ListMessageInput>, CommandResult<ListMessageResult>>(
-                        _listMessageCommand, userInput);
+                        listMessageCommand, userInput);
 
             return result;
         }
@@ -76,7 +77,7 @@ namespace Demo.Mvc.Core.Api
 
         [HttpGet]
         [Route("api/contact/message/{typeBox}/{boxId}/{chatId}")]
-        public async Task<CommandResult<GetMessageResult>> Message([FromServices]GetMessageCommand _getMessageCommand, TypeBox typeBox, string boxId, string chatId)
+        public async Task<CommandResult<GetMessageResult>> Message([FromServices]GetMessageCommand getMessageCommand, TypeBox typeBox, string boxId, string chatId)
         {
             var sendMessageInput = new GetMessageInput
             {
@@ -92,7 +93,7 @@ namespace Demo.Mvc.Core.Api
             var result =
                 await Business
                     .InvokeAsync<GetMessageCommand, UserInput<GetMessageInput>, CommandResult<GetMessageResult>>(
-                        _getMessageCommand, userInput);
+                        getMessageCommand, userInput);
 
             return result;
         }

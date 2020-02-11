@@ -17,7 +17,7 @@ namespace Demo.Business.Tests
          [TestInitialize]
         public async Task RestCache()
         {
-            var dataConfig = new DataConfig();
+            /*var dataConfig = new DataConfig();
             dataConfig.ConnectionString = "mongodb://localhost:27017";
             dataConfig.DatabaseName = "bworld";
             var database = new MongoDatabase(Options.Create(dataConfig));
@@ -36,7 +36,7 @@ namespace Demo.Business.Tests
                  }
              };
              
-             await resetSiteCacheCommand.ExecuteAsync();
+             await resetSiteCacheCommand.ExecuteAsync();*/
          }
     }
 }

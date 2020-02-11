@@ -15,7 +15,7 @@ namespace Demo.Mvc.Core.Tests
 {
     public class UnitTest1
     {
-        [Fact]
+        /*[Fact]
         public async Task Test1()
         {
             try
@@ -59,6 +59,6 @@ namespace Demo.Mvc.Core.Tests
             }
 
             //await resetSiteCacheCommand.ExecuteAsync();
-        }
+        }*/
     }
 }

@@ -111,16 +111,13 @@ const MenuAside = ({ user, menu, isCollapsed, currentPath }) => {
                   className={isActive('/super-administration') ? 'active' : ''}>
                 <a href={getInternalPath('/super-administration')}><span className="glyphicon glyphicon-cog" aria-hidden="true"></span> Super administration</a>
               </li>)}
-                  )}
 
                   {user.isAuthenticate && (
                     <>
               <li className="divider"></li>
                       <li>
                         <a href="#" onClick={logOff}>
-                          <span
-                            className="glyphicon glyphicon-log-out"
-                                                           aria-hidden="true"></span> Se déconnecter</a>
+                          <span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> Se déconnecter</a>
               </li></>)}
             </ul>
           </div>

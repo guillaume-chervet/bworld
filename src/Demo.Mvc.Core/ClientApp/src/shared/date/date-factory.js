@@ -48,11 +48,14 @@ export const displayDurationFromSecond = function(timespanSecond) {
   return displayDurationFromMillisecond(1000 * timespanSecond);
 };
 
-export const convertStringDateToDateObject = function(origin) {
+export const convertStringDateToDateObject = origin => {
   if (typeof origin === 'string') {
     return dateTimeReviver(origin);
   }
-  for (var propertyName in origin) {
+  if (Array.isArray(origin)) {
+    return origin.map(e => convertStringDateToDateObject(e));
+  }
+  for (let propertyName in origin) {
     const value = origin[propertyName];
     if (typeof value === 'string') {
       origin[propertyName] = dateTimeReviver(value);
@@ -62,3 +65,4 @@ export const convertStringDateToDateObject = function(origin) {
   }
   return origin;
 };
+

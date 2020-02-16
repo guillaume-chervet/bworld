@@ -67,13 +67,10 @@ class Controller {
     };
 
     vm.submit = function() {
-      //  if ($scope.newsForm.$valid) {
       news.saveAsync(moduleId, null, null, vm.model);
-      //}
     };
 
     vm.submitItem = function() {
-      //	if ($scope.newsForm.$valid) {
 
       newsItem.saveAsync(null, 'MenuItems', moduleId).then(function(item) {
         if (item) {

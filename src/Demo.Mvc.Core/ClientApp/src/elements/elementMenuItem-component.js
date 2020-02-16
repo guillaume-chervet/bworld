@@ -13,7 +13,7 @@ export const ElementMenuItem = ({ element, mode }) => {
   return (
     <div className="mw-add text-center">
       <button type="button" className="btn btn-primary btn-lg" onClick={open}>
-        <span className="glyphicon glyphicon-plus"></span>
+        <span className="glyphicon glyphicon-plus"/>
         <span>Ajouter</span>
       </button>
     </div>

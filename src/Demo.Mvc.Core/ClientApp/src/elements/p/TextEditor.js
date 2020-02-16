@@ -4,7 +4,7 @@ import app from '../../app.module';
 import { react2angular } from 'react2angular';
 import Loadable from 'react-loadable';
 
-const LoadableRteEditor = Loadable({
+export const LoadableRteEditor = Loadable({
   loader: () => import('./RteEditor'),
   loading() {
     return <div>Loading...</div>;

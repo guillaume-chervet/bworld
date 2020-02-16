@@ -23,15 +23,15 @@ export const ElementMenuH1 = ({ element }) => {
         {canUp() && (
           <button type="button" onClick={up} className="btn btn-primary">
             <span
-              className="glyphicon glyphicon-chevron-up"
-              aria-hidden="true"></span>
+    className="glyphicon glyphicon-chevron-up"
+    aria-hidden="true"/>
           </button>
         )}
         {canDown() && (
           <button type="button" onClick={down} className="btn btn-primary">
             <span
-              className="glyphicon glyphicon-chevron-down"
-              aria-hidden="true"></span>
+    className="glyphicon glyphicon-chevron-down"
+    aria-hidden="true"/>
           </button>
         )}
       </div>

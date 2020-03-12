@@ -1,4 +1,4 @@
-<element-admin element="$ctrl.element">
+<element-admin element="$ctrl.element" on-change="$ctrl.onChange">
     <admin-title>
         Grille
     </admin-title>
@@ -38,7 +38,7 @@
                 <button class="btn btn-danger btn-lg" type="button" ng-click="$ctrl.removeTab($ctrl.element, element)"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
                 <button class="btn btn-default btn-lg" type="button" ng-click="$ctrl.addTab($ctrl.element, element)"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
                 <input type="text" name="field" id="{{element.property}}" ng-model="element.data.label" class="form-control" placeholder="Titre"/>
-                <element-div-admin element="element">
+                <element-div-admin element="element" on-change="$ctrl.onChange">
                 </element-div-admin>
             </uib-tab>
         </uib-tabset>

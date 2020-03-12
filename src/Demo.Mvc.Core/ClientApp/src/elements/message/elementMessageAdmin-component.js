@@ -4,7 +4,7 @@ import view from './message_admin.html';
 const name = 'elementMessageAdmin';
 class Controller {
   $onInit() {
-    var vm = this;
+    const vm = this;
 
     vm.add = function() {
       if (!vm.element.data) {
@@ -17,7 +17,7 @@ class Controller {
     };
 
     vm.delete = function(element) {
-      var childs = vm.element.data;
+      const childs = vm.element.data;
       while (childs.indexOf(element) !== -1) {
         childs.splice(childs.indexOf(element), 1);
       }

@@ -28,6 +28,7 @@ app.component(name, {
   bindings: {
     element: '=',
     mode: '<',
+    onChange: '<',
   },
 });
 
@@ -38,6 +39,7 @@ export const ElementAdmin = ({
   adminMenu,
   adminAdd,
   element,
+    onChange,
                                mode,
 }) => {
   const [state , setState] = useState(defaultState);
@@ -69,7 +71,7 @@ export const ElementAdmin = ({
             </label>
             { adminMenu ? <>{adminMenu}</> :
               <div className="col-sm-6 col-md-6 col-xs-8">
-                <ElementMenu element={element} />
+                <ElementMenu element={element} onChange={onChange} />
             </div>}
             <div className="col-sm-12 col-md-12 col-xs-12">
               {adminEdit && <>{adminEdit}</> }
@@ -81,7 +83,7 @@ export const ElementAdmin = ({
       {adminAdd ? <>{adminAdd}</> :
           <>{$ctrl.isLastElement() || $ctrl.isEditMode() && <ElementMenuItem
     element={element}
-    mode={mode}/> }</>
+    mode={mode} onChange={onChange}/> }</>
       }
     </div>
   );

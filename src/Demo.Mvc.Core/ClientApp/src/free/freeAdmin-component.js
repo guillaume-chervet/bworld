@@ -54,21 +54,21 @@ class Controller {
     ];
 
     const moduleId = master.getModuleId();
-    vm.submit = function() {
+    vm.submit = () => {
       if (free.isUploading(vm.element.childs)) {
         return;
       }
       free.saveAsync(moduleId);
     };
 
-    vm.delete = function() {
+    vm.delete = () => {
       if (free.isUploading(vm.element.childs)) {
         return;
       }
       module.deleteAsync(moduleId);
     };
 
-    vm.isButtonDisabled = function() {
+    vm.isButtonDisabled = () => {
       return free.isUploading(vm.element.childs);
     };
 
@@ -83,7 +83,7 @@ class Controller {
   }
   mapThisToProps() {
     return {
-      onChange: freeOnChange,
+      onChange: (e) => redux.getDispatch()(freeOnChange(e)),
     };
   }
 }

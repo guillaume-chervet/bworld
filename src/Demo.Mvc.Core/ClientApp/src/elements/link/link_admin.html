@@ -1,5 +1,5 @@
 ﻿
-<element-admin element="$ctrl.element">
+<element-admin element="$ctrl.element" on-change="$ctrl.onChange">
     <admin-title>
         Liens
     </admin-title>
@@ -7,7 +7,7 @@
             <div ng-form name="fieldForm" class="form-group">
                 <label for="uType" class="col-sm-3 col-md-3 col-xs-12 control-label">Type</label>
                 <div class="col-sm-9 col-md-9 col-xs-12">
-                    <select name="field" class="form-control" ng-model="$ctrl.element.data.type">
+                    <select name="field" id="uType" class="form-control" ng-model="$ctrl.element.data.type">
                         <option value="">Page Interne</option>
                         <option value="facebook">Page facebook</option>
                         <option value="phone">Numéro de téléphone</option>
@@ -61,7 +61,7 @@
             <div ng-form name="fieldForm" class="form-group">
                 <label for="uLabel" class="col-sm-3 col-md-3 col-xs-12 control-label">Libellé</label>
                 <div class="col-sm-9 col-md-9 col-xs-12">
-                    <input type="text" name="field" id="Label" ng-model="$ctrl.element.data.label" class="form-control" />
+                    <input type="text" name="field" id="uLabel" ng-model="$ctrl.element.data.label" class="form-control" />
                 </div>
             </div>
         </admin-edit>

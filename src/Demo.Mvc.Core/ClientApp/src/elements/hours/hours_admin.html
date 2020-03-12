@@ -1,11 +1,8 @@
-﻿
-<element-admin element="$ctrl.element">
+﻿<element-admin element="$ctrl.element"  on-change="$ctrl.onChange">
     <admin-title>
         Horaires
     </admin-title>
     <admin-edit>
-
-
         <div ng-switch="$ctrl.element.$level.toString()">
 
             <div ng-switch-when="3">
@@ -56,13 +53,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
-       
-
-
 
     </admin-edit>
     <admin-view>

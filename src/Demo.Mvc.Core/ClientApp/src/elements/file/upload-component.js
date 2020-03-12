@@ -12,14 +12,8 @@ class Controller {
     this.$timeout = $timeout;
   }
   $onInit() {
-    var ctrl = this;
+    const ctrl = this;
 
-    /*var config = null;
-        if (ctrl.element.config) {
-            config = angular.toJson(ctrl.element.config);
-        }*/
-
-    //var nbFileUploading = 0;
     ctrl.uploadFiles = fileElementService.initUploadFile(
       ctrl,
       this.Upload,

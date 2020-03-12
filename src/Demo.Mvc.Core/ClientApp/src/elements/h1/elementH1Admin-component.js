@@ -5,7 +5,7 @@ import view from './h1_admin.html';
 const name = 'elementH1Admin';
 
 function ElementController() {
-  var ctrl = this;
+  const ctrl = this;
   elementService.inherit(ctrl);
   return ctrl;
 }

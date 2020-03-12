@@ -5,14 +5,17 @@ import { react2angular } from 'react2angular';
 
 const name = 'elementMenu';
 
-export const ElementMenu = ({ element, className }) => {
+export const ElementMenu = ({ element, onChange }) => {
   const parent = element.$parent;
   const deleteElement = () => {
-    elementMenuService.deleteElement(element, parent);
+      onChange({ what: "element-delete", element});
   };
-
-  const up = () => elementMenuService.up(element, parent);
-  const down = () => elementMenuService.down(element, parent);
+  const up = () => {
+      onChange({ what: "element-up", element});
+  };
+  const down = () => {
+      onChange({ what: "element-down", element});
+  }; 
   const canUp = () => elementMenuService.canUp(element, parent);
   const canDown = () => elementMenuService.canDown(element, parent);
   

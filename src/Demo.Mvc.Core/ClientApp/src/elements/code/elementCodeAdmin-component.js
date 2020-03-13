@@ -15,7 +15,7 @@ export const ElementCodeAdmin = ({ element, onChange }) => {
   
   return (
       <ElementAdmin
-          onChange={onChangeWrapper}
+          onChange={onChange}
           element={element}
           adminTitle={'Code'}
           adminEdit={<div className="mw-code-panel">

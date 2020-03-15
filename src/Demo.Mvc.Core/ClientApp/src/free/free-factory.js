@@ -1,5 +1,5 @@
 import _ from 'lodash';
-
+import {guid} from '../shared/services/guid-factory';
 import modulesFactory from '../modules-factory';
 import { master } from '../shared/providers/master-provider';
 import itemStates from '../shared/itemStates';
@@ -82,13 +82,13 @@ const initData = function(result, data) {
     const elem = [];
     const h1 = {
       type: 'h1',
-      property: 'h1',
+      property: guid.guid(),
       label: 'Titre pincipal',
       data: '',
     };
     const p = {
       type: 'p',
-      property: 'p',
+      property: guid.guid(),
       label: 'Paragraphe',
       data: '',
     };

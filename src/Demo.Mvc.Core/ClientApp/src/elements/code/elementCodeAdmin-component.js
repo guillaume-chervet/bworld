@@ -5,12 +5,12 @@ import {react2angular} from "react2angular";
 import React, {Fragment} from "react";
 import {Code} from "./elementCode-component";
 import {ElementAdmin} from "../elementAdmin-component";
-import LoadableCodeAce from "./LoadableCodeAce";
+import CodePanelAdmin from "./elementCodePanel-component";
 
 export const ElementCodeAdmin = ({ element, onChange }) => {
 
   const onChangeWrapper = (newData) => {
-    onChange({ what: "element-edit", element: {...element, data: {...element.data, ...newData } } });
+    onChange({ what: "element-edit", element: {...element, ...newData } });
   };
   
   return (
@@ -20,9 +20,9 @@ export const ElementCodeAdmin = ({ element, onChange }) => {
           adminTitle={'Code'}
           adminEdit={<div className="mw-code-panel">
             {element.data.files.map(file => (
-                <Fragment key={file.fileName}>
+                <Fragment key={file.id}>
                   <h3>{file.fileName}</h3>
-                  <LoadableCodeAce file={file} onChange={onChangeWrapper} />
+                  <CodePanelAdmin element={element} file={file} onChange={onChangeWrapper} />
                 </Fragment>
             ))}</div>}
           adminView={<Code element={element} />}>

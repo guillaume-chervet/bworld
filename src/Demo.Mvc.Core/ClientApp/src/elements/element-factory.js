@@ -75,6 +75,10 @@ const initDataElement=(
     try {
       const _service = _getService(element.type);
 
+      if(!element.property){
+        element.property= guid.guid();
+      }
+
       if (_service && _service.initDataElement) {
         _service.initDataElement(
           element,
@@ -246,10 +250,8 @@ const inherit = (ctrl = {}, e, state = defaultState , setState) => {
     } else {
       _childs = elem.$parent.childs;
     }
-    if (_childs.indexOf(elem) >= _childs.length - 1) {
-      return true;
-    }
-    return false;
+    return _childs.indexOf(elem) >= _childs.length - 1;
+    
   };
 
   ctrl.isEditButtonDisabled = () => {

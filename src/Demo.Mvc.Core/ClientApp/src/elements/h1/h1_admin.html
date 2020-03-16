@@ -16,12 +16,12 @@
       </div>
       <div class="animate-switch" ng-switch-default>
 
-            <element-admin element="$ctrl.element" mode="$ctrl.mode">
+            <element-admin element="$ctrl.element" mode="$ctrl.mode" on-change="$ctrl.onChange">
                 <admin-title>
                     Titre principal
                 </admin-title>
             <admin-menu>
-                <element-menu-h1 class="col-sm-6 col-md-6 col-xs-8" element="$ctrl.element"></element-menu-h1>
+                <element-menu-h1 class="col-sm-6 col-md-6 col-xs-8" element="$ctrl.element" on-change="$ctrl.onChange"></element-menu-h1>
             </admin-menu>
             <admin-edit>
                 <input type="text" name="field" id="{{$ctrl.element.property}}" ng-model="$ctrl.element.data" class="form-control"/>

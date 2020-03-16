@@ -5,8 +5,7 @@ import view from './elementFile_admin.html';
 const name = 'elementFileAdmin';
 
 function ElementController() {
-  const ctrl = this;
-  return ctrl;
+  return this;
 }
 
 app.component(name, {

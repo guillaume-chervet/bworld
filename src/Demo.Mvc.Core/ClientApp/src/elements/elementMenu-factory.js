@@ -1,4 +1,4 @@
-const deleteElement = function(elementChild, parent) {
+const deleteElement = (elementChild, parent) => {
   if (parent.childs) {
     const childs = parent.childs;
     while (childs.indexOf(elementChild) !== -1) {
@@ -7,32 +7,24 @@ const deleteElement = function(elementChild, parent) {
   }
 };
 
-const up = function(elementChild, parent) {
+const up = (elementChild, parent) => {
   const childs = parent.childs;
   const index = childs.indexOf(elementChild);
   childs.splice(index, 1);
   childs.splice(index - 1, 0, elementChild);
 };
 
-const down = function(elementChild, parent) {
+const down = (elementChild, parent) => {
   const childs = parent.childs;
   const index = childs.indexOf(elementChild);
   childs.splice(index, 1);
   childs.splice(index + 1, 0, elementChild);
 };
 
-const canUp = function(elementChild, parent) {
-  if (parent.childs.indexOf(elementChild) <= 0) {
-    return false;
-  }
-  return true;
-};
+const canUp = (elementChild, parent) => parent.childs.indexOf(elementChild) > 0;
 
 const canDown = function(elementChild, parent) {
-  if (parent.childs.indexOf(elementChild) >= parent.childs.length - 1) {
-    return false;
-  }
-  return true;
+  return parent.childs.indexOf(elementChild) < parent.childs.length - 1;
 };
 
 export const menu = {

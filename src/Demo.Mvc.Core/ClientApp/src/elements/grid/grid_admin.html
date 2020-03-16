@@ -1,13 +1,13 @@
 ﻿<!-- template grid_admin.html -->
 
-<element-admin element="$ctrl.element">
+<element-admin element="$ctrl.element" on-change="$ctrl.onChange">
     <admin-title>
         Grille
     </admin-title>
     <admin-edit>
         <div ng-repeat="element in $ctrl.element.childs">
             <div ng-switch on="element.type">
-                <element-grid-element-admin class="animate-switch" ng-switch-when="gridElement" element="element">
+                <element-grid-element-admin class="animate-switch" ng-switch-when="gridElement" element="element" on-change="$ctrl.onChange">
                 </element-grid-element-admin>
                 <div class="animate-switch" ng-switch-default>default</div>
             </div>
@@ -17,7 +17,7 @@
             <div ng-if="($index+1)%4 ===0" class="clearfix visible-lg-block"></div>
         </div>
         <div class="clearfix"></div>
-        <element-menu-item element="$ctrl.element"></element-menu-item>
+        <element-menu-item element="$ctrl.element" on-change="$ctrl.onChange"></element-menu-item>
     </admin-edit>
     <admin-view>
         <element-grid element="$ctrl.element"></element-grid>

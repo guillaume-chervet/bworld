@@ -1,5 +1,5 @@
 import _ from 'lodash';
-
+import {guid} from '../shared/services/guid-factory';
 import modulesFactory from '../modules-factory';
 import { master } from '../shared/providers/master-provider';
 import itemStates from '../shared/itemStates';
@@ -82,13 +82,13 @@ const initData = function(result, data) {
     const elem = [];
     const h1 = {
       type: 'h1',
-      property: 'h1',
+      property: guid.guid(),
       label: 'Titre pincipal',
       data: '',
     };
     const p = {
       type: 'p',
-      property: 'p',
+      property: guid.guid(),
       label: 'Paragraphe',
       data: '',
     };
@@ -138,7 +138,7 @@ function mapParent(elementParent) {
   return elementParent;
 }
 
-function saveAsync(moduleId, menuPropertyName, parentId) {
+const saveAsync=(moduleId, menuPropertyName, parentId) => {
   const elementsTemp = elementService.mapElement(elements, metaElements);
   const dataToSend = {
     parentId: parentId,
@@ -161,7 +161,7 @@ function saveAsync(moduleId, menuPropertyName, parentId) {
     });
   module.saveSuccess(promise, moduleId);
   return promise;
-}
+};
 
 const initMenuAdmin = function(menuItems, menuItem) {
   const newMenuItem = {
@@ -186,11 +186,11 @@ const initMenuAdmin = function(menuItems, menuItem) {
   }
 };
 
-function isUploading(elements) {
+const isUploading = (elements) => {
   if (!elements) {
     return false;
   }
-  for (var i = 0; i < elements.length; i++) {
+  for (let i = 0; i < elements.length; i++) {
     const element = elements[i];
     if (
       element.type === 'file' ||
@@ -198,7 +198,7 @@ function isUploading(elements) {
       element.type === 'carousel'
     ) {
       const clientFiles = element.data;
-      for (var j = 0; j < clientFiles.length; j++) {
+      for (let j = 0; j < clientFiles.length; j++) {
         const clientFile = clientFiles[j];
         if (!clientFile.propertyName) {
           return true;
@@ -215,9 +215,9 @@ function isUploading(elements) {
   }
 
   return false;
-}
+};
 
-const getTitle = function(elements) {
+const getTitle = (elements) => {
   if (elements) {
     const elem = getFirstElement(elements, ['h1'], null);
     if (elem) {
@@ -227,15 +227,15 @@ const getTitle = function(elements) {
   return 'Sans titre';
 };
 
-const getFirstParagraph = function(elements) {
+const getFirstParagraph = (elements) => {
   return getFirstElement(elements, ['p'], null);
 };
 
-const getFirstImage = function(elements) {
+const getFirstImage = (elements) => {
   return getFirstElement(elements, ['image', 'file', 'carousel'], null);
 };
 
-const getFirstElement = function(elements, types, defaultValue) {
+const getFirstElement = (elements, types, defaultValue) => {
   if (elements) {
     for (var i = 0; i < elements.length; i++) {
       const element = elements[i];
@@ -256,7 +256,7 @@ const getFirstElement = function(elements, types, defaultValue) {
   return defaultValue;
 };
 
-function addAsync(propertyName, icon) {
+const addAsync = (propertyName, icon) => {
   let elements = [
     {
       type: 'h1',
@@ -293,7 +293,7 @@ function addAsync(propertyName, icon) {
   init(elements);
   data.data.icon = icon;
   return saveAsync(null, propertyName, null);
-}
+};
 
 export const free = {
   addAsync: addAsync,

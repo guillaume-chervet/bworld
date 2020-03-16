@@ -8,7 +8,7 @@ class RteEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    var value = null;
+    let value = null;
     if (props.value) {
       value = RichTextEditor.createValueFromString(props.value, 'html');
     } else {

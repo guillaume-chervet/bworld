@@ -10,7 +10,7 @@
             <div ng-form name="fieldForm" class="form-group">
                 <label for="{{$ctrl.element.property}}" class="col-sm-6 col-md-6 col-xs-4 control-label" ng-transclude="title">Title</label>
                 <div ng-transclude="menu">
-                    <element-menu element="$ctrl.element" class="col-sm-6 col-md-6 col-xs-8">
+                    <element-menu element="$ctrl.element" on-change="$ctrl.onChange"  class="col-sm-6 col-md-6 col-xs-8">
                     </element-menu>
                 </div>
                 <div class="col-sm-12 col-md-12 col-xs-12">
@@ -22,7 +22,7 @@
     </div>
     <!-- Commentaire 1 -->
     <div ng-transclude="add">
-        <element-menu-item ng-if="$ctrl.isLastElement() || $ctrl.isEditMode()" element="$ctrl.element" mode="$ctrl.mode">
+        <element-menu-item ng-if="$ctrl.isLastElement() || $ctrl.isEditMode()" element="$ctrl.element" mode="$ctrl.mode" on-change="$ctrl.onChange">
         </element-menu-item>
     </div>
     <!-- Commentaire 2 -->

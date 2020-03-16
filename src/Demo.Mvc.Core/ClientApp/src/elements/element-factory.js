@@ -1,12 +1,10 @@
-import { guid } from '../shared/services/guid-factory';
-import { convertStringDateToDateObject } from '../shared/date/date-factory';
+import {guid} from '../shared/services/guid-factory';
+import {convertStringDateToDateObject} from '../shared/date/date-factory';
 import services from './services';
 
 import _ from 'lodash';
 
-var $ = window.$;
-
-const addElement = function(type, parentElement) {
+const addElement = (type, parentElement) => {
   let newElement;
   let _parent = null;
   const _service = _getService(type);
@@ -30,9 +28,9 @@ const addElement = function(type, parentElement) {
       $parent: parentElement,
     };
     (function() {
-      var nbChilds = newElement.childs.length;
-      for (var i = 0; i < nbChilds; i++) {
-        var child = newElement.childs[i];
+      const nbChilds = newElement.childs.length;
+      for (let i = 0; i < nbChilds; i++) {
+        const child = newElement.childs[i];
         child.$parent = newElement;
       }
     })();
@@ -50,7 +48,7 @@ const addElement = function(type, parentElement) {
     _parent = parentElement.$parent;
   }
 
-  var index = _parent.childs.indexOf(parentElement) + 1;
+  const index = _parent.childs.indexOf(parentElement) + 1;
   newElement.$parent = _parent;
   if (_parent.$level !== undefined) {
     newElement.$level = _parent.$level + 1;
@@ -60,23 +58,26 @@ const addElement = function(type, parentElement) {
   _parent.childs.splice(index, 0, newElement);
 };
 
-function _getService(type) {
+const _getService =(type) => {
   if (!type) {
     return null;
   }
-  const _service = services[type];
-  return _service;
-}
+  return services[type];
+};
 
-function initDataElement(
+const initDataElement=(
   moduleId,
   sourceElements,
   destElements,
   destMetaElements
-) {
-  sourceElements.forEach(function(element) {
+) => {
+  sourceElements.forEach(element => {
     try {
       const _service = _getService(element.type);
+
+      if(!element.property){
+        element.property= guid.guid();
+      }
 
       if (_service && _service.initDataElement) {
         _service.initDataElement(
@@ -108,14 +109,14 @@ function initDataElement(
       console.log('initDataElement ' + exception.message + element.data);
     }
   });
-}
+};
 
-function mapElement(elements, metaElements) {
+const mapElement = (elements, metaElements) => {
   if (!elements) {
     return null;
   }
   const elementsTemp = [];
-  elements.forEach(function(element) {
+  elements.forEach((element) => {
     let childs = null;
     if (element.childs) {
       childs = mapElement(element.childs);
@@ -153,20 +154,20 @@ function mapElement(elements, metaElements) {
         type: element.type,
         property: element.property,
         data: JSON.stringify(element.data),
-        childs: childs,
+        childs,
       });
     } else {
       elementsTemp.push({
         type: element.type,
         property: element.property,
         data: element.data,
-        childs: childs,
+        childs,
       });
     }
   });
 
   if (metaElements) {
-    metaElements.forEach(function(metaElement) {
+    metaElements.forEach(metaElement => {
       elementsTemp.push({
         type: metaElement.type,
         property: metaElement.property,
@@ -176,23 +177,38 @@ function mapElement(elements, metaElements) {
     });
   }
   return elementsTemp;
-}
+};
 
-const inherit = ctrl => {
-  ctrl.isEdit = false;
-  ctrl.hover = false;
-  ctrl.focus = false;
+export const defaultState = { isEdit : false, hover : false, focus : false};
+
+const inherit = (ctrl = {}, e, state = defaultState , setState) => {
+  const element =  e || ctrl.element;
+  
+  if(!setState){
+    ctrl.isEdit = false;
+    ctrl.hover = false;
+    ctrl.focus = false;
+    
+    setState = newState => {
+      ctrl.isEdit = newState.isEdit;
+      ctrl.hover = newState.hover;
+      ctrl.focus = newState.focus;
+      state.isEdit = newState.isEdit;
+      state.hover = newState.hover;
+      state.focus = newState.focus;
+    }
+  }
 
   const initEditMode = () => {
-    if (ctrl.element) {
-      const data = ctrl.element.data;
+    if (element) {
+      const data = element.data;
 
-      if (ctrl.element.type === 'hr') {
+      if (element.type === 'hr') {
         return false;
       } else if (
-        ctrl.element &&
-        ctrl.element.childs &&
-        ctrl.element.childs.length > 0
+        element &&
+        element.childs &&
+        element.childs.length > 0
       ) {
         return false;
       } else if (_.isArray(data)) {
@@ -201,7 +217,7 @@ const inherit = ctrl => {
         }
       } else if (!data) {
         return true;
-      } else if (ctrl.element.type === 'code') {
+      } else if (element.type === 'code') {
         return data.files.length <= 0 || !data.files[0].code;
       }
     }
@@ -212,38 +228,36 @@ const inherit = ctrl => {
     if (initEditMode()) {
       return true;
     }
-    return ctrl.isEdit;
+    return state.isEdit;
   };
   const clickEdit = () => {
-    ctrl.isEdit = !ctrl.isEdit;
+    setState( {...state, isEdit: !ctrl.isEdit});
   };
 
-  if (ctrl.isEdit === undefined) {
-    ctrl.isEdit = initEditMode();
-  }
+  /*if (ctrl.isEdit === undefined) {
+    setState( {...state, isEdit: !initEditMode()});
+  }*/
 
-  ctrl.addElement = function(type) {
-    ctrl.element.addElement(type, ctrl);
+  ctrl.addElement = (type) => {
+    element.addElement(type, ctrl);
   };
 
-  ctrl.isLastElement = function(elem) {
+  ctrl.isLastElement = elem => {
     let _childs = null;
     if (!elem) {
-      elem = ctrl.element;
+      elem = element;
       _childs = elem.$parent.childs;
     } else {
       _childs = elem.$parent.childs;
     }
-    if (_childs.indexOf(elem) >= _childs.length - 1) {
-      return true;
-    }
-    return false;
+    return _childs.indexOf(elem) >= _childs.length - 1;
+    
   };
 
   ctrl.isEditButtonDisabled = () => {
-    if (ctrl.element) {
-      const data = ctrl.element.data;
-      if ($.isArray(data)) {
+    if (element) {
+      const data = element.data;
+      if (Array.isArray(data)) {
         if (data.length <= 0) {
           return true;
         }
@@ -251,7 +265,7 @@ const inherit = ctrl => {
         return null;
       } else if (!data) {
         return true;
-      } else if (ctrl.element.type === 'code') {
+      } else if (element.type === 'code') {
         return data.files.length <= 0 || !data.files[0].code;
       }
     }
@@ -259,17 +273,17 @@ const inherit = ctrl => {
   };
 
   const isEditButton = () => {
-    return ctrl.hover || isEditMode();
+    return state.hover || isEditMode();
   };
 
   const select = () => {
-    ctrl.hover = true;
+    setState( {...state, hover: true});
   };
   const unselect = () => {
-    ctrl.hover = false;
+    setState( {...state, hover: false});
   };
   const isSelect = () => {
-    return ctrl.hover;
+    return state.hover;
   };
 
   ctrl.unselect = unselect;
@@ -277,10 +291,10 @@ const inherit = ctrl => {
   ctrl.isSelect = isSelect;
 
   const doFocus = () => {
-    ctrl.focus = true;
+    setState({...state, focus: true});
   };
   const doUnfocus = () => {
-    ctrl.focus = false;
+    setState({...state, focus: false});
   };
   const isFocus = () => {
     return ctrl.focus;
@@ -292,11 +306,12 @@ const inherit = ctrl => {
   ctrl.isEditMode = isEditMode;
   ctrl.clickEdit = clickEdit;
   ctrl.isEditButton = isEditButton;
+  return ctrl;
 };
 
 export const service = {
-  mapElement: mapElement,
-  initDataElement: initDataElement,
-  addElement: addElement,
-  inherit: inherit,
+  mapElement,
+  initDataElement,
+  addElement,
+  inherit,
 };

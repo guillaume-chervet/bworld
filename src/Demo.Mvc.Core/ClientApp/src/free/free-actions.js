@@ -11,7 +11,7 @@ export const freeSave = () => ({
   type: FREE_SAVE,
 });
 
-export const freeOnChange = element => ({
+export const freeOnChange = data => ({
   type: FREE_HANDLECHANGE,
-  element: element,
+  data,
 });

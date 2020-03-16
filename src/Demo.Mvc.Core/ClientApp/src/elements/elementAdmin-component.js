@@ -1,15 +1,15 @@
 ﻿import app from '../app.module';
-import { service as elementService } from './element-factory';
+import { service as elementService, defaultState } from './element-factory';
 import view from './admin.html';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { react2angular } from 'react2angular';
-
+import React, { useState } from 'react';
+import classnames from 'classnames';
+import { ElementMenu } from './elementMenu-component';
+import { ElementMenuItem } from './elementMenuItem-component';
 const name = 'elementAdmin';
 
 class Controller {
   $onInit() {
-    var ctrl = this;
+    const ctrl = this;
     elementService.inherit(ctrl);
     return ctrl;
   }
@@ -28,6 +28,7 @@ app.component(name, {
   bindings: {
     element: '=',
     mode: '<',
+    onChange: '<',
   },
 });
 
@@ -37,48 +38,53 @@ export const ElementAdmin = ({
   adminTitle,
   adminMenu,
   adminAdd,
+  element,
+    onChange,
+                               mode,
 }) => {
+  const [state , setState] = useState(defaultState);
+  const $ctrl = elementService.inherit(undefined, element, state, setState);
+  const className = classnames({'hover': $ctrl.isSelect(), 'open': $ctrl.isEditMode()});
+  const styleButton = { visibility: $ctrl.isEditButton() ? 'visible': 'hidden' };
   return (
     <div
       className="mw-edit-panel"
-      ng-mouseenter="$ctrl.select()"
-      ng-mouseleave="$ctrl.unselect()">
-      <div data-ng-class="{'hover': $ctrl.isSelect(), 'open': $ctrl.isEditMode()}">
+      onMouseEnter={$ctrl.select}
+      onMouseLeave={$ctrl.unselect}>
+      <div className={className}>
         <button
-          ng-show="$ctrl.isEditButton()"
+          style={styleButton}
           className="btn btn-success mw-edit"
-          ng-click="$ctrl.clickEdit()"
+          onClick={$ctrl.clickEdit}
           type="button"
           data-toggle="dropdown"
           aria-expanded="true">
-          <span className="glyphicon glyphicon glyphicon-edit"></span>
+          <span className="glyphicon glyphicon glyphicon-edit"/>
         </button>
-        <div ng-if="$ctrl.isEditMode()">
-          <div ng-form name="fieldForm" className="form-group">
+        {$ctrl.isEditMode() && <div>
+          <div name="fieldForm" className="form-group">
             <label
-              htmlFor="{{$ctrl.element.property}}"
+              htmlFor={element.property}
               className="col-sm-6 col-md-6 col-xs-4 control-label"
-              ng-transclude="title">
-              Title
+              >
+              {adminTitle}
             </label>
-            <div ng-transclude="menu">
-              <element-menu
-                element="$ctrl.element"
-                className="col-sm-6 col-md-6 col-xs-8"></element-menu>
-            </div>
+            { adminMenu ? <>{adminMenu}</> :
+              <div className="col-sm-6 col-md-6 col-xs-8">
+                <ElementMenu element={element} onChange={onChange} />
+            </div>}
             <div className="col-sm-12 col-md-12 col-xs-12">
-              <div ng-transclude="edit"></div>
+              {adminEdit && <>{adminEdit}</> }
             </div>
           </div>
-        </div>
-        <div ng-if="!$ctrl.isEditMode()" ng-transclude="view"></div>
+        </div>}
+        {!$ctrl.isEditMode() && <>{adminView}</> }
       </div>
-      <div ng-transclude="add">
-        <element-menu-item
-          ng-if="$ctrl.isLastElement() || $ctrl.isEditMode()"
-          element="$ctrl.element"
-          mode="$ctrl.mode"></element-menu-item>
-      </div>
+      {adminAdd ? <>{adminAdd}</> :
+          <>{$ctrl.isLastElement() || $ctrl.isEditMode() && <ElementMenuItem
+    element={element}
+    mode={mode} onChange={onChange}/> }</>
+      }
     </div>
   );
 };

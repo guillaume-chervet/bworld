@@ -334,10 +334,7 @@ namespace Demo.Seo
 
                 var startInfo = new ProcessStartInfo
                 {
-                    Arguments =
-                        $"{"--ssl-protocol=any"} {snapshot} {url}",
-                    //Arguments = "--proxy=http://PRAFAPXYVIPADM.siege.axa-fr.intraxa:8080 " + String.Format("{0} {1}", Path.Combine(appRoot, "Scripts\\createSnapshot.js"), url),
-                    //Arguments = "--proxy=10.208.28.57:8080 " + String.Format("{0} {1}", Path.Combine(appRoot, "Scripts\\createSnapshot.js"), url),
+                    Arguments = $"{"--ssl-protocol=any"} {snapshot} {url}",
                     FileName = phantomjs,
                     UseShellExecute = false,
                     CreateNoWindow = true,

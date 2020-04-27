@@ -19,6 +19,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/tags/{siteId}/{type}")]
         public async Task<CommandResult<GetTagsResult>> GetTags([FromServices]GetTagsCommand _getTagsCommand, string siteId, string type)
         {

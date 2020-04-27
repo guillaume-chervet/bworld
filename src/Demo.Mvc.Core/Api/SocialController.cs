@@ -18,6 +18,7 @@ namespace Demo.Mvc.Core.Api
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/social/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> Get([FromServices]GetSocialCommand _getContactCommand, string siteId, string moduleId)
         {

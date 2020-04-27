@@ -64,6 +64,7 @@ namespace Demo.Mvc.Core
             var origins = businessConfig.Domains.Where(d => String.IsNullOrEmpty(d.CorsOrigin) == false)
                 .Select(d => d.CorsOrigin).ToArray();
 
+            services.AddResponseCaching();
             // Add service and create Policy with options
             services.AddCors(options =>
             {
@@ -179,6 +180,7 @@ namespace Demo.Mvc.Core
             });
 
             app.UseRouting();
+            app.UseResponseCaching();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

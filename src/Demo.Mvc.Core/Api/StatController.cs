@@ -22,6 +22,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpPost]
+        [ResponseCache(Duration = 0)]
         [Route("api/stat/get")]
         public async Task<CommandResult> Get([FromServices]GetStatsCommand _getStatsCommand, [FromBody] GetStatsInput data)
         {

@@ -41,6 +41,7 @@ namespace Demo.Mvc.Core
                 {
                     facebookOptions.AppId = facebookId;
                     facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+                   
                 });
             }
 

@@ -71,7 +71,4 @@
     <PackageReference Include="System.Spatial" Version="5.8.4" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="AppReadme\Compare-NET-Objects-Help.txt" />
-  </ItemGroup>
 </Project>

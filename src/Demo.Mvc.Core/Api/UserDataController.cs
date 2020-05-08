@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.User.SiteData;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.UserCore.SiteData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Mvc.Core.Api

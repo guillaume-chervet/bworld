@@ -21,7 +21,15 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" Condition="'$(Configuration)' == 'Debug'" />
-  </ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+        <PackageReference Include="mongocsharpdriver" Version="2.8.1" />
+        <PackageReference Include="MongoDB.Bson" Version="2.9.2" />
+        <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+        <PackageReference Include="MongoDB.Driver.Core" Version="2.8.1" />
+        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.8.1" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
+        <PackageReference Include="CompareNETObjects" Version="4.61.0" />
+      </ItemGroup>
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="wwwroot\**" />
@@ -39,6 +47,7 @@
     <None Remove="$(SpaRoot)**" />
     <None Remove="wwwroot\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Include="Sites\Data\App.config" />
   </ItemGroup>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
@@ -117,5 +126,8 @@
     <Content Update="appsettings.Production.Template.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure" />
   </ItemGroup>
 </Project>

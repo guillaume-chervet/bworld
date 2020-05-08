@@ -2,14 +2,14 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Demo.Business;
-using Demo.Business.Command.File;
-using Demo.Business.Command.File.Models;
 using Demo.Common.Command;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command.File;
+using Demo.Mvc.Core.Sites.Core.Command.File.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using FileResult = Demo.Business.Command.File.Models.FileResult;
+using FileResult = Demo.Mvc.Core.Sites.Core.Command.File.Models.FileResult;
 
 namespace Demo.Mvc.Core.Api
 {

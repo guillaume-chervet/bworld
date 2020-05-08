@@ -29,13 +29,10 @@ const clear_attr = (str, attrs) => {
 
 
 export const ElementPAdmin = ({ element, mode, onChange }) => {
-
   const data = clear_attr(element.data, []);
-
   const onChangeWrapper = (html) => {
     onChange({ what: "element-edit", element: {...element, data:html}});
   };
-  
   return (
           <ElementAdmin 
               onChange={onChange}

@@ -229,7 +229,7 @@ namespace Demo.Mvc.Core.Sites.Data
 
             var assembly =
                 AppDomain.CurrentDomain.GetAssemblies()
-                    .Where(a => a.ManifestModule.Name == "Demo.Business.dll")
+                    .Where(a => a.ManifestModule.Name == "Demo.Mvc.Core.dll")
                     .FirstOrDefault();
 
             if (assembly != null)
@@ -238,7 +238,7 @@ namespace Demo.Mvc.Core.Sites.Data
                 {
                     foreach (var type in assembly.GetTypes())
                     {
-                        if (type.FullName == item.Type)
+                        if (type.FullName == item.Type.Replace("Demo.Business", "Demo.Mvc.Core.Sites.Core"))
                         {
                             return JsonConvert.DeserializeObject(item.Json, type);
                         }

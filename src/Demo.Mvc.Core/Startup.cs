@@ -4,10 +4,10 @@ using System.Linq;
 using Demo.Business.Command.Contact.Message.SiteMap;
 using Demo.Data;
 using Demo.Log;
+using Demo.Log.Core;
 using Demo.Mvc.Core.Data;
 using Demo.Mvc.Core.Email;
 using Demo.Mvc.Core.Geo.Core;
-using Demo.Mvc.Core.Log.Core;
 using Demo.Mvc.Core.Logging;
 using Demo.Mvc.Core.Message;
 using Demo.Mvc.Core.Routing;
@@ -16,7 +16,6 @@ using Demo.Mvc.Core.Sites.Data.Azure;
 using Demo.Mvc.Core.Stats;
 using Demo.Mvc.Core.Tags;
 using Demo.Mvc.Core.UserCore;
-using Demo.Queue;
 using Demo.Seo;
 using Demo.User.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -98,7 +97,7 @@ namespace Demo.Mvc.Core
             services.ConfigureTagsCore();
             services.ConfigureSiteCore(Configuration);
             services.ConfigureRouting();
-            services.ConfigureQueue();
+           //services.ConfigureQueue();
             services.ConfigureDataMongo(Configuration);
             services.AddTransient<ISiteMap, MessageSiteMap>();
 

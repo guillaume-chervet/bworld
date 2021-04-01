@@ -14,7 +14,7 @@ namespace Demo.Mvc.Core.UserCore
 
             foreach (var type in assembly.GetTypes())
             {
-                if (type.Name.EndsWith("Command"))
+                if (type.Name.EndsWith("Command") && type.Namespace.Contains("UserCore"))
                 {
                     commands.Add(type);
                 }

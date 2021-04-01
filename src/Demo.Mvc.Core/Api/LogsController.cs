@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Demo.Business.Command;
 using Demo.Common.Command;
+using Demo.Log;
+using Demo.Log.Core;
 using Demo.Mvc.Core.Api.Extentions;
-using Demo.Mvc.Core.Log;
-using Demo.Mvc.Core.Log.Core;
 using Demo.Mvc.Core.Sites.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

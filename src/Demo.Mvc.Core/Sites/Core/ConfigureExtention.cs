@@ -19,7 +19,7 @@ namespace Demo.Mvc.Core.Sites.Core
 
             foreach (var type in assembly.GetTypes())
             {
-                if (type.Name.EndsWith("Command"))
+                if (type.Name.EndsWith("Command") && type.Namespace.Contains("Sites.Core"))
                 {
                 if (type.IsAbstract || type.IsInterface)
                                 {

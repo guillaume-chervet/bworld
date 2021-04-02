@@ -61,7 +61,6 @@
     "recompose": "^0.30.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "sass": "1.32.8",
     "toastr": "latest",
     "video-react": "^0.14.1",
     "youtube-iframe": "^1.0.3"
@@ -80,6 +79,7 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
     "fs-extra": "^8.1.0",
+    "sass": "1.32.8",
     "prettier": "^1.18.2",
     "raw-loader": "^3.1.0",
     "react-app-rewired": "^2.1.5"

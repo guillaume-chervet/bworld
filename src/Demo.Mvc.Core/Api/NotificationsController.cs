@@ -20,6 +20,7 @@ namespace Demo.Mvc.Core.Api
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/notifications/item/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> GetItem([FromServices]GetNotificationsItemCommand _getNotificationsItemCommand, string siteId, string moduleId)
         {
@@ -38,6 +39,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/notifications/{siteId}")]
         public async Task<CommandResult<GetNewsResult>> GetNotifications([FromServices]GetNotificationsCommand getNotificationsCommand, string siteId)
         {
@@ -46,6 +48,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/notifications/{siteId}/{index}")]
         public async Task<CommandResult<GetNewsResult>> GetNotifications([FromServices]GetNotificationsCommand _getNotificationsCommand, string siteId, int? index)
         {

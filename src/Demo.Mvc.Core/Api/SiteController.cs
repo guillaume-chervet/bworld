@@ -37,6 +37,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/site/load/{siteId}/{moduleId}")]
         public async Task<CommandResult> Load([FromServices]LoadAddSiteCommand _loadAddSiteCommand, string siteId, string moduleId)
         {
@@ -89,8 +90,7 @@ namespace Demo.Mvc.Core.Api
 
             return result;
         }
-
-//        [AntiForgeryValidate]
+        
         [Authorize]
         [HttpPost]
         [Route("api/site/saveaddsite")]
@@ -162,8 +162,7 @@ namespace Demo.Mvc.Core.Api
 
             return result;
         }
-
-        //       [AntiForgeryValidate]
+        
         [Authorize]
         [HttpDelete]
         [Route("api/site/delete/{siteId}")]
@@ -182,7 +181,7 @@ namespace Demo.Mvc.Core.Api
             return result;
         }
 
-        // [Authorize]
+        [Authorize]
 
         [HttpGet]
         [Route("api/site/clearcache")]
@@ -216,6 +215,7 @@ namespace Demo.Mvc.Core.Api
                 }*/
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/site/master")]
         public async Task<ActionResult<BaseParameters>> Master([FromServices] ModuleManager moduleManager,[FromServices] ResetSiteCacheCommand resetSiteCacheCommand,[FromServices]IRouteManager routeManager, [FromServices]IOptions<ApplicationConfig> options,[FromQuery]string url, [FromQuery] string port="" )
         {

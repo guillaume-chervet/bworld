@@ -21,6 +21,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/seo/get/{siteId}")]
         public async Task<CommandResult> Get([FromServices]GetSeoCommand _getSeoCommand, string siteId)
         {

@@ -23,6 +23,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/user/getusers")]
         public async Task<CommandResult> GetUsers([FromServices]GetUsersCommand _getUsersCommand)
         {
@@ -42,6 +43,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/user/getinfo/{siteId}")]
         public async Task<CommandResult<GetUserInfoResult>> GetInfo([FromServices]GetUserInfoCommand _getUserInfoCommand, string siteId)
         {
@@ -61,6 +63,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpGet]
+        [ResponseCache(Duration = 0)]
         [Route("api/user/notification/{siteId}")]
         public async Task<CommandResult<GetNotificationResult>> GetNotification([FromServices]GetNotificationCommand _getNotificationCommand, string siteId)
         {

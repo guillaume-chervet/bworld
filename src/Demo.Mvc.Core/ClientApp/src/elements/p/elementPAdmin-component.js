@@ -1,4 +1,4 @@
-﻿import app from '../../app.module';
+import app from '../../app.module';
 import { LoadableRteEditor } from './TextEditor';
 import { Paragraphe } from './elementP-component';
 import { ElementAdmin } from '../elementAdmin-component';

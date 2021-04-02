@@ -1,4 +1,4 @@
-﻿import app from '../../app.module';
+import app from '../../app.module';
 import { H1 } from './elementH1-component';
 import { ElementAdmin } from '../elementAdmin-component';
 import React from 'react';

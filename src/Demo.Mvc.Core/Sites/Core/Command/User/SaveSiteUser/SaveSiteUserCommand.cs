@@ -226,7 +226,7 @@ namespace Demo.Mvc.Core.Sites.Core.Command.User.SaveSiteUser
                 identityMessage.Subject = string.Format("[{0}] {1} vous a donné les droits administrateur", model.SiteName,
                     model.AdderUserName);
                 identityMessage.Body = new StringTemplateRenderer().Render(
-                    ResourcesLoader.Load(String.Concat("Command", "User", "SaveSiteUser","AdministrationAddUserfound.st")), model);
+                    ResourcesLoader.Load(String.Concat("Sites", "Core", "Command", "User", "SaveSiteUser","AdministrationAddUserfound.st")), model);
                 identityMessage.Destination = modifiedUserDb.Email;
                 await _emailService.SendAsync(identityMessage);
         }
@@ -243,7 +243,7 @@ namespace Demo.Mvc.Core.Sites.Core.Command.User.SaveSiteUser
             identityMessage.Subject = string.Format("[{0}] {1} vous a donné les droits administrateur", model.SiteName,
                 model.AdderUserName);
             identityMessage.Body = new StringTemplateRenderer().Render(
-                ResourcesLoader.Load(String.Concat("Command", "User", "SaveSiteUser","AdministrationAddUserNotfound.st")), model);
+                ResourcesLoader.Load(String.Concat("Sites", "Core", "Command", "User", "SaveSiteUser","AdministrationAddUserNotfound.st")), model);
             identityMessage.Destination = mail;
             await _emailService.SendAsync(identityMessage);
            

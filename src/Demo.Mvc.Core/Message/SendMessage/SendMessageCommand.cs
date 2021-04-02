@@ -306,7 +306,7 @@ namespace Demo.Business.Command.Contact.Message
 
             identityMessage.Subject = subject;
             identityMessage.Body = new StringTemplateRenderer().Render(
-               ResourcesLoader.Load(Path.Combine("Renderers", "MessageSender.st")), messageSenderMailModel);
+               ResourcesLoader.Load(Path.Combine("Message", "Renderers", "MessageSender.st")), messageSenderMailModel);
             identityMessage.Destination = emailTo;
             await _emailService.SendAsync(identityMessage);
         }
@@ -324,7 +324,7 @@ namespace Demo.Business.Command.Contact.Message
 
             identityMessage.Subject = subject;
             identityMessage.Body = new StringTemplateRenderer().Render(
-                ResourcesLoader.Load(Path.Combine("Renderers", "MessageReceiver.st")), messageReceiverMailModel);
+                ResourcesLoader.Load(Path.Combine("Message", "Renderers", "MessageReceiver.st")), messageReceiverMailModel);
             identityMessage.Destination = emailTo;
             await _emailService.SendAsync(identityMessage);
         }

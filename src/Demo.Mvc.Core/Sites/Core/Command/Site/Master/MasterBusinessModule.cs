@@ -91,7 +91,7 @@ namespace Demo.Mvc.Core.Sites.Core.Command.Site.Master
                 ColorSeparator = ColorHelper.Grayer(colorBackgroundMenu, -70, 0, 220)
         };
 
-            var template = ResourcesLoader.Load(Path.Combine("Renderers", "Style.st"));
+            var template = ResourcesLoader.Load(Path.Combine("Sites", "Core", "Renderers", "Style.st"));
             var styleTemplate = new StringTemplateRenderer().Render(template, styleModel);
 
             masterInfo.StyleTemplate = styleTemplate;

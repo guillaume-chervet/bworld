@@ -1,8 +1,0 @@
-﻿C:\Projects\MyWorld\Main\Sources\Demo.Seo.Console\bin\Release\
-phantomjs.exe --ssl-protocol=any "C:\Projects\MyWorld\Main\Sources\Demo.Seo.Console\bin\Release\Scripts\createSnapshot.js" https://www.bworld.fr
-
-
-D:\home\site\wwwroot\App_Data\jobs\continuous\Demo-Seo-Console\
-
-phantomjs.exe --ssl-protocol=any "D:\home\site\wwwroot\App_Data\jobs\continuous\Demo-Seo-Console\Scripts\createSnapshot.js" http://www.guillaume-chervet.fr
-

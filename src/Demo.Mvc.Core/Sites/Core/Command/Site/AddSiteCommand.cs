@@ -171,7 +171,7 @@ namespace Demo.Mvc.Core.Sites.Core.Command.Site
             createSiteMailModel.SiteUrl = siteUrl;
             createSiteMailModel.SiteUrlAdmin = UrlHelper.Concat(siteUrl, "administration");
             createSiteMailModel.UserName = user.FullName;
-            var createSiteTempate = ResourcesLoader.Load(Path.Combine("Renderers", "CreateSite.st"));
+            var createSiteTempate = ResourcesLoader.Load(Path.Combine("Sites", "Core", "Renderers", "CreateSite.st"));
             identityMessage.Body = new StringTemplateRenderer().Render(
                 createSiteTempate, createSiteMailModel);
 

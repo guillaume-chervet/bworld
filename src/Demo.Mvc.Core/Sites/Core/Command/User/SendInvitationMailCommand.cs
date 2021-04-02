@@ -64,7 +64,7 @@ namespace Demo.Mvc.Core.Sites.Core.Command.User
             var identityMessage = new MailMessage();
             identityMessage.Subject = string.Format("[{0}] {1} vous invite à vous inscrire sur le site", model.SiteName,
                 model.UserNameSender);
-            identityMessage.Body = new StringTemplateRenderer().Render(ResourcesLoader.Load(Path.Combine("Renderers", "MailInvitation.st"))
+            identityMessage.Body = new StringTemplateRenderer().Render(ResourcesLoader.Load(Path.Combine("Sites", "Core", "Renderers", "MailInvitation.st"))
                 , model);
             identityMessage.Destination = friendUserDb.Mail;
             await _emailService.SendAsync(identityMessage);

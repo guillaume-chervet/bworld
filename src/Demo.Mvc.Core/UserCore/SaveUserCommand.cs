@@ -68,7 +68,7 @@ namespace Demo.Mvc.Core.UserCore
                     createUserMailModel.UserName = applicationUser.FullName;
 
                     var templateMail =
-                        new StringTemplateRenderer().Render( ResourcesLoader.Load(Path.Combine( "Renderers" ,"UserChangeMail.st")),
+                        new StringTemplateRenderer().Render( ResourcesLoader.Load(Path.Combine("UserCore", "Renderers" ,"UserChangeMail.st")),
                             createUserMailModel);
                     await
                         SendEmailAsync(_emailService, applicationUser, "[bworld] Confirmation de votre email", templateMail);
@@ -95,7 +95,7 @@ namespace Demo.Mvc.Core.UserCore
             createUserMailModel.Provider = model.Provider;
 
             var templateMail =
-                new StringTemplateRenderer().Render(ResourcesLoader.Load(Path.Combine("Renderers", "CreateUser.st")),
+                new StringTemplateRenderer().Render(ResourcesLoader.Load(Path.Combine("UserCore", "Renderers", "CreateUser.st")),
                     createUserMailModel);
             await SendEmailAsync(emailService, user, "[bworld] Confirmation de votre email", templateMail);
         }
@@ -131,7 +131,7 @@ namespace Demo.Mvc.Core.UserCore
             createUserMailModel.UserName = user.FullName;
 
             var templateMail =
-                new StringTemplateRenderer().Render(ResourcesLoader.Load(Path.Combine("Renderers", "ResetPassword.st")), createUserMailModel);
+                new StringTemplateRenderer().Render(ResourcesLoader.Load(Path.Combine("UserCore", "Renderers", "ResetPassword.st")), createUserMailModel);
             await SendEmailAsync(emailService, user, "[bworld] Re-initialisation mot de votre mot passe", templateMail);
         }
 

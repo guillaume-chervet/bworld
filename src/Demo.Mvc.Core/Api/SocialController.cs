@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.Social;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command;
+using Demo.Mvc.Core.Sites.Core.Command.Social;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace Demo.Mvc.Core.Api
         }
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/social/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> Get([FromServices]GetSocialCommand _getContactCommand, string siteId, string moduleId)
         {

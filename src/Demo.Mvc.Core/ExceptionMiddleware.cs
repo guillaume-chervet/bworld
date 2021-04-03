@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Demo.Common;
+using Demo.Mvc.Core.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Demo.Mvc.Core.Api.Attributes
+namespace Demo.Mvc.Core
 {
     public class ExceptionMiddleware
     {

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.User.SiteData;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.UserCore.SiteData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Mvc.Core.Api
@@ -19,7 +19,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/user/data/{siteId}")]
         public async Task<CommandResult<InputUserDataResult>> GetUsers([FromServices]GetUserDataCommand _getUserDataCommand, string siteId, string cookieSessionId = null)
         {

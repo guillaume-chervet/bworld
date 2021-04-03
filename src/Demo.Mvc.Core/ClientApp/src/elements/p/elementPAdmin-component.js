@@ -1,4 +1,4 @@
-﻿import app from '../../app.module';
+import app from '../../app.module';
 import { LoadableRteEditor } from './TextEditor';
 import { Paragraphe } from './elementP-component';
 import { ElementAdmin } from '../elementAdmin-component';
@@ -29,13 +29,10 @@ const clear_attr = (str, attrs) => {
 
 
 export const ElementPAdmin = ({ element, mode, onChange }) => {
-
   const data = clear_attr(element.data, []);
-
   const onChangeWrapper = (html) => {
     onChange({ what: "element-edit", element: {...element, data:html}});
   };
-  
   return (
           <ElementAdmin 
               onChange={onChange}

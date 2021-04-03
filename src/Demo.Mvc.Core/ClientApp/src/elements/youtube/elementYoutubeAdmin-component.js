@@ -20,3 +20,10 @@ app.component(name, {
 });
 
 export default name;
+
+var client = new XMLHttpRequest()
+client.open("GET", "./devis")
+client.withCredentials = true
+
+// new dom api
+fetch("./devi", { credentials:"include" }).then(/* … */)

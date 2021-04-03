@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.News;
-using Demo.Business.Command.News.Models;
 using Demo.Common.Command;
-using Demo.Data.Model;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command;
+using Demo.Mvc.Core.Sites.Core.Command.News;
+using Demo.Mvc.Core.Sites.Core.Command.News.Models;
+using Demo.Mvc.Core.Sites.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/articles/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> Get( [FromServices] GetNewsCommand _getNewsCommand, string siteId, string moduleId, IList<ItemState> states = null,
             int? index = null, string[] tags = null)
@@ -51,7 +52,7 @@ namespace Demo.Mvc.Core.Api
         }
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/articles/item/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> GetItem( [FromServices] GetNewsItemCommand _getNewsItemCommand, string siteId, string moduleId)
         {

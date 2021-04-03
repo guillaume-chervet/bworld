@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.News.Models;
-using Demo.Business.Command.Notifications;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command;
+using Demo.Mvc.Core.Sites.Core.Command.News.Models;
+using Demo.Mvc.Core.Sites.Core.Command.Notifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace Demo.Mvc.Core.Api
         }
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/notifications/item/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> GetItem([FromServices]GetNotificationsItemCommand _getNotificationsItemCommand, string siteId, string moduleId)
         {
@@ -38,7 +39,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/notifications/{siteId}")]
         public async Task<CommandResult<GetNewsResult>> GetNotifications([FromServices]GetNotificationsCommand getNotificationsCommand, string siteId)
         {
@@ -47,7 +48,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/notifications/{siteId}/{index}")]
         public async Task<CommandResult<GetNewsResult>> GetNotifications([FromServices]GetNotificationsCommand _getNotificationsCommand, string siteId, int? index)
         {

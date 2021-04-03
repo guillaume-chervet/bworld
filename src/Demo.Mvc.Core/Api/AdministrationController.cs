@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
 using Demo.Business.Command.Administration;
-using Demo.Business.Command.Administration.Models;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command.Administration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

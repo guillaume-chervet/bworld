@@ -9,10 +9,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using Demo.Business;
-using Demo.Business.Command.File;
-using Demo.Business.Command.File.Models;
 using Demo.Common.Command;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command.File;
+using Demo.Mvc.Core.Sites.Core.Command.File.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Mvc.Core.Api

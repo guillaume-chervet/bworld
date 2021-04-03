@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.Tags;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Tags;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +19,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/tags/{siteId}/{type}")]
         public async Task<CommandResult<GetTagsResult>> GetTags([FromServices]GetTagsCommand _getTagsCommand, string siteId, string type)
         {

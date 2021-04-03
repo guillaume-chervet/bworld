@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.User;
-using Demo.Business.Command.User.Models;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command.User;
+using Demo.Mvc.Core.UserCore;
 using Demo.User.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +23,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/user/getusers")]
         public async Task<CommandResult> GetUsers([FromServices]GetUsersCommand _getUsersCommand)
         {
@@ -43,7 +43,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/user/getinfo/{siteId}")]
         public async Task<CommandResult<GetUserInfoResult>> GetInfo([FromServices]GetUserInfoCommand _getUserInfoCommand, string siteId)
         {
@@ -63,7 +63,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/user/notification/{siteId}")]
         public async Task<CommandResult<GetNotificationResult>> GetNotification([FromServices]GetNotificationCommand _getNotificationCommand, string siteId)
         {

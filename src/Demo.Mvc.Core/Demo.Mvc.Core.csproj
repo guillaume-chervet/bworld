@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <TieredCompilation>true</TieredCompilation>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
@@ -16,29 +16,83 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="3.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" Condition="'$(Configuration)' == 'Debug'" />
-  </ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.4" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Sendgrid" Version="9.11.0" />
+    <PackageReference Include="StringTemplate4" Version="4.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="mongocsharpdriver" Version="2.8.1" />
+        <PackageReference Include="MongoDB.Bson" Version="2.9.2" />
+        <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+        <PackageReference Include="MongoDB.Driver.Core" Version="2.8.1" />
+        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.8.1" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
+        <PackageReference Include="CompareNETObjects" Version="4.73.0" />
+        <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+        <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+      </ItemGroup>
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="wwwroot\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="wwwroot\**" />
-    <Content Include="ClientApp\.storybook\config.js" />
-    <Content Include="ClientApp\src\elements\carousel\carousel.css" />
-    <Content Include="ClientApp\src\elements\carousel\Carousel.js" />
-    <Content Include="ClientApp\src\elements\carousel\LoadableCarousel.js" />
-    <Content Include="ClientApp\src\elements\message\elementMessage.stories.js" />
-    <Content Include="ClientApp\src\elements\message\elementMessageContainer.js" />
-    <Content Include="ClientApp\src\elements\message\message.css" />
-    <Content Include="ClientApp\src\index.stories.js" />
     <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="wwwroot\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Include="Sites\Data\App.config" />
+    <None Update="Sites\Core\Renderers\CommentAdded.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Renderers\CreateSite.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Renderers\CreateUser.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Renderers\MailInvitation.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Renderers\ResetPassword.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Renderers\Style.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Renderers\UserChangeMail.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="UserCore\Renderers\CreateSite.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="UserCore\Renderers\CreateUser.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="UserCore\Renderers\MailInvitation.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="UserCore\Renderers\ResetPassword.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="UserCore\Renderers\UserChangeMail.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Command\User\SaveSiteUser\AdministrationAddUserfound.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sites\Core\Command\User\SaveSiteUser\AdministrationAddUserNotfound.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Message\Renderers\MessageReceiver.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Message\Renderers\MessageSender.st">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
@@ -76,33 +130,6 @@
     <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
   </Target>
   <ItemGroup>
-    <ProjectReference Include="..\Demo.Common\Demo.Common.csproj" />
-    <ProjectReference Include="..\Demo.Core.Infrastructure\Demo.Core.Infrastructure.csproj" />
-    <ProjectReference Include="..\Demo.Data.Mongo\Demo.Data.Mongo.csproj" />
-    <ProjectReference Include="..\Demo.Domain.Data\Demo.Domain.Data.csproj" />
-    <ProjectReference Include="..\Demo.Domain\Demo.Domain.csproj" />
-    <ProjectReference Include="..\Demo.Email\Demo.Email.csproj" />
-    <ProjectReference Include="..\Demo.Geo.Core\Demo.Geo.Core.csproj" />
-    <ProjectReference Include="..\Demo.Geo\Demo.Geo.csproj" />
-    <ProjectReference Include="..\Demo.History.Data\Demo.History.Data.csproj" />
-    <ProjectReference Include="..\Demo.Log.Core\Demo.Log.Core.csproj" />
-    <ProjectReference Include="..\Demo.Log\Demo.Log.csproj" />
-    <ProjectReference Include="..\Demo.Message.Core\Demo.Message.Core.csproj" />
-    <ProjectReference Include="..\Demo.Message.Data\Demo.Message.Data.csproj" />
-    <ProjectReference Include="..\Demo.Queue\Demo.Queue.csproj" />
-    <ProjectReference Include="..\Demo.Renderer\Demo.Renderer.csproj" />
-    <ProjectReference Include="..\Demo.Routing\Demo.Routing.csproj" />
-    <ProjectReference Include="..\Demo.Seo\Demo.Seo.csproj" />
-    <ProjectReference Include="..\Demo.Site.Core\Demo.Site.Core.csproj" />
-    <ProjectReference Include="..\Demo.Site.Data\Demo.Site.Data.csproj" />
-    <ProjectReference Include="..\Demo.Stats.Core\Demo.Stats.Core.csproj" />
-    <ProjectReference Include="..\Demo.Stats.Data\Demo.Stats.Data.csproj" />
-    <ProjectReference Include="..\Demo.Tags.Core\Demo.Tags.Core.csproj" />
-    <ProjectReference Include="..\Demo.Tags.Data\Demo.Tags.Data.csproj" />
-    <ProjectReference Include="..\Demo.User.Core\Demo.User.Core.csproj" />
-    <ProjectReference Include="..\Demo.User\Demo.User.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -117,5 +144,8 @@
     <Content Update="appsettings.Production.Template.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure" />
   </ItemGroup>
 </Project>

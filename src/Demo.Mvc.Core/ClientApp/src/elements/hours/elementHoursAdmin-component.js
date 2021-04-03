@@ -12,11 +12,11 @@ class Controller {
     ctrl.hstep = 1;
 
     ctrl.add = function(day) {
-      var beginDate = new Date();
+      const beginDate = new Date();
       beginDate.setHours(8);
       beginDate.setMinutes(0);
 
-      var endDate = new Date();
+      const endDate = new Date();
       endDate.setHours(18);
       endDate.setMinutes(30);
 
@@ -27,18 +27,15 @@ class Controller {
     };
 
     ctrl.delete = function(day, hour) {
-      var index = day.hours.indexOf(hour);
+      const index = day.hours.indexOf(hour);
       if (index > -1) {
         day.hours.splice(index, 1);
       }
     };
 
     ctrl.isLastElement = function(day, hour) {
-      var index = day.hours.indexOf(hour);
-      if (index === day.hours.length - 1) {
-        return true;
-      }
-      return false;
+      const index = day.hours.indexOf(hour);
+      return index === day.hours.length - 1;
     };
 
     ctrl.getClassLabel = function(element) {

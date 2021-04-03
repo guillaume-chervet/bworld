@@ -1,11 +1,10 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.Stats;
-using Demo.Business.Command.Stats.Models;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Stats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +21,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpPost]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/stat/get")]
         public async Task<CommandResult> Get([FromServices]GetStatsCommand _getStatsCommand, [FromBody] GetStatsInput data)
         {

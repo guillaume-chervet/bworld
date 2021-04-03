@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Demo.Business.Command.Contact.Message.SiteMap;
 using Demo.Data;
-using Demo.Routing.Interfaces;
-using Demo.Site.Helper;
+using Demo.Mvc.Core.Routing;
+using Demo.Mvc.Core.Sites.Core.Command;
+using Demo.Mvc.Core.Sites.Data;
 
 namespace Demo.Mvc.Core.Message
 {

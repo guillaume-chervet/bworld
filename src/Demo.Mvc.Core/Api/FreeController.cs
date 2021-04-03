@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
 using Demo.Business.Command;
-using Demo.Business.Command.Free;
-using Demo.Business.Command.Free.Models;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.Command;
+using Demo.Mvc.Core.Sites.Core.Command.Free;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +18,7 @@ namespace Demo.Mvc.Core.Api
         {
         }
 
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [HttpGet]
         [Route("api/free/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> Get([FromServices] GetFreeCommand _getFreeCommand, string siteId, string moduleId)

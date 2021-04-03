@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Demo.Business;
-using Demo.Business.BusinessModule;
+using System.Web;
 using Demo.Business.Command;
-using Demo.Business.Command.Site;
-using Demo.Business.Command.Site.Cache;
-using Demo.Business.Command.Site.Master;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
 using Demo.Mvc.Core.Controllers;
 using Demo.Mvc.Core.Controllers.Models;
-using Demo.Routing.Extentions;
-using Demo.Routing.Interfaces;
-using Demo.Routing.Models;
+using Demo.Mvc.Core.Routing;
+using Demo.Mvc.Core.Routing.Extentions;
+using Demo.Mvc.Core.Routing.Models;
+using Demo.Mvc.Core.Sites.Core;
+using Demo.Mvc.Core.Sites.Core.BusinessModule;
+using Demo.Mvc.Core.Sites.Core.Command.Site;
+using Demo.Mvc.Core.Sites.Core.Command.Site.Cache;
+using Demo.Mvc.Core.Sites.Core.Command.Site.Master;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -37,7 +38,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/site/load/{siteId}/{moduleId}")]
         public async Task<CommandResult> Load([FromServices]LoadAddSiteCommand _loadAddSiteCommand, string siteId, string moduleId)
         {
@@ -215,11 +216,11 @@ namespace Demo.Mvc.Core.Api
                 }*/
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/site/master")]
         public async Task<ActionResult<BaseParameters>> Master([FromServices] ModuleManager moduleManager,[FromServices] ResetSiteCacheCommand resetSiteCacheCommand,[FromServices]IRouteManager routeManager, [FromServices]IOptions<ApplicationConfig> options,[FromQuery]string url, [FromQuery] string port="" )
         {
-            var fullRequestUrl = url;
+            var fullRequestUrl = HttpUtility.UrlDecode(url);
             var fullUrl = fullRequestUrl.Split('?')[0];
             if (fullUrl.Contains(":"))
             {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Demo.Business;
-using Demo.Business.Command.Geo;
 using Demo.Common.Command;
+using Demo.Mvc.Core.Geo.Core;
+using Demo.Mvc.Core.Sites.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

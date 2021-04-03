@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 using Demo.Business.Command;
 using Demo.Common.Command;
 using Demo.Mvc.Core.Api.Extentions;
@@ -37,7 +38,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/site/load/{siteId}/{moduleId}")]
         public async Task<CommandResult> Load([FromServices]LoadAddSiteCommand _loadAddSiteCommand, string siteId, string moduleId)
         {
@@ -215,11 +216,11 @@ namespace Demo.Mvc.Core.Api
                 }*/
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/site/master")]
         public async Task<ActionResult<BaseParameters>> Master([FromServices] ModuleManager moduleManager,[FromServices] ResetSiteCacheCommand resetSiteCacheCommand,[FromServices]IRouteManager routeManager, [FromServices]IOptions<ApplicationConfig> options,[FromQuery]string url, [FromQuery] string port="" )
         {
-            var fullRequestUrl = url;
+            var fullRequestUrl = HttpUtility.UrlDecode(url);
             var fullUrl = fullRequestUrl.Split('?')[0];
             if (fullUrl.Contains(":"))
             {

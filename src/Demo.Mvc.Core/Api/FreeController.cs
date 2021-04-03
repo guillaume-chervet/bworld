@@ -18,7 +18,7 @@ namespace Demo.Mvc.Core.Api
         {
         }
 
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [HttpGet]
         [Route("api/free/get/{siteId}/{moduleId}")]
         public async Task<CommandResult> Get([FromServices] GetFreeCommand _getFreeCommand, string siteId, string moduleId)

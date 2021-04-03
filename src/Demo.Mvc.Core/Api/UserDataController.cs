@@ -19,7 +19,7 @@ namespace Demo.Mvc.Core.Api
 
 
         [HttpGet]
-        [ResponseCache(Duration = 0)]
+        [ResponseCache(Duration = 1)]
         [Route("api/user/data/{siteId}")]
         public async Task<CommandResult<InputUserDataResult>> GetUsers([FromServices]GetUserDataCommand _getUserDataCommand, string siteId, string cookieSessionId = null)
         {

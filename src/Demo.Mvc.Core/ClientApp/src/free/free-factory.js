@@ -5,7 +5,7 @@ import { master } from '../shared/providers/master-provider';
 import itemStates from '../shared/itemStates';
 import { service as elementService } from '../elements/element-factory';
 import icons from '../shared/icons';
-import { module } from '../adminSuper/modules/module-factory';
+import module from '../adminSuper/modules/module-factory';
 import $http from '../http';
 
 const metaElementDefault = {

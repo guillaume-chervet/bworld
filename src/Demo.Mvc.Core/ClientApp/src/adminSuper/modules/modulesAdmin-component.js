@@ -1,6 +1,6 @@
 ﻿import app from '../../app.module';
 import { page } from '../../shared/services/page-factory';
-import { module } from './module-factory';
+import module from './module-factory';
 import view from './modulesAdmin.html';
 
 const name = 'modulesAdmin';

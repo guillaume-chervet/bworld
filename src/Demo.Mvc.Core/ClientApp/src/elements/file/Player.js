@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Player } from 'video-react';
 
 import 'video-react/dist/video-react.css';

@@ -1,6 +1,6 @@
 ﻿import _ from 'lodash';
 
-import { module } from '../adminSuper/modules/module-factory';
+import module from '../adminSuper/modules/module-factory';
 import { master } from '../shared/providers/master-provider';
 import $http from '../http';
 

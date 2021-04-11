@@ -1,5 +1,5 @@
 import redux from '../../redux';
-import { module } from '../../adminSuper/modules/module-factory';
+import module from '../../adminSuper/modules/module-factory';
 import _ from 'lodash';
 import modulesFactory from '../../modules-factory';
 

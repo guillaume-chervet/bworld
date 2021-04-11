@@ -1,5 +1,5 @@
 ﻿import history from '../../history';
-import { module as _module } from '../../adminSuper/modules/module-factory';
+import _module from '../../adminSuper/modules/module-factory';
 import { urlHelper } from '../../shared/services/urlHelper-factory';
 import { master } from '../../shared/providers/master-provider';
 import itemStates from '../../shared/itemStates';

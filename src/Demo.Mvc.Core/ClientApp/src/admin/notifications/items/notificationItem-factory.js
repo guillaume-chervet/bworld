@@ -1,6 +1,6 @@
 ﻿import { free } from '../../../free/free-factory';
 import { service as elementService } from '../../../elements/element-factory';
-import { module as _module } from '../../../adminSuper/modules/module-factory';
+import _module from '../../../adminSuper/modules/module-factory';
 import { urlHelper } from '../../../shared/services/urlHelper-factory';
 import { breadcrumb } from '../../../breadcrumb/breadcrumb-factory';
 import { master } from '../../../shared/providers/master-provider';

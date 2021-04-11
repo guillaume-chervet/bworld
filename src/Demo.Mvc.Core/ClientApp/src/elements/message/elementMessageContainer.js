@@ -12,10 +12,10 @@ export const MessageDirtyContainer = ({ element }) => {
   const siteId = master.site.siteId;
   return (
     <MessageContainer
-      element={element}
-      siteId={siteId}
-      moduleId={moduleId}
-      user={user}
-      sendMessageAsync={messageService.sendMessageAsync}></MessageContainer>
+    element={element}
+    siteId={siteId}
+    moduleId={moduleId}
+    user={user}
+    sendMessageAsync={messageService.sendMessageAsync}/>
   );
 };

@@ -1,7 +1,7 @@
 ﻿import _ from 'lodash';
 
 import app from '../app.module';
-import { module } from '../adminSuper/modules/module-factory';
+import module from '../adminSuper/modules/module-factory';
 import { master } from '../shared/providers/master-provider';
 import { page } from '../shared/services/page-factory';
 import { social } from './social-factory';

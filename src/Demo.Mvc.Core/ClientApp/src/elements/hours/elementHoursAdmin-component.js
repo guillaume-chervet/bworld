@@ -39,7 +39,7 @@ const YesNo =({yes, onChange}) =>{
   
 }
 
-const HoursAdmin = ({ctrl, element, onAdd, onDelete, onOpen}) => {
+const HoursAdmin = ({ctrl, element, onAdd, onDelete, onOpen, onChangeTime}) => {
   const level = element.$level.toString();
   
   switch (level) {
@@ -54,8 +54,8 @@ const HoursAdmin = ({ctrl, element, onAdd, onDelete, onOpen}) => {
             <div className="col-xs-12">
               {day.hours.map((hour, indexHour) =><>
               {day.isOpen && <div className="row">
-                <input class="col-xs-6" type="time" value={hour.begin.getHours()+":"+hour.begin.getMinutes()} />
-                <input class="col-xs-6" type="time" value={hour.end.getHours()+":"+hour.end.getMinutes()} />
+                <input class="col-xs-6" type="time" value={hour.begin.getHours()+":"+hour.begin.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, true)} />
+                <input class="col-xs-6" type="time" value={hour.end.getHours()+":"+hour.end.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, false)} />
                 <div className="col-xs-12" style="min-width: 40px;">
                   {(ctrl.isLastElement(day,hour) && indexHour>0) && <button type="button" className="btn btn-danger" onClick={()=>onDelete(day, indexDay,hour, indexHour)}><span
     className="glyphicon glyphicon-remove"/></button>}
@@ -78,12 +78,12 @@ const HoursAdmin = ({ctrl, element, onAdd, onDelete, onOpen}) => {
             </div>
             <div className="col-xs-12 col-sm-9">
               {day.hours.map((hour, indexHour) =><>{day.isOpen && <div className="row" >
-                <input className="col-xs-6 col-sm-5" type="time" value={hour.begin.getHours() + ":" + hour.begin.getMinutes()}/>
-                <input className="col-xs-6 col-sm-5" type="time" value={hour.end.getHours() + ":" + hour.end.getMinutes()}/>
+                <input className="col-xs-6 col-sm-5" type="time" value={hour.begin.getHours() + ":" + hour.begin.getMinutes()} onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, true)} />
+                <input className="col-xs-6 col-sm-5" type="time" value={hour.end.getHours() + ":" + hour.end.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, false)}/>
               
                 <div className="col-xs-12 col-sm-2" style="min-width: 40px;">
-                  {(ctrl.isLastElement(day,hour) && indexHour>0) && <button type="button" className="btn btn-danger" onClick={()=>onDelete(day, indexDay, hour,indexHour)}><span className="glyphicon glyphicon-remove"></span></button>}
-                  {ctrl.isLastElement(day,hour)&& <button type="button" className="btn btn-primary" onClick={() =>onAdd(day,indexDay)}><span className="glyphicon glyphicon-plus"></span>
+                  {(ctrl.isLastElement(day,hour) && indexHour>0) && <button type="button" className="btn btn-danger" onClick={()=>onDelete(day, indexDay, hour,indexHour)}><span className="glyphicon glyphicon-remove"/></button>}
+                  {ctrl.isLastElement(day,hour)&& <button type="button" className="btn btn-primary" onClick={() =>onAdd(day,indexDay)}><span className="glyphicon glyphicon-plus"/>
                   </button>}
                 </div>
               </div>}</>)}
@@ -99,15 +99,17 @@ export const ElementHoursAdmin = ({ element, mode, onChange }) => {
   const ctrl = {};
   
   const onChangeTime = (day, indexDay, hour, indexHour, value, isBeginDate) => {
-
     const values = value.split(":");
-
     const newHour = {...hour, begin:{...hour.begin}, end:{...hour.end}};
-    
-    if(isBeginDate){
-          
-        }
-  
+    let date = isBeginDate ? newHour.begin : newHour.end
+    date.setHours(parseInt(values[0],10));
+    date.setMinutes(parseInt(values[1],10));
+
+    const newDay = {...day, hours:[...element.data.days.hours]}
+    newDay.hours[indexHour] = newHour;
+    const days = [...element.data.days];
+    days[indexDay] = newDay;
+    onChange({ what: "element-edit", element: {...element, data: {days}}});
   }
   
   const onOpen = (day, indexDay, isOpen) => {
@@ -174,6 +176,7 @@ export const ElementHoursAdmin = ({ element, mode, onChange }) => {
               onDelete={onDelete}
               onOpen={onOpen}
               element={element}
+              onChangeTime={onChangeTime}
           />}
           adminView={<DaysHours element={element} />}>
       </ElementAdmin>

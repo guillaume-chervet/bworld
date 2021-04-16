@@ -80,6 +80,7 @@ export const ElementAddressAdmin = ({ element, mode, onChange }) => {
 
 
   const _element = element;
+  const ctrl = {}
 
   if (!_element.data.address.id) {
     _element.data.address.id = guid.guid();

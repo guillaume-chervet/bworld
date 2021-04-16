@@ -1,41 +1,18 @@
 ﻿import app from '../../app.module';
-import view from './hours_admin.html';
 import {ElementAdmin} from "../elementAdmin-component";
-import {YouTubeComponent} from "../youtube/elementYoutube-component";
 import {react2angular} from "react2angular";
 import React from "react";
 import {DaysHours} from "./elementHours-component";
-import {preventDefault} from "leaflet/src/dom/DomEvent";
 
 const name = 'elementHoursAdmin';
 
-class Controller {
-  $onInit() {
-   
-
-    return ctrl;
-  }
-}
-
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  bindings: {
-    element: '=',
-    onChange: '<',
-  },
-});
-
-export default name;
-
-const YesNo =({yes, onChange}) =>{
+const YesNo =({yes, onChange, name}) =>{
   
-  return <><p>
-    <input type="radio" name="yes_no" checked={yes} onChange={()=>onChange(true)}>Ouvert</input>
-  </p>
-  <p>
-    <input type="radio" name="yes_no" checked={!yes} onChange={()=>onChange(false)}>Fermé</input>
-  </p></>
+  return <><label>Ouvert
+    <input type="radio" name={name} checked={yes} onChange={() => onChange(true)}/></label>
+ <label>Fermé
+    <input type="radio" name={name} checked={!yes} onChange={() => onChange(false)}/>
+ </label></>
   
 }
 
@@ -44,19 +21,19 @@ const HoursAdmin = ({ctrl, element, onAdd, onDelete, onOpen, onChangeTime}) => {
   
   switch (level) {
     case "3":
-      return <>{element.data.days.map((day, indexDay) => <div className="form-group">
+      return <>{element.data.days.map((day, indexDay) => <div className="form-group" key={day.label}>
         <label className="col-xs-12 control-label">{day.label}</label>
         <div className=" col-xs-12">
           <div className="row">
             <div className="btn-group col-xs-12">
-              <YesNo yes={day.isOpen} onChange={(isOpen) => onOpen(day, indexDay, isOpen)}/>
+              <YesNo yes={day.isOpen} onChange={(isOpen) => onOpen(day, indexDay, isOpen)} name={element.property+"_"+day.label}/>
             </div>
             <div className="col-xs-12">
               {day.hours.map((hour, indexHour) =><>
-              {day.isOpen && <div className="row">
-                <input class="col-xs-6" type="time" value={hour.begin.getHours()+":"+hour.begin.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, true)} />
-                <input class="col-xs-6" type="time" value={hour.end.getHours()+":"+hour.end.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, false)} />
-                <div className="col-xs-12" style="min-width: 40px;">
+              {day.isOpen && <div className="row" key={indexHour}>
+                <input className="col-xs-6" type="time" value={hour.begin.getHours()+":"+hour.begin.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, true)} />
+                <input className="col-xs-6" type="time" value={hour.end.getHours()+":"+hour.end.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, false)} />
+                <div className="col-xs-12" style={{'minWidth': '40px'}}>
                   {(ctrl.isLastElement(day,hour) && indexHour>0) && <button type="button" className="btn btn-danger" onClick={()=>onDelete(day, indexDay,hour, indexHour)}><span
     className="glyphicon glyphicon-remove"/></button>}
                   {(ctrl.isLastElement(day,hour)) && <button type="button" className="btn btn-primary" onClick={()=>onAdd(day,indexDay)}>
@@ -69,19 +46,19 @@ const HoursAdmin = ({ctrl, element, onAdd, onDelete, onOpen, onChangeTime}) => {
         </div>
       </div>)}</>
     default:
-      return <>{element.data.days.map((day, indexDay) => <div className="form-group">
+      return <>{element.data.days.map((day, indexDay) => <div key={day.label} className="form-group">
         <label className="col-sm-2 col-md-2 col-xs-12 control-label">{day.label}</label>
         <div className="col-sm-10 col-md-9 col-xs-12">
           <div className="row">
             <div className="btn-group col-xs-12 col-sm-3">
-              <YesNo yes={day.isOpen} onChange={(isOpen) => onOpen(day, indexDay, isOpen)}/>
+              <YesNo yes={day.isOpen} onChange={(isOpen) => onOpen(day, indexDay, isOpen)} name={element.property+"_"+day.label}/>
             </div>
             <div className="col-xs-12 col-sm-9">
-              {day.hours.map((hour, indexHour) =><>{day.isOpen && <div className="row" >
+              {day.hours.map((hour, indexHour) =><>{day.isOpen && <div key={indexHour} className="row" >
                 <input className="col-xs-6 col-sm-5" type="time" value={hour.begin.getHours() + ":" + hour.begin.getMinutes()} onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, true)} />
                 <input className="col-xs-6 col-sm-5" type="time" value={hour.end.getHours() + ":" + hour.end.getMinutes()}  onChange={(e)=>onChangeTime(day, indexDay, hour, indexHour,  e.target.value, false)}/>
               
-                <div className="col-xs-12 col-sm-2" style="min-width: 40px;">
+                <div className="col-xs-12 col-sm-2" style={{'minWidth': '40px'}}>
                   {(ctrl.isLastElement(day,hour) && indexHour>0) && <button type="button" className="btn btn-danger" onClick={()=>onDelete(day, indexDay, hour,indexHour)}><span className="glyphicon glyphicon-remove"/></button>}
                   {ctrl.isLastElement(day,hour)&& <button type="button" className="btn btn-primary" onClick={() =>onAdd(day,indexDay)}><span className="glyphicon glyphicon-plus"/>
                   </button>}
@@ -100,12 +77,12 @@ export const ElementHoursAdmin = ({ element, mode, onChange }) => {
   
   const onChangeTime = (day, indexDay, hour, indexHour, value, isBeginDate) => {
     const values = value.split(":");
-    const newHour = {...hour, begin:{...hour.begin}, end:{...hour.end}};
+    const newHour = {...hour, begin:hour.begin, end:hour.end};
     let date = isBeginDate ? newHour.begin : newHour.end
     date.setHours(parseInt(values[0],10));
     date.setMinutes(parseInt(values[1],10));
 
-    const newDay = {...day, hours:[...element.data.days.hours]}
+    const newDay = {...day, hours:[...day.hours]}
     newDay.hours[indexHour] = newHour;
     const days = [...element.data.days];
     days[indexDay] = newDay;

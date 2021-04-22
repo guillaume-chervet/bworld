@@ -20,7 +20,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.13" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.4" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Sendgrid" Version="9.11.0" />
+    <PackageReference Include="Sendgrid" Version="9.23.0" />
     <PackageReference Include="StringTemplate4" Version="4.0.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />

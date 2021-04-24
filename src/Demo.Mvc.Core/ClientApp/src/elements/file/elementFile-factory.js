@@ -2,11 +2,9 @@ import modal from '../../modal';
 import { master } from '../../shared/providers/master-provider';
 import { urlHelper } from '../../shared/services/urlHelper-factory';
 
-const getFileExtention = function(filename) {
-  return filename.substr(filename.lastIndexOf('.') + 1);
-};
+const getFileExtention = filename => filename.substr(filename.lastIndexOf('.') + 1);
 
-const mapFileData = function(serveurElement, moduleId, siteId) {
+const mapFileData = (serveurElement, moduleId, siteId) => {
   const fileData = {};
 
   const type = serveurElement.Type;
@@ -109,7 +107,7 @@ const mapFileData = function(serveurElement, moduleId, siteId) {
   return fileData;
 };
 
-const open = function(element, file, isAdmin) {
+const open = (element, file, isAdmin) => {
   let template =
     '<modal-image close="$close()" dismiss="$dismiss()" data="$ctrl.data"></modal-image>';
   if (isAdmin) {
@@ -135,14 +133,14 @@ const open = function(element, file, isAdmin) {
   });
 };
 
-const getClass = function(file) {
+const getClass = file => {
   if (file && file.thumbDisplayMode) {
     return 'img-' + file.thumbDisplayMode;
   }
   return '';
 };
 
-const getAlt = function(file) {
+const getAlt = file => {
   if (file) {
     let title = '';
     if (!file.title) {
@@ -159,13 +157,13 @@ const getAlt = function(file) {
 };
 
 let nbFileUploading = 0;
-const initUploadFile = function(ctrl, Upload, $timeout, $window, master) {
+const initUploadFile = (ctrl, Upload, $timeout, $window, master) => {
   let config = null;
   if (ctrl.element.config) {
     config = JSON.stringify(ctrl.element.config);
   }
 
-  const uploadFiles = function(files, errFiles) {
+  const uploadFiles = (files, errFiles) => {
     ctrl.files = files;
     ctrl.errFiles = errFiles;
     nbFileUploading = files.length;
@@ -213,9 +211,7 @@ const initUploadFile = function(ctrl, Upload, $timeout, $window, master) {
   return uploadFiles;
 };
 
-const isFileUploading = function() {
-  return nbFileUploading > 0;
-};
+const isFileUploading = () => nbFileUploading > 0;
 
 function initDataElement(element, destElements, moduleId) {
   //if (element.type === 'file' || element.type === 'carousel') {
@@ -234,7 +230,7 @@ function initDataElement(element, destElements, moduleId) {
   destElements.push(fileElement);
 }
 
-const addElement = function(parentElement, guid) {
+const addElement = (parentElement, guid) => {
   const newElement = {
     type: 'file',
     property: guid.guid(),

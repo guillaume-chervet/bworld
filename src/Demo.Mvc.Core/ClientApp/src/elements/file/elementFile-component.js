@@ -5,7 +5,6 @@ import { service as linkService } from '../link/elementLink-factory';
 import React from 'react';
 import { react2angular } from 'react2angular';
 import { LoadableVideo } from './Video';
-import { element } from 'prop-types';
 
 import './file.css';
 
@@ -25,7 +24,7 @@ const FileAdmin = ({ file, element }) => {
         type="button"
         className="btn btn-danger mw-image-delete"
         onClick={destroy}>
-        <span className="glyphicon glyphicon-trash"></span>
+        <span className="glyphicon glyphicon-trash"/>
       </button>
       {canUp() && (
         <button
@@ -33,8 +32,8 @@ const FileAdmin = ({ file, element }) => {
           onClick={up}
           className="btn btn-primary mw-image-up">
           <span
-            className="glyphicon glyphicon-chevron-up"
-            aria-hidden="true"></span>
+    className="glyphicon glyphicon-chevron-up"
+    aria-hidden="true"/>
         </button>
       )}
       {canDown() && (
@@ -43,8 +42,8 @@ const FileAdmin = ({ file, element }) => {
           onClick={down}
           className="btn btn-primary mw-image-down">
           <span
-            className="glyphicon glyphicon-chevron-down"
-            aria-hidden="true"></span>
+    className="glyphicon glyphicon-chevron-down"
+    aria-hidden="true"/>
         </button>
       )}
       <img

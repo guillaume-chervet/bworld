@@ -1,0 +1,19 @@
+﻿.mw-file .file-panel h3 {
+    color: white;
+    font-size: 1.1em;
+}
+
+.mw-file .file-panel {
+    font-size: 0.9em;
+}
+
+.mw-file .file-panel {
+    position: fixed;
+    z-index: 1000;
+    top: 20px;
+    background-color: slategrey;
+    right: 20px;
+    color: white;
+    width: 300px;
+    padding: 10px;
+}

@@ -3,7 +3,7 @@ import $window from '../../window';
 import { master } from '../../shared/providers/master-provider';
 import { service as fileElementService } from './elementFile-factory';
 import view from './upload.html';
-
+import "./upload.css";
 const name = 'upload';
 
 class Controller {

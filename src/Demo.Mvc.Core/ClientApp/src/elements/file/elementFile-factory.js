@@ -1,6 +1,6 @@
 import modal from '../../modal';
-import { master } from '../../shared/providers/master-provider';
-import { urlHelper } from '../../shared/services/urlHelper-factory';
+import {master} from '../../shared/providers/master-provider';
+import {urlHelper} from '../../shared/services/urlHelper-factory';
 
 const getFileExtention = filename => filename.substr(filename.lastIndexOf('.') + 1);
 
@@ -174,9 +174,6 @@ const initUploadFile = (ctrl, Upload, $timeout, $window, master) => {
           file: file,
           siteId: $window.params.master.site.siteId,
           config: config ? config : undefined,
-          /* headers: {
-                         '__setXHR_': null 
-                     }*/
         },
         disableProgress: true,
       });
@@ -186,7 +183,7 @@ const initUploadFile = (ctrl, Upload, $timeout, $window, master) => {
           $timeout(function() {
             const files = response.data.files;
             if (files) {
-              for (var i = 0; i < files.length; i++) {
+              for (let i = 0; i < files.length; i++) {
                 nbFileUploading--;
                 ctrl.element.data.push(files[i]);
               }
@@ -214,7 +211,6 @@ const initUploadFile = (ctrl, Upload, $timeout, $window, master) => {
 const isFileUploading = () => nbFileUploading > 0;
 
 function initDataElement(element, destElements, moduleId) {
-  //if (element.type === 'file' || element.type === 'carousel') {
   const fileElement = {
     type: element.type,
     property: element.propertyName,
@@ -222,7 +218,7 @@ function initDataElement(element, destElements, moduleId) {
     data: [],
   };
   const fileDatas = JSON.parse(element.data);
-  for (var j = 0; j < fileDatas.length; j++) {
+  for (let j = 0; j < fileDatas.length; j++) {
     const serveurElement = fileDatas[j];
     const fileData = mapFileData(serveurElement, moduleId, master.site.siteId);
     fileElement.data.push(fileData);
@@ -231,7 +227,7 @@ function initDataElement(element, destElements, moduleId) {
 }
 
 const addElement = (parentElement, guid) => {
-  const newElement = {
+  return {
     type: 'file',
     property: guid.guid(),
     label: 'File',
@@ -242,7 +238,6 @@ const addElement = (parentElement, guid) => {
       maxHeigth: 400,
     },
   };
-  return newElement;
 };
 
 export const service = {
@@ -251,7 +246,7 @@ export const service = {
   open,
   getClass,
   getAlt,
-  isFileUploading: isFileUploading,
-  initUploadFile: initUploadFile,
-  initDataElement: initDataElement,
+  isFileUploading,
+  initUploadFile,
+  initDataElement,
 };

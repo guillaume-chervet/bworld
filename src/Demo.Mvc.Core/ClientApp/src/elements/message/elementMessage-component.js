@@ -318,16 +318,16 @@ export const MessageContainer = React.memo(({
 
   return (
     <MessageMemo
-      user={user}
-      onBlur={onBlur}
-      onFocus={onFocus}
-      onChange={onChange}
-      onSubmit={onSubmit}
-      message={state.message}
-      initMessage={initMessage}
-      isSubmited={state.isSubmited}
-      messageSended={state.messageSended}
-      element={element}></MessageMemo>
+    user={user}
+    onBlur={onBlur}
+    onFocus={onFocus}
+    onChange={onChange}
+    onSubmit={onSubmit}
+    message={state.message}
+    initMessage={initMessage}
+    isSubmited={state.isSubmited}
+    messageSended={state.messageSended}
+    element={element}/>
   );
 });
 

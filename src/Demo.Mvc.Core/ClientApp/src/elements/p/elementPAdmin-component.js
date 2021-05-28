@@ -27,27 +27,22 @@ const clear_attr = (str, attrs) => {
   return str;
 };
 
-
-export const ElementPAdmin = ({ element, mode, onChange }) => {
+export const PAdmin = ({ element, mode, onChange }) => {
   const data = clear_attr(element.data, []);
   const onChangeWrapper = (html) => {
     onChange({ what: "element-edit", element: {...element, data:html}});
   };
   return (
-          <ElementAdmin 
-              onChange={onChange}
-              element={element} 
-              adminTitle={'Texte'} 
-              adminEdit={<LoadableRteEditor 
-                  value={data} 
-                  onChange={onChangeWrapper}
-              
-              />}
+      <ElementAdmin
+          onChange={onChange}
+          element={element}
+          adminTitle={'Texte'}
+          adminEdit={<LoadableRteEditor
+              value={data}
+              onChange={onChangeWrapper}
+
+          />}
           adminView={<Paragraphe element={element} />}>
-          </ElementAdmin>
+      </ElementAdmin>
   );
 };
-
-app.component(name, react2angular(ElementPAdmin, ['element', 'mode', 'onChange']));
-
-export default name;

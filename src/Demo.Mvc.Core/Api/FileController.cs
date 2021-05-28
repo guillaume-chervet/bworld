@@ -59,8 +59,8 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpPost]
-        [Route("api/file/post")]
-        public async Task<FileResult> Post([FromServices]SaveFileTempCommand _saveFileTempCommand)
+        [Route("api/file")]
+        public async Task<FileResult> Post([FromServices] SaveFileTempCommand _saveFileTempCommand)
         {
             return await UploadFileAsync(_saveFileTempCommand, HttpContext).ConfigureAwait(false);
         }
@@ -83,10 +83,8 @@ namespace Demo.Mvc.Core.Api
         {
             var fileResult = new FileResult();
             var files = context.Request.Form.Files;
-            for (var i = 0; i < files.Count; i++)
+            foreach (var file in files)
             {
-                var file = files[i];
-
                 var saveFileTempInput = new SaveFileTempInput();
                 saveFileTempInput.SiteId = HttpContext.Request.Form["siteId"];
                 saveFileTempInput.ConfigJson = HttpContext.Request.Form["config"];
@@ -112,13 +110,15 @@ namespace Demo.Mvc.Core.Api
         public FilesStatus FilesStatus(string basePath, string fileName, long fileLength, string type,
             SaveFileResult saveFileResult)
         {
-            var filesStatus = new FilesStatus();
-            filesStatus.Id = saveFileResult.Id;
-            filesStatus.SiteId = saveFileResult.SiteId;
-            filesStatus.Name = fileName;
-            filesStatus.Type = type;
-            filesStatus.PropertyName = saveFileResult.PropertyName;
-            filesStatus.Size = fileLength;
+            var filesStatus = new FilesStatus
+            {
+                Id = saveFileResult.Id,
+                SiteId = saveFileResult.SiteId,
+                Name = fileName,
+                Type = type,
+                PropertyName = saveFileResult.PropertyName,
+                Size = fileLength
+            };
             if (!string.IsNullOrEmpty(saveFileResult.Url))
                 filesStatus.Url = basePath + "api/file/get/" + saveFileResult.SiteId + "/" + saveFileResult.Id +
                                   "/ImageUploaded/" + fileName;

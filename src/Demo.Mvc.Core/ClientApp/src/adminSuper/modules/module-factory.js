@@ -5,8 +5,6 @@ import { toast } from '../../shared/services/toastr-factory';
 import { master } from '../../shared/providers/master-provider';
 import $http from '../../http';
 
-const name = 'Module';
-
 const deleteAsync = function(moduleId, redirectUrl) {
   const isConfirm = $window.confirm(
     'Etes-vous sûr de vouloir supprimer cet élément?'
@@ -124,7 +122,7 @@ const superAdminDeleteAsync = function(moduleId) {
   return promise;
 };
 
-export const module = {
+const module = {
   deleteAsync: deleteAsync,
   saveMenuAsync: saveMenuAsync,
   saveSuccess: saveSuccess,
@@ -133,3 +131,5 @@ export const module = {
   superAdminDeleteAsync: superAdminDeleteAsync,
   displaySaveResult: displaySaveResult,
 };
+
+export default module;

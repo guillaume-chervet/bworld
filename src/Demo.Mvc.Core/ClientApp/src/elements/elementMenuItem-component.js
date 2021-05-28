@@ -1,7 +1,5 @@
-﻿import app from '../app.module';
-import { addElement } from '../free/add/addElement-factory';
+﻿import { addElement } from '../free/add/addElement-factory';
 import React from 'react';
-import { react2angular } from 'react2angular';
 
 export const ElementMenuItem = ({ element, mode, onChange }) => {
   const open = () => {
@@ -18,8 +16,3 @@ export const ElementMenuItem = ({ element, mode, onChange }) => {
     </div>
   );
 };
-
-const name = 'elementMenuItem';
-app.component(name, react2angular(ElementMenuItem, ['element', 'mode', 'onChange']));
-
-export default name;

@@ -1,5 +1,5 @@
 import redux from '../../redux';
-import { module } from '../../adminSuper/modules/module-factory';
+import module from '../../adminSuper/modules/module-factory';
 import _ from 'lodash';
 import modulesFactory from '../../modules-factory';
 
@@ -9,20 +9,15 @@ function canUp(menuItem, menuItems) {
   if (!menuItems || !menuItem) {
     return false;
   }
-  if (menuItems.indexOf(menuItem) <= 0) {
-    return false;
-  }
-  return true;
+  return menuItems.indexOf(menuItem) > 0;
+  
 }
 
 function canDown(menuItem, menuItems) {
   if (!menuItems || !menuItem) {
     return false;
   }
-  if (menuItems.indexOf(menuItem) >= menuItems.length - 1) {
-    return false;
-  }
-  return true;
+  return menuItems.indexOf(menuItem) < menuItems.length - 1;
 }
 
 function up(menuItem, menuItems) {
@@ -31,6 +26,7 @@ function up(menuItem, menuItems) {
     menuItems.splice(index, 1);
     menuItems.splice(index - 1, 0, menuItem);
   }
+  return menuItems;
 }
 
 function down(menuItem, menuItems) {
@@ -39,10 +35,11 @@ function down(menuItem, menuItems) {
     menuItems.splice(index, 1);
     menuItems.splice(index + 1, 0, menuItem);
   }
+  return menuItems;
 }
 
 function slideMenu(menuItem, menuItemsOrigin, menuItemsDestination) {
-  var index = menuItemsOrigin.indexOf(menuItem);
+  const index = menuItemsOrigin.indexOf(menuItem);
   if (index > -1) {
     menuItemsOrigin.splice(index, 1);
     menuItemsDestination.push(menuItem);
@@ -61,10 +58,8 @@ function canSetChild(menuItem, menuItemsOrigin) {
     return false;
   }
   const newParent = menuItemsOrigin[index - 1];
-  if (!modulesFactory.getModule(newParent.module).canHaveChild) {
-    return false;
-  }
-  return true;
+  return modulesFactory.getModule(newParent.module).canHaveChild;
+  
 }
 
 function setChild(menuItem, menuItemsOrigin) {
@@ -81,10 +76,7 @@ function setChild(menuItem, menuItemsOrigin) {
 }
 
 function canSetParent(menuItem) {
-  if (!modulesFactory.getModule(menuItem.module).canBeParent) {
-    return false;
-  }
-  return true;
+  return modulesFactory.getModule(menuItem.module).canBeParent;
 }
 
 function setParent(menuItem, menuItemsOrigin, menuItemParent) {
@@ -107,7 +99,7 @@ function initModel(menuItems) {
       menuItemsTemp.push(newItem);
       if (menuItem.childs) {
         menuItem.childs.forEach(function(element) {
-          if (element.moduleId != moduleId) {
+          if (element.moduleId !== moduleId) {
             newItem.childs.push({
               moduleId: element.moduleId,
               parentId: moduleId,
@@ -142,20 +134,21 @@ const deleteElement = function(menuItem, menuItems) {
       menuItems.splice(menuItems.indexOf(menuItem), 1);
     }
   }
+  return menuItems;
 };
 
 export const menuAdmin = {
   init: init,
-  saveAsync: saveAsync,
+  saveAsync,
   menu: menu,
-  up: up,
-  down: down,
-  canUp: canUp,
-  canDown: canDown,
-  slideMenu: slideMenu,
-  setChild: setChild,
-  canSetParent: canSetParent,
-  setParent: setParent,
-  canSetChild: canSetChild,
-  deleteElement: deleteElement,
+  up,
+  down,
+  canUp,
+  canDown,
+  slideMenu,
+  setChild,
+  canSetParent,
+  setParent,
+  canSetChild,
+  deleteElement,
 };

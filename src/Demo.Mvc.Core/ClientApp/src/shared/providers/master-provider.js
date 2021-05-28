@@ -16,7 +16,7 @@ const params = window.params;
 
 const getFirstMenuItem = menutItems => {
   if (menutItems && menutItems.length > 0) {
-    for (var i = 0; i < menutItems.length; i++) {
+    for (let i = 0; i < menutItems.length; i++) {
       const mi = menutItems[i];
       if (mi.typeMenuItem == null || mi.typeMenuItem === typeMenuItem.page) {
         return mi;
@@ -117,7 +117,7 @@ const getUrl = path => {
   if (path === undefined) {
     return '';
   }
-  if (path.indexOf('.html') != -1) {
+  if (path.indexOf('.html') !== -1) {
     if (!startsWith(path, '/')) {
       path = '/' + path;
     }
@@ -130,7 +130,7 @@ const getInternalPath = path => {
   if (path === undefined) {
     return '';
   }
-  if (path.indexOf(params.baseUrlSite) != -1) {
+  if (path.indexOf(params.baseUrlSite) !== -1) {
     return path;
   }
   return concatUrl(params.baseUrlSite, path);
@@ -187,8 +187,8 @@ export const master = {
 
     dispatch(masterUpdateMenu(dataToDisptach));
   },
-  getUrl: getUrl,
-  getFullUrl: getFullUrl,
+  getUrl,
+  getFullUrl,
   getInternalPath,
 };
 

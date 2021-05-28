@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const MwMap = props => {
@@ -9,7 +9,7 @@ const MwMap = props => {
   const siteCoordinate = element.data.markers.site;
   const sitePosition = [siteCoordinate.lat, siteCoordinate.lng];
   return (
-    <Map center={position} zoom={coordinate.zoom}>
+    <MapContainer center={position} zoom={coordinate.zoom}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -17,7 +17,7 @@ const MwMap = props => {
       <Marker position={sitePosition}>
         <Popup>{element.data.markers.site.message}</Popup>
       </Marker>
-    </Map>
+    </MapContainer>
   );
 };
 

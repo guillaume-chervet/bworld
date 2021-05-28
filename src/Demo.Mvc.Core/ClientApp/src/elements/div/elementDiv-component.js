@@ -10,7 +10,7 @@ import { DaysHours } from '../hours/elementHours-component';
 import { Link } from '../link/elementLink-component';
 import { GalleryFile } from '../file/elementFile-component';
 import { Grid } from '../grid/elementGrid-component';
-import { CarouselComponent } from '../carousel/elementCarousel-component';
+import { ElementCarousel } from '../carousel/elementCarousel-component';
 import { YouTubeComponent } from '../youtube/elementYoutube-component';
 import { MessageDirtyContainer } from '../message/elementMessageContainer';
 
@@ -37,7 +37,7 @@ const Switch = ({ element }) => {
     case 'div':
       return <Switch element={element} />;
     case 'carousel':
-      return <CarouselComponent element={element} />;
+      return <ElementCarousel element={element} />;
     case 'message':
       return <MessageDirtyContainer element={element} />;
     case 'youtube':

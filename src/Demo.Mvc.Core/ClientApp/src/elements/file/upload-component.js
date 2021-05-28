@@ -1,39 +1,71 @@
 ﻿import app from '../../app.module';
-import $window from '../../window';
-import { master } from '../../shared/providers/master-provider';
-import { service as fileElementService } from './elementFile-factory';
-import view from './upload.html';
+
+import {react2angular} from "react2angular";
+import React, {useCallback} from "react";
+import {GalleryFile} from "./elementFile-component";
+import "./upload.css";
+import {useDropzone} from "react-dropzone";
+import {master} from '../../shared/providers/master-provider';
+import {elementConfig} from "./elementFile-factory";
+import $http from '../../http';
 
 const name = 'upload';
 
-class Controller {
-  constructor(Upload, $timeout) {
-    this.Upload = Upload;
-    this.$timeout = $timeout;
-  }
-  $onInit() {
-    const ctrl = this;
 
-    ctrl.uploadFiles = fileElementService.initUploadFile(
-      ctrl,
-      this.Upload,
-      this.$timeout,
-      $window,
-      master
-    );
-    ctrl.isFileUploading = fileElementService.isFileUploading;
+const postFileAsync = async (file, configJson, siteId, onChange, element) => {
+    const data = new FormData();
+    data.append('file', file)
+    data.append('config', configJson)
+    data.append('siteId', siteId)
+    const url =master.getUrl('/api/file');
 
-    return ctrl;
-  }
+    const json = await $http.postFormDataAsync(url, data);
+    
+    const files = json.files;
+    if (files) {
+        const data = [...element.data,...files];
+        onChange(data);
+    }
 }
 
-app.component(name, {
-  template: view,
-  controller: ['Upload', '$timeout', Controller],
-  bindings: {
-    element: '=',
-    onChange: '<',
-  },
-});
+function UploadDropzone({element, master, onChange}) {
 
-export default name;
+  let configJson = null;
+  if (element.config) {
+    configJson = JSON.stringify(element.config);
+  } else {
+      configJson = JSON.stringify(elementConfig)
+  }
+  
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+        postFileAsync(file, configJson, master.site.siteId, onChange, element);
+    });
+
+  }, []);
+  const {getRootProps, getInputProps} = useDropzone({onDrop});
+
+  return (
+      <div {...getRootProps()}>
+        <span className="fa fa-camera"/>
+        Séléctionner fichiers
+        <input {...getInputProps()} accept="image/*,video/mp4" multiple={true} className="btn btn-default btn-lg" />
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      </div>
+  );
+}
+
+export const Upload = ({ element, mode, onChange }) => {
+  const onChangeWrapper = (data) => {
+    onChange({ what: "element-edit", element: {...element, data: data}});
+  };
+  return (
+  <div className="mw-file">
+    <div className="text-center">
+      <UploadDropzone master={master} element={element} onChange={onChangeWrapper}/>
+    </div>
+    <GalleryFile element={element} isAdmin={true} onChange={onChange} />
+  </div>
+
+);
+};

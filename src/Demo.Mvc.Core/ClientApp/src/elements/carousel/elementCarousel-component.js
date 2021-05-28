@@ -4,13 +4,13 @@ import { react2angular } from 'react2angular';
 import LoadableCarousel from './LoadableCarousel';
 import './carousel.css';
 
-export const CarouselComponent = ({ element }) => {
+export const ElementCarousel = ({ element }) => {
   return (
     <div className="row mw-carousel">
       <LoadableCarousel infiniteLoop={true} showThumbs={false} autoPlay={true}>
         {element.data.map(slide => (
           <div>
-            <img src={slide.url} />
+            <img src={slide.url}  alt={slide.description}/>
             {slide.description && <p className="legend">{slide.description}</p>}
           </div>
         ))}
@@ -20,4 +20,4 @@ export const CarouselComponent = ({ element }) => {
 };
 
 const name = 'elementCarousel';
-app.component(name, react2angular(CarouselComponent, ['element']));
+app.component(name, react2angular(ElementCarousel, ['element']));

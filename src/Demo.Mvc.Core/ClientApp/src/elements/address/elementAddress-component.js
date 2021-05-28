@@ -1,9 +1,9 @@
 ﻿import app from '../../app.module';
 import history from '../../history';
-import { master } from '../../shared/providers/master-provider';
+import {master} from '../../shared/providers/master-provider';
 
 import React from 'react';
-import { react2angular } from 'react2angular';
+import {react2angular} from 'react2angular';
 import LoadableMap from './LoadableMap';
 
 import './address.css';
@@ -19,7 +19,7 @@ const getLdJson = function(element, master, history) {
     return '';
   }
   const url = master.getFullUrl(history.path());
-  const localBusinessJson = {
+  return {
     '@context': 'http://schema.org',
     '@type': 'LocalBusiness',
     name: element.data.markers.site.message,
@@ -36,7 +36,6 @@ const getLdJson = function(element, master, history) {
       longitude: _address.geo.longitude,
     },
   };
-  return localBusinessJson;
 };
 
 const MapLevel = ({ element }) => {

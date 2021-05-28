@@ -1,21 +1,18 @@
-﻿import app from '../../app.module';
+﻿import {ElementAdmin} from "../elementAdmin-component";
+import React from "react";
+
 import './file_admin.css';
-import view from './elementFile_admin.html';
+import {GalleryFile} from "./elementFile-component";
+import {Upload} from "./upload-component";
 
-const name = 'elementFileAdmin';
-
-function ElementController() {
-  return this;
-}
-
-app.component(name, {
-  template: view,
-  controller: [ElementController],
-  bindings: {
-    element: '=',
-    mode: '<',
-    onChange: '<',
-  },
-});
-
-export default name;
+export const ElementFileAdmin = ({ element, mode, onChange }) => {
+  return (
+      <ElementAdmin
+          onChange={onChange}
+          element={element}
+          adminTitle={'Images'}
+          adminEdit={<Upload element={element} onChange={onChange} mode={mode}/>}
+          adminView={<GalleryFile element={element} />}>
+      </ElementAdmin>
+  );
+};

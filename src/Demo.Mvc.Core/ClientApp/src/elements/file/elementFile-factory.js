@@ -1,12 +1,11 @@
 import modal from '../../modal';
-import { master } from '../../shared/providers/master-provider';
-import { urlHelper } from '../../shared/services/urlHelper-factory';
+import {master} from '../../shared/providers/master-provider';
+import {urlHelper} from '../../shared/services/urlHelper-factory';
+import { guid } from '../../shared/services/guid-factory';
 
-const getFileExtention = function(filename) {
-  return filename.substr(filename.lastIndexOf('.') + 1);
-};
+const getFileExtention = filename => filename.substr(filename.lastIndexOf('.') + 1);
 
-const mapFileData = function(serveurElement, moduleId, siteId) {
+const mapFileData = (serveurElement, moduleId, siteId) => {
   const fileData = {};
 
   const type = serveurElement.Type;
@@ -26,7 +25,7 @@ const mapFileData = function(serveurElement, moduleId, siteId) {
     fileData.link.id = link.Id;
     fileData.link.anchor = link.Anchor;
   }
-  var fileName;
+  let fileName;
   const fileExtention = getFileExtention(serveurElement.Name);
   if (serveurElement.Title) {
     fileName =
@@ -57,49 +56,18 @@ const mapFileData = function(serveurElement, moduleId, siteId) {
     fileData.displayType = 'image';
     if (serveurElement.Id) {
       fileData.url =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        serveurElement.Id +
-        '/ImageUploaded/' +
-        fileName;
+        `/api/file/get/${siteId}/${serveurElement.Id}/ImageUploaded/${fileName}`;
       fileData.thumbnailUrl =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        serveurElement.Id +
-        '/ImageThumb/' +
-        fileName;
+        `/api/file/get/${siteId}/${serveurElement.Id}/ImageThumb/${fileName}`;
       fileData.deleteUrl =
-        '/api/file/delete/' + siteId + '/' + serveurElement.Id + '/' + fileName;
+        `/api/file/delete/${siteId}/${serveurElement.Id}/${fileName}`;
     } else {
       fileData.url =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        moduleId +
-        '/' +
-        serveurElement.PropertyName +
-        '/ImageUploaded/' +
-        fileName;
+        `/api/file/get/${siteId}/${moduleId}/${serveurElement.PropertyName}/ImageUploaded/${fileName}`;
       fileData.thumbnailUrl =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        moduleId +
-        '/' +
-        serveurElement.PropertyName +
-        '/ImageThumb/' +
-        fileName;
+        `/api/file/get/${siteId}/${moduleId}/${serveurElement.PropertyName}/ImageThumb/${fileName}`;
       fileData.deleteUrl =
-        '/api/file/delete/' +
-        siteId +
-        '/' +
-        moduleId +
-        '/' +
-        serveurElement.PropertyName +
-        '/' +
-        fileName;
+        `/api/file/delete/${siteId}/${moduleId}/${serveurElement.PropertyName}/${fileName}`;
     }
   }
 
@@ -109,7 +77,7 @@ const mapFileData = function(serveurElement, moduleId, siteId) {
   return fileData;
 };
 
-const open = function(element, file, isAdmin) {
+const open = (element, file, isAdmin) => {
   let template =
     '<modal-image close="$close()" dismiss="$dismiss()" data="$ctrl.data"></modal-image>';
   if (isAdmin) {
@@ -135,14 +103,14 @@ const open = function(element, file, isAdmin) {
   });
 };
 
-const getClass = function(file) {
+const getClass = file => {
   if (file && file.thumbDisplayMode) {
     return 'img-' + file.thumbDisplayMode;
   }
   return '';
 };
 
-const getAlt = function(file) {
+const getAlt = file => {
   if (file) {
     let title = '';
     if (!file.title) {
@@ -158,75 +126,15 @@ const getAlt = function(file) {
   return '';
 };
 
-let nbFileUploading = 0;
-const initUploadFile = function(ctrl, Upload, $timeout, $window, master) {
-  let config = null;
-  if (ctrl.element.config) {
-    config = JSON.stringify(ctrl.element.config);
-  }
-
-  const uploadFiles = function(files, errFiles) {
-    ctrl.files = files;
-    ctrl.errFiles = errFiles;
-    nbFileUploading = files.length;
-    files.forEach(function(file) {
-      file.upload = Upload.upload({
-        url: master.getUrl('/api/file/post'),
-        data: {
-          file: file,
-          siteId: $window.params.master.site.siteId,
-          config: config ? config : undefined,
-          /* headers: {
-                         '__setXHR_': null 
-                     }*/
-        },
-        disableProgress: true,
-      });
-
-      file.upload.then(
-        function(response) {
-          $timeout(function() {
-            const files = response.data.files;
-            if (files) {
-              for (var i = 0; i < files.length; i++) {
-                nbFileUploading--;
-                ctrl.element.data.push(files[i]);
-              }
-            }
-          });
-        },
-        function(response) {
-          if (response.status > 0) {
-            ctrl.errorMsg = response.status + ': ' + response.data;
-            nbFileUploading--;
-          }
-        },
-        function(evt) {
-          file.progress = Math.min(
-            100,
-            parseInt((100.0 * evt.loaded) / evt.total)
-          );
-        }
-      );
-    });
-  };
-  return uploadFiles;
-};
-
-const isFileUploading = function() {
-  return nbFileUploading > 0;
-};
-
 function initDataElement(element, destElements, moduleId) {
-  //if (element.type === 'file' || element.type === 'carousel') {
   const fileElement = {
     type: element.type,
-    property: element.propertyName,
-    label: 'Text',
+    property: element.propertyName ? element.propertyName : guid.guid(),
+    label: 'File',
     data: [],
   };
   const fileDatas = JSON.parse(element.data);
-  for (var j = 0; j < fileDatas.length; j++) {
+  for (let j = 0; j < fileDatas.length; j++) {
     const serveurElement = fileDatas[j];
     const fileData = mapFileData(serveurElement, moduleId, master.site.siteId);
     fileElement.data.push(fileData);
@@ -234,19 +142,19 @@ function initDataElement(element, destElements, moduleId) {
   destElements.push(fileElement);
 }
 
-const addElement = function(parentElement, guid) {
-  const newElement = {
+export const elementConfig = {
+  maxWidth: 800,
+  maxHeigth: 400,
+};
+const addElement = (parentElement, guid) => {
+  return {
     type: 'file',
     property: guid.guid(),
     label: 'File',
     data: [],
     $parent: parentElement,
-    config: {
-      maxWidth: 800,
-      maxHeigth: 400,
-    },
+    config: elementConfig,
   };
-  return newElement;
 };
 
 export const service = {
@@ -255,7 +163,5 @@ export const service = {
   open,
   getClass,
   getAlt,
-  isFileUploading: isFileUploading,
-  initUploadFile: initUploadFile,
-  initDataElement: initDataElement,
+  initDataElement,
 };

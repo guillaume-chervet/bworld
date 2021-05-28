@@ -3,8 +3,9 @@ import { service as linkService } from './elementLink-factory';
 import { audit } from '../../shared/services/audit-factory';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { react2angular } from 'react2angular';
+
+import "./link.css"
 
 const getUrl = data => {
   switch (data.type) {

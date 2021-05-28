@@ -1,5 +1,4 @@
-﻿import { master } from '../../shared/providers/master-provider';
-
+﻿
 const addElement = function(parentElement, guid) {
   const data = {
     address: {
@@ -23,7 +22,7 @@ const addElement = function(parentElement, guid) {
       site: {
         lat: 50.6257,
         lng: -356.9259,
-        message: master.master.titleSite,
+        message: "Notre localisation",
         focus: true,
         draggable: true,
       },

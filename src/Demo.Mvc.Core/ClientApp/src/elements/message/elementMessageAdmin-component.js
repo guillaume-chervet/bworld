@@ -1,39 +1,83 @@
 ﻿import app from '../../app.module';
-import view from './message_admin.html';
+import {ElementAdmin} from "../elementAdmin-component";
+import {react2angular} from "react2angular";
+import React from "react";
+import {MessageDirtyContainer} from "./elementMessageContainer";
 
 const name = 'elementMessageAdmin';
-class Controller {
-  $onInit() {
-    const vm = this;
 
-    vm.add = function() {
-      if (!vm.element.data) {
-        vm.element.data = [];
-      }
-
-      vm.element.data.subjects.push({
-        title: '',
-      });
-    };
-
-    vm.delete = function(element) {
-      const childs = vm.element.data;
-      while (childs.indexOf(element) !== -1) {
-        childs.splice(childs.indexOf(element), 1);
-      }
-    };
-
-    return vm;
-  }
+const MessageAdmin = ({element, onAdd, onDelete, onChangeTitle}) => {
+  return (<table className="table table-striped">
+    <thead>
+    <tr>
+      <th>Titre messages</th>
+      <th>Effacer</th>
+    </tr>
+    </thead>
+    <tbody>
+    {element.data.subjects.map((subject, index) => <tr>
+      <td><input id="Title" type="text" name="Title" value={subject.title} onChange={(e)=>onChangeTitle(e, index)} className="form-control"/></td>
+      <td>
+        <button type="button" className="btn btn-danger" onClick={() => onDelete(index)}><span
+    className="glyphicon glyphicon-remove"/></button>
+      </td>
+    </tr>)}
+    <tr>
+      <td colSpan="1"/>
+      <td>
+        <button type="button" className="btn btn-default" onClick={onAdd}><span
+    className="glyphicon glyphicon-plus"/></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>)
 }
 
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  bindings: {
-    element: '=',
-    onChange: '<',
-  },
-});
+export const ElementMessageAdmin = ({ element, mode, onChange }) => {
+  element = {...element};
+  if(element.data) {
+    if(Array.isArray(element.data)){
+      element.data = {subjects:[...element.data]}
+    }
+  } 
 
-export default name;
+  const onAdd = () => {
+    let data;
+    if(element.data && element.data.subjects){
+        data = {subjects:[...element.data.subjects]};
+    } else{
+      data = {subjects:[]};
+    }
+    data.subjects.push({
+      title: '',
+    });
+    onChange({ what: "element-edit", element: {...element, data: data}});
+  };
+
+  const onDelete = (subjectIndex) => {
+    const subjects = [...element.data.subjects];
+    subjects.splice(subjects.indexOf(subjectIndex), 1);
+    onChange({ what: "element-edit", element: {...element, data: {subjects}}});
+  };
+  
+  const onChangeTitle= (e, subjectIndex) =>{
+    const subjects = [...element.data.subjects];
+    subjects[subjectIndex] = {...subjects[subjectIndex], title : e.target.value }
+    onChange({ what: "element-edit", element: {...element, data: {subjects}}});
+  }
+  
+  return (
+      <ElementAdmin
+          onChange={onChange}
+          element={element}
+          adminTitle={'Formulaire envoi message'}
+          adminEdit={<MessageAdmin
+              element={element}
+              onDelete={onDelete}
+              onAdd={onAdd}
+              onChangeTitle={onChangeTitle}
+          />}
+          adminView={<MessageDirtyContainer element={element} />}>
+      </ElementAdmin>
+  );
+};

@@ -15,8 +15,8 @@
 
   
  .mw-edit {
-     position: absolute; 
-     right: 20px;
+     /*position: absolute; 
+     right: 20px;*/
      margin-top: 0px;
      z-index: 900;
      background-color: rgba(48, 201, 44, 0.4);

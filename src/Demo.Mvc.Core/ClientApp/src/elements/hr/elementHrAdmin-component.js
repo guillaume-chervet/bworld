@@ -1,10 +1,6 @@
-﻿import app from '../../app.module';
-import {ElementAdmin} from "../elementAdmin-component";
-import {react2angular} from "react2angular";
+﻿import {ElementAdmin} from "../elementAdmin-component";
 import React from "react";
 import {HR} from "./elementHr-component";
-
-const name = 'elementHrAdmin';
 
 const HRAdmin = ({element, onChange}) => {
   return (<div className="form-group">
@@ -36,7 +32,3 @@ export const ElementHRAdmin = ({ element, mode, onChange }) => {
       </ElementAdmin>
   );
 };
-
-app.component(name, react2angular(ElementHRAdmin, ['element', 'mode', 'onChange']));
-
-export default name;

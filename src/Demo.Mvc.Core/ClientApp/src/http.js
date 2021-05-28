@@ -40,6 +40,17 @@ const post = function(url, data, config = null) {
   return reponse(_$http.post(url, data, config));
 };
 
+const postFormDataAsync = async (url, formData) => {
+  loader.add('Enregistrement...');
+  const response = await fetch(url, {
+    method: 'POST',
+    body: formData
+  });
+  const json = await response.json();
+  loader.remove();
+  return json;
+}
+
 const get = function(url, config = null) {
   request(config);
   return reponse(_$http.get(url, config));
@@ -53,6 +64,7 @@ const deletefunc = function(url, config = null) {
 const angular = {
   get,
   post,
+  postFormDataAsync,
   delete: deletefunc,
 };
 

@@ -6,29 +6,6 @@ import React from "react";
 import {Link} from "./elementLink-component";
 
 const name = 'elementLinkAdmin';
-/*
-class Controller {
-  $onInit() {
-    var ctrl = this;
-    elementService.inherit(ctrl);
-    ctrl.menuItems = linkService.init();
-    ctrl.getPath = linkService.getPath;
-    ctrl.getTitle = linkService.getTitle;
-    return ctrl;
-  }
-}
-
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  bindings: {
-    element: '=',
-    onChange: '<',
-  },
-});
-
-export default name;*/
-
 
 const SubComponent = ({element, onChange, menuItems}) => {
   switch (element.type) {
@@ -110,8 +87,3 @@ export const ElementLinkAdmin = ({ element, mode, onChange }) => {
       </ElementAdmin>
   );
 };
-
-app.component(name, react2angular(ElementLinkAdmin, ['element', 'mode', 'onChange']));
-
-export default name;
-

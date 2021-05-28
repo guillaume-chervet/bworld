@@ -8,7 +8,7 @@ export const request = function(config) {
       },
     };
   }
-  var method = config.method;
+  let method = config.method;
   if (config.headers.method) {
     method = config.headers.method;
     delete config.headers.method;
@@ -31,7 +31,5 @@ export const request = function(config) {
   if (config.headers.disableLoader !== undefined) {
     delete config.headers.disableLoader;
   }
-  // do something on success
   return config;
-  //return config || $q.when(config);
 };

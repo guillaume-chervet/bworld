@@ -1,6 +1,7 @@
 import modal from '../../modal';
 import {master} from '../../shared/providers/master-provider';
 import {urlHelper} from '../../shared/services/urlHelper-factory';
+import { guid } from '../../shared/services/guid-factory';
 
 const getFileExtention = filename => filename.substr(filename.lastIndexOf('.') + 1);
 
@@ -24,7 +25,7 @@ const mapFileData = (serveurElement, moduleId, siteId) => {
     fileData.link.id = link.Id;
     fileData.link.anchor = link.Anchor;
   }
-  var fileName;
+  let fileName;
   const fileExtention = getFileExtention(serveurElement.Name);
   if (serveurElement.Title) {
     fileName =
@@ -55,49 +56,18 @@ const mapFileData = (serveurElement, moduleId, siteId) => {
     fileData.displayType = 'image';
     if (serveurElement.Id) {
       fileData.url =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        serveurElement.Id +
-        '/ImageUploaded/' +
-        fileName;
+        `/api/file/get/${siteId}/${serveurElement.Id}/ImageUploaded/${fileName}`;
       fileData.thumbnailUrl =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        serveurElement.Id +
-        '/ImageThumb/' +
-        fileName;
+        `/api/file/get/${siteId}/${serveurElement.Id}/ImageThumb/${fileName}`;
       fileData.deleteUrl =
-        '/api/file/delete/' + siteId + '/' + serveurElement.Id + '/' + fileName;
+        `/api/file/delete/${siteId}/${serveurElement.Id}/${fileName}`;
     } else {
       fileData.url =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        moduleId +
-        '/' +
-        serveurElement.PropertyName +
-        '/ImageUploaded/' +
-        fileName;
+        `/api/file/get/${siteId}/${moduleId}/${serveurElement.PropertyName}/ImageUploaded/${fileName}`;
       fileData.thumbnailUrl =
-        '/api/file/get/' +
-        siteId +
-        '/' +
-        moduleId +
-        '/' +
-        serveurElement.PropertyName +
-        '/ImageThumb/' +
-        fileName;
+        `/api/file/get/${siteId}/${moduleId}/${serveurElement.PropertyName}/ImageThumb/${fileName}`;
       fileData.deleteUrl =
-        '/api/file/delete/' +
-        siteId +
-        '/' +
-        moduleId +
-        '/' +
-        serveurElement.PropertyName +
-        '/' +
-        fileName;
+        `/api/file/delete/${siteId}/${moduleId}/${serveurElement.PropertyName}/${fileName}`;
     }
   }
 
@@ -156,65 +126,11 @@ const getAlt = file => {
   return '';
 };
 
-let nbFileUploading = 0;
-const initUploadFile = (ctrl, Upload, $timeout, $window, master) => {
-  let config = null;
-  if (ctrl.element.config) {
-    config = JSON.stringify(ctrl.element.config);
-  }
-
-  const uploadFiles = (files, errFiles) => {
-    ctrl.files = files;
-    ctrl.errFiles = errFiles;
-    nbFileUploading = files.length;
-    files.forEach(function(file) {
-      file.upload = Upload.upload({
-        url: master.getUrl('/api/file/post'),
-        data: {
-          file: file,
-          siteId: $window.params.master.site.siteId,
-          config: config ? config : undefined,
-        },
-        disableProgress: true,
-      });
-
-      file.upload.then(
-        function(response) {
-          $timeout(function() {
-            const files = response.data.files;
-            if (files) {
-              for (let i = 0; i < files.length; i++) {
-                nbFileUploading--;
-                ctrl.element.data.push(files[i]);
-              }
-            }
-          });
-        },
-        function(response) {
-          if (response.status > 0) {
-            ctrl.errorMsg = response.status + ': ' + response.data;
-            nbFileUploading--;
-          }
-        },
-        function(evt) {
-          file.progress = Math.min(
-            100,
-            parseInt((100.0 * evt.loaded) / evt.total)
-          );
-        }
-      );
-    });
-  };
-  return uploadFiles;
-};
-
-const isFileUploading = () => nbFileUploading > 0;
-
 function initDataElement(element, destElements, moduleId) {
   const fileElement = {
     type: element.type,
-    property: element.propertyName,
-    label: 'Text',
+    property: element.propertyName ? element.propertyName : guid.guid(),
+    label: 'File',
     data: [],
   };
   const fileDatas = JSON.parse(element.data);
@@ -226,6 +142,10 @@ function initDataElement(element, destElements, moduleId) {
   destElements.push(fileElement);
 }
 
+export const elementConfig = {
+  maxWidth: 800,
+  maxHeigth: 400,
+};
 const addElement = (parentElement, guid) => {
   return {
     type: 'file',
@@ -233,10 +153,7 @@ const addElement = (parentElement, guid) => {
     label: 'File',
     data: [],
     $parent: parentElement,
-    config: {
-      maxWidth: 800,
-      maxHeigth: 400,
-    },
+    config: elementConfig,
   };
 };
 
@@ -246,7 +163,5 @@ export const service = {
   open,
   getClass,
   getAlt,
-  isFileUploading,
-  initUploadFile,
   initDataElement,
 };

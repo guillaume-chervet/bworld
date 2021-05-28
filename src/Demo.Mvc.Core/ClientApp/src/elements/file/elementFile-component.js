@@ -1,23 +1,28 @@
-﻿import app from '../../app.module';
-import { service as fileElementService } from './elementFile-factory';
+﻿import { service as fileElementService } from './elementFile-factory';
 import { menuAdmin } from '../../admin/menu/menuAdmin-factory';
 import { service as linkService } from '../link/elementLink-factory';
 import React from 'react';
-import { react2angular } from 'react2angular';
 import { LoadableVideo } from './Video';
 
 import './file.css';
 
-const name = 'galleryFile';
+const FileAdmin = ({ file, element, onChange }) => {
 
-const FileAdmin = ({ file, element }) => {
+  const onChangeWrapper = (data) => {
+    onChange({ what: "element-edit", element: {...element, data}});
+  };
+
+  const doAction = (action) => {
+    const newData =  action(file, element.data);
+    onChangeWrapper(newData);
+  }
+  
   const open = () => fileElementService.open(element, file, true);
-  const up = () => menuAdmin.up(file, element.data);
-  const down = () => menuAdmin.down(file, element.data);
+  const up = () => doAction(menuAdmin.up);
+  const down = () => doAction(menuAdmin.down);
   const canUp = () => menuAdmin.canUp(file, element.data);
   const canDown = () => menuAdmin.canDown(file, element.data);
-  const destroy = () => menuAdmin.deleteElement(file, element.data);
-
+  const destroy = () => doAction(menuAdmin.deleteElement);
   return (
     <>
       <button
@@ -109,12 +114,12 @@ const File = ({ file, element }) => {
   return <div>{content}</div>;
 };
 
-const Files = ({ element, isAdmin }) => {
+const Files = ({ element, isAdmin, onChange=null }) => {
   const allFiles = element.data.map(file => {
     if (isAdmin) {
       return (
         <ContainerFiles element={element}>
-          <FileAdmin key={file.thumbnailUrl} file={file} element={element} />
+          <FileAdmin key={file.thumbnailUrl} file={file} element={element} onChange={onChange} />
         </ContainerFiles>
       );
     } else {
@@ -141,14 +146,11 @@ const ContainerFiles = ({ element, children }) => {
   }
 };
 
-export const GalleryFile = ({ element, isAdmin }) => {
+export const GalleryFile = ({ element, isAdmin, onChange=null }) => {
   return (
     <div className="col-lg-12 col-sm-12 col-xs-12">
-      <Files element={element} isAdmin={isAdmin} />
+      <Files element={element} isAdmin={isAdmin} onChange={onChange} />
     </div>
   );
 };
 
-app.component(name, react2angular(GalleryFile, ['element', 'isAdmin']));
-
-export default name;

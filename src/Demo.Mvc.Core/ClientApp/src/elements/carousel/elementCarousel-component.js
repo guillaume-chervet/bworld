@@ -10,7 +10,7 @@ export const ElementCarousel = ({ element }) => {
       <LoadableCarousel infiniteLoop={true} showThumbs={false} autoPlay={true}>
         {element.data.map(slide => (
           <div>
-            <img src={slide.url} />
+            <img src={slide.url}  alt={slide.description}/>
             {slide.description && <p className="legend">{slide.description}</p>}
           </div>
         ))}

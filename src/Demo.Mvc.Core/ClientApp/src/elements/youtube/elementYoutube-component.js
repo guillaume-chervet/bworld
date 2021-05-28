@@ -25,8 +25,3 @@ export const YouTubeComponent = ({ element }) => {
     </div>
   );
 };
-
-const name = 'elementYoutube';
-app.component(name, react2angular(YouTubeComponent, ['element']));
-
-export default name;

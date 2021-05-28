@@ -10,6 +10,7 @@ namespace Demo.Mvc.Core.Sites.Core.Command.File
     {
         public static ResizeGdiResult ResizeGdi(Stream stream, ImageConfig size, ImageFormat imageFormat)
         {
+            size ??= new ImageConfig {Heigth = 400, Width = 800};
             var resizeGdiResult = new ResizeGdiResult();
 
             var image = Image.FromStream(stream);

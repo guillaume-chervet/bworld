@@ -27,7 +27,7 @@ const clear_attr = (str, attrs) => {
   return str;
 };
 
-export const ElementPAdmin = ({ element, mode, onChange }) => {
+export const PAdmin = ({ element, mode, onChange }) => {
   const data = clear_attr(element.data, []);
   const onChangeWrapper = (html) => {
     onChange({ what: "element-edit", element: {...element, data:html}});
@@ -46,7 +46,3 @@ export const ElementPAdmin = ({ element, mode, onChange }) => {
       </ElementAdmin>
   );
 };
-
-app.component(name, react2angular(ElementPAdmin, ['element', 'mode', 'onChange']));
-
-export default name;

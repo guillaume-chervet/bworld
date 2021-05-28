@@ -17,7 +17,7 @@ const YouTubeAdmin = ({element, onChange}) => {
   </div>)
 }
 
-export const ElementHRAdmin = ({ element, mode, onChange }) => {
+export const ElementYoutubeAdmin = ({ element, mode, onChange }) => {
   const onChangeWrapper = (e) => {
     onChange({ what: "element-edit", element: {...element, data: {url: e.target.value}}});
   };
@@ -34,7 +34,3 @@ export const ElementHRAdmin = ({ element, mode, onChange }) => {
       </ElementAdmin>
   );
 };
-
-app.component(name, react2angular(ElementHRAdmin, ['element', 'mode', 'onChange']));
-
-export default name;

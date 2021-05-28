@@ -132,44 +132,42 @@ namespace Demo.Mvc.Core.Sites.Core.Command.File
             if (imageFormat != null)
             {
                 var fileDataModel = new FileDataModel();
-                using (var memoryStream = new MemoryStream(contents))
+                using var memoryStream = new MemoryStream(contents);
+                var stream = ImageUtility.ResizeGdi(memoryStream, imageConfig, imageFormat);
+                string contentType;
+                string filename = null;
+                if (!string.IsNullOrEmpty(imageConfig.TypeMime))
                 {
-                    var stream = ImageUtility.ResizeGdi(memoryStream, imageConfig, imageFormat);
-                    string contentType;
-                    string filename = null;
-                    if (!string.IsNullOrEmpty(imageConfig.TypeMime))
+                    contentType = imageConfig.TypeMime;
+                    var fileNames = Input.FileData.Filename.Split('.');
+                    if (fileNames.Length == 2)
                     {
-                        contentType = imageConfig.TypeMime;
-                        var fileNames = Input.FileData.Filename.Split('.');
-                        if (fileNames.Length == 2)
-                        {
-                            filename = string.Concat(fileNames[0], ".",
-                                ImageUtility.GetImageExtention(imageConfig.TypeMime));
-                        }
+                        filename = string.Concat(fileNames[0], ".",
+                            ImageUtility.GetImageExtention(imageConfig.TypeMime));
                     }
-                    else
-                    {
-                        contentType = Input.FileData.ContentType;
-                        filename = Input.FileData.Filename;
-                    }
-
-                    var imageBusinessModel = new ImageBusinessModel();
-                    imageBusinessModel.Size = new ImageSize {Heigth = stream.Height, Width = stream.With};
-
-                    fileDataModel.Module = "ImageData";
-                    fileDataModel.PropertyName = propertName;
-                    fileDataModel.SiteId = Input.SiteId;
-                    fileDataModel.FileData.ContentType = contentType;
-                    fileDataModel.FileData.FileName = filename;
-                    fileDataModel.FileData.Stream = stream.Stream;
-
-                    itemDataModelFile.Files.Add(fileDataModel);
-                    _dataFactory.Add(fileDataModel);
-
-                    streams.Add(stream.Stream);
-
-                    return new ImageSize {Heigth = stream.Height, Width = stream.With};
                 }
+                else
+                {
+                    contentType = Input.FileData.ContentType;
+                    filename = Input.FileData.Filename;
+                }
+
+                var imageBusinessModel = new ImageBusinessModel();
+                imageBusinessModel.Size = new ImageSize {Heigth = stream.Height, Width = stream.With};
+
+                fileDataModel.Module = "ImageData";
+                fileDataModel.PropertyName = propertName;
+                fileDataModel.SiteId = Input.SiteId;
+                fileDataModel.FileData.ContentType = contentType;
+                fileDataModel.FileData.FileName = filename;
+                fileDataModel.FileData.Stream = stream.Stream;
+
+                itemDataModelFile.Files.Add(fileDataModel);
+                _dataFactory.Add(fileDataModel);
+
+                streams.Add(stream.Stream);
+
+                return new ImageSize {Heigth = stream.Height, Width = stream.With};
             }
             return null;
         }

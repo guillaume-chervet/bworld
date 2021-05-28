@@ -231,7 +231,7 @@ const inherit = (ctrl = {}, e, state = defaultState , setState) => {
     return state.isEdit;
   };
   const clickEdit = () => {
-    setState( {...state, isEdit: !ctrl.isEdit});
+    setState( {...state, isEdit: !state.isEdit});
   };
 
   /*if (ctrl.isEdit === undefined) {

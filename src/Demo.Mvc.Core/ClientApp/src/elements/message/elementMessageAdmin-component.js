@@ -81,7 +81,3 @@ export const ElementMessageAdmin = ({ element, mode, onChange }) => {
       </ElementAdmin>
   );
 };
-
-app.component(name, react2angular(ElementMessageAdmin, ['element', 'mode', 'onChange']));
-
-export default name;

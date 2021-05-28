@@ -159,7 +159,3 @@ export const ElementHoursAdmin = ({ element, mode, onChange }) => {
       </ElementAdmin>
   );
 };
-
-app.component(name, react2angular(ElementHoursAdmin, ['element', 'mode', 'onChange']));
-
-export default name;

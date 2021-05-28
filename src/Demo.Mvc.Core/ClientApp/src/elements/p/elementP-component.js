@@ -10,8 +10,3 @@ export const Paragraphe = ({ element }) => {
     />
   );
 };
-
-const name = 'elementP';
-app.component(name, react2angular(Paragraphe, ['element']));
-
-export default name;

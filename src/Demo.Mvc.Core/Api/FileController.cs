@@ -59,7 +59,7 @@ namespace Demo.Mvc.Core.Api
 
         [Authorize]
         [HttpPost]
-        [Route("api/file/post")]
+        [Route("api/file")]
         public async Task<FileResult> Post([FromServices] SaveFileTempCommand _saveFileTempCommand)
         {
             return await UploadFileAsync(_saveFileTempCommand, HttpContext).ConfigureAwait(false);

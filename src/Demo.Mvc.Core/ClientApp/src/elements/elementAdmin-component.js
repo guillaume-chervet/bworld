@@ -1,36 +1,9 @@
-﻿import app from '../app.module';
-import { service as elementService, defaultState } from './element-factory';
-import view from './admin.html';
+﻿import { service as elementService, defaultState } from './element-factory';
 import React, { useState } from 'react';
 import classnames from 'classnames';
 import { ElementMenu } from './elementMenu-component';
 import { ElementMenuItem } from './elementMenuItem-component';
 const name = 'elementAdmin';
-
-class Controller {
-  $onInit() {
-    const ctrl = this;
-    elementService.inherit(ctrl);
-    return ctrl;
-  }
-}
-
-app.component(name, {
-  template: view,
-  controller: [Controller],
-  transclude: {
-    edit: 'adminEdit',
-    view: 'adminView',
-    title: 'adminTitle',
-    menu: '?adminMenu',
-    add: '?adminAdd',
-  },
-  bindings: {
-    element: '=',
-    mode: '<',
-    onChange: '<',
-  },
-});
 
 export const ElementAdmin = ({
   adminEdit,

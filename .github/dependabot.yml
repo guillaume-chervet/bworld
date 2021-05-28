@@ -1,0 +1,74 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: Microsoft.AspNetCore.Authentication.MicrosoftAccount
+    versions:
+    - 5.0.4
+  - dependency-name: Sendgrid
+    versions:
+    - 9.22.0
+  - dependency-name: Microsoft.AspNetCore.Authentication.Facebook
+    versions:
+    - 5.0.4
+  - dependency-name: Microsoft.AspNetCore.Authentication.Google
+    versions:
+    - 5.0.4
+  - dependency-name: mongocsharpdriver
+    versions:
+    - 2.12.1
+  - dependency-name: Microsoft.AspNetCore.Authentication.Twitter
+    versions:
+    - 5.0.4
+  - dependency-name: MongoDB.Driver.Core
+    versions:
+    - 2.12.1
+  - dependency-name: MongoDB.Driver
+    versions:
+    - 2.12.1
+  - dependency-name: MongoDB.Bson
+    versions:
+    - 2.12.1
+  - dependency-name: MongoDB.Driver.GridFS
+    versions:
+    - 2.11.6
+    - 2.12.0
+    - 2.12.1
+  - dependency-name: Microsoft.AspNetCore.Http.Features
+    versions:
+    - 5.0.2
+    - 5.0.3
+    - 5.0.4
+  - dependency-name: Microsoft.AspNetCore.Cryptography.KeyDerivation
+    versions:
+    - 5.0.2
+    - 5.0.3
+    - 5.0.4
+  - dependency-name: Microsoft.Extensions.WebEncoders
+    versions:
+    - 5.0.2
+    - 5.0.3
+    - 5.0.4
+  - dependency-name: Microsoft.Extensions.DependencyInjection
+    versions:
+    - 5.0.1
+  - dependency-name: Microsoft.Extensions.Hosting.Abstractions
+    versions:
+    - 5.0.0
+  - dependency-name: Microsoft.Extensions.Http
+    versions:
+    - 5.0.0
+  - dependency-name: Microsoft.Extensions.Primitives
+    versions:
+    - 5.0.0
+  - dependency-name: Microsoft.Extensions.Logging
+    versions:
+    - 5.0.0
+  - dependency-name: Microsoft.Extensions.Options
+    versions:
+    - 5.0.0

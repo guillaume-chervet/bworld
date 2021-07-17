@@ -123,13 +123,13 @@ const superAdminDeleteAsync = function(moduleId) {
 };
 
 const module = {
-  deleteAsync: deleteAsync,
-  saveMenuAsync: saveMenuAsync,
-  saveSuccess: saveSuccess,
-  superAdminGetAsync: superAdminGetAsync,
-  superAdminSaveAsync: superAdminSaveAsync,
-  superAdminDeleteAsync: superAdminDeleteAsync,
-  displaySaveResult: displaySaveResult,
+  deleteAsync,
+  saveMenuAsync,
+  saveSuccess,
+  superAdminGetAsync,
+  superAdminSaveAsync,
+  superAdminDeleteAsync,
+  displaySaveResult,
 };
 
 export default module;

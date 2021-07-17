@@ -43,9 +43,9 @@ const PageBreadcrumb = ({ children, master }) => {
   return (
     <div className="row">
       <div className="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 col-xs-12 col-xs-offset-0">
-        <Breadcrumb master={master}></Breadcrumb>
+        <Breadcrumb master={master}/>
         {children}
-        <Breadcrumb master={master}></Breadcrumb>
+        <Breadcrumb master={master}/>
       </div>
     </div>
   );

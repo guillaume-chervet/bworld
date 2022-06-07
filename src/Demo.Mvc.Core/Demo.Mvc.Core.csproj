@@ -29,7 +29,7 @@
         <PackageReference Include="MongoDB.Bson" Version="2.9.2" />
         <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
         <PackageReference Include="MongoDB.Driver.Core" Version="2.8.1" />
-        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.8.1" />
+        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.16.0" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
         <PackageReference Include="CompareNETObjects" Version="4.76.0" />
         <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
